@@ -1,1 +1,38 @@
-
+{
+  "opensmell": "0.1",
+  "odor": {
+    "id": "urn:uuid:550e8400-e29b-41d4-a716-446655440000",
+    "metadata": {
+      "labels": {
+        "en": "Coffee",
+        "fr": "Café"
+      },
+      "description": "OpenSmell example coffee odor."
+    },
+    "representations": [
+      {
+        "type": "semantic",
+        "scheme": {
+          "id": "org.opensmell.semantic.free",
+          "version": "0.1"
+        },
+        "data": {
+          "descriptors": [
+            {
+              "value": "coffee",
+              "language": "en"
+            },
+            {
+              "value": "roasted",
+              "language": "en"
+            },
+            {
+              "value": "nutty",
+              "language": "en"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
