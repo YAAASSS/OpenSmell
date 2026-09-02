@@ -1,7 +1,7 @@
 """Validation of OpenSmell documents."""
 
 import json
-from pathlib import Path
+from importlib.resources import files
 from typing import Any
 
 from jsonschema import Draft202012Validator
@@ -9,16 +9,16 @@ from jsonschema import Draft202012Validator
 from .exceptions import OpenSmellValidationError
 
 
-def _schema_path() -> Path:
-    """Return the path to the OpenSmell 0.1 JSON Schema."""
-
-    return Path(__file__).parents[2] / "schema" / "opensmell-0.1.schema.json"
-
-
 def _load_schema() -> dict[str, Any]:
-    """Load the OpenSmell 0.1 JSON Schema."""
+    """Load the OpenSmell 0.1 JSON Schema from package resources."""
 
-    with _schema_path().open("r", encoding="utf-8") as file:
+    schema_resource = (
+        files("opensmell")
+        .joinpath("schemas")
+        .joinpath("opensmell-0.1.schema.json")
+    )
+
+    with schema_resource.open("r", encoding="utf-8") as file:
         return json.load(file)
 
 
