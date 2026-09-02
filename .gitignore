@@ -216,3 +216,10 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# External datasets
+examples/odornet.csv
+
+# Generated OpenSmell examples
+examples/odornet-example.osmell
+examples/odornet-enriched-example.osmell
