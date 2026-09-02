@@ -212,3 +212,228 @@ def test_unknown_representation_fields_survive_round_trip(
         "enabled": True,
         "values": [1, 2, 3],
     }
+
+def test_unknown_odor_fields_survive_round_trip(tmp_path):
+    import json
+    import opensmell
+
+    source = tmp_path / "source.osmell"
+    target = tmp_path / "target.osmell"
+
+    document = {
+        "opensmell": "0.1",
+        "odor": {
+            "id": "urn:uuid:test",
+            "experimental_odor_field": {
+                "value": 123
+            },
+            "representations": [
+                {
+                    "type": "chemical",
+                    "scheme": {
+                        "id": "org.opensmell.chemical.smiles",
+                        "version": "0.1",
+                    },
+                    "data": {
+                        "smiles": "CCO"
+                    },
+                }
+            ],
+        },
+    }
+
+    source.write_text(
+        json.dumps(document),
+        encoding="utf-8",
+    )
+
+    odor = opensmell.load(source)
+
+    opensmell.dump(
+        odor,
+        target,
+    )
+
+    result = json.loads(
+        target.read_text(
+            encoding="utf-8"
+        )
+    )
+
+    assert (
+        result["odor"]["experimental_odor_field"]
+        == {"value": 123}
+    )
+
+
+def test_unknown_metadata_fields_survive_round_trip(tmp_path):
+    import json
+    import opensmell
+
+    source = tmp_path / "source.osmell"
+    target = tmp_path / "target.osmell"
+
+    document = {
+        "opensmell": "0.1",
+        "odor": {
+            "id": "urn:uuid:test",
+            "metadata": {
+                "labels": {
+                    "en": "Test"
+                },
+                "experimental_metadata": {
+                    "value": 456
+                },
+            },
+            "representations": [
+                {
+                    "type": "chemical",
+                    "scheme": {
+                        "id": "org.opensmell.chemical.smiles",
+                        "version": "0.1",
+                    },
+                    "data": {
+                        "smiles": "CCO"
+                    },
+                }
+            ],
+        },
+    }
+
+    source.write_text(
+        json.dumps(document),
+        encoding="utf-8",
+    )
+
+    odor = opensmell.load(source)
+
+    opensmell.dump(
+        odor,
+        target,
+    )
+
+    result = json.loads(
+        target.read_text(
+            encoding="utf-8"
+        )
+    )
+
+    assert (
+        result["odor"]["metadata"]["experimental_metadata"]
+        == {"value": 456}
+    )
+
+
+def test_unknown_scheme_fields_survive_round_trip(tmp_path):
+    import json
+    import opensmell
+
+    source = tmp_path / "source.osmell"
+    target = tmp_path / "target.osmell"
+
+    document = {
+        "opensmell": "0.1",
+        "odor": {
+            "id": "urn:uuid:test",
+            "representations": [
+                {
+                    "type": "chemical",
+                    "scheme": {
+                        "id": "org.opensmell.chemical.smiles",
+                        "version": "0.1",
+                        "experimental_scheme_field": {
+                            "value": 789
+                        },
+                    },
+                    "data": {
+                        "smiles": "CCO"
+                    },
+                }
+            ],
+        },
+    }
+
+    source.write_text(
+        json.dumps(document),
+        encoding="utf-8",
+    )
+
+    odor = opensmell.load(source)
+
+    opensmell.dump(
+        odor,
+        target,
+    )
+
+    result = json.loads(
+        target.read_text(
+            encoding="utf-8"
+        )
+    )
+
+    assert (
+        result["odor"]
+        ["representations"][0]
+        ["scheme"]
+        ["experimental_scheme_field"]
+        == {"value": 789}
+    )
+
+
+def test_document_extensions_survive_document_round_trip(tmp_path):
+    import json
+    import opensmell
+
+    source = tmp_path / "source.osmell"
+    target = tmp_path / "target.osmell"
+
+    original = {
+        "opensmell": "0.1",
+        "experimental_document_field": {
+            "future": True,
+            "value": 42,
+        },
+        "odor": {
+            "id": "urn:uuid:test",
+            "representations": [
+                {
+                    "type": "chemical",
+                    "scheme": {
+                        "id": "org.opensmell.chemical.smiles",
+                        "version": "0.1",
+                    },
+                    "data": {
+                        "smiles": "CCO"
+                    },
+                }
+            ],
+        },
+    }
+
+    source.write_text(
+        json.dumps(original),
+        encoding="utf-8",
+    )
+
+    document = opensmell.load_document(
+        source
+    )
+
+    opensmell.dump(
+        document,
+        target,
+    )
+
+    result = json.loads(
+        target.read_text(
+            encoding="utf-8"
+        )
+    )
+
+    assert (
+        result["experimental_document_field"]
+        == {
+            "future": True,
+            "value": 42,
+        }
+    )

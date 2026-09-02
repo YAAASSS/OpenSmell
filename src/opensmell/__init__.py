@@ -6,13 +6,23 @@ from .exceptions import (
     OpenSmellValidationError,
     SchemeValidationError,
 )
-from .models import Metadata, Odor, Representation, Scheme
-from .parser import load
+from .models import (
+    Document,
+    Metadata,
+    Odor,
+    Representation,
+    Scheme,
+)
+from .parser import (
+    load,
+    load_document,
+)
 from .serializer import dump
 
 __version__ = "0.1.0"
 
 __all__ = [
+    "Document",
     "Metadata",
     "Odor",
     "OpenSmellError",
@@ -23,4 +33,5 @@ __all__ = [
     "builders",
     "dump",
     "load",
+    "load_document",
 ]

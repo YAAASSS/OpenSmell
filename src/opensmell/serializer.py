@@ -4,16 +4,29 @@ import json
 from pathlib import Path
 from typing import Any
 
-from .models import Odor
+from .models import Document, Odor
 from .validation import validate_document
 
 
-def odor_to_dict(odor: Odor) -> dict[str, Any]:
-    """Convert an Odor object into an OpenSmell document dictionary."""
+def odor_to_data(
+    odor: Odor,
+) -> dict[str, Any]:
+    """Convert an Odor object into its JSON-compatible dictionary."""
 
     representations = []
 
     for representation in odor.representations:
+        scheme_data = dict(
+            representation.scheme.extra
+        )
+
+        scheme_data.update(
+            {
+                "id": representation.scheme.id,
+                "version": representation.scheme.version,
+            }
+        )
+
         representation_data = dict(
             representation.extra
         )
@@ -21,10 +34,7 @@ def odor_to_dict(odor: Odor) -> dict[str, Any]:
         representation_data.update(
             {
                 "type": representation.type,
-                "scheme": {
-                    "id": representation.scheme.id,
-                    "version": representation.scheme.version,
-                },
+                "scheme": scheme_data,
                 "data": representation.data,
             }
         )
@@ -33,13 +43,21 @@ def odor_to_dict(odor: Odor) -> dict[str, Any]:
             representation_data
         )
 
-    odor_data: dict[str, Any] = {
-        "id": odor.id,
-        "representations": representations,
-    }
+    odor_data: dict[str, Any] = dict(
+        odor.extra
+    )
+
+    odor_data.update(
+        {
+            "id": odor.id,
+            "representations": representations,
+        }
+    )
 
     if odor.metadata is not None:
-        metadata: dict[str, Any] = {}
+        metadata = dict(
+            odor.metadata.extra
+        )
 
         if odor.metadata.labels:
             metadata["labels"] = odor.metadata.labels
@@ -49,19 +67,61 @@ def odor_to_dict(odor: Odor) -> dict[str, Any]:
 
         odor_data["metadata"] = metadata
 
-    return {
-        "opensmell": "0.1",
-        "odor": odor_data,
-    }
+    return odor_data
+
+
+def document_to_dict(
+    document: Document,
+) -> dict[str, Any]:
+    """Convert a Document into a JSON-compatible dictionary."""
+
+    data = dict(
+        document.extra
+    )
+
+    data.update(
+        {
+            "opensmell": document.version,
+            "odor": odor_to_data(document.odor),
+        }
+    )
+
+    return data
+
+
+def odor_to_dict(
+    odor: Odor,
+) -> dict[str, Any]:
+    """Convert an Odor into a complete OpenSmell document.
+
+    This function is retained for compatibility with the
+    OpenSmell 0.1 API.
+    """
+
+    return document_to_dict(
+        Document(
+            odor=odor,
+            version="0.1",
+        )
+    )
 
 
 def dump(
-    odor: Odor,
+    value: Odor | Document,
     path: str | Path,
 ) -> None:
-    """Write an Odor object to an OpenSmell document."""
+    """Write an Odor or Document to an OpenSmell file."""
 
-    document = odor_to_dict(odor)
+    if isinstance(value, Document):
+        document = document_to_dict(value)
+
+    elif isinstance(value, Odor):
+        document = odor_to_dict(value)
+
+    else:
+        raise TypeError(
+            "dump() expects an Odor or Document"
+        )
 
     validate_document(document)
 

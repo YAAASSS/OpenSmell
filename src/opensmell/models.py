@@ -4,12 +4,13 @@ from dataclasses import dataclass, field
 from typing import Any
 
 
-@dataclass(frozen=True)
+@dataclass
 class Scheme:
     """Identifies the scheme used to interpret a representation."""
 
     id: str
     version: str
+    extra: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass
@@ -28,6 +29,7 @@ class Metadata:
 
     labels: dict[str, str] = field(default_factory=dict)
     description: str | None = None
+    extra: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass
@@ -37,3 +39,13 @@ class Odor:
     id: str
     representations: list[Representation]
     metadata: Metadata | None = None
+    extra: dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass
+class Document:
+    """A complete OpenSmell document."""
+
+    odor: Odor
+    version: str = "0.1"
+    extra: dict[str, Any] = field(default_factory=dict)

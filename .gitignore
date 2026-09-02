@@ -223,3 +223,7 @@ examples/odornet.csv
 # Generated OpenSmell examples
 examples/odornet-example.osmell
 examples/odornet-enriched-example.osmell
+
+# PubChem enrichment data
+examples/pubchem_cache.json
+examples/odornet_enriched.csv
