@@ -13,7 +13,7 @@
       {
         "type": "semantic",
         "scheme": {
-          "id": "org.opensmell.semantic.free",
+          "id": "org.opensmell.semantic.descriptors",
           "version": "0.1"
         },
         "data": {

@@ -1,6 +1,10 @@
 """OpenSmell reference implementation."""
 
-from .exceptions import OpenSmellError, OpenSmellValidationError
+from .exceptions import (
+    OpenSmellError,
+    OpenSmellValidationError,
+    SchemeValidationError,
+)
 from .models import Metadata, Odor, Representation, Scheme
 from .parser import load
 
@@ -13,5 +17,6 @@ __all__ = [
     "OpenSmellValidationError",
     "Representation",
     "Scheme",
+    "SchemeValidationError",
     "load",
 ]

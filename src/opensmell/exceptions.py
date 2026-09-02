@@ -7,3 +7,7 @@ class OpenSmellError(Exception):
 
 class OpenSmellValidationError(OpenSmellError):
     """Raised when an OpenSmell document is structurally invalid."""
+
+
+class SchemeValidationError(OpenSmellValidationError):
+    """Raised when data does not conform to a known representation scheme."""
