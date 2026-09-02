@@ -1,0 +1,44 @@
+{
+  "opensmell": "0.1",
+  "odor": {
+    "id": "urn:uuid:2c1d6b03-5cf1-42f4-b8ca-d9faf216acef",
+    "representations": [
+      {
+        "type": "chemical",
+        "scheme": {
+          "id": "org.opensmell.chemical.smiles",
+          "version": "0.1"
+        },
+        "data": {
+          "smiles": "O=C1OC2=CC=CC=C2C=C1"
+        }
+      },
+      {
+        "type": "semantic",
+        "scheme": {
+          "id": "org.opensmell.semantic.descriptors",
+          "version": "0.1"
+        },
+        "data": {
+          "descriptors": [
+            {
+              "value": "sweet",
+              "language": "en"
+            },
+            {
+              "value": "vanilla-like",
+              "language": "en"
+            }
+          ]
+        }
+      }
+    ],
+    "metadata": {
+      "labels": {
+        "en": "Coumarin",
+        "fr": "Coumarine"
+      },
+      "description": "Example odor with chemical and semantic representations."
+    }
+  }
+}

@@ -103,3 +103,48 @@ def test_unknown_scheme_is_preserved(tmp_path):
         "something": "OpenSmell does not understand this",
         "value": 123,
     }
+
+
+def test_round_trip(tmp_path):
+    original = opensmell.load(
+        ROOT / "examples" / "coffee.osmell"
+    )
+
+    output = tmp_path / "coffee.osmell"
+
+    opensmell.dump(original, output)
+
+    restored = opensmell.load(output)
+
+    assert restored.id == original.id
+    assert restored.metadata == original.metadata
+    assert restored.representations == original.representations
+
+def test_load_coumarin_multiple_representations():
+    odor = opensmell.load(
+        ROOT / "examples" / "coumarin.osmell"
+    )
+
+    assert odor.metadata is not None
+    assert odor.metadata.labels["en"] == "Coumarin"
+
+    assert len(odor.representations) == 2
+
+    chemical = odor.representations[0]
+    semantic = odor.representations[1]
+
+    assert chemical.type == "chemical"
+    assert (
+        chemical.scheme.id
+        == "org.opensmell.chemical.smiles"
+    )
+
+    assert chemical.data["smiles"] == (
+        "O=C1OC2=CC=CC=C2C=C1"
+    )
+
+    assert semantic.type == "semantic"
+    assert (
+        semantic.scheme.id
+        == "org.opensmell.semantic.descriptors"
+    )

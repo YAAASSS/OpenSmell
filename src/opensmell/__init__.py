@@ -1,5 +1,6 @@
 """OpenSmell reference implementation."""
 
+from . import builders
 from .exceptions import (
     OpenSmellError,
     OpenSmellValidationError,
@@ -7,6 +8,7 @@ from .exceptions import (
 )
 from .models import Metadata, Odor, Representation, Scheme
 from .parser import load
+from .serializer import dump
 
 __version__ = "0.1.0"
 
@@ -18,5 +20,7 @@ __all__ = [
     "Representation",
     "Scheme",
     "SchemeValidationError",
+    "builders",
+    "dump",
     "load",
 ]

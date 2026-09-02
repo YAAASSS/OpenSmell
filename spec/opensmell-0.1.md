@@ -3,19 +3,26 @@
 - **Status:** Experimental
 - **Version:** 0.1
 - **Date:** September 2026
-- **Related:** RFC-0001, RFC-0002
+- **Related:** None
+
+---
 
 ## 1. Introduction
 
 OpenSmell is an open interoperability framework for digital olfaction.
 
-This document defines the experimental OpenSmell 0.1 serialization format.
+This document defines the experimental OpenSmell 0.1 serialization
+format.
 
-The purpose of version 0.1 is not to provide a complete digital olfaction
-standard.
+The purpose of version 0.1 is not to provide a complete digital
+olfaction standard.
 
-Its purpose is to establish a minimal, extensible, machine-readable container
-for digital odor representations that can be implemented and tested.
+Its purpose is to establish a minimal, extensible, machine-readable
+container for digital odor representations that can be implemented,
+exchanged, validated, and tested across applications.
+
+OpenSmell does not define a universal scientific model of smell and
+does not require any particular physical odor reproduction technology.
 
 ---
 
@@ -24,14 +31,27 @@ for digital odor representations that can be implemented and tested.
 OpenSmell 0.1 follows these principles:
 
 1. Odor identity is separate from odor representation.
+
 2. An odor may contain multiple representations.
+
 3. Representation schemes are independently defined and versioned.
+
 4. OpenSmell does not define a universal scientific model of smell.
+
 5. OpenSmell data is independent from rendering hardware.
+
 6. Rendering instructions are not part of odor identity.
-7. Unknown representation schemes do not invalidate an otherwise valid
-   OpenSmell document.
-8. Version 0.1 should remain deliberately small.
+
+7. Unknown representation types and schemes do not invalidate an
+   otherwise structurally valid OpenSmell document.
+
+8. Implementations should preserve information they do not understand
+   where practical.
+
+9. OpenSmell should reuse existing scientific representations and
+   identifiers when appropriate rather than redefining them.
+
+10. Version 0.1 should remain deliberately small.
 
 ---
 
@@ -47,8 +67,11 @@ Example:
 
     coffee.osmell
 
-An OpenSmell implementation MUST parse the file as JSON before attempting
-OpenSmell-specific validation.
+An OpenSmell implementation MUST parse the file as JSON before
+attempting OpenSmell-specific validation.
+
+The `.osmell` extension identifies an OpenSmell document but does not
+change the underlying JSON encoding.
 
 ---
 
@@ -78,28 +101,23 @@ OpenSmell 0.1.
 `opensmell` identifies the version of the OpenSmell serialization
 specification used by the document.
 
-Example:
-
-```json
-{
-  "opensmell": "0.1"
-}
-```
-
 For this specification, its value MUST be:
 
-    0.1
+```json
+"opensmell": "0.1"
+```
 
-Implementations SHOULD reject unsupported major specification versions.
+Implementations MUST NOT silently interpret a document using an
+unsupported OpenSmell version as version 0.1.
 
-Handling of future minor versions will be defined when a compatibility model
-is required.
+A future OpenSmell specification may define explicit compatibility
+rules between specification versions.
 
 ---
 
 ## 6. `odor`
 
-The `odor` object represents one conceptual odor object.
+The `odor` object represents one conceptual olfactory object.
 
 It MUST contain:
 
@@ -116,7 +134,23 @@ Example:
 {
   "odor": {
     "id": "urn:uuid:550e8400-e29b-41d4-a716-446655440000",
-    "representations": []
+    "representations": [
+      {
+        "type": "semantic",
+        "scheme": {
+          "id": "org.opensmell.semantic.descriptors",
+          "version": "0.1"
+        },
+        "data": {
+          "descriptors": [
+            {
+              "value": "coffee",
+              "language": "en"
+            }
+          ]
+        }
+      }
+    ]
   }
 }
 ```
@@ -127,7 +161,8 @@ Example:
 
 `odor.id` MUST be a non-empty string.
 
-Version 0.1 RECOMMENDS the use of a UUID URN.
+OpenSmell 0.1 RECOMMENDS the use of a UUID URN for newly created
+OpenSmell odor objects.
 
 Example:
 
@@ -135,10 +170,23 @@ Example:
 "id": "urn:uuid:550e8400-e29b-41d4-a716-446655440000"
 ```
 
-The identifier identifies the OpenSmell odor object.
+The identifier identifies the OpenSmell odor object itself.
 
-It MUST NOT be interpreted as proof that two physical odor samples are
-chemically or perceptually identical.
+It MUST NOT be interpreted as a universal identifier for an odor
+concept.
+
+For example, two independently created OpenSmell objects describing
+"rose" MAY have different identifiers.
+
+Likewise, sharing an identifier MUST NOT by itself be interpreted as
+proof that two physical odor samples are chemically or perceptually
+identical.
+
+OpenSmell 0.1 does not define a global odor registry.
+
+A future specification or RFC MAY define mechanisms for associating
+OpenSmell objects with external identifiers, scientific databases,
+controlled vocabularies, or registries.
 
 ---
 
@@ -168,13 +216,16 @@ Example:
 Metadata is intended primarily for human presentation.
 
 Applications MUST NOT use human-readable labels as substitutes for
-representation semantics.
+representation semantics or odor identity.
+
+Metadata MUST NOT be required to interpret the technical
+representations of an odor.
 
 ---
 
 ## 9. Labels
 
-`metadata.labels` MUST be an object when present.
+`metadata.labels` MUST be a JSON object when present.
 
 Each key represents a language tag.
 
@@ -194,13 +245,38 @@ Example:
 
 OpenSmell 0.1 RECOMMENDS BCP 47 language tags.
 
+Labels MUST NOT be treated as globally unique odor identifiers.
+
 ---
 
-## 10. Representations
+## 10. Description
+
+`metadata.description` MUST be a string when present.
+
+It is intended to provide additional human-readable information about
+the odor object.
+
+Example:
+
+```json
+{
+  "description": "Example odor containing chemical and semantic representations."
+}
+```
+
+Applications MUST NOT depend on `description` for machine
+interpretation of representations.
+
+---
+
+## 11. Representations
 
 `odor.representations` MUST be a non-empty array.
 
-Each entry represents one digital representation associated with the odor.
+Each entry represents one digital representation associated with the
+odor.
+
+An odor MAY contain multiple representations.
 
 Example:
 
@@ -208,27 +284,43 @@ Example:
 {
   "representations": [
     {
+      "type": "chemical",
+      "scheme": {
+        "id": "org.opensmell.chemical.smiles",
+        "version": "0.1"
+      },
+      "data": {
+        "smiles": "O=C1OC2=CC=CC=C2C=C1"
+      }
+    },
+    {
       "type": "semantic",
       "scheme": {
-        "id": "org.example.semantic",
-        "version": "1.0"
+        "id": "org.opensmell.semantic.descriptors",
+        "version": "0.1"
       },
-      "data": {}
+      "data": {
+        "descriptors": [
+          {
+            "value": "sweet",
+            "language": "en"
+          }
+        ]
+      }
     }
   ]
 }
 ```
 
-An odor MAY contain multiple representations.
+The presence of multiple representations asserts that the producer
+associates them with the same OpenSmell odor object.
 
-The presence of multiple representations asserts that the producer associates
-them with the same OpenSmell odor object.
-
-OpenSmell does not verify their chemical or perceptual equivalence.
+OpenSmell does not verify their chemical, perceptual, or physical
+equivalence.
 
 ---
 
-## 11. Representation Structure
+## 12. Representation Structure
 
 Every representation MUST contain:
 
@@ -255,190 +347,74 @@ Example:
 }
 ```
 
+`type` identifies a broad representation family.
+
+`scheme` identifies the specific rules used to interpret the
+representation.
+
+`data` contains the scheme-specific information.
+
 ---
 
-## 12. Representation Type
+## 13. Representation Type
 
 `type` MUST be a non-empty string.
 
-OpenSmell 0.1 defines three standard representation type names:
+OpenSmell 0.1 recognizes the following standard representation type
+names:
 
     semantic
     perceptual
+    chemical
     mixture
 
-Implementations MUST NOT assume that these are the only representation types
-that may ever exist.
+These names identify broad representation families only.
 
-Unknown representation types MUST NOT make an otherwise structurally valid
-OpenSmell document invalid.
+They do not define the internal structure or meaning of `data`.
+
+That responsibility belongs to the representation scheme.
+
+Implementations MUST NOT assume that these are the only representation
+types that may exist.
+
+Unknown representation types MUST NOT make an otherwise structurally
+valid OpenSmell document invalid.
 
 An implementation MAY report such a representation as unsupported.
 
 ---
 
-## 13. Scheme
+## 14. Semantic Representation
 
-Every representation MUST contain a `scheme` object.
+The `semantic` representation family describes an odor using
+human-readable or vocabulary-based semantic information.
 
-The scheme MUST contain:
+Examples include:
 
-- `id`
-- `version`
+- free descriptors;
+- controlled vocabulary terms;
+- taxonomy identifiers;
+- semantic labels defined by a scientific dataset.
 
-Example:
+OpenSmell itself does not assign universal meanings to semantic terms.
 
-```json
-{
-  "scheme": {
-    "id": "org.example.perceptual",
-    "version": "1.0"
-  }
-}
-```
-
-Both values MUST be non-empty strings.
-
-The scheme defines how the representation's `data` object should be
-interpreted.
+The exact interpretation MUST be defined by the associated scheme.
 
 ---
 
-## 14. Scheme Identifier
+## 15. Perceptual Representation
 
-`scheme.id` identifies the interpretation scheme.
+The `perceptual` representation family describes an odor according to
+a perceptual or computational representation scheme.
 
-Example:
+Possible examples include:
 
-    org.example.perceptual
+- perceptual vectors;
+- embeddings;
+- coordinates in an odor space;
+- outputs produced by machine-learning models.
 
-OpenSmell 0.1 does not require scheme identifiers to be URLs.
-
-Resolving a scheme identifier over a network MUST NOT be required to parse an
-OpenSmell document.
-
-OpenSmell 0.1 does not yet define a global scheme registry.
-
----
-
-## 15. Scheme Version
-
-`scheme.version` identifies the version of the representation scheme.
-
-Example:
-
-    1.0
-
-Scheme versions are independent from the OpenSmell specification version.
-
-For example, the following is valid conceptually:
-
-    OpenSmell specification: 0.1
-    Scheme version: 4.2
-
----
-
-## 16. Representation Data
-
-`data` MUST be a JSON object.
-
-Its internal structure is determined by the representation scheme.
-
-OpenSmell Core MUST NOT attempt to infer unknown scheme semantics solely from
-the contents of `data`.
-
-For example:
-
-```json
-{
-  "data": {
-    "vector": [
-      0.18,
-      0.72,
-      0.04
-    ]
-  }
-}
-```
-
-is meaningful only when interpreted according to its associated scheme.
-
----
-
-## 17. Semantic Representation
-
-The `semantic` representation family describes an odor using semantic
-information.
-
-A scheme may define controlled vocabulary terms.
-
-Example:
-
-```json
-{
-  "type": "semantic",
-
-  "scheme": {
-    "id": "org.example.odor-taxonomy",
-    "version": "1.0"
-  },
-
-  "data": {
-    "terms": [
-      "coffee",
-      "roasted"
-    ]
-  }
-}
-```
-
-A semantic representation MAY also contain free descriptors if allowed by
-its scheme.
-
-Example:
-
-```json
-{
-  "descriptors": [
-    {
-      "value": "nutty",
-      "language": "en"
-    }
-  ]
-}
-```
-
-OpenSmell itself does not assign universal meanings to these terms.
-
----
-
-## 18. Perceptual Representation
-
-The `perceptual` representation family describes an odor according to a
-perceptual or computational representation scheme.
-
-Example:
-
-```json
-{
-  "type": "perceptual",
-
-  "scheme": {
-    "id": "org.example.odor-space",
-    "version": "2.0"
-  },
-
-  "data": {
-    "vector": [
-      0.18,
-      0.72,
-      0.04
-    ]
-  }
-}
-```
-
-OpenSmell does not define:
+OpenSmell Core does not define:
 
 - vector dimensionality;
 - dimension meaning;
@@ -450,7 +426,26 @@ Those properties belong to the referenced scheme.
 
 ---
 
-## 19. Mixture Representation
+## 16. Chemical Representation
+
+The `chemical` representation family describes chemical information
+associated with an odor.
+
+Possible examples include:
+
+- molecular structures;
+- chemical identifiers;
+- molecular representations such as SMILES.
+
+A chemical representation does not imply that the represented chemical
+information is sufficient to reproduce the perceived odor.
+
+Likewise, OpenSmell MUST NOT interpret chemical representation data as
+instructions for synthesis, handling, or physical emission.
+
+---
+
+## 17. Mixture Representation
 
 The `mixture` representation family describes an odor using components
 defined by a mixture scheme.
@@ -460,12 +455,10 @@ Example:
 ```json
 {
   "type": "mixture",
-
   "scheme": {
     "id": "org.example.primary-system",
     "version": "1.0"
   },
-
   "data": {
     "components": [
       {
@@ -481,13 +474,222 @@ Example:
 }
 ```
 
-OpenSmell 0.1 does not define the physical meaning or units of `amount`.
+OpenSmell Core does not define the physical meaning, units, or
+interpretation of `amount`.
 
 Those semantics MUST be defined by the referenced scheme.
 
+A mixture representation MUST NOT automatically be interpreted as a
+device command.
+
 ---
 
-## 20. Structural Validity
+## 18. Scheme
+
+Every representation MUST contain a `scheme` object.
+
+The scheme MUST contain:
+
+- `id`
+- `version`
+
+Example:
+
+```json
+{
+  "scheme": {
+    "id": "org.opensmell.semantic.descriptors",
+    "version": "0.1"
+  }
+}
+```
+
+Both values MUST be non-empty strings.
+
+The scheme defines how the representation's `data` object is
+interpreted.
+
+---
+
+## 19. Scheme Identifier
+
+`scheme.id` identifies the interpretation scheme.
+
+Example:
+
+    org.opensmell.semantic.descriptors
+
+OpenSmell 0.1 does not require scheme identifiers to be URLs.
+
+Resolving a scheme identifier over a network MUST NOT be required to
+parse an OpenSmell document.
+
+OpenSmell 0.1 does not define a mandatory global scheme registry.
+
+Applications MAY maintain registries of supported schemes.
+
+---
+
+## 20. Scheme Version
+
+`scheme.version` identifies the version of the representation scheme.
+
+Example:
+
+    0.1
+
+Scheme versions are independent from the OpenSmell specification
+version.
+
+For example, the following is conceptually possible:
+
+    OpenSmell specification: 0.1
+    Scheme version: 4.2
+
+An implementation MAY support one version of a scheme without
+supporting another.
+
+---
+
+## 21. Representation Data
+
+`data` MUST be a JSON object.
+
+Its internal structure is determined by the representation scheme.
+
+OpenSmell Core MUST NOT attempt to infer unknown scheme semantics
+solely from the contents of `data`.
+
+For example:
+
+```json
+{
+  "data": {
+    "vector": [
+      0.18,
+      0.72,
+      0.04
+    ]
+  }
+}
+```
+
+is meaningful only when interpreted according to its associated
+scheme.
+
+---
+
+## 22. Built-in Semantic Descriptor Scheme
+
+OpenSmell 0.1 defines the built-in scheme:
+
+    org.opensmell.semantic.descriptors
+
+Scheme version:
+
+    0.1
+
+Representation type:
+
+    semantic
+
+The scheme data MUST contain:
+
+- `descriptors`
+
+`descriptors` MUST be a non-empty array.
+
+Each descriptor MUST be a JSON object containing:
+
+- `value`
+
+A descriptor MAY contain:
+
+- `language`
+
+Example:
+
+```json
+{
+  "type": "semantic",
+  "scheme": {
+    "id": "org.opensmell.semantic.descriptors",
+    "version": "0.1"
+  },
+  "data": {
+    "descriptors": [
+      {
+        "value": "sweet",
+        "language": "en"
+      },
+      {
+        "value": "vanilla-like",
+        "language": "en"
+      }
+    ]
+  }
+}
+```
+
+`value` MUST be a non-empty string.
+
+`language`, when present, MUST be a string.
+
+OpenSmell does not assign universal scientific meaning to descriptor
+values.
+
+---
+
+## 23. Built-in Chemical SMILES Scheme
+
+OpenSmell 0.1 defines the built-in scheme:
+
+    org.opensmell.chemical.smiles
+
+Scheme version:
+
+    0.1
+
+Representation type:
+
+    chemical
+
+The scheme data MUST contain:
+
+- `smiles`
+
+Example:
+
+```json
+{
+  "type": "chemical",
+  "scheme": {
+    "id": "org.opensmell.chemical.smiles",
+    "version": "0.1"
+  },
+  "data": {
+    "smiles": "O=C1OC2=CC=CC=C2C=C1"
+  }
+}
+```
+
+`smiles` MUST be a non-empty string.
+
+OpenSmell Core validation verifies only the OpenSmell structure and
+the requirements defined by this scheme.
+
+It does not guarantee that the string represents a chemically valid
+SMILES structure.
+
+Chemical validity MAY be checked by specialized software.
+
+A SMILES representation describes molecular structure information. It
+MUST NOT be interpreted as proof that the molecule alone reproduces
+the odor represented by the containing OpenSmell object.
+
+---
+
+## 24. Structural Validity
 
 An OpenSmell document is structurally valid when:
 
@@ -496,12 +698,37 @@ An OpenSmell document is structurally valid when:
 - required values have the correct JSON types;
 - required arrays and strings are non-empty where specified.
 
-Structural validity does not imply that an implementation understands every
-representation.
+Structural validity does not imply that an implementation understands
+every representation.
+
+Structural validity also does not imply scientific validity.
 
 ---
 
-## 21. Representation Support
+## 25. Scheme Validation
+
+Known representation schemes MAY define additional validation rules
+for their `data`.
+
+For example:
+
+    org.opensmell.semantic.descriptors
+
+requires a non-empty descriptor array.
+
+An implementation that supports a scheme SHOULD validate its
+scheme-specific data.
+
+Failure to satisfy the requirements of a known scheme makes that
+representation invalid for that scheme.
+
+An unknown scheme, however, MUST NOT cause an otherwise structurally
+valid document to fail solely because the implementation does not
+recognize it.
+
+---
+
+## 26. Representation Support
 
 An implementation SHOULD distinguish between at least:
 
@@ -510,55 +737,103 @@ An implementation SHOULD distinguish between at least:
     INTERPRETABLE
     RENDERABLE
 
+These states describe different properties.
+
 For example:
 
-    Document valid:        YES
+    Document valid:         YES
     Representation known:  YES
     Scheme supported:      NO
     Renderable:            NO
 
-A representation using an unknown scheme remains part of the OpenSmell
-document.
+`VALID` means that the representation satisfies the applicable
+structural requirements.
+
+`UNSUPPORTED` means that the implementation does not understand the
+representation or scheme sufficiently to interpret it.
+
+`INTERPRETABLE` means that the implementation understands the
+representation's scheme.
+
+`RENDERABLE` means that the implementation has a mechanism capable of
+using the representation as part of an odor rendering process.
+
+A valid representation is not necessarily interpretable.
+
+An interpretable representation is not necessarily renderable.
 
 ---
 
-## 22. Unknown Data
+## 27. Unknown Data
 
-Implementations SHOULD preserve fields they do not understand when reading
-and rewriting OpenSmell documents where practical.
+Implementations SHOULD preserve fields and representation data they do
+not understand when reading and rewriting OpenSmell documents where
+practical.
 
-This improves forward compatibility.
+Unknown representation types or schemes MUST NOT be silently
+reinterpreted as known types or schemes.
 
-Unknown representation types or schemes MUST NOT be silently reinterpreted
-as known schemes.
+An unknown scheme MUST NOT be rejected solely because it is unknown.
+
+This behavior is important for forward compatibility and
+interoperability between implementations supporting different scheme
+sets.
 
 ---
 
-## 23. Rendering
+## 28. Serialization and Round Trips
 
-OpenSmell 0.1 does not define a rendering request serialization format.
+An implementation serializing an OpenSmell object SHOULD produce
+UTF-8 JSON.
 
-The following concepts therefore do NOT belong to the odor representation:
+A read/write operation intended to be lossless SHOULD preserve:
+
+- odor identity;
+- metadata;
+- representations;
+- scheme identifiers;
+- scheme versions;
+- representation data;
+- unsupported representation data where practical.
+
+Serialization does not require identical whitespace, indentation, or
+JSON object key ordering.
+
+Semantic preservation is more important than textual equality.
+
+---
+
+## 29. Rendering
+
+OpenSmell 0.1 does not define a standardized rendering request
+serialization format.
+
+The following concepts therefore do NOT belong to the odor identity:
 
     intensity
     duration
     start time
+    playback schedule
     target device
 
-An implementation API may expose such parameters separately.
+An implementation API MAY expose such parameters separately.
 
 Conceptually:
 
     device.render(
         odor,
-        intensity = 0.75
+        intensity=0.75
     )
 
-A future specification may define a standardized rendering request.
+A future specification or RFC MAY define a standardized rendering
+request.
+
+Such a specification MUST preserve the distinction between an odor
+representation and an instruction to render that odor.
 
 ---
 
-## 24. Devices
+## 30. Devices
 
 OpenSmell 0.1 does not define a mandatory physical device protocol.
 
@@ -569,6 +844,9 @@ Conceptually:
     OpenSmell Odor
           |
           v
+    Representation / Mapper
+          |
+          v
     Device Adapter
           |
           v
@@ -577,11 +855,44 @@ Conceptually:
           v
     Olfactory Device
 
-A future RFC may define a standard capability interface for device adapters.
+OpenSmell Core MUST NOT require a specific:
+
+- scent cartridge system;
+- pump;
+- valve;
+- airflow mechanism;
+- electrical interface;
+- manufacturer protocol.
+
+A future specification or RFC MAY define standardized device
+capability or adapter interfaces.
 
 ---
 
-## 25. Security
+## 31. External Identifiers and References
+
+OpenSmell 0.1 does not define a standardized `references` structure.
+
+Implementations MAY associate OpenSmell objects with external
+identifiers outside the core document model.
+
+Possible external sources may include:
+
+- chemical databases;
+- scientific datasets;
+- controlled vocabularies;
+- published models;
+- future odor registries.
+
+A future OpenSmell RFC may define a standard mechanism for including
+such references directly in an OpenSmell document.
+
+External identifiers MUST NOT replace `odor.id` unless a future
+specification explicitly defines such behavior.
+
+---
+
+## 32. Security and Safety
 
 OpenSmell files MUST be treated as untrusted input.
 
@@ -591,54 +902,70 @@ Implementations SHOULD:
 - reject malformed JSON;
 - validate required structures;
 - avoid executing arbitrary code referenced by representation data;
-- avoid automatically loading untrusted plugins based solely on a file;
+- avoid automatically loading untrusted plugins based solely on a
+  file;
 - avoid automatic network access while parsing.
 
-Physical rendering introduces additional safety concerns that are outside the
-scope of OpenSmell 0.1.
+Physical odor rendering introduces additional safety considerations.
+
+An OpenSmell representation MUST NOT be interpreted as evidence that
+a substance or mixture is safe to:
+
+- synthesize;
+- mix;
+- heat;
+- aerosolize;
+- emit;
+- inhale;
+- ingest;
+- otherwise expose to humans or animals.
+
+Physical safety requirements are outside the scope of OpenSmell 0.1.
 
 ---
 
-## 26. Canonical Example
+## 33. Canonical Example
 
-A minimal OpenSmell 0.1 document:
+The following example represents coumarin using both chemical and
+semantic representations:
 
 ```json
 {
   "opensmell": "0.1",
-
   "odor": {
     "id": "urn:uuid:550e8400-e29b-41d4-a716-446655440000",
-
     "metadata": {
       "labels": {
-        "en": "Coffee",
-        "fr": "Café"
+        "en": "Coumarin",
+        "fr": "Coumarine"
       },
-      "description": "OpenSmell example coffee odor."
+      "description": "Example odor with chemical and semantic representations."
     },
-
     "representations": [
       {
-        "type": "semantic",
-
+        "type": "chemical",
         "scheme": {
-          "id": "org.opensmell.semantic.free",
+          "id": "org.opensmell.chemical.smiles",
           "version": "0.1"
         },
-
+        "data": {
+          "smiles": "O=C1OC2=CC=CC=C2C=C1"
+        }
+      },
+      {
+        "type": "semantic",
+        "scheme": {
+          "id": "org.opensmell.semantic.descriptors",
+          "version": "0.1"
+        },
         "data": {
           "descriptors": [
             {
-              "value": "coffee",
+              "value": "sweet",
               "language": "en"
             },
             {
-              "value": "roasted",
-              "language": "en"
-            },
-            {
-              "value": "nutty",
+              "value": "vanilla-like",
               "language": "en"
             }
           ]
@@ -649,28 +976,68 @@ A minimal OpenSmell 0.1 document:
 }
 ```
 
+This example demonstrates that multiple representations may coexist
+inside the same OpenSmell odor object.
+
+The chemical representation and semantic representation provide
+different information about the object.
+
+OpenSmell does not assert that either representation can automatically
+be derived from the other.
+
 ---
 
-## 27. Conformance
+## 34. Conformance
 
 An implementation claiming OpenSmell 0.1 parsing support MUST:
 
 1. parse UTF-8 JSON OpenSmell documents;
+
 2. validate the required top-level structure;
-3. validate odor identity and representations;
-4. preserve the distinction between unsupported and invalid representations;
-5. not require network access to parse a document.
+
+3. validate odor identity and representation structure;
+
+4. support multiple representations;
+
+5. preserve the distinction between unsupported and invalid
+   representations;
+
+6. not reject an otherwise valid representation solely because its
+   scheme is unknown;
+
+7. not require network access to parse an OpenSmell document;
+
+8. preserve unknown representation data during a lossless read/write
+   operation where practical.
+
+An implementation does NOT need to support every representation scheme
+to claim OpenSmell 0.1 Core parsing support.
 
 Support for physical scent devices is NOT required for OpenSmell 0.1
 conformance.
 
 ---
 
-## 28. Experimental Status
+## 35. Experimental Status
 
 OpenSmell 0.1 is experimental.
 
 Breaking changes are expected before a stable 1.0 specification.
 
-The purpose of this version is to validate the architecture through real
-implementations and interoperability experiments.
+Version 0.1 exists to validate the architecture through:
+
+- reference implementations;
+- automated tests;
+- example documents;
+- interoperability experiments;
+- scientific model integrations;
+- future device adapters.
+
+Features SHOULD NOT be added to the OpenSmell Core solely because they
+may be useful in the future.
+
+New concepts should first demonstrate a concrete interoperability need.
+
+The objective of OpenSmell 0.1 is to establish a small and robust
+foundation on which future digital olfaction interoperability can be
+built.

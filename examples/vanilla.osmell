@@ -1,0 +1,34 @@
+{
+  "opensmell": "0.1",
+  "odor": {
+    "id": "urn:uuid:fa9b01d2-8610-40da-93f6-1d8d69c4d3ea",
+    "representations": [
+      {
+        "type": "semantic",
+        "scheme": {
+          "id": "org.opensmell.semantic.descriptors",
+          "version": "0.1"
+        },
+        "data": {
+          "descriptors": [
+            {
+              "value": "vanilla",
+              "language": "en"
+            },
+            {
+              "value": "sweet",
+              "language": "en"
+            }
+          ]
+        }
+      }
+    ],
+    "metadata": {
+      "labels": {
+        "en": "Vanilla",
+        "fr": "Vanille"
+      },
+      "description": "A semantic representation of vanilla odor."
+    }
+  }
+}
