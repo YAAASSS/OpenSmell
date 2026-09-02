@@ -1,0 +1,86 @@
+# RFC 0001 — Data Provenance
+
+- **Status:** Draft
+- **RFC:** 0001
+- **Target:** Future OpenSmell version
+- **Created:** September 2026
+
+## 1. Summary
+
+This RFC proposes a mechanism for associating provenance information
+with OpenSmell representations.
+
+Digital olfactory information may originate from multiple independent
+sources such as datasets, scientific models, databases, sensors, or
+manual observations.
+
+OpenSmell should provide a way to preserve this origin without making
+the core format dependent on any specific external source.
+
+## 2. Motivation
+
+An OpenSmell odor may contain several representations originating from
+different systems.
+
+For example:
+
+- chemical information may originate from PubChem;
+- semantic odor descriptors may originate from OdorNet;
+- perceptual information may originate from a predictive model;
+- future renderable information may originate from another system.
+
+Without provenance information, a consumer cannot determine where a
+representation originated.
+
+This becomes especially important when OpenSmell is used as an
+interoperability layer between independent systems.
+
+## 3. Goals
+
+The provenance mechanism should:
+
+1. identify the source of a representation;
+2. remain independent from specific services such as PubChem or
+   OdorNet;
+3. support human-readable and machine-readable source identifiers;
+4. allow additional provenance information in future versions;
+5. preserve OpenSmell's forward-compatible design.
+
+## 4. Non-goals
+
+This RFC does not attempt to:
+
+- verify that provenance claims are true;
+- provide cryptographic signatures;
+- define licensing rules;
+- define scientific confidence or accuracy;
+- require network access to the original source;
+- standardize identifiers for every external database.
+
+These may be addressed separately in future work.
+
+## 5. Proposed model
+
+A representation MAY contain an optional `provenance` object.
+
+Example:
+
+```json
+{
+  "type": "semantic",
+  "scheme": {
+    "id": "org.opensmell.semantic.descriptors",
+    "version": "0.1"
+  },
+  "data": {
+    "descriptors": [
+      {
+        "value": "green&herbal",
+        "language": "en"
+      }
+    ]
+  },
+  "provenance": {
+    "source": "OdorNet"
+  }
+}
