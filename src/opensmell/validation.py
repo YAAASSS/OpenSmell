@@ -7,7 +7,7 @@ from typing import Any
 from jsonschema import Draft202012Validator
 
 from .exceptions import OpenSmellValidationError, SchemeValidationError
-from .schemes import get_validator
+from .schemes import get_definition
 
 
 def _load_schema() -> dict[str, Any]:
@@ -26,23 +26,34 @@ def _load_schema() -> dict[str, Any]:
 def _validate_representation_schemes(
     document: dict[str, Any],
 ) -> None:
-    """Validate representations using registered scheme validators."""
+    """Validate representations using registered scheme definitions."""
 
     representations = document["odor"]["representations"]
 
     for index, representation in enumerate(representations):
         scheme = representation["scheme"]
 
-        validator = get_validator(
+        definition = get_definition(
             scheme["id"],
             scheme["version"],
         )
 
-        if validator is None:
+        if definition is None:
             continue
 
+        if representation["type"] != definition.representation_type:
+            raise SchemeValidationError(
+                f"odor.representations[{index}]: "
+                f"{scheme['id']} {scheme['version']} "
+                f"requires representation type "
+                f"{definition.representation_type!r}, "
+                f"got {representation['type']!r}"
+            )
+
         try:
-            validator(representation["data"])
+            definition.validator(
+                representation["data"]
+            )
         except ValueError as error:
             raise SchemeValidationError(
                 f"odor.representations[{index}]: "

@@ -4,7 +4,10 @@ import copy
 
 import pytest
 
-from opensmell.exceptions import OpenSmellValidationError
+from opensmell.exceptions import (
+    OpenSmellValidationError,
+    SchemeValidationError,
+)
 from opensmell.validation import validate_document
 
 
@@ -147,6 +150,7 @@ def test_empty_description_is_rejected():
     with pytest.raises(OpenSmellValidationError):
         validate_document(document)
 
+
 def test_missing_opensmell_is_rejected():
     document = valid_document()
     del document["opensmell"]
@@ -216,4 +220,45 @@ def test_missing_representation_data_is_rejected():
     del document["odor"]["representations"][0]["data"]
 
     with pytest.raises(OpenSmellValidationError):
+        validate_document(document)
+
+
+def test_semantic_scheme_with_wrong_type_is_rejected():
+    document = valid_document()
+
+    document["odor"]["representations"][0] = {
+        "type": "chemical",
+        "scheme": {
+            "id": "org.opensmell.semantic.descriptors",
+            "version": "0.1",
+        },
+        "data": {
+            "descriptors": [
+                {
+                    "value": "coffee",
+                    "language": "en",
+                }
+            ]
+        },
+    }
+
+    with pytest.raises(SchemeValidationError):
+        validate_document(document)
+
+
+def test_chemical_smiles_scheme_with_wrong_type_is_rejected():
+    document = valid_document()
+
+    document["odor"]["representations"][0] = {
+        "type": "semantic",
+        "scheme": {
+            "id": "org.opensmell.chemical.smiles",
+            "version": "0.1",
+        },
+        "data": {
+            "smiles": "O=C1OC2=CC=CC=C2C=C1",
+        },
+    }
+
+    with pytest.raises(SchemeValidationError):
         validate_document(document)
