@@ -92,3 +92,38 @@ def test_odornet_custom_odor_id():
     )
 
     assert odor.id == "urn:example:test"
+
+def test_odornet_adds_provenance():
+    record = {
+        "SMILES": "CCO",
+        "floral": 1,
+    }
+
+    odor = odornet.from_record(record)
+
+    for representation in odor.representations:
+        assert representation.extra["provenance"] == {
+            "source": "OdorNet",
+        }
+
+
+def test_odornet_provenance_survives_round_trip(tmp_path):
+    import opensmell
+
+    record = {
+        "SMILES": "CCO",
+        "floral": 1,
+    }
+
+    odor = odornet.from_record(record)
+
+    path = tmp_path / "odornet.osmell"
+
+    opensmell.dump(odor, path)
+
+    loaded = opensmell.load(path)
+
+    for representation in loaded.representations:
+        assert representation.extra["provenance"] == {
+            "source": "OdorNet",
+        }

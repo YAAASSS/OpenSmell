@@ -54,6 +54,16 @@ def from_record(
             )
         )
 
+    # Experimental implementation of RFC 0001.
+    #
+    # Provenance is stored as an extension field rather than as part
+    # of the OpenSmell 0.1 core model. This allows the proposal to be
+    # tested without changing the 0.1 specification.
+    for representation in representations:
+        representation.extra["provenance"] = {
+            "source": "OdorNet",
+        }
+
     return builders.odor(
         representations=representations,
         odor_id=odor_id,
