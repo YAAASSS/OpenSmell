@@ -764,9 +764,9 @@ The RFC process will allow design decisions to remain documented and open to tec
 
 ## License
 
-A project license has not yet been finalized.
+OpenSmell is licensed under the Apache License 2.0.
 
-Before external contributions or public releases beyond the experimental stage, an explicit open-source license should be selected and added to the repository.
+See the [LICENSE](LICENSE) file for details.
 
 ---
 

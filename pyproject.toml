@@ -6,15 +6,46 @@ build-backend = "setuptools.build_meta"
 name = "opensmell"
 version = "0.1.0"
 description = "Open interoperability framework for digital olfaction"
+readme = "README.md"
 requires-python = ">=3.10"
+license = "Apache-2.0"
+authors = [
+    { name = "Cyril Vranesi" }
+]
+keywords = [
+    "digital olfaction",
+    "digital smell",
+    "olfaction",
+    "scent",
+    "interoperability"
+]
 dependencies = [
     "jsonschema>=4.20"
 ]
 
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+
 [project.optional-dependencies]
 dev = [
-    "pytest>=8.0"
+    "pytest>=8.0",
+    "build>=1.2"
 ]
+
+[project.urls]
+Homepage = "https://github.com/YAAASSS/OpenSmell"
+Repository = "https://github.com/YAAASSS/OpenSmell"
+Issues = "https://github.com/YAAASSS/OpenSmell/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]
