@@ -8,6 +8,13 @@ from .models import Metadata, Odor, Representation, Scheme
 from .validation import validate_document
 
 
+_REPRESENTATION_FIELDS = {
+    "type",
+    "scheme",
+    "data",
+}
+
+
 def parse_odor(data: dict[str, Any]) -> Odor:
     """Convert an OpenSmell odor dictionary into an Odor object."""
 
@@ -31,10 +38,17 @@ def parse_odor(data: dict[str, Any]) -> Odor:
             version=scheme_data["version"],
         )
 
+        extra = {
+            key: value
+            for key, value in representation_data.items()
+            if key not in _REPRESENTATION_FIELDS
+        }
+
         representation = Representation(
             type=representation_data["type"],
             scheme=scheme,
             data=representation_data["data"],
+            extra=extra,
         )
 
         representations.append(representation)

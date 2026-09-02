@@ -19,6 +19,7 @@ class Representation:
     type: str
     scheme: Scheme
     data: dict[str, Any] = field(default_factory=dict)
+    extra: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass

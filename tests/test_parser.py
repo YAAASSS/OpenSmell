@@ -148,3 +148,67 @@ def test_load_coumarin_multiple_representations():
         semantic.scheme.id
         == "org.opensmell.semantic.descriptors"
     )
+
+def test_unknown_representation_fields_survive_round_trip(
+    tmp_path,
+):
+    document = {
+        "opensmell": "0.1",
+        "odor": {
+            "id": "future-odor",
+            "representations": [
+                {
+                    "type": "future-type",
+                    "scheme": {
+                        "id": "org.example.future",
+                        "version": "1.0",
+                    },
+                    "data": {
+                        "value": 123,
+                    },
+                    "future_extension": {
+                        "enabled": True,
+                        "values": [1, 2, 3],
+                    },
+                }
+            ],
+        },
+    }
+
+    source = tmp_path / "source.osmell"
+
+    source.write_text(
+        json.dumps(document),
+        encoding="utf-8",
+    )
+
+    odor = opensmell.load(source)
+
+    assert odor.representations[0].extra == {
+        "future_extension": {
+            "enabled": True,
+            "values": [1, 2, 3],
+        }
+    }
+
+    output = tmp_path / "output.osmell"
+
+    opensmell.dump(
+        odor,
+        output,
+    )
+
+    restored_document = json.loads(
+        output.read_text(
+            encoding="utf-8"
+        )
+    )
+
+    representation = (
+        restored_document["odor"]["representations"][0]
+    )
+
+    assert representation["future_extension"] == {
+        "enabled": True,
+        "values": [1, 2, 3],
+    }

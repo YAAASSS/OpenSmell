@@ -262,3 +262,88 @@ def test_chemical_smiles_scheme_with_wrong_type_is_rejected():
 
     with pytest.raises(SchemeValidationError):
         validate_document(document)
+
+def test_semantic_scheme_with_empty_descriptors_is_rejected():
+    document = valid_document()
+
+    document["odor"]["representations"][0] = {
+        "type": "semantic",
+        "scheme": {
+            "id": "org.opensmell.semantic.descriptors",
+            "version": "0.1",
+        },
+        "data": {
+            "descriptors": [],
+        },
+    }
+
+    with pytest.raises(SchemeValidationError):
+        validate_document(document)
+
+
+def test_semantic_scheme_with_empty_descriptor_value_is_rejected():
+    document = valid_document()
+
+    document["odor"]["representations"][0] = {
+        "type": "semantic",
+        "scheme": {
+            "id": "org.opensmell.semantic.descriptors",
+            "version": "0.1",
+        },
+        "data": {
+            "descriptors": [
+                {
+                    "value": "",
+                    "language": "en",
+                }
+            ],
+        },
+    }
+
+    with pytest.raises(SchemeValidationError):
+        validate_document(document)
+
+
+def test_smiles_scheme_with_empty_value_is_rejected():
+    document = valid_document()
+
+    document["odor"]["representations"][0] = {
+        "type": "chemical",
+        "scheme": {
+            "id": "org.opensmell.chemical.smiles",
+            "version": "0.1",
+        },
+        "data": {
+            "smiles": "",
+        },
+    }
+
+    with pytest.raises(SchemeValidationError):
+        validate_document(document)
+
+
+def test_unknown_scheme_data_is_preserved():
+    document = valid_document()
+
+    representation = document["odor"]["representations"][0]
+
+    representation["type"] = "future-type"
+    representation["scheme"] = {
+        "id": "org.example.future",
+        "version": "42.0",
+    }
+    representation["data"] = {
+        "custom": {
+            "values": [1, 2, 3],
+        },
+        "experimental": True,
+    }
+
+    validate_document(document)
+
+    assert representation["data"] == {
+        "custom": {
+            "values": [1, 2, 3],
+        },
+        "experimental": True,
+    }

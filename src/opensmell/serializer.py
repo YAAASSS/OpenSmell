@@ -14,7 +14,11 @@ def odor_to_dict(odor: Odor) -> dict[str, Any]:
     representations = []
 
     for representation in odor.representations:
-        representations.append(
+        representation_data = dict(
+            representation.extra
+        )
+
+        representation_data.update(
             {
                 "type": representation.type,
                 "scheme": {
@@ -23,6 +27,10 @@ def odor_to_dict(odor: Odor) -> dict[str, Any]:
                 },
                 "data": representation.data,
             }
+        )
+
+        representations.append(
+            representation_data
         )
 
     odor_data: dict[str, Any] = {
