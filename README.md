@@ -2,13 +2,13 @@
 
 **An open interoperability framework for digital olfaction.**
 
-OpenSmell is an experimental open-source project for representing, exchanging, and eventually rendering digital olfactory information across applications and devices.
+OpenSmell is an experimental open-source project for representing, exchanging, validating, and eventually rendering digital olfactory information across applications and devices.
 
 The goal is not to define how smell must physically be reproduced. Instead, OpenSmell aims to provide a common interoperability layer between odor data, software applications, scientific models, and heterogeneous olfactory rendering technologies.
 
 > [!IMPORTANT]
 > OpenSmell is currently an early-stage experimental project.
-> Version `0.1` is under active development and should not be considered a stable standard.
+> Version `0.1` is a pre-alpha release and should not be considered a stable standard.
 
 ---
 
@@ -32,13 +32,11 @@ OpenSmell explores a simple question:
 
 > **Can digital odor information be represented and exchanged independently from the technology that eventually interprets or renders it?**
 
-The project aims to investigate this interoperability layer.
+The project aims to investigate and implement this interoperability layer.
 
 ---
 
-## Design philosophy
-
-The core principle of OpenSmell is:
+## Core principle
 
 > **OpenSmell must not assume how an odor is physically reproduced.**
 
@@ -80,6 +78,34 @@ OpenSmell focuses primarily on the interoperability layer, not on the physical d
 
 ---
 
+## What OpenSmell 0.1 provides
+
+The current reference implementation includes:
+
+- a JSON-based `.osmell` document format;
+- JSON Schema validation;
+- Python data models;
+- `.osmell` loading and serialization;
+- multiple representations per odor;
+- representation scheme validation;
+- a scheme registry;
+- semantic descriptor representations;
+- chemical SMILES representations;
+- builders for creating OpenSmell objects;
+- forward-compatible handling of unknown schemes;
+- preservation of unknown extension fields;
+- document-level lossless round trips;
+- an experimental OdorNet adapter;
+- optional PubChem chemical identity enrichment;
+- automated tests and CI;
+- an RFC-based design process.
+
+The current implementation deliberately remains small.
+
+OpenSmell 0.1 does **not** attempt to solve physical odor reproduction.
+
+---
+
 ## Representation model
 
 An OpenSmell odor may contain multiple representations of the same conceptual odor.
@@ -87,57 +113,39 @@ An OpenSmell odor may contain multiple representations of the same conceptual od
 For example:
 
 ```text
-                    Coffee
-                       │
-          ┌────────────┼────────────┐
-          ▼            ▼            ▼
-      Semantic     Perceptual    Renderable
-   representation representation representation
+                         Odor
+                          │
+             ┌────────────┼────────────┐
+             ▼            ▼            ▼
+         Semantic     Perceptual    Chemical
+             │            │            │
+             └────────────┼────────────┘
+                          ▼
+                     OpenSmell
 ```
 
-This allows different applications to use the representation they understand.
+Different applications can use the representations they understand.
 
-Potential representation categories include:
-
-### Semantic
-
-Human-readable descriptions of an odor.
-
-Examples:
+OpenSmell 0.1 recognizes the following broad representation type names:
 
 ```text
-coffee
-roasted
-bitter
-woody
-floral
+semantic
+perceptual
+chemical
+mixture
 ```
 
-### Perceptual
+These are broad categories only.
 
-A representation of how an odor is perceived.
+The actual interpretation of a representation is defined by its **scheme**.
 
-For example, a future model could describe an odor using a multidimensional perceptual vector.
-
-### Chemical
-
-Information derived from molecular or analytical measurements.
-
-### Renderable
-
-Information intended to help compatible systems reproduce or approximate an odor.
-
-For example, a future system might describe a mixture of odor primaries.
-
-These categories do **not** require OpenSmell itself to solve odor digitization.
-
-OpenSmell provides a container and interoperability mechanism for representations produced by external systems.
+Unknown representation types and unknown schemes are allowed so that OpenSmell can evolve without requiring every implementation to understand every possible representation.
 
 ---
 
 ## Representation schemes
 
-Every representation identifies a **scheme**.
+Every representation identifies a scheme.
 
 A scheme defines how the representation's `data` field should be interpreted.
 
@@ -171,15 +179,15 @@ Here:
 type
 ```
 
-describes the broad category of information.
+identifies the broad representation family.
 
 ```text
 scheme
 ```
 
-defines the specific rules used to interpret that information.
+defines the specific rules used to interpret the data.
 
-This distinction allows OpenSmell to support representations created by different scientific models, organizations, or technologies.
+This separation allows OpenSmell to transport representations produced by different scientific models, datasets, organizations, and future technologies.
 
 ---
 
@@ -193,9 +201,13 @@ Version:
 0.1
 ```
 
-This is currently the first built-in OpenSmell representation scheme.
+Representation type:
 
-It represents an odor using human-readable semantic descriptors.
+```text
+semantic
+```
+
+This scheme represents an odor using human-readable semantic descriptors.
 
 Example:
 
@@ -229,36 +241,113 @@ This representation describes an odor.
 
 It does **not** specify how a physical device should reproduce it.
 
----
+### `org.opensmell.chemical.smiles`
 
-## Extensibility
+Version:
 
-OpenSmell is designed so that unknown representation schemes can still be transported and preserved.
+```text
+0.1
+```
 
-For example, imagine a future representation:
+Representation type:
+
+```text
+chemical
+```
+
+This scheme associates molecular structure information with an OpenSmell odor using SMILES.
+
+Example:
 
 ```json
 {
-  "type": "perceptual",
+  "type": "chemical",
   "scheme": {
-    "id": "org.example.future-model",
-    "version": "3.2"
+    "id": "org.opensmell.chemical.smiles",
+    "version": "0.1"
   },
   "data": {
-    "vector": [
-      0.18,
-      0.72,
-      0.41
+    "smiles": "O=C1OC2=CC=CC=C2C=C1"
+  }
+}
+```
+
+OpenSmell Core verifies that the SMILES value is a non-empty string.
+
+It does not attempt to prove chemical validity.
+
+A chemical representation also does not imply that the represented molecule alone is sufficient to reproduce the perceived odor.
+
+---
+
+## `.osmell` documents
+
+OpenSmell 0.1 uses UTF-8 JSON.
+
+The recommended file extension is:
+
+```text
+.osmell
+```
+
+Example:
+
+```json
+{
+  "opensmell": "0.1",
+  "odor": {
+    "id": "urn:uuid:550e8400-e29b-41d4-a716-446655440000",
+    "metadata": {
+      "labels": {
+        "en": "Coumarin",
+        "fr": "Coumarine"
+      },
+      "description": "Example odor with chemical and semantic representations."
+    },
+    "representations": [
+      {
+        "type": "chemical",
+        "scheme": {
+          "id": "org.opensmell.chemical.smiles",
+          "version": "0.1"
+        },
+        "data": {
+          "smiles": "O=C1OC2=CC=CC=C2C=C1"
+        }
+      },
+      {
+        "type": "semantic",
+        "scheme": {
+          "id": "org.opensmell.semantic.descriptors",
+          "version": "0.1"
+        },
+        "data": {
+          "descriptors": [
+            {
+              "value": "sweet",
+              "language": "en"
+            },
+            {
+              "value": "vanilla-like",
+              "language": "en"
+            }
+          ]
+        }
+      }
     ]
   }
 }
 ```
 
-An older OpenSmell implementation may not understand this scheme.
+The same odor can therefore carry chemical and semantic information without requiring either representation to be derived from the other.
 
-That should not automatically make the entire OpenSmell document invalid.
+---
 
-The intended behavior is:
+## Extensibility and forward compatibility
+
+OpenSmell is designed so that information unknown to one implementation can still be transported.
+
+Conceptually:
 
 ```text
 Known scheme + valid data
@@ -280,74 +369,38 @@ Unknown scheme
 Preserve opaque data
 ```
 
-This is an important part of OpenSmell's forward-compatibility strategy.
+The Python implementation can preserve unknown extension fields at the following levels:
 
----
-
-## `.osmell` documents
-
-OpenSmell uses JSON for the initial `0.1` format.
-
-A simplified document looks like:
-
-```json
-{
-  "opensmell": "0.1",
-  "odor": {
-    "id": "coffee",
-    "metadata": {
-      "labels": {
-        "en": "Coffee",
-        "fr": "Café"
-      }
-    },
-    "representations": [
-      {
-        "type": "semantic",
-        "scheme": {
-          "id": "org.opensmell.semantic.descriptors",
-          "version": "0.1"
-        },
-        "data": {
-          "descriptors": [
-            {
-              "value": "coffee",
-              "language": "en"
-            }
-          ]
-        }
-      }
-    ]
-  }
-}
+```text
+Document
+├── extra
+└── Odor
+    ├── extra
+    ├── Metadata
+    │   └── extra
+    └── Representation
+        ├── extra
+        └── Scheme
+            └── extra
 ```
 
-The `.osmell` extension is used for OpenSmell documents.
+This allows newer or experimental information to survive a read/write cycle even when the implementation does not understand its meaning.
+
+Official OpenSmell fields always take precedence over extension fields.
 
 ---
 
 ## Python reference implementation
 
-The repository contains an early Python reference implementation.
+OpenSmell currently provides a Python reference implementation.
 
-Supported Python versions:
+Supported versions:
 
 ```text
 Python 3.10+
 ```
 
-The package currently provides:
-
-- `.osmell` document loading;
-- JSON Schema validation;
-- Python data models;
-- representation scheme validation;
-- a scheme registry;
-- preservation of unknown schemes.
-
----
-
-## Installation for development
+### Installation for development
 
 Clone the repository:
 
@@ -364,13 +417,13 @@ python -m venv .venv
 
 Activate it.
 
-### Windows PowerShell
+Windows PowerShell:
 
 ```powershell
 .venv\Scripts\Activate.ps1
 ```
 
-### Linux / macOS
+Linux/macOS:
 
 ```bash
 source .venv/bin/activate
@@ -384,9 +437,9 @@ python -m pip install -e ".[dev]"
 
 ---
 
-## Usage
+## Loading an odor
 
-Load an OpenSmell document:
+The simple API returns the odor contained in an OpenSmell document:
 
 ```python
 import opensmell
@@ -396,19 +449,13 @@ odor = opensmell.load("examples/coffee.osmell")
 print(odor.id)
 ```
 
-Access its metadata:
+Access metadata:
 
 ```python
 print(odor.metadata.labels["en"])
 ```
 
-Output:
-
-```text
-Coffee
-```
-
-Access its representations:
+Access representations:
 
 ```python
 representation = odor.representations[0]
@@ -418,18 +465,79 @@ print(representation.scheme.id)
 print(representation.scheme.version)
 ```
 
-Example output:
+---
 
-```text
-semantic
-org.opensmell.semantic.descriptors
-0.1
-```
+## Lossless document loading
 
-Access representation-specific data:
+Applications such as editors, converters, proxies, or interoperability tools may need to preserve information they do not understand.
+
+For those applications, OpenSmell provides:
 
 ```python
-print(representation.data["descriptors"])
+import opensmell
+
+document = opensmell.load_document(
+    "examples/coffee.osmell"
+)
+
+opensmell.dump(
+    document,
+    "coffee-copy.osmell"
+)
+```
+
+`load_document()` returns the complete OpenSmell document model rather than only its odor.
+
+This allows document-level extension fields to survive the round trip.
+
+The original API remains available:
+
+```python
+odor = opensmell.load("examples/coffee.osmell")
+```
+
+so existing code does not need to migrate to `Document` unless document-level preservation is required.
+
+---
+
+## Creating OpenSmell objects
+
+OpenSmell includes builders for common representations.
+
+Example:
+
+```python
+from opensmell import builders
+
+semantic = builders.semantic_descriptors(
+    "coffee",
+    "roasted",
+    language="en",
+)
+
+chemical = builders.chemical_smiles(
+    "CCO"
+)
+
+odor = builders.odor(
+    representations=[
+        semantic,
+        chemical,
+    ]
+)
+```
+
+An identifier can be generated automatically for newly created odor objects.
+
+The resulting odor can be serialized:
+
+```python
+import opensmell
+
+opensmell.dump(
+    odor,
+    "example.osmell"
+)
 ```
 
 ---
@@ -440,13 +548,20 @@ OpenSmell currently performs two levels of validation.
 
 ### Core validation
 
-The complete document is validated against the OpenSmell JSON Schema.
+The complete document is validated against the OpenSmell 0.1 JSON Schema.
 
-This checks the structural validity of the `.osmell` document.
+This verifies structural requirements such as:
+
+- OpenSmell version;
+- odor identifier;
+- representations;
+- scheme identifiers and versions;
+- metadata structure;
+- required JSON types.
 
 ### Scheme validation
 
-If OpenSmell recognizes a representation scheme, its `data` field is validated using the corresponding scheme validator.
+If OpenSmell recognizes a representation scheme, its data is validated using the corresponding scheme validator.
 
 Conceptually:
 
@@ -459,13 +574,17 @@ JSON Schema validation
    ▼
 Representation schemes
    │
-   ├── known ──────► validate data
+   ├── known ──────► validate scheme data
    │
-   └── unknown ────► preserve data
+   └── unknown ────► preserve opaque data
    │
    ▼
 Python objects
 ```
+
+For registered schemes, OpenSmell also verifies that the representation type matches the type expected by the scheme.
+
+Unknown schemes are not rejected merely because the implementation does not recognize them.
 
 ---
 
@@ -479,11 +598,7 @@ It maps:
 scheme ID + version
 ```
 
-to:
-
-```text
-validator
-```
+to scheme-specific validation behavior.
 
 For example:
 
@@ -499,26 +614,172 @@ org.opensmell.semantic.descriptors
  semantic descriptor validator
 ```
 
-This avoids hard-coding every representation type into the core parser and allows the architecture to evolve as new representations are introduced.
+This avoids hard-coding every future representation into the core parser.
 
 ---
 
-## Running tests
+## OdorNet adapter
 
-Install the development dependencies and run:
+OpenSmell includes an experimental adapter for importing records from OdorNet.
 
-```bash
-pytest
+OdorNet provides molecular structures together with olfactory category labels.
+
+The adapter can convert an OdorNet record into OpenSmell representations.
+
+Conceptually:
+
+```text
+OdorNet record
+     │
+     ├── SMILES
+     │      │
+     │      ▼
+     │  chemical representation
+     │
+     └── odor labels
+            │
+            ▼
+       semantic representation
+            │
+            ▼
+        OpenSmell Odor
 ```
 
-The test suite currently verifies core parsing and validation behavior, including representation scheme handling.
+The adapter does not make OdorNet part of the OpenSmell Core specification.
 
-GitHub Actions automatically runs the test suite on:
+OdorNet is an external source of olfactory information.
 
-- Python 3.10
-- Python 3.11
-- Python 3.12
-- Python 3.13
+The adapter is located at:
+
+```text
+src/opensmell/adapters/odornet.py
+```
+
+---
+
+## Provenance experiment
+
+The OdorNet adapter currently experiments with representation-level provenance.
+
+Example:
+
+```json
+{
+  "provenance": {
+    "source": "OdorNet"
+  }
+}
+```
+
+This information is preserved through the OpenSmell extension mechanism.
+
+Provenance is currently experimental and is being discussed through the RFC process.
+
+It is **not yet a normative OpenSmell 0.1 Core field**.
+
+---
+
+## PubChem enrichment
+
+OpenSmell also contains an optional PubChem enrichment utility.
+
+It can resolve a SMILES structure to chemical identity information such as:
+
+```text
+PubChem title
+IUPAC name
+canonical/connectivity SMILES
+InChIKey
+```
+
+Example conceptual workflow:
+
+```text
+SMILES
+  │
+  ▼
+PubChem
+  │
+  ├── Title
+  ├── IUPAC name
+  ├── canonical SMILES
+  └── InChIKey
+```
+
+PubChem enrichment is intentionally separate from OpenSmell Core.
+
+OpenSmell does not require PubChem, network access, or any particular external chemical database to parse an `.osmell` document.
+
+---
+
+## OdorNet dataset enrichment tool
+
+The repository contains a development tool:
+
+```text
+tools/enrich_odornet.py
+```
+
+It can enrich a local OdorNet dataset with PubChem chemical identity information.
+
+The tool supports:
+
+- persistent caching;
+- interruption and resume;
+- duplicate SMILES avoidance;
+- request throttling;
+- retries for temporary network/server failures;
+- periodic checkpoints;
+- enriched CSV generation.
+
+Generated datasets and PubChem caches are local development artifacts and are excluded from Git.
+
+The tool is not part of the OpenSmell Core protocol.
+
+---
+
+## Architecture
+
+The current architecture can be summarized as:
+
+```text
+External data / research
+│
+├── OdorNet
+├── OpenPOM
+├── scientific datasets
+├── chemical databases
+└── future models
+        │
+        ▼
+┌─────────────────────────────────┐
+│            OpenSmell            │
+│                                 │
+│  .osmell representation        │
+│  JSON Schema                   │
+│  Python models                 │
+│  Parser / serializer           │
+│  Scheme Registry               │
+│  Validation                    │
+│  Builders                      │
+│  Adapters                      │
+│  Optional enrichment           │
+└─────────────────────────────────┘
+        │
+        ├───────────────┐
+        ▼               ▼
+ Applications       Mapper
+                        │
+                        ▼
+                 Device adapter
+                        │
+               ┌────────┼────────┐
+               ▼        ▼        ▼
+            Existing   Future   Research
+            devices    devices  systems
+```
+
+The lower rendering/device layers are exploratory and are not defined by OpenSmell 0.1 Core.
 
 ---
 
@@ -532,38 +793,94 @@ OpenSmell/
 │
 ├── examples/
 │   ├── coffee.osmell
-│   └── invalid.osmell
+│   ├── coumarin.osmell
+│   ├── invalid.osmell
+│   ├── vanilla.osmell
+│   └── odornet_pipeline.py
 │
 ├── rfcs/
+│   ├── RFC-0001.md
+│   ├── RFC-0002.md
+│   └── RFC-0003.md
 │
 ├── schema/
 │   └── opensmell-0.1.schema.json
 │
 ├── spec/
+│   └── opensmell-0.1.md
 │
 ├── src/
 │   └── opensmell/
+│       ├── adapters/
+│       │   └── odornet.py
+│       │
+│       ├── enrichment/
+│       │   └── pubchem.py
+│       │
 │       ├── schemas/
 │       │   └── opensmell-0.1.schema.json
 │       │
 │       ├── schemes/
-│       │   ├── __init__.py
 │       │   ├── registry.py
-│       │   └── semantic_descriptors.py
+│       │   ├── semantic_descriptors.py
+│       │   └── chemical_smiles.py
 │       │
 │       ├── __init__.py
+│       ├── builders.py
 │       ├── exceptions.py
 │       ├── models.py
 │       ├── parser.py
+│       ├── serializer.py
 │       └── validation.py
 │
 ├── tests/
-│   └── test_parser.py
+│   ├── test_builders.py
+│   ├── test_conformance.py
+│   ├── test_odornet_adapter.py
+│   ├── test_parser.py
+│   ├── test_pubchem_enrichment.py
+│   └── test_schema.py
+│
+├── tools/
+│   └── enrich_odornet.py
 │
 ├── .gitignore
+├── LICENSE
 ├── pyproject.toml
 └── README.md
 ```
+
+---
+
+## Running tests
+
+Install development dependencies and run:
+
+```bash
+python -m pytest
+```
+
+The current test suite contains **60 tests** covering core behavior, including:
+
+- parsing;
+- serialization;
+- builders;
+- JSON Schema consistency;
+- conformance;
+- known and unknown schemes;
+- scheme/type validation;
+- extension preservation;
+- document-level round trips;
+- OdorNet adapter behavior;
+- PubChem enrichment behavior;
+- experimental provenance preservation.
+
+GitHub Actions runs the tests against:
+
+- Python 3.10
+- Python 3.11
+- Python 3.12
+- Python 3.13
 
 ---
 
@@ -595,9 +912,11 @@ Future OpenSmell representations could potentially transport outputs from models
 
 ### OdorNet
 
-OdorNet provides standardized molecular olfactory labels and datasets.
+OdorNet provides molecular olfactory labels and datasets.
 
-Such datasets are potential sources of olfactory information rather than physical scent-rendering instructions.
+OpenSmell currently includes an experimental adapter for converting OdorNet records into OpenSmell representations.
+
+OdorNet remains an external data source rather than part of the OpenSmell specification.
 
 ### D2Smell
 
@@ -613,85 +932,72 @@ OpenSmell's objective is therefore **interoperability**, not claiming invention 
 
 ---
 
-## Potential architecture
+## RFCs
 
-The long-term architecture may evolve toward:
+Significant architectural decisions are documented and explored through RFCs.
+
+Current RFCs:
 
 ```text
-Odor datasets
-     │
-     ├── OdorNet
-     │
-Scientific / ML models
-     │
-     ├── OpenPOM
-     │
-     └── future models
-     │
-     ▼
-Digital odor representation
-     │
-     ▼
-┌──────────────────────────────┐
-│          OpenSmell           │
-│                              │
-│  Representation             │
-│  Specification              │
-│  Python SDK                 │
-│  Validation                 │
-│  Scheme Registry            │
-│  Adapters                   │
-└──────────────────────────────┘
-     │
-     ├───────────────┐
-     ▼               ▼
-Applications     Device mapper
-                     │
-                     ▼
-                Device adapter
-                     │
-             ┌───────┼────────┐
-             ▼       ▼        ▼
-          Scentree  MPEG-V   Future
-                             devices
+RFC-0001  OpenSmell Vision and Scope
+RFC-0002  Odor Representation Model
+RFC-0003  Representation Provenance
 ```
 
-This architecture is exploratory and may change substantially as the specification develops.
+RFCs allow experimental concepts to be discussed without prematurely making them part of the OpenSmell Core specification.
+
+In particular, representation provenance remains experimental and does not modify OpenSmell 0.1.
 
 ---
 
 ## Roadmap
 
-### OpenSmell 0.1
+### OpenSmell 0.1 foundation
 
-Current work focuses on the foundations:
+Completed:
 
 - [x] Initial repository structure
-- [x] Initial `.osmell` JSON representation
+- [x] `.osmell` JSON representation
 - [x] JSON Schema validation
 - [x] Python data models
 - [x] `.osmell` parser
+- [x] `.osmell` serializer
 - [x] Python packaging
 - [x] Automated tests
 - [x] GitHub Actions CI
 - [x] Representation scheme architecture
 - [x] Scheme Registry
 - [x] Semantic descriptor scheme
-- [ ] Serialization / `.osmell` writer
-- [ ] Public Python creation API
-- [ ] Additional representation schemes
-- [ ] Scheme-specific test suite
-- [ ] Specification documentation
-- [ ] RFC process
-- [ ] CLI tools
-- [ ] Virtual olfactory device / simulator
-- [ ] Device adapter interface
-- [ ] MPEG-V interoperability investigation
-- [ ] Experimental hardware adapter
+- [x] Chemical SMILES scheme
+- [x] Public Python builders
+- [x] Scheme-specific validation
+- [x] Unknown scheme support
+- [x] Extension preservation
+- [x] Lossless document model
+- [x] Initial specification documentation
+- [x] RFC process
+- [x] OdorNet adapter experiment
+- [x] PubChem enrichment experiment
+
+### Next investigations
+
+Potential next work includes:
+
+- [ ] Analyze the enriched OdorNet dataset
+- [ ] Refine provenance through RFC-0003
+- [ ] Define the OpenSmell 0.2 roadmap
+- [ ] Investigate perceptual representation schemes
+- [ ] Investigate mixture/renderable representations
+- [ ] Investigate MPEG-V interoperability
+- [ ] Design a device abstraction layer
+- [ ] Build a virtual olfactory device/simulator
+- [ ] Explore experimental hardware adapters
+- [ ] Add CLI tooling
+- [ ] Publish project documentation through opensmell.org
 
 The roadmap is intentionally incremental.
 
-The immediate goal is not physical odor reproduction. It is establishing a technically sound and extensible representation and interoperability architecture.
+New concepts should demonstrate a real interoperability need before being added to OpenSmell Core.
 
 ---
 
@@ -706,19 +1012,48 @@ OpenSmell is currently **not**:
 - a finished networking protocol;
 - a replacement for MPEG-V;
 - a standardized set of universal odor primaries;
+- a universal database of odor molecules;
 - a claim that arbitrary smells can currently be perfectly digitized and reproduced.
 
-OpenSmell is an experimental interoperability framework intended to connect technologies that address those problems.
+OpenSmell is an experimental interoperability framework intended to connect technologies that address parts of those problems.
 
 ---
 
 ## Current status
 
-OpenSmell is currently in **early experimental development**.
+OpenSmell is currently in **pre-alpha experimental development**.
 
-The `0.1` specification and APIs may change without backward compatibility while the fundamental architecture is being explored.
+The first public development release is:
+
+```text
+v0.1.0
+```
+
+The format and APIs may still change before a stable `1.0` specification.
 
 Do not rely on the current format for production systems.
+
+The current priority is to validate the architecture through real datasets, models, interoperability experiments, and eventually device integrations.
+
+---
+
+## Project namespace
+
+The project controls:
+
+```text
+opensmell.org
+```
+
+The OpenSmell 0.1 JSON Schema therefore uses the stable identifier:
+
+```text
+https://opensmell.org/schema/opensmell-0.1.schema.json
+```
+
+The domain is intended to provide a stable namespace for future specifications, schemas, RFCs, and documentation.
+
+The project website and documentation infrastructure are not yet deployed.
 
 ---
 
@@ -740,26 +1075,6 @@ Areas of particular interest include:
 - VR/AR olfactory interfaces;
 - serialization and protocol design.
 
-As the project matures, formal contribution guidelines and an RFC process will be introduced.
-
----
-
-## RFCs
-
-Significant architectural decisions are intended to be documented through RFCs.
-
-Potential RFC topics include:
-
-```text
-RFC-0001  OpenSmell vision and scope
-RFC-0002  Core odor representation model
-RFC-0003  Representation scheme architecture
-RFC-0004  .osmell serialization format
-RFC-0005  Device abstraction
-```
-
-The RFC process will allow design decisions to remain documented and open to technical discussion.
-
 ---
 
 ## License
@@ -776,8 +1091,16 @@ OpenSmell is developed as an independent open-source experiment into interoperab
 
 Repository:
 
-`YAAASSS/OpenSmell`
+```text
+YAAASSS/OpenSmell
+```
+
+Project namespace:
+
+```text
+opensmell.org
+```
 
 ---
 
-**OpenSmell — exploring an open interoperability layer for digital olfaction.**
+**OpenSmell — an open interoperability layer for digital olfaction.**
