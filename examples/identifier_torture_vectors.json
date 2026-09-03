@@ -1,0 +1,163 @@
+[
+  {
+    "name": "ASCII",
+    "dataset": "torture",
+    "resource_type": "target",
+    "source_identity": "coffee",
+    "canonical": "{\"dataset\":\"torture\",\"resource_type\":\"target\",\"source_identity\":\"coffee\"}",
+    "utf8_hex": "7b2264617461736574223a22746f7274757265222c227265736f757263655f74797065223a22746172676574222c22736f757263655f6964656e74697479223a22636f66666565227d",
+    "uuid": "ce2f5412-5d4c-5f1d-a5f7-b7a1317fb9fc"
+  },
+  {
+    "name": "Latin NFC",
+    "dataset": "torture",
+    "resource_type": "target",
+    "source_identity": "café",
+    "canonical": "{\"dataset\":\"torture\",\"resource_type\":\"target\",\"source_identity\":\"café\"}",
+    "utf8_hex": "7b2264617461736574223a22746f7274757265222c227265736f757263655f74797065223a22746172676574222c22736f757263655f6964656e74697479223a22636166c3a9227d",
+    "uuid": "0c8fc7f4-bfa0-5570-b340-7a496feed9a1"
+  },
+  {
+    "name": "Latin decomposed NFD-like",
+    "dataset": "torture",
+    "resource_type": "target",
+    "source_identity": "café",
+    "canonical": "{\"dataset\":\"torture\",\"resource_type\":\"target\",\"source_identity\":\"café\"}",
+    "utf8_hex": "7b2264617461736574223a22746f7274757265222c227265736f757263655f74797065223a22746172676574222c22736f757263655f6964656e74697479223a2263616665cc81227d",
+    "uuid": "7f974854-499e-5baf-942a-485ef8f8a408"
+  },
+  {
+    "name": "CJK",
+    "dataset": "torture",
+    "resource_type": "target",
+    "source_identity": "咖啡",
+    "canonical": "{\"dataset\":\"torture\",\"resource_type\":\"target\",\"source_identity\":\"咖啡\"}",
+    "utf8_hex": "7b2264617461736574223a22746f7274757265222c227265736f757263655f74797065223a22746172676574222c22736f757263655f6964656e74697479223a22e59296e595a1227d",
+    "uuid": "8e556fd8-cb53-5cce-b3f1-c79a04a02759"
+  },
+  {
+    "name": "Emoji",
+    "dataset": "torture",
+    "resource_type": "target",
+    "source_identity": "coffee ☕",
+    "canonical": "{\"dataset\":\"torture\",\"resource_type\":\"target\",\"source_identity\":\"coffee ☕\"}",
+    "utf8_hex": "7b2264617461736574223a22746f7274757265222c227265736f757263655f74797065223a22746172676574222c22736f757263655f6964656e74697479223a22636f6666656520e29895227d",
+    "uuid": "f7a6cbdc-9419-5a3c-bd60-54652d9b3707"
+  },
+  {
+    "name": "Quote",
+    "dataset": "torture",
+    "resource_type": "target",
+    "source_identity": "coffee\"bean",
+    "canonical": "{\"dataset\":\"torture\",\"resource_type\":\"target\",\"source_identity\":\"coffee\\\"bean\"}",
+    "utf8_hex": "7b2264617461736574223a22746f7274757265222c227265736f757263655f74797065223a22746172676574222c22736f757263655f6964656e74697479223a22636f666665655c226265616e227d",
+    "uuid": "fcc3a9a5-25e1-5443-8c67-9cb00b810569"
+  },
+  {
+    "name": "Backslash",
+    "dataset": "torture",
+    "resource_type": "target",
+    "source_identity": "coffee\\bean",
+    "canonical": "{\"dataset\":\"torture\",\"resource_type\":\"target\",\"source_identity\":\"coffee\\\\bean\"}",
+    "utf8_hex": "7b2264617461736574223a22746f7274757265222c227265736f757263655f74797065223a22746172676574222c22736f757263655f6964656e74697479223a22636f666665655c5c6265616e227d",
+    "uuid": "326d97ec-b6e5-5336-9ae6-f0e4ad759863"
+  },
+  {
+    "name": "Newline",
+    "dataset": "torture",
+    "resource_type": "target",
+    "source_identity": "coffee\nbean",
+    "canonical": "{\"dataset\":\"torture\",\"resource_type\":\"target\",\"source_identity\":\"coffee\\nbean\"}",
+    "utf8_hex": "7b2264617461736574223a22746f7274757265222c227265736f757263655f74797065223a22746172676574222c22736f757263655f6964656e74697479223a22636f666665655c6e6265616e227d",
+    "uuid": "c21ae6bb-130b-5281-a15e-2868cdfdb7e8"
+  },
+  {
+    "name": "Tab",
+    "dataset": "torture",
+    "resource_type": "target",
+    "source_identity": "coffee\tbean",
+    "canonical": "{\"dataset\":\"torture\",\"resource_type\":\"target\",\"source_identity\":\"coffee\\tbean\"}",
+    "utf8_hex": "7b2264617461736574223a22746f7274757265222c227265736f757263655f74797065223a22746172676574222c22736f757263655f6964656e74697479223a22636f666665655c746265616e227d",
+    "uuid": "693b0aa3-13e8-56f3-9528-9a66f7cfeb74"
+  },
+  {
+    "name": "Carriage return",
+    "dataset": "torture",
+    "resource_type": "target",
+    "source_identity": "coffee\rbean",
+    "canonical": "{\"dataset\":\"torture\",\"resource_type\":\"target\",\"source_identity\":\"coffee\\rbean\"}",
+    "utf8_hex": "7b2264617461736574223a22746f7274757265222c227265736f757263655f74797065223a22746172676574222c22736f757263655f6964656e74697479223a22636f666665655c726265616e227d",
+    "uuid": "036b0d98-0b4f-56b3-9375-e3e94517e2a1"
+  },
+  {
+    "name": "Backspace",
+    "dataset": "torture",
+    "resource_type": "target",
+    "source_identity": "coffee\bbean",
+    "canonical": "{\"dataset\":\"torture\",\"resource_type\":\"target\",\"source_identity\":\"coffee\\bbean\"}",
+    "utf8_hex": "7b2264617461736574223a22746f7274757265222c227265736f757263655f74797065223a22746172676574222c22736f757263655f6964656e74697479223a22636f666665655c626265616e227d",
+    "uuid": "d163e7f4-1d4e-57ef-8d9d-4063ebbea14f"
+  },
+  {
+    "name": "Form feed",
+    "dataset": "torture",
+    "resource_type": "target",
+    "source_identity": "coffee\fbean",
+    "canonical": "{\"dataset\":\"torture\",\"resource_type\":\"target\",\"source_identity\":\"coffee\\fbean\"}",
+    "utf8_hex": "7b2264617461736574223a22746f7274757265222c227265736f757263655f74797065223a22746172676574222c22736f757263655f6964656e74697479223a22636f666665655c666265616e227d",
+    "uuid": "6e044f17-d83e-5135-8dd0-2fe2bdd7642f"
+  },
+  {
+    "name": "Control U+0001",
+    "dataset": "torture",
+    "resource_type": "target",
+    "source_identity": "coffee\u0001bean",
+    "canonical": "{\"dataset\":\"torture\",\"resource_type\":\"target\",\"source_identity\":\"coffee\\u0001bean\"}",
+    "utf8_hex": "7b2264617461736574223a22746f7274757265222c227265736f757263655f74797065223a22746172676574222c22736f757263655f6964656e74697479223a22636f666665655c75303030316265616e227d",
+    "uuid": "1d266eb1-8387-586f-a853-e958606506ae"
+  },
+  {
+    "name": "Line separator U+2028",
+    "dataset": "torture",
+    "resource_type": "target",
+    "source_identity": "coffee bean",
+    "canonical": "{\"dataset\":\"torture\",\"resource_type\":\"target\",\"source_identity\":\"coffee bean\"}",
+    "utf8_hex": "7b2264617461736574223a22746f7274757265222c227265736f757263655f74797065223a22746172676574222c22736f757263655f6964656e74697479223a22636f66666565e280a86265616e227d",
+    "uuid": "1990eb91-6761-5c8d-95ec-aa9fb3499710"
+  },
+  {
+    "name": "Paragraph separator U+2029",
+    "dataset": "torture",
+    "resource_type": "target",
+    "source_identity": "coffee bean",
+    "canonical": "{\"dataset\":\"torture\",\"resource_type\":\"target\",\"source_identity\":\"coffee bean\"}",
+    "utf8_hex": "7b2264617461736574223a22746f7274757265222c227265736f757263655f74797065223a22746172676574222c22736f757263655f6964656e74697479223a22636f66666565e280a96265616e227d",
+    "uuid": "cea2eeef-6a8e-55be-b2d9-b2cea992ce0d"
+  },
+  {
+    "name": "Composite special characters",
+    "dataset": "torture",
+    "resource_type": "observation",
+    "source_identity": {
+      "stimulus": "coffee|\"\\bean",
+      "target": "subject\n001"
+    },
+    "canonical": "{\"dataset\":\"torture\",\"resource_type\":\"observation\",\"source_identity\":{\"stimulus\":\"coffee|\\\"\\\\bean\",\"target\":\"subject\\n001\"}}",
+    "utf8_hex": "7b2264617461736574223a22746f7274757265222c227265736f757263655f74797065223a226f62736572766174696f6e222c22736f757263655f6964656e74697479223a7b227374696d756c7573223a22636f666665657c5c225c5c6265616e222c22746172676574223a227375626a6563745c6e303031227d7d",
+    "uuid": "ac70f456-41e5-56d6-8cf4-1f88abb673d7"
+  },
+  {
+    "name": "Composite ASCII key ordering",
+    "dataset": "torture",
+    "resource_type": "target",
+    "source_identity": {
+      "z_field": "ascii",
+      "a_field": "first",
+      "unicode_latin": "café",
+      "unicode_cjk": "咖啡"
+    },
+    "canonical": "{\"dataset\":\"torture\",\"resource_type\":\"target\",\"source_identity\":{\"a_field\":\"first\",\"unicode_cjk\":\"咖啡\",\"unicode_latin\":\"café\",\"z_field\":\"ascii\"}}",
+    "utf8_hex": "7b2264617461736574223a22746f7274757265222c227265736f757263655f74797065223a22746172676574222c22736f757263655f6964656e74697479223a7b22615f6669656c64223a226669727374222c22756e69636f64655f636a6b223a22e59296e595a1222c22756e69636f64655f6c6174696e223a22636166c3a9222c227a5f6669656c64223a226173636969227d7d",
+    "uuid": "4e249520-cae7-50ee-bc4b-51e5adb610dc"
+  }
+]

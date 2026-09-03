@@ -49,6 +49,7 @@ coverage.xml
 *.py.cover
 .hypothesis/
 .pytest_cache/
+.pytest_tmp/
 cover/
 
 # Translations
@@ -104,7 +105,7 @@ ipython_config.py
 #   Similar to Pipfile.lock, it is generally recommended to include poetry.lock in version control.
 #   This is especially recommended for binary packages to ensure reproducibility, and is more
 #   commonly ignored for libraries.
-#   https://python-poetry.org/docs/basic-usage/#commit-your-poetrylock-file-to-version-control
+#   https://python-poetry.org/docs/basic-usage/#commit-your-poetrylock-file-into-version-control
 # poetry.lock
 # poetry.toml
 
@@ -184,7 +185,7 @@ cython_debug/
 # PyCharm
 #   JetBrains specific template is maintained in a separate JetBrains.gitignore that can
 #   be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
-#   and can be added to the global gitignore or merged into this file.  For a more nuclear
+#   and can be added to the global gitignore or merged into this file. For a more nuclear
 #   option (not recommended) you can uncomment the following to ignore the entire idea folder.
 # .idea/
 
@@ -195,15 +196,16 @@ cython_debug/
 .abstra/
 
 # Visual Studio Code
-#   Visual Studio Code specific template is maintained in a separate VisualStudioCode.gitignore 
-#   that can be found at https://github.com/github/gitignore/blob/main/Global/VisualStudioCode.gitignore
-#   and can be added to the global gitignore or merged into this file. However, if you prefer, 
-#   you could uncomment the following to ignore the entire vscode folder
+#   Visual Studio Code specific template is maintained in a separate
+#   VisualStudioCode.gitignore that can be found at
+#   https://github.com/github/gitignore/blob/main/Global/VisualStudioCode.gitignore
+#   and can be added to the global gitignore or merged into this file.
 # .vscode/
+
 # Temporary file for partial code execution
 tempCodeRunnerFile.py
 
-# Ruff stuff:
+# Ruff stuff
 .ruff_cache/
 
 # PyPI configuration file
@@ -217,7 +219,11 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
-# External datasets
+# ---------------------------------------------------------------------------
+# OpenSmell local / external data
+# ---------------------------------------------------------------------------
+
+# External OdorNet dataset
 examples/odornet.csv
 
 # Generated OpenSmell examples
@@ -230,3 +236,14 @@ examples/odornet_enriched.csv
 
 # External Keller/Vosshall olfactory dataset
 examples/keller_vosshall.xlsx
+
+# External Burton 2022 experimental dataset
+# Contains source CSV, MAT, raw data and dataset-specific files.
+# The complete external dataset must not be redistributed from this repository.
+examples/burton_2022/
+
+# Legacy/local external experimental dataset files
+examples/molecules.csv
+examples/stimuli.csv
+examples/subjects.csv
+examples/behavior.csv
