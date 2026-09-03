@@ -27,6 +27,7 @@ from typing import Any
 
 import pandas as pd
 
+from opensmell.experimental.graph import ResourceGraph
 from opensmell.experimental.identifiers import (
     deterministic_resource_id_from_source,
 )
@@ -1147,6 +1148,145 @@ def print_report(
         "The experimental OpenSmell versioned Result architecture represented "
         "the Keller/Vosshall psychophysical graph without a universal "
         "Measurement model."
+    )
+
+
+def resolve_dataset_columns(
+    dataframe: pd.DataFrame,
+) -> tuple[
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    dict[str, str],
+]:
+    """Resolve all Keller/Vosshall source columns used by the graph builder."""
+
+    subject_column = require_column(
+        dataframe,
+        ("Subject # (this study)",),
+        dataset_name="Keller/Vosshall",
+    )
+    cid_column = require_column(
+        dataframe,
+        ("CID",),
+        dataset_name="Keller/Vosshall",
+    )
+    dilution_column = require_column(
+        dataframe,
+        ("Odor dilution",),
+        dataset_name="Keller/Vosshall",
+    )
+    detection_column = require_column(
+        dataframe,
+        ("CAN OR CAN'T SMELL",),
+        dataset_name="Keller/Vosshall",
+    )
+    recognition_column = require_column(
+        dataframe,
+        ("KNOW OR DON'T KNOW THE SMELL",),
+        dataset_name="Keller/Vosshall",
+    )
+    intensity_column = require_column(
+        dataframe,
+        ("HOW STRONG IS THE SMELL?",),
+        dataset_name="Keller/Vosshall",
+    )
+    pleasantness_column = require_column(
+        dataframe,
+        ("HOW PLEASANT IS THE SMELL?",),
+        dataset_name="Keller/Vosshall",
+    )
+    familiarity_column = require_column(
+        dataframe,
+        ("HOW FAMILIAR IS THE SMELL?",),
+        dataset_name="Keller/Vosshall",
+    )
+    descriptor_columns = require_descriptor_columns(dataframe)
+
+    return (
+        subject_column,
+        cid_column,
+        dilution_column,
+        detection_column,
+        recognition_column,
+        intensity_column,
+        pleasantness_column,
+        familiarity_column,
+        descriptor_columns,
+    )
+
+
+def build_resource_graph() -> ResourceGraph:
+    """Build the materialized experimental Keller/Vosshall ResourceGraph.
+
+    The 480 deterministic molecule identities are intentionally not
+    materialized because the current experimental graph has no normative
+    molecule/Chemical resource class. Stimulus.source references to those
+    molecule IDs therefore remain unresolved.
+    """
+
+    dataframe = load_dataset()
+
+    (
+        subject_column,
+        cid_column,
+        dilution_column,
+        detection_column,
+        recognition_column,
+        intensity_column,
+        pleasantness_column,
+        familiarity_column,
+        descriptor_columns,
+    ) = resolve_dataset_columns(dataframe)
+
+    molecule_ids = build_molecule_ids(
+        dataframe,
+        cid_column,
+    )
+    stimuli = build_stimuli(
+        dataframe,
+        cid_column=cid_column,
+        dilution_column=dilution_column,
+        molecule_ids=molecule_ids,
+    )
+    targets = build_targets(
+        dataframe,
+        subject_column=subject_column,
+    )
+    observations = build_observations(
+        dataframe,
+        subject_column=subject_column,
+        cid_column=cid_column,
+        dilution_column=dilution_column,
+        detection_column=detection_column,
+        recognition_column=recognition_column,
+        intensity_column=intensity_column,
+        pleasantness_column=pleasantness_column,
+        familiarity_column=familiarity_column,
+        descriptor_columns=descriptor_columns,
+        stimuli=stimuli,
+        targets=targets,
+    )
+
+    validate_graph(
+        dataframe=dataframe,
+        molecule_ids=molecule_ids,
+        stimuli=stimuli,
+        targets=targets,
+        observations=observations,
+    )
+
+    return ResourceGraph(
+        resources=[
+            *stimuli.values(),
+            *targets.values(),
+            *observations,
+        ]
     )
 
 

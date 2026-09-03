@@ -40,6 +40,7 @@ from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
 
+from opensmell.experimental.graph import ResourceGraph
 from opensmell.experimental.identifiers import (
     deterministic_resource_id_from_source,
 )
@@ -1014,6 +1015,37 @@ def print_report(
     print(
         "Source-native data and OpenSmell-generated identities remained "
         "explicitly distinguishable."
+    )
+
+
+def build_resource_graph() -> ResourceGraph:
+    """Build the materialized experimental UCI ResourceGraph.
+
+    The six deterministic analyte identities are intentionally not
+    materialized as resources because this experiment does not define a
+    normative Chemical resource type. Stimulus.source references to those
+    identities therefore remain unresolved in the ResourceGraph.
+    """
+
+    measurements = load_measurements()
+    analyte_ids = build_analyte_identities()
+    stimuli = build_stimuli(
+        measurements,
+        analyte_ids,
+    )
+    target = build_sensor_array_target()
+    observations = build_observations(
+        measurements,
+        stimuli,
+        target,
+    )
+
+    return ResourceGraph(
+        resources=[
+            *stimuli.values(),
+            target,
+            *observations,
+        ]
     )
 
 

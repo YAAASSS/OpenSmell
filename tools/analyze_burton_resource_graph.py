@@ -28,6 +28,7 @@ from typing import Any
 
 import pandas as pd
 
+from opensmell.experimental.graph import ResourceGraph
 from opensmell.experimental.identifiers import (
     deterministic_resource_id_from_source,
 )
@@ -951,6 +952,99 @@ def print_report(
         "The experimental OpenSmell versioned Result architecture "
         "represented all Burton physiological observations without "
         "a universal Measurement model."
+    )
+
+
+def build_resource_graph() -> ResourceGraph:
+    """Build the materialized experimental Burton 2022 ResourceGraph.
+
+    The 186 deterministic molecule identities are intentionally not
+    materialized because the current experimental graph has no normative
+    molecule/Chemical resource class. Stimulus.source references to those
+    molecule IDs therefore remain unresolved.
+
+    The four target IDs referenced by behavior.csv but absent from
+    subjects.csv are materialized as ObservationTarget resources, exactly as
+    the existing Burton analysis does. Their source-level unresolved status
+    is therefore distinct from ResourceGraph reference resolution.
+    """
+
+    (
+        molecules,
+        stimuli_df,
+        subjects_df,
+        behavior_df,
+    ) = load_burton_data()
+
+    target_column = require_column(
+        behavior_df,
+        (
+            "Subject",
+            "subject",
+            "Target",
+            "target",
+        ),
+        dataset_name="behavior.csv",
+    )
+
+    delta_f_column = require_column(
+        behavior_df,
+        (
+            "DeltaF",
+            "delta_f",
+            "Delta F",
+        ),
+        dataset_name="behavior.csv",
+    )
+
+    molecule_ids = build_molecule_ids(
+        molecules
+    )
+
+    stimuli = build_stimuli(
+        stimuli_df,
+        molecule_ids,
+    )
+
+    (
+        targets,
+        unresolved_target_ids,
+        unreferenced_target_ids,
+    ) = build_targets(
+        subjects_df,
+        behavior_df,
+        target_column,
+    )
+
+    observations = build_observations(
+        behavior_df,
+        stimuli,
+        targets,
+        stimulus_column=None,
+        target_column=target_column,
+        delta_f_column=delta_f_column,
+    )
+
+    validate_graph(
+        molecules=molecules,
+        stimuli_df=stimuli_df,
+        behavior_df=behavior_df,
+        molecule_ids=molecule_ids,
+        stimuli=stimuli,
+        targets=targets,
+        observations=observations,
+        unresolved_target_ids=unresolved_target_ids,
+        unreferenced_target_ids=unreferenced_target_ids,
+        target_column=target_column,
+        delta_f_column=delta_f_column,
+    )
+
+    return ResourceGraph(
+        resources=[
+            *stimuli.values(),
+            *targets.values(),
+            *observations,
+        ]
     )
 
 
