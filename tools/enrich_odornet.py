@@ -8,9 +8,11 @@ The script is designed for long-running enrichment jobs:
 - retries temporary failures;
 - respects PubChem request-rate recommendations;
 - can safely resume after interruption;
-- periodically writes the enriched CSV.
+- periodically writes the enriched CSV;
+- can retry previously cached failures.
 """
 
+import argparse
 import csv
 import json
 import time
@@ -40,6 +42,37 @@ TIMEOUT = 20
 MAX_RETRIES = 4
 
 SAVE_EVERY = 25
+
+
+def parse_args() -> argparse.Namespace:
+    """Parse command-line arguments."""
+
+    parser = argparse.ArgumentParser(
+        description=(
+            "Enrich the OdorNet dataset with "
+            "chemical identities from PubChem."
+        )
+    )
+
+    parser.add_argument(
+        "--retry-errors",
+        action="store_true",
+        help=(
+            "Retry entries whose cached status is 'error'. "
+            "Resolved, not_found, and HTTP errors are preserved."
+        ),
+    )
+
+    parser.add_argument(
+        "--retry-http-errors",
+        action="store_true",
+        help=(
+            "Retry cached HTTP error statuses such as http_400. "
+            "Intended primarily for diagnostics."
+        ),
+    )
+
+    return parser.parse_args()
 
 
 def load_cache() -> dict[str, Any]:
@@ -135,6 +168,20 @@ def resolve_pubchem(
     }
 
 
+def empty_result(
+    status: str,
+) -> dict[str, Any]:
+    """Create an unresolved PubChem result."""
+
+    return {
+        "status": status,
+        "title": None,
+        "iupac_name": None,
+        "canonical_smiles": None,
+        "inchikey": None,
+    }
+
+
 def resolve_with_retry(
     smiles: str,
 ) -> dict[str, Any]:
@@ -153,13 +200,9 @@ def resolve_with_retry(
 
             # 404 means PubChem could not find the compound.
             if error.code == 404:
-                return {
-                    "status": "not_found",
-                    "title": None,
-                    "iupac_name": None,
-                    "canonical_smiles": None,
-                    "inchikey": None,
-                }
+                return empty_result(
+                    "not_found"
+                )
 
             # Temporary PubChem/server errors.
             if error.code in {
@@ -179,13 +222,11 @@ def resolve_with_retry(
                 time.sleep(wait)
                 continue
 
-            return {
-                "status": f"http_{error.code}",
-                "title": None,
-                "iupac_name": None,
-                "canonical_smiles": None,
-                "inchikey": None,
-            }
+            # Non-temporary HTTP errors are recorded
+            # separately for later diagnostics.
+            return empty_result(
+                f"http_{error.code}"
+            )
 
         except (
             urllib.error.URLError,
@@ -210,21 +251,13 @@ def resolve_with_retry(
                 time.sleep(wait)
                 continue
 
-            return {
-                "status": "error",
-                "title": None,
-                "iupac_name": None,
-                "canonical_smiles": None,
-                "inchikey": None,
-            }
+            return empty_result(
+                "error"
+            )
 
-    return {
-        "status": "error",
-        "title": None,
-        "iupac_name": None,
-        "canonical_smiles": None,
-        "inchikey": None,
-    }
+    return empty_result(
+        "error"
+    )
 
 
 def write_enriched_csv(
@@ -317,8 +350,59 @@ def write_enriched_csv(
             )
 
 
+def prepare_retry_cache(
+    cache: dict[str, Any],
+    *,
+    retry_errors: bool,
+    retry_http_errors: bool,
+) -> int:
+    """Remove selected failed entries from the cache.
+
+    Removing them makes the normal enrichment loop retry
+    those SMILES without touching successfully resolved
+    entries.
+    """
+
+    retry_smiles: list[str] = []
+
+    for smiles, value in cache.items():
+        if not isinstance(value, dict):
+            continue
+
+        status = value.get(
+            "status"
+        )
+
+        should_retry = False
+
+        if (
+            retry_errors
+            and status == "error"
+        ):
+            should_retry = True
+
+        if (
+            retry_http_errors
+            and isinstance(status, str)
+            and status.startswith("http_")
+        ):
+            should_retry = True
+
+        if should_retry:
+            retry_smiles.append(
+                smiles
+            )
+
+    for smiles in retry_smiles:
+        del cache[smiles]
+
+    return len(retry_smiles)
+
+
 def main() -> None:
     """Run the OdorNet enrichment job."""
+
+    args = parse_args()
 
     if not INPUT_FILE.exists():
         raise FileNotFoundError(
@@ -346,9 +430,9 @@ def main() -> None:
     )
 
     # Deduplicate the structures before querying PubChem.
-    smiles_values = []
+    smiles_values: list[str] = []
 
-    seen = set()
+    seen: set[str] = set()
 
     for record in records:
         smiles = record.get(
@@ -363,6 +447,7 @@ def main() -> None:
             continue
 
         seen.add(smiles)
+
         smiles_values.append(
             smiles
         )
@@ -378,6 +463,35 @@ def main() -> None:
         "Already cached:",
         len(cache),
     )
+
+    retry_count = prepare_retry_cache(
+        cache,
+        retry_errors=args.retry_errors,
+        retry_http_errors=args.retry_http_errors,
+    )
+
+    if retry_count:
+        print(
+            "Retry entries removed from cache:",
+            retry_count,
+        )
+
+        retry_modes = []
+
+        if args.retry_errors:
+            retry_modes.append(
+                "error"
+            )
+
+        if args.retry_http_errors:
+            retry_modes.append(
+                "http_*"
+            )
+
+        print(
+            "Retry statuses:",
+            ", ".join(retry_modes),
+        )
 
     remaining = [
         smiles
@@ -499,10 +613,33 @@ def main() -> None:
         == "not_found"
     )
 
-    errors = (
+    http_errors = sum(
+        1
+        for value in cache.values()
+        if (
+            isinstance(
+                value.get("status"),
+                str,
+            )
+            and value[
+                "status"
+            ].startswith("http_")
+        )
+    )
+
+    errors = sum(
+        1
+        for value in cache.values()
+        if value.get("status")
+        == "error"
+    )
+
+    other = (
         len(cache)
         - resolved
         - not_found
+        - http_errors
+        - errors
     )
 
     print()
@@ -536,9 +673,20 @@ def main() -> None:
     )
 
     print(
+        "HTTP errors:",
+        http_errors,
+    )
+
+    print(
         "Errors:",
         errors,
     )
+
+    if other:
+        print(
+            "Other statuses:",
+            other,
+        )
 
     print()
     print(
