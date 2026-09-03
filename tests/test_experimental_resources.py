@@ -15,8 +15,27 @@ from opensmell.experimental.resources import (
     ObservationTarget,
     Reference,
     Result,
+    ResultScheme,
     Stimulus,
 )
+
+
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
+
+
+def example_result_scheme(
+    *,
+    scheme_id: str = "org.opensmell.example",
+    version: str = "0.1",
+) -> ResultScheme:
+    """Create a reusable experimental ResultScheme for tests."""
+
+    return ResultScheme(
+        id=scheme_id,
+        version=version,
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -197,20 +216,127 @@ def test_condition_rejects_non_dictionary_extra():
 
 
 # ---------------------------------------------------------------------------
+# ResultScheme
+# ---------------------------------------------------------------------------
+
+
+def test_result_scheme_accepts_id_and_version():
+    scheme = ResultScheme(
+        id="org.opensmell.example",
+        version="0.1",
+    )
+
+    assert scheme.id == "org.opensmell.example"
+    assert scheme.version == "0.1"
+    assert scheme.extra == {}
+
+
+def test_result_scheme_accepts_extra_data():
+    scheme = ResultScheme(
+        id="org.opensmell.example",
+        version="0.1",
+        extra={
+            "status": "experimental",
+        },
+    )
+
+    assert scheme.extra == {
+        "status": "experimental",
+    }
+
+
+def test_result_scheme_rejects_empty_id():
+    with pytest.raises(ValueError):
+        ResultScheme(
+            id="",
+            version="0.1",
+        )
+
+
+def test_result_scheme_rejects_non_string_id():
+    with pytest.raises(TypeError):
+        ResultScheme(
+            id=123,  # type: ignore[arg-type]
+            version="0.1",
+        )
+
+
+def test_result_scheme_rejects_empty_version():
+    with pytest.raises(ValueError):
+        ResultScheme(
+            id="org.opensmell.example",
+            version="",
+        )
+
+
+def test_result_scheme_rejects_non_string_version():
+    with pytest.raises(TypeError):
+        ResultScheme(
+            id="org.opensmell.example",
+            version=1,  # type: ignore[arg-type]
+        )
+
+
+def test_result_scheme_rejects_non_dictionary_extra():
+    with pytest.raises(TypeError):
+        ResultScheme(
+            id="org.opensmell.example",
+            version="0.1",
+            extra=[],  # type: ignore[arg-type]
+        )
+
+
+def test_result_scheme_versions_are_distinct():
+    version_01 = ResultScheme(
+        id="org.opensmell.example",
+        version="0.1",
+    )
+
+    version_02 = ResultScheme(
+        id="org.opensmell.example",
+        version="0.2",
+    )
+
+    assert version_01 != version_02
+    assert version_01.id == version_02.id
+    assert version_01.version != version_02.version
+
+
+def test_unknown_result_scheme_is_representable():
+    scheme = ResultScheme(
+        id="vendor.example.future-result",
+        version="9.7",
+        extra={
+            "vendor_extension": True,
+        },
+    )
+
+    assert scheme.id == "vendor.example.future-result"
+    assert scheme.version == "9.7"
+    assert scheme.extra == {
+        "vendor_extension": True,
+    }
+
+
+# ---------------------------------------------------------------------------
 # Result
 # ---------------------------------------------------------------------------
 
 
 def test_result_accepts_scheme_defined_data():
+    scheme = example_result_scheme()
+
     result = Result(
-        scheme="org.opensmell.example",
+        scheme=scheme,
         data={
             "value": 42.0,
             "state": "detected",
         },
     )
 
-    assert result.scheme == "org.opensmell.example"
+    assert result.scheme == scheme
+    assert result.scheme.id == "org.opensmell.example"
+    assert result.scheme.version == "0.1"
 
     assert result.data == {
         "value": 42.0,
@@ -220,7 +346,7 @@ def test_result_accepts_scheme_defined_data():
 
 def test_result_allows_empty_data():
     result = Result(
-        scheme="org.opensmell.example",
+        scheme=example_result_scheme(),
     )
 
     assert result.data == {}
@@ -229,7 +355,7 @@ def test_result_allows_empty_data():
 
 def test_result_accepts_arbitrary_nested_data():
     result = Result(
-        scheme="org.opensmell.example",
+        scheme=example_result_scheme(),
         data={
             "measurements": [
                 {
@@ -247,9 +373,10 @@ def test_result_accepts_arbitrary_nested_data():
         },
     )
 
-    assert result.data["measurements"][0][
-        "property"
-    ] == "intensity"
+    assert (
+        result.data["measurements"][0]["property"]
+        == "intensity"
+    )
 
     assert result.data["metadata"] == {
         "source": "example",
@@ -258,7 +385,7 @@ def test_result_accepts_arbitrary_nested_data():
 
 def test_result_preserves_numeric_zero():
     result = Result(
-        scheme="org.opensmell.example",
+        scheme=example_result_scheme(),
         data={
             "value": 0.0,
         },
@@ -269,7 +396,7 @@ def test_result_preserves_numeric_zero():
 
 def test_result_preserves_negative_zero():
     result = Result(
-        scheme="org.opensmell.example",
+        scheme=example_result_scheme(),
         data={
             "value": -0.0,
         },
@@ -280,7 +407,7 @@ def test_result_preserves_negative_zero():
 
 def test_result_accepts_extra_data():
     result = Result(
-        scheme="org.opensmell.example",
+        scheme=example_result_scheme(),
         data={
             "value": 42.0,
         },
@@ -294,14 +421,14 @@ def test_result_accepts_extra_data():
     }
 
 
-def test_result_rejects_empty_scheme():
-    with pytest.raises(ValueError):
+def test_result_rejects_string_scheme():
+    with pytest.raises(TypeError):
         Result(
-            scheme="",
+            scheme="org.opensmell.example",  # type: ignore[arg-type]
         )
 
 
-def test_result_rejects_non_string_scheme():
+def test_result_rejects_non_result_scheme():
     with pytest.raises(TypeError):
         Result(
             scheme=123,  # type: ignore[arg-type]
@@ -311,7 +438,7 @@ def test_result_rejects_non_string_scheme():
 def test_result_rejects_non_dictionary_data():
     with pytest.raises(TypeError):
         Result(
-            scheme="org.opensmell.example",
+            scheme=example_result_scheme(),
             data=[],  # type: ignore[arg-type]
         )
 
@@ -319,14 +446,19 @@ def test_result_rejects_non_dictionary_data():
 def test_result_rejects_non_dictionary_extra():
     with pytest.raises(TypeError):
         Result(
-            scheme="org.opensmell.example",
+            scheme=example_result_scheme(),
             extra=[],  # type: ignore[arg-type]
         )
 
 
 def test_unknown_result_scheme_is_preserved():
+    scheme = ResultScheme(
+        id="example.future.unknown.scheme",
+        version="3.4",
+    )
+
     result = Result(
-        scheme="example.future.unknown.scheme",
+        scheme=scheme,
         data={
             "arbitrary": {
                 "future": True,
@@ -334,10 +466,9 @@ def test_unknown_result_scheme_is_preserved():
         },
     )
 
-    assert (
-        result.scheme
-        == "example.future.unknown.scheme"
-    )
+    assert result.scheme == scheme
+    assert result.scheme.id == "example.future.unknown.scheme"
+    assert result.scheme.version == "3.4"
 
     assert result.data == {
         "arbitrary": {
@@ -527,6 +658,19 @@ def test_observation_target_accepts_extra_data():
     }
 
 
+def test_observation_target_can_represent_composite_sensor_array():
+    target = ObservationTarget(
+        id="sensor-array-1",
+        extra={
+            "kind": "electronic_sensor_array",
+            "sensor_count": 16,
+        },
+    )
+
+    assert target.extra["kind"] == "electronic_sensor_array"
+    assert target.extra["sensor_count"] == 16
+
+
 def test_observation_target_rejects_empty_id():
     with pytest.raises(ValueError):
         ObservationTarget(
@@ -599,7 +743,7 @@ def test_observation_accepts_target_reference():
 
 def test_observation_accepts_single_result():
     result = Result(
-        scheme="org.opensmell.example",
+        scheme=example_result_scheme(),
         data={
             "value": 42.0,
         },
@@ -622,14 +766,20 @@ def test_observation_accepts_single_result():
 
 def test_observation_accepts_multiple_result_schemes():
     categorical = Result(
-        scheme="org.opensmell.example.categories",
+        scheme=ResultScheme(
+            id="org.opensmell.example.categories",
+            version="0.1",
+        ),
         data={
             "detection": "detected",
         },
     )
 
     perceptual = Result(
-        scheme="org.opensmell.example.perceptual",
+        scheme=ResultScheme(
+            id="org.opensmell.example.perceptual",
+            version="0.1",
+        ),
         data={
             "measurements": [
                 {
@@ -656,19 +806,72 @@ def test_observation_accepts_multiple_result_schemes():
     ) == 2
 
     assert (
-        observation.results[0].scheme
+        observation.results[0].scheme.id
         == "org.opensmell.example.categories"
     )
 
     assert (
-        observation.results[1].scheme
+        observation.results[0].scheme.version
+        == "0.1"
+    )
+
+    assert (
+        observation.results[1].scheme.id
         == "org.opensmell.example.perceptual"
+    )
+
+    assert (
+        observation.results[1].scheme.version
+        == "0.1"
+    )
+
+
+def test_observation_accepts_same_scheme_with_different_versions():
+    version_01 = Result(
+        scheme=ResultScheme(
+            id="org.opensmell.example",
+            version="0.1",
+        ),
+        data={
+            "value": 1,
+        },
+    )
+
+    version_02 = Result(
+        scheme=ResultScheme(
+            id="org.opensmell.example",
+            version="0.2",
+        ),
+        data={
+            "value": 2,
+        },
+    )
+
+    observation = Observation(
+        id="observation-1",
+        stimulus=Reference(
+            resource_id="stimulus-1"
+        ),
+        results=[
+            version_01,
+            version_02,
+        ],
+    )
+
+    assert (
+        observation.results[0].scheme.id
+        == observation.results[1].scheme.id
+    )
+
+    assert (
+        observation.results[0].scheme.version
+        != observation.results[1].scheme.version
     )
 
 
 def test_observation_preserves_zero_inside_result():
     result = Result(
-        scheme="org.opensmell.example",
+        scheme=example_result_scheme(),
         data={
             "measurements": [
                 {
@@ -777,7 +980,10 @@ def test_observation_preserves_unresolved_reference():
 
 def test_observation_with_unknown_result_scheme():
     result = Result(
-        scheme="vendor.example.future-result",
+        scheme=ResultScheme(
+            id="vendor.example.future-result",
+            version="4.2",
+        ),
         data={
             "something": 123,
         },
@@ -794,8 +1000,13 @@ def test_observation_with_unknown_result_scheme():
     )
 
     assert (
-        observation.results[0].scheme
+        observation.results[0].scheme.id
         == "vendor.example.future-result"
+    )
+
+    assert (
+        observation.results[0].scheme.version
+        == "4.2"
     )
 
     assert observation.results[0].data == {

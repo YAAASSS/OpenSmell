@@ -6,7 +6,7 @@ This experiment combines:
 - experimental Stimulus resources;
 - experimental ObservationTarget resources;
 - experimental Observation resources;
-- scheme-defined Result objects.
+- versioned scheme-defined Result objects.
 
 The Burton physiological DeltaF values are represented through
 Observation.results.
@@ -38,15 +38,17 @@ from opensmell.experimental.resources import (
     ObservationTarget,
     Reference,
     Result,
+    ResultScheme,
     Stimulus,
 )
 
 
 DATASET_ID = "burton_2022"
 
-BIOLOGICAL_RESULT_SCHEME = (
+BIOLOGICAL_RESULT_SCHEME_ID = (
     "org.opensmell.experimental.biological.measurements"
 )
+BIOLOGICAL_RESULT_SCHEME_VERSION = "0.1"
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DATASET_ROOT = PROJECT_ROOT / "examples" / "burton_2022"
@@ -166,11 +168,18 @@ def get_behavior_stimulus_id(
     )
 
 
+def biological_result_scheme() -> ResultScheme:
+    return ResultScheme(
+        id=BIOLOGICAL_RESULT_SCHEME_ID,
+        version=BIOLOGICAL_RESULT_SCHEME_VERSION,
+    )
+
+
 def make_delta_f_result(
     value: float,
 ) -> Result:
     return Result(
-        scheme=BIOLOGICAL_RESULT_SCHEME,
+        scheme=biological_result_scheme(),
         data={
             "measurements": [
                 {
@@ -195,11 +204,21 @@ def get_delta_f_from_observation(
     result = observation.results[0]
 
     if (
-        result.scheme
-        != BIOLOGICAL_RESULT_SCHEME
+        result.scheme.id
+        != BIOLOGICAL_RESULT_SCHEME_ID
     ):
         raise AssertionError(
-            f"Unexpected Burton result scheme: {result.scheme!r}"
+            "Unexpected Burton result scheme ID: "
+            f"{result.scheme.id!r}"
+        )
+
+    if (
+        result.scheme.version
+        != BIOLOGICAL_RESULT_SCHEME_VERSION
+    ):
+        raise AssertionError(
+            "Unexpected Burton result scheme version: "
+            f"{result.scheme.version!r}"
         )
 
     measurements = result.data.get(
@@ -835,7 +854,11 @@ def print_report(
         f"Non-zero DeltaF              : {observation_count - zero_count:>10,}"
     )
     print(
-        f"Result scheme                : {BIOLOGICAL_RESULT_SCHEME}"
+        f"Result scheme ID             : {BIOLOGICAL_RESULT_SCHEME_ID}"
+    )
+    print(
+        "Result scheme version        : "
+        f"{BIOLOGICAL_RESULT_SCHEME_VERSION}"
     )
 
     print()
@@ -905,8 +928,12 @@ def print_report(
             )
 
         print(
-            "Result scheme                  : "
-            f"{example.results[0].scheme}"
+            "Result scheme ID               : "
+            f"{example.results[0].scheme.id}"
+        )
+        print(
+            "Result scheme version          : "
+            f"{example.results[0].scheme.version}"
         )
         print(
             "Result property                : delta_f"
@@ -921,9 +948,9 @@ def print_report(
     print("=" * 72)
     print("SUCCESS")
     print(
-        "The experimental OpenSmell Result architecture represented "
-        "all Burton physiological observations without a universal "
-        "Measurement model."
+        "The experimental OpenSmell versioned Result architecture "
+        "represented all Burton physiological observations without "
+        "a universal Measurement model."
     )
 
 
@@ -992,7 +1019,8 @@ def main() -> None:
     )
 
     print(
-        "Building Observation resources with scheme-defined Results..."
+        "Building Observation resources with versioned "
+        "scheme-defined Results..."
     )
 
     observations = build_observations(
@@ -1005,7 +1033,7 @@ def main() -> None:
     )
 
     print(
-        "Validating Result-based resource graph..."
+        "Validating versioned Result-based resource graph..."
     )
 
     validate_graph(

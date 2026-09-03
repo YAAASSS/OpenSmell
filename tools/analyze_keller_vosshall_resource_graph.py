@@ -10,7 +10,7 @@ It combines:
 - Stimulus resources;
 - ObservationTarget resources;
 - Observation resources;
-- multiple scheme-defined Result objects per Observation.
+- multiple versioned scheme-defined Result objects per Observation.
 
 Categorical observation results and quantitative perceptual measurements are
 kept in separate Result schemes.
@@ -37,19 +37,22 @@ from opensmell.experimental.resources import (
     ObservationTarget,
     Reference,
     Result,
+    ResultScheme,
     Stimulus,
 )
 
 
 DATASET_ID = "keller_vosshall"
 
-CATEGORICAL_RESULT_SCHEME = (
+CATEGORICAL_RESULT_SCHEME_ID = (
     "org.opensmell.experimental.observation.categories"
 )
+CATEGORICAL_RESULT_SCHEME_VERSION = "0.1"
 
-PERCEPTUAL_RESULT_SCHEME = (
+PERCEPTUAL_RESULT_SCHEME_ID = (
     "org.opensmell.perceptual.measurements"
 )
+PERCEPTUAL_RESULT_SCHEME_VERSION = "0.1" 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
@@ -262,7 +265,10 @@ def make_categorical_result(
         ] = recognition
 
     return Result(
-        scheme=CATEGORICAL_RESULT_SCHEME,
+        scheme=ResultScheme(
+            id=CATEGORICAL_RESULT_SCHEME_ID,
+            version=CATEGORICAL_RESULT_SCHEME_VERSION,
+        ),
         data=data,
     )
 
@@ -273,7 +279,10 @@ def make_perceptual_result(
     ],
 ) -> Result:
     return Result(
-        scheme=PERCEPTUAL_RESULT_SCHEME,
+        scheme=ResultScheme(
+            id=PERCEPTUAL_RESULT_SCHEME_ID,
+            version=PERCEPTUAL_RESULT_SCHEME_VERSION,
+        ),
         data={
             "measurements": measurements,
         },
@@ -287,8 +296,10 @@ def get_categorical_result(
         result
         for result in observation.results
         if (
-            result.scheme
-            == CATEGORICAL_RESULT_SCHEME
+            result.scheme.id
+            == CATEGORICAL_RESULT_SCHEME_ID
+            and result.scheme.version
+            == CATEGORICAL_RESULT_SCHEME_VERSION
         )
     ]
 
@@ -307,8 +318,10 @@ def get_perceptual_result(
         result
         for result in observation.results
         if (
-            result.scheme
-            == PERCEPTUAL_RESULT_SCHEME
+            result.scheme.id
+            == PERCEPTUAL_RESULT_SCHEME_ID
+            and result.scheme.version
+            == PERCEPTUAL_RESULT_SCHEME_VERSION
         )
     ]
 
@@ -1008,10 +1021,16 @@ def print_report(
     print("Schemes")
     print("-" * 76)
     print(
-        f"Categorical                  : {CATEGORICAL_RESULT_SCHEME}"
+        f"Categorical ID               : {CATEGORICAL_RESULT_SCHEME_ID}"
     )
     print(
-        f"Perceptual                   : {PERCEPTUAL_RESULT_SCHEME}"
+        f"Categorical version          : {CATEGORICAL_RESULT_SCHEME_VERSION}"
+    )
+    print(
+        f"Perceptual ID                : {PERCEPTUAL_RESULT_SCHEME_ID}"
+    )
+    print(
+        f"Perceptual version           : {PERCEPTUAL_RESULT_SCHEME_VERSION}"
     )
 
     print()
@@ -1078,8 +1097,12 @@ def print_report(
             f"Result objects               : {len(example.results)}"
         )
         print(
-            "Categorical scheme           : "
-            f"{categorical.scheme}"
+            "Categorical scheme ID        : "
+            f"{categorical.scheme.id}"
+        )
+        print(
+            "Categorical scheme version   : "
+            f"{categorical.scheme.version}"
         )
         print(
             "Detection                    : "
@@ -1096,8 +1119,12 @@ def print_report(
 
         if perceptual is not None:
             print(
-                "Perceptual scheme            : "
-                f"{perceptual.scheme}"
+                "Perceptual scheme ID         : "
+                f"{perceptual.scheme.id}"
+            )
+            print(
+                "Perceptual scheme version    : "
+                f"{perceptual.scheme.version}"
             )
 
         print(
@@ -1117,7 +1144,7 @@ def print_report(
     print("=" * 76)
     print("SUCCESS")
     print(
-        "The experimental OpenSmell Result architecture represented "
+        "The experimental OpenSmell versioned Result architecture represented "
         "the Keller/Vosshall psychophysical graph without a universal "
         "Measurement model."
     )
@@ -1275,7 +1302,7 @@ def main() -> None:
     )
 
     print(
-        "Building Observation resources with scheme-defined Results..."
+        "Building Observation resources with versioned scheme-defined Results..."
     )
 
     observations = build_observations(
@@ -1294,7 +1321,7 @@ def main() -> None:
     )
 
     print(
-        "Validating Result-based resource graph..."
+        "Validating versioned Result-based resource graph..."
     )
 
     validate_graph(

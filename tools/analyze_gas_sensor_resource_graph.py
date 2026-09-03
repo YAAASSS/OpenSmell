@@ -24,7 +24,7 @@ This experiment generates:
     - Stimulus resources for unique analyte/concentration pairs;
     - one ObservationTarget representing the complete 16-sensor array;
     - one Observation per source row;
-    - one scheme-defined sensor-array Result per Observation.
+    - one versioned scheme-defined sensor-array Result per Observation.
 
 The generated sensor-array target is an OpenSmell modeling abstraction. It is
 not presented as a source-native UCI identifier.
@@ -49,6 +49,7 @@ from opensmell.experimental.resources import (
     ObservationTarget,
     Reference,
     Result,
+    ResultScheme,
     Stimulus,
 )
 
@@ -63,9 +64,10 @@ DATASET_ROOT = (
 
 DATASET_ID = "uci_gas_sensor_drift"
 
-SENSOR_RESULT_SCHEME = (
+SENSOR_RESULT_SCHEME_ID = (
     "org.opensmell.experimental.sensor-array.features"
 )
+SENSOR_RESULT_SCHEME_VERSION = "0.1" 
 
 ANALYTES = {
     1: "ethanol",
@@ -371,7 +373,10 @@ def build_sensor_result(
         )
 
     return Result(
-        scheme=SENSOR_RESULT_SCHEME,
+        scheme=ResultScheme(
+            id=SENSOR_RESULT_SCHEME_ID,
+            version=SENSOR_RESULT_SCHEME_VERSION,
+        ),
         data={
             "sensors": sensors,
         },
@@ -437,9 +442,16 @@ def build_observations(
 def extract_feature_values(
     result: Result,
 ) -> list[float]:
-    if result.scheme != SENSOR_RESULT_SCHEME:
+    if result.scheme.id != SENSOR_RESULT_SCHEME_ID:
         raise AssertionError(
-            f"Unexpected Result scheme: {result.scheme}"
+            "Unexpected Result scheme ID: "
+            f"{result.scheme.id!r}"
+        )
+
+    if result.scheme.version != SENSOR_RESULT_SCHEME_VERSION:
+        raise AssertionError(
+            "Unexpected Result scheme version: "
+            f"{result.scheme.version!r}"
         )
 
     sensors = result.data.get(
@@ -845,8 +857,12 @@ def print_report(
         f"{FEATURE_COUNT:>10,}"
     )
     print(
-        f"Result scheme               : "
-        f"{SENSOR_RESULT_SCHEME}"
+        f"Result scheme ID            : "
+        f"{SENSOR_RESULT_SCHEME_ID}"
+    )
+    print(
+        f"Result scheme version       : "
+        f"{SENSOR_RESULT_SCHEME_VERSION}"
     )
 
     print()
@@ -929,8 +945,12 @@ def print_report(
         f"{first_observation.target.resource_id if first_observation.target else None}"
     )
     print(
-        f"Result scheme               : "
-        f"{first_result.scheme}"
+        f"Result scheme ID            : "
+        f"{first_result.scheme.id}"
+    )
+    print(
+        f"Result scheme version       : "
+        f"{first_result.scheme.version}"
     )
 
     sensors = first_result.data[
@@ -987,7 +1007,7 @@ def print_report(
     print("=" * 76)
     print("SUCCESS")
     print(
-        "The RFC-0007 experimental resource architecture represented "
+        "The RFC-0007 experimental versioned Result architecture represented "
         "all electronic-olfaction observations without changing the "
         "generic Stimulus, ObservationTarget, Observation, or Result models."
     )
@@ -1030,7 +1050,7 @@ def main() -> None:
     target = build_sensor_array_target()
 
     print(
-        "Building electronic-olfaction Observations..."
+        "Building electronic-olfaction Observations with versioned Results..."
     )
 
     observations = build_observations(
@@ -1040,7 +1060,7 @@ def main() -> None:
     )
 
     print(
-        "Validating graph and all 1,780,480 feature values..."
+        "Validating versioned Result graph and all 1,780,480 feature values..."
     )
 
     validate_graph(

@@ -9,7 +9,7 @@ They are used to explore resource-oriented concepts such as:
 - stimuli;
 - observation targets;
 - observations;
-- scheme-defined observation results.
+- versioned scheme-defined observation results.
 
 Nothing in this module is normative.
 
@@ -154,24 +154,68 @@ class Condition:
 # ---------------------------------------------------------------------------
 
 
+@dataclass(frozen=True)
+class ResultScheme:
+    """Versioned interpretation scheme for an observation Result.
+
+    ``id`` identifies the family of interpretation rules.
+
+    ``version`` identifies the specific version of those rules.
+
+    ``extra`` allows experimental scheme metadata to be preserved without
+    changing the generic resource model.
+
+    ResultScheme deliberately remains separate from the OpenSmell 0.1 Core
+    Scheme model while RFC-0007 is experimental. A future specification may
+    decide whether both structures should converge.
+    """
+
+    id: str
+    version: str
+    extra: dict[str, Any] = field(
+        default_factory=dict
+    )
+
+    def __post_init__(self) -> None:
+        _require_nonempty_string(
+            self.id,
+            field_name="id",
+        )
+
+        _require_nonempty_string(
+            self.version,
+            field_name="version",
+        )
+
+        if not isinstance(
+            self.extra,
+            dict,
+        ):
+            raise TypeError(
+                "extra must be a dictionary."
+            )
+
+
 @dataclass
 class Result:
     """Scheme-defined result attached to an Observation.
 
     Observation itself does not interpret the contents of ``data``.
 
-    The ``scheme`` identifies the rules required to interpret those data.
+    ``scheme`` identifies both the interpretation scheme and the version of
+    the rules required to interpret those data.
 
     This allows categorical, perceptual, physiological, sensor, model, and
     future result types to coexist without forcing them into one universal
     measurement structure.
 
-    Unknown schemes are intentionally representable.
+    Unknown schemes and unknown scheme metadata are intentionally
+    representable.
 
     Scheme-specific validation belongs outside this generic resource model.
     """
 
-    scheme: str
+    scheme: ResultScheme
     data: dict[str, Any] = field(
         default_factory=dict
     )
@@ -180,10 +224,13 @@ class Result:
     )
 
     def __post_init__(self) -> None:
-        _require_nonempty_string(
+        if not isinstance(
             self.scheme,
-            field_name="scheme",
-        )
+            ResultScheme,
+        ):
+            raise TypeError(
+                "scheme must be a ResultScheme."
+            )
 
         if not isinstance(
             self.data,
@@ -298,6 +345,7 @@ class ObservationTarget:
     - a receptor;
     - a glomerulus or ROI;
     - a physical sensor;
+    - a composite sensor array;
     - a computational model.
 
     Domain-specific meaning belongs in identifiers, extensions, or
@@ -352,7 +400,7 @@ class Observation:
     ``target`` remains optional because some observation sources may not
     expose or define a target.
 
-    ``results`` contains scheme-defined payloads.
+    ``results`` contains versioned scheme-defined payloads.
 
     The Observation resource deliberately does not define a universal
     Measurement object. Interpretation and validation of result data belong
