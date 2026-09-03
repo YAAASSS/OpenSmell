@@ -227,3 +227,6 @@ examples/odornet-enriched-example.osmell
 # PubChem enrichment data
 examples/pubchem_cache.json
 examples/odornet_enriched.csv
+
+# External Keller/Vosshall olfactory dataset
+examples/keller_vosshall.xlsx
