@@ -242,6 +242,11 @@ examples/keller_vosshall.xlsx
 # The complete external dataset must not be redistributed from this repository.
 examples/burton_2022/
 
+# External UCI Gas Sensor Array Drift dataset
+# Contains the 10 source batch files used by the electronic-olfaction
+# RFC-0007 stress test. The external dataset is not redistributed here.
+examples/gas_sensor_drift/
+
 # Legacy/local external experimental dataset files
 examples/molecules.csv
 examples/stimuli.csv
