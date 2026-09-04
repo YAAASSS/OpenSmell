@@ -186,7 +186,100 @@
         ]
       }
     },
-
+    {
+      "name": "valid_reference_extension",
+      "valid": true,
+      "preserve": true,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus",
+            "id": "stimulus-1",
+            "source": {
+              "resource_id": "source-1",
+              "vendor.reference": {
+                "confidence": 0.97,
+                "nested": [
+                  1,
+                  2,
+                  3
+                ]
+              }
+            }
+          },
+          {
+            "type": "observation",
+            "id": "observation-1",
+            "stimulus": {
+              "resource_id": "stimulus-1",
+              "vendor.stimulus-reference": true
+            },
+            "target": {
+              "resource_id": "target-1",
+              "vendor.target-reference": {
+                "role": "sensor"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "valid_external_identifier_extension",
+      "valid": true,
+      "preserve": true,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus",
+            "id": "stimulus-1",
+            "identifiers": [
+              {
+                "scheme": "example.stimulus",
+                "value": "S-001",
+                "vendor.identifier": {
+                  "origin": "dataset-a",
+                  "confidence": 0.99
+                }
+              }
+            ]
+          },
+          {
+            "type": "observation_target",
+            "id": "target-1",
+            "identifiers": [
+              {
+                "scheme": "example.target",
+                "value": "T-001",
+                "vendor.target-identifier": true
+              }
+            ]
+          },
+          {
+            "type": "observation",
+            "id": "observation-1",
+            "stimulus": {
+              "resource_id": "stimulus-1"
+            },
+            "identifiers": [
+              {
+                "scheme": "example.observation",
+                "value": "O-001",
+                "vendor.observation-identifier": [
+                  1,
+                  2,
+                  3
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
     {
       "name": "invalid_document_not_object",
       "valid": false,

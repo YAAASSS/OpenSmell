@@ -224,6 +224,63 @@ def test_reference_round_trip():
     assert decoded == reference
 
 
+
+def test_reference_preserves_extensions():
+    reference = Reference(
+        resource_id="resource-123",
+        extra={
+            "vendor.example": {
+                "confidence": 0.97,
+            },
+        },
+    )
+
+    encoded = reference_to_dict(reference)
+    decoded = reference_from_dict(encoded)
+
+    assert encoded["vendor.example"] == {
+        "confidence": 0.97,
+    }
+    assert decoded.extra == {
+        "vendor.example": {
+            "confidence": 0.97,
+        },
+    }
+
+
+def test_reference_unknown_fields_survive_dict_round_trip():
+    original = {
+        "resource_id": "resource-123",
+        "vendor.future": {
+            "nested": [1, 2, 3],
+        },
+    }
+
+    decoded = reference_from_dict(original)
+    encoded = reference_to_dict(decoded)
+
+    assert decoded.extra == {
+        "vendor.future": {
+            "nested": [1, 2, 3],
+        },
+    }
+    assert encoded == original
+
+
+def test_official_reference_fields_override_extra():
+    reference = Reference(
+        resource_id="real-resource",
+        extra={
+            "resource_id": "wrong-resource",
+            "vendor": True,
+        },
+    )
+
+    encoded = reference_to_dict(reference)
+
+    assert encoded["resource_id"] == "real-resource"
+    assert encoded["vendor"] is True
+
 def test_reference_rejects_missing_resource_id():
     with pytest.raises((TypeError, ValueError)):
         reference_from_dict({})
@@ -257,6 +314,68 @@ def test_external_identifier_round_trip():
     }
     assert decoded == identifier
 
+
+
+def test_external_identifier_preserves_extensions():
+    identifier = ExternalIdentifier(
+        scheme="pubchem.cid",
+        value="240",
+        extra={
+            "vendor.example": {
+                "source": "future-system",
+            },
+        },
+    )
+
+    encoded = external_identifier_to_dict(identifier)
+    decoded = external_identifier_from_dict(encoded)
+
+    assert encoded["vendor.example"] == {
+        "source": "future-system",
+    }
+    assert decoded.extra == {
+        "vendor.example": {
+            "source": "future-system",
+        },
+    }
+
+
+def test_external_identifier_unknown_fields_survive_dict_round_trip():
+    original = {
+        "scheme": "pubchem.cid",
+        "value": "240",
+        "vendor.future": {
+            "confidence": 0.99,
+        },
+    }
+
+    decoded = external_identifier_from_dict(original)
+    encoded = external_identifier_to_dict(decoded)
+
+    assert decoded.extra == {
+        "vendor.future": {
+            "confidence": 0.99,
+        },
+    }
+    assert encoded == original
+
+
+def test_official_external_identifier_fields_override_extra():
+    identifier = ExternalIdentifier(
+        scheme="real.scheme",
+        value="real-value",
+        extra={
+            "scheme": "wrong.scheme",
+            "value": "wrong-value",
+            "vendor": True,
+        },
+    )
+
+    encoded = external_identifier_to_dict(identifier)
+
+    assert encoded["scheme"] == "real.scheme"
+    assert encoded["value"] == "real-value"
+    assert encoded["vendor"] is True
 
 def test_external_identifier_rejects_missing_scheme():
     with pytest.raises((TypeError, ValueError)):
@@ -1201,6 +1320,146 @@ def test_nested_extensions_survive_round_trip():
         "x": 1,
     }
 
+
+
+def test_reference_and_identifier_extensions_survive_graph_round_trip():
+    original = {
+        "format": RESOURCE_GRAPH_FORMAT,
+        "version": RESOURCE_GRAPH_VERSION,
+        "resources": [
+            {
+                "type": "stimulus",
+                "id": "stimulus-1",
+                "source": {
+                    "resource_id": "source-1",
+                    "vendor.reference": {
+                        "confidence": 0.97,
+                    },
+                },
+                "identifiers": [
+                    {
+                        "scheme": "example.stimulus",
+                        "value": "S-001",
+                        "vendor.identifier": {
+                            "origin": "dataset-a",
+                        },
+                    },
+                ],
+            },
+            {
+                "type": "observation",
+                "id": "observation-1",
+                "stimulus": {
+                    "resource_id": "stimulus-1",
+                    "vendor.stimulus-reference": True,
+                },
+                "target": {
+                    "resource_id": "target-1",
+                    "vendor.target-reference": {
+                        "role": "sensor",
+                    },
+                },
+                "identifiers": [
+                    {
+                        "scheme": "example.observation",
+                        "value": "O-001",
+                        "vendor.observation-identifier": [
+                            1,
+                            2,
+                            3,
+                        ],
+                    },
+                ],
+            },
+        ],
+    }
+
+    graph = graph_from_dict(original)
+
+    stimulus = graph.require("stimulus-1")
+    observation = graph.require("observation-1")
+
+    assert isinstance(stimulus, Stimulus)
+    assert isinstance(observation, Observation)
+
+    assert stimulus.source is not None
+    assert stimulus.source.extra == {
+        "vendor.reference": {
+            "confidence": 0.97,
+        },
+    }
+    assert stimulus.identifiers[0].extra == {
+        "vendor.identifier": {
+            "origin": "dataset-a",
+        },
+    }
+
+    assert observation.stimulus.extra == {
+        "vendor.stimulus-reference": True,
+    }
+    assert observation.target is not None
+    assert observation.target.extra == {
+        "vendor.target-reference": {
+            "role": "sensor",
+        },
+    }
+    assert observation.identifiers[0].extra == {
+        "vendor.observation-identifier": [
+            1,
+            2,
+            3,
+        ],
+    }
+
+    encoded = graph_to_dict(graph)
+
+    assert encoded == original
+
+
+def test_reference_and_identifier_extensions_survive_json_text_round_trip():
+    graph = ResourceGraph(
+        resources=[
+            Stimulus(
+                id="stimulus-1",
+                source=Reference(
+                    "source-1",
+                    extra={
+                        "vendor.reference": {
+                            "confidence": 0.5,
+                        },
+                    },
+                ),
+                identifiers=[
+                    ExternalIdentifier(
+                        scheme="example",
+                        value="S-001",
+                        extra={
+                            "vendor.identifier": {
+                                "future": True,
+                            },
+                        },
+                    ),
+                ],
+            ),
+        ],
+    )
+
+    decoded = loads(dumps(graph))
+
+    stimulus = decoded.require("stimulus-1")
+
+    assert isinstance(stimulus, Stimulus)
+    assert stimulus.source is not None
+    assert stimulus.source.extra == {
+        "vendor.reference": {
+            "confidence": 0.5,
+        },
+    }
+    assert stimulus.identifiers[0].extra == {
+        "vendor.identifier": {
+            "future": True,
+        },
+    }
 
 def test_double_serialization_is_stable():
     graph_1 = make_graph()

@@ -62,6 +62,20 @@ def _validate_optional_unit(
     )
 
 
+def _validate_extra(
+    extra: dict[str, Any],
+) -> None:
+    """Validate an extension dictionary."""
+
+    if not isinstance(
+        extra,
+        dict,
+    ):
+        raise TypeError(
+            "extra must be a dictionary."
+        )
+
+
 # ---------------------------------------------------------------------------
 # References and external identifiers
 # ---------------------------------------------------------------------------
@@ -76,9 +90,14 @@ class Reference:
     RFC-0006 is still experimental, so this model only requires a non-empty
     string. A future normative resource model may impose stronger Resource ID
     requirements.
+
+    ``extra`` preserves unknown extension fields associated with the reference.
     """
 
     resource_id: str
+    extra: dict[str, Any] = field(
+        default_factory=dict
+    )
 
     def __post_init__(self) -> None:
         _require_nonempty_string(
@@ -86,13 +105,24 @@ class Reference:
             field_name="resource_id",
         )
 
+        _validate_extra(
+            self.extra
+        )
+
 
 @dataclass(frozen=True)
 class ExternalIdentifier:
-    """Identifier assigned by an external dataset or system."""
+    """Identifier assigned by an external dataset or system.
+
+    ``extra`` preserves unknown extension fields associated with the
+    identifier.
+    """
 
     scheme: str
     value: str
+    extra: dict[str, Any] = field(
+        default_factory=dict
+    )
 
     def __post_init__(self) -> None:
         _require_nonempty_string(
@@ -103,6 +133,10 @@ class ExternalIdentifier:
         _require_nonempty_string(
             self.value,
             field_name="value",
+        )
+
+        _validate_extra(
+            self.extra
         )
 
 
@@ -140,13 +174,9 @@ class Condition:
             self.unit
         )
 
-        if not isinstance(
-            self.extra,
-            dict,
-        ):
-            raise TypeError(
-                "extra must be a dictionary."
-            )
+        _validate_extra(
+            self.extra
+        )
 
 
 # ---------------------------------------------------------------------------
@@ -187,13 +217,9 @@ class ResultScheme:
             field_name="version",
         )
 
-        if not isinstance(
-            self.extra,
-            dict,
-        ):
-            raise TypeError(
-                "extra must be a dictionary."
-            )
+        _validate_extra(
+            self.extra
+        )
 
 
 @dataclass
@@ -240,13 +266,9 @@ class Result:
                 "data must be a dictionary."
             )
 
-        if not isinstance(
-            self.extra,
-            dict,
-        ):
-            raise TypeError(
-                "extra must be a dictionary."
-            )
+        _validate_extra(
+            self.extra
+        )
 
 
 # ---------------------------------------------------------------------------
@@ -318,13 +340,9 @@ class Stimulus:
                 "conditions must be a list."
             )
 
-        if not isinstance(
-            self.extra,
-            dict,
-        ):
-            raise TypeError(
-                "extra must be a dictionary."
-            )
+        _validate_extra(
+            self.extra
+        )
 
 
 # ---------------------------------------------------------------------------
@@ -376,13 +394,9 @@ class ObservationTarget:
                 "identifiers must be a list."
             )
 
-        if not isinstance(
-            self.extra,
-            dict,
-        ):
-            raise TypeError(
-                "extra must be a dictionary."
-            )
+        _validate_extra(
+            self.extra
+        )
 
 
 # ---------------------------------------------------------------------------
@@ -480,10 +494,6 @@ class Observation:
                 "identifiers must be a list."
             )
 
-        if not isinstance(
-            self.extra,
-            dict,
-        ):
-            raise TypeError(
-                "extra must be a dictionary."
-            )
+        _validate_extra(
+            self.extra
+        )

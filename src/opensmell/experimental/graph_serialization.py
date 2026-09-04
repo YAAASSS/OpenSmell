@@ -94,9 +94,12 @@ def reference_to_dict(reference: Reference) -> dict[str, Any]:
     if not isinstance(reference, Reference):
         raise TypeError("reference must be a Reference")
 
-    return {
-        "resource_id": reference.resource_id,
-    }
+    return _merge_extra(
+        reference.extra,
+        {
+            "resource_id": reference.resource_id,
+        },
+    )
 
 
 def reference_from_dict(value: Any) -> Reference:
@@ -107,7 +110,17 @@ def reference_from_dict(value: Any) -> Reference:
         "reference.resource_id",
     )
 
-    return Reference(resource_id=resource_id)
+    extra = _split_known_fields(
+        obj,
+        {
+            "resource_id",
+        },
+    )
+
+    return Reference(
+        resource_id=resource_id,
+        extra=extra,
+    )
 
 
 def external_identifier_to_dict(
@@ -118,10 +131,13 @@ def external_identifier_to_dict(
             "identifier must be an ExternalIdentifier"
         )
 
-    return {
-        "scheme": identifier.scheme,
-        "value": identifier.value,
-    }
+    return _merge_extra(
+        identifier.extra,
+        {
+            "scheme": identifier.scheme,
+            "value": identifier.value,
+        },
+    )
 
 
 def external_identifier_from_dict(
@@ -139,9 +155,18 @@ def external_identifier_from_dict(
         "external identifier.value",
     )
 
+    extra = _split_known_fields(
+        obj,
+        {
+            "scheme",
+            "value",
+        },
+    )
+
     return ExternalIdentifier(
         scheme=scheme,
         value=identifier_value,
+        extra=extra,
     )
 
 

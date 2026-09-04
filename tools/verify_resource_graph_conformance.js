@@ -11,6 +11,14 @@
  * and independently checks the structural rules represented by the
  * experimental ResourceGraph 0.1 JSON Schema.
  *
+ * Valid vectors may additionally declare:
+ *
+ *   preserve: true
+ *
+ * For those vectors, this verifier also performs an independent JavaScript
+ * parse/serialize round-trip and requires the complete document to be
+ * preserved.
+ *
  * This is an interoperability/conformance experiment. It is not a normative
  * OpenSmell implementation.
  */
@@ -37,6 +45,11 @@ const GRAPH_FORMAT =
 
 const GRAPH_VERSION = "0.1";
 
+const EXPECTED_VECTOR_COUNT = 57;
+const EXPECTED_VALID_VECTOR_COUNT = 12;
+const EXPECTED_INVALID_VECTOR_COUNT = 45;
+const EXPECTED_PRESERVATION_VECTOR_COUNT = 2;
+
 
 function isObject(value) {
     return (
@@ -49,6 +62,11 @@ function isObject(value) {
 
 function isNonEmptyString(value) {
     return typeof value === "string" && value.length > 0;
+}
+
+
+function hasOwn(value, key) {
+    return Object.prototype.hasOwnProperty.call(value, key);
 }
 
 
@@ -82,12 +100,12 @@ function validateCondition(value) {
         return false;
     }
 
-    if (!Object.prototype.hasOwnProperty.call(value, "value")) {
+    if (!hasOwn(value, "value")) {
         return false;
     }
 
     if (
-        Object.prototype.hasOwnProperty.call(value, "unit") &&
+        hasOwn(value, "unit") &&
         !isNonEmptyString(value.unit)
     ) {
         return false;
@@ -118,7 +136,7 @@ function validateResult(value) {
         return false;
     }
 
-    if (!Object.prototype.hasOwnProperty.call(value, "data")) {
+    if (!hasOwn(value, "data")) {
         return false;
     }
 
@@ -166,7 +184,7 @@ function validateStimulus(resource) {
         return false;
     }
 
-    if (Object.prototype.hasOwnProperty.call(resource, "source")) {
+    if (hasOwn(resource, "source")) {
         if (
             resource.source !== null &&
             !validateReference(resource.source)
@@ -175,13 +193,13 @@ function validateStimulus(resource) {
         }
     }
 
-    if (Object.prototype.hasOwnProperty.call(resource, "identifiers")) {
+    if (hasOwn(resource, "identifiers")) {
         if (!validateIdentifiers(resource.identifiers)) {
             return false;
         }
     }
 
-    if (Object.prototype.hasOwnProperty.call(resource, "conditions")) {
+    if (hasOwn(resource, "conditions")) {
         if (!validateConditions(resource.conditions)) {
             return false;
         }
@@ -200,7 +218,7 @@ function validateObservationTarget(resource) {
         return false;
     }
 
-    if (Object.prototype.hasOwnProperty.call(resource, "identifiers")) {
+    if (hasOwn(resource, "identifiers")) {
         if (!validateIdentifiers(resource.identifiers)) {
             return false;
         }
@@ -219,7 +237,7 @@ function validateObservation(resource) {
         return false;
     }
 
-    if (!Object.prototype.hasOwnProperty.call(resource, "stimulus")) {
+    if (!hasOwn(resource, "stimulus")) {
         return false;
     }
 
@@ -227,7 +245,7 @@ function validateObservation(resource) {
         return false;
     }
 
-    if (Object.prototype.hasOwnProperty.call(resource, "target")) {
+    if (hasOwn(resource, "target")) {
         if (
             resource.target !== null &&
             !validateReference(resource.target)
@@ -236,19 +254,19 @@ function validateObservation(resource) {
         }
     }
 
-    if (Object.prototype.hasOwnProperty.call(resource, "results")) {
+    if (hasOwn(resource, "results")) {
         if (!validateResults(resource.results)) {
             return false;
         }
     }
 
-    if (Object.prototype.hasOwnProperty.call(resource, "context")) {
+    if (hasOwn(resource, "context")) {
         if (!isObject(resource.context)) {
             return false;
         }
     }
 
-    if (Object.prototype.hasOwnProperty.call(resource, "identifiers")) {
+    if (hasOwn(resource, "identifiers")) {
         if (!validateIdentifiers(resource.identifiers)) {
             return false;
         }
@@ -263,7 +281,7 @@ function validateResource(resource) {
         return false;
     }
 
-    if (!Object.prototype.hasOwnProperty.call(resource, "type")) {
+    if (!hasOwn(resource, "type")) {
         return false;
     }
 
@@ -296,7 +314,7 @@ function validateGraph(document) {
         return false;
     }
 
-    if (!Object.prototype.hasOwnProperty.call(document, "resources")) {
+    if (!hasOwn(document, "resources")) {
         return false;
     }
 
@@ -308,12 +326,144 @@ function validateGraph(document) {
 }
 
 
+/*
+ * JSON-compatible deep clone.
+ *
+ * This deliberately preserves members that the experimental JavaScript
+ * implementation does not understand. That behavior is what the
+ * preservation vectors are intended to verify.
+ */
+function cloneJsonValue(value) {
+    if (
+        value === null ||
+        typeof value === "string" ||
+        typeof value === "boolean" ||
+        typeof value === "number"
+    ) {
+        return value;
+    }
+
+    if (Array.isArray(value)) {
+        return value.map(cloneJsonValue);
+    }
+
+    if (isObject(value)) {
+        const result = {};
+
+        for (const [key, nestedValue] of Object.entries(value)) {
+            result[key] = cloneJsonValue(nestedValue);
+        }
+
+        return result;
+    }
+
+    throw new Error(
+        `Unsupported non-JSON value: ${String(value)}`
+    );
+}
+
+
+/*
+ * Minimal independent JavaScript ResourceGraph parse/serialize path.
+ *
+ * It is intentionally separate from the Python implementation.
+ * Unknown JSON members are retained rather than discarded.
+ */
+function parseGraph(document) {
+    if (!validateGraph(document)) {
+        throw new Error(
+            "Cannot parse invalid ResourceGraph document."
+        );
+    }
+
+    return cloneJsonValue(document);
+}
+
+
+function serializeGraph(graph) {
+    if (!validateGraph(graph)) {
+        throw new Error(
+            "Cannot serialize invalid ResourceGraph document."
+        );
+    }
+
+    return cloneJsonValue(graph);
+}
+
+
+/*
+ * Compare JSON-compatible values semantically.
+ *
+ * Object member ordering is irrelevant. Array ordering remains significant.
+ */
+function jsonDeepEqual(left, right) {
+    if (left === right) {
+        return true;
+    }
+
+    if (Array.isArray(left) || Array.isArray(right)) {
+        if (!Array.isArray(left) || !Array.isArray(right)) {
+            return false;
+        }
+
+        if (left.length !== right.length) {
+            return false;
+        }
+
+        for (
+            let index = 0;
+            index < left.length;
+            index += 1
+        ) {
+            if (!jsonDeepEqual(left[index], right[index])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    if (isObject(left) || isObject(right)) {
+        if (!isObject(left) || !isObject(right)) {
+            return false;
+        }
+
+        const leftKeys = Object.keys(left);
+        const rightKeys = Object.keys(right);
+
+        if (leftKeys.length !== rightKeys.length) {
+            return false;
+        }
+
+        for (const key of leftKeys) {
+            if (!hasOwn(right, key)) {
+                return false;
+            }
+
+            if (!jsonDeepEqual(left[key], right[key])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    return false;
+}
+
+
 function loadVectors() {
-    const text = fs.readFileSync(VECTORS_PATH, "utf8");
+    const text = fs.readFileSync(
+        VECTORS_PATH,
+        "utf8"
+    );
+
     const document = JSON.parse(text);
 
     if (!isObject(document)) {
-        throw new Error("Conformance vector file must contain an object.");
+        throw new Error(
+            "Conformance vector file must contain an object."
+        );
     }
 
     if (document.format !== VECTOR_FORMAT) {
@@ -329,7 +479,9 @@ function loadVectors() {
     }
 
     if (!Array.isArray(document.vectors)) {
-        throw new Error("Conformance vector file must contain vectors[].");
+        throw new Error(
+            "Conformance vector file must contain vectors[]."
+        );
     }
 
     return document.vectors;
@@ -338,20 +490,46 @@ function loadVectors() {
 
 function verifyVectorShape(vector) {
     if (!isObject(vector)) {
-        throw new Error("Conformance vector must be an object.");
-    }
-
-    const keys = Object.keys(vector).sort();
-    const expectedKeys = ["document", "name", "valid"];
-
-    if (JSON.stringify(keys) !== JSON.stringify(expectedKeys)) {
         throw new Error(
-            `Invalid vector fields: ${JSON.stringify(keys)}`
+            "Conformance vector must be an object."
         );
     }
 
+    const allowedKeys = new Set([
+        "document",
+        "name",
+        "preserve",
+        "valid",
+    ]);
+
+    const requiredKeys = [
+        "document",
+        "name",
+        "valid",
+    ];
+
+    for (const key of Object.keys(vector)) {
+        if (!allowedKeys.has(key)) {
+            throw new Error(
+                `${String(vector.name)}: ` +
+                `invalid vector field ${key}.`
+            );
+        }
+    }
+
+    for (const key of requiredKeys) {
+        if (!hasOwn(vector, key)) {
+            throw new Error(
+                `${String(vector.name)}: ` +
+                `missing vector field ${key}.`
+            );
+        }
+    }
+
     if (!isNonEmptyString(vector.name)) {
-        throw new Error("Conformance vector name must be non-empty.");
+        throw new Error(
+            "Conformance vector name must be non-empty."
+        );
     }
 
     if (typeof vector.valid !== "boolean") {
@@ -359,61 +537,192 @@ function verifyVectorShape(vector) {
             `${vector.name}: valid must be a boolean.`
         );
     }
+
+    if (
+        hasOwn(vector, "preserve") &&
+        typeof vector.preserve !== "boolean"
+    ) {
+        throw new Error(
+            `${vector.name}: preserve must be a boolean.`
+        );
+    }
+
+    if (
+        vector.preserve === true &&
+        vector.valid !== true
+    ) {
+        throw new Error(
+            `${vector.name}: ` +
+            "preserve=true requires valid=true."
+        );
+    }
+}
+
+
+function verifyPreservation(vector) {
+    const parsed = parseGraph(vector.document);
+    const serialized = serializeGraph(parsed);
+
+    return jsonDeepEqual(
+        serialized,
+        vector.document
+    );
 }
 
 
 function main() {
     const vectors = loadVectors();
 
-    if (vectors.length !== 55) {
+    if (vectors.length !== EXPECTED_VECTOR_COUNT) {
         throw new Error(
-            `Expected 55 conformance vectors, found ${vectors.length}.`
+            `Expected ${EXPECTED_VECTOR_COUNT} ` +
+            `conformance vectors, found ${vectors.length}.`
         );
     }
 
     const names = new Set();
 
-    let passed = 0;
+    let validCount = 0;
+    let invalidCount = 0;
+    let preservationCount = 0;
+
+    let validationPassed = 0;
+    let preservationPassed = 0;
+
     let failed = 0;
+
 
     for (const vector of vectors) {
         verifyVectorShape(vector);
 
         if (names.has(vector.name)) {
             throw new Error(
-                `Duplicate conformance vector name: ${vector.name}`
+                `Duplicate conformance vector name: ` +
+                `${vector.name}`
             );
         }
 
         names.add(vector.name);
 
-        const actual = validateGraph(vector.document);
+
+        if (vector.valid === true) {
+            validCount += 1;
+        } else {
+            invalidCount += 1;
+        }
+
+
+        if (vector.preserve === true) {
+            preservationCount += 1;
+        }
+
+
+        const actual = validateGraph(
+            vector.document
+        );
+
 
         if (actual === vector.valid) {
-            console.log(`PASS ${vector.name}`);
-            passed += 1;
+            console.log(
+                `PASS validation ${vector.name}`
+            );
+
+            validationPassed += 1;
         } else {
             console.error(
-                `FAIL ${vector.name}: ` +
+                `FAIL validation ${vector.name}: ` +
                 `expected valid=${vector.valid}, ` +
                 `got valid=${actual}`
             );
+
             failed += 1;
+
+            /*
+             * Do not attempt a preservation round-trip
+             * if structural validation already failed.
+             */
+            continue;
+        }
+
+
+        if (vector.preserve === true) {
+            if (verifyPreservation(vector)) {
+                console.log(
+                    `PASS preservation ${vector.name}`
+                );
+
+                preservationPassed += 1;
+            } else {
+                console.error(
+                    `FAIL preservation ${vector.name}: ` +
+                    "JavaScript round-trip changed the document"
+                );
+
+                failed += 1;
+            }
         }
     }
 
+
+    if (
+        validCount !==
+        EXPECTED_VALID_VECTOR_COUNT
+    ) {
+        throw new Error(
+            `Expected ${EXPECTED_VALID_VECTOR_COUNT} ` +
+            `valid vectors, found ${validCount}.`
+        );
+    }
+
+
+    if (
+        invalidCount !==
+        EXPECTED_INVALID_VECTOR_COUNT
+    ) {
+        throw new Error(
+            `Expected ${EXPECTED_INVALID_VECTOR_COUNT} ` +
+            `invalid vectors, found ${invalidCount}.`
+        );
+    }
+
+
+    if (
+        preservationCount !==
+        EXPECTED_PRESERVATION_VECTOR_COUNT
+    ) {
+        throw new Error(
+            `Expected ${EXPECTED_PRESERVATION_VECTOR_COUNT} ` +
+            `preservation vectors, ` +
+            `found ${preservationCount}.`
+        );
+    }
+
+
     console.log("");
+
     console.log(
-        `ResourceGraph conformance: ${passed} passed, ${failed} failed`
+        "ResourceGraph validation conformance: " +
+        `${validationPassed} passed, ` +
+        `${EXPECTED_VECTOR_COUNT - validationPassed} failed`
     );
+
+    console.log(
+        "ResourceGraph preservation conformance: " +
+        `${preservationPassed} passed, ` +
+        `${preservationCount - preservationPassed} failed`
+    );
+
 
     if (failed !== 0) {
         process.exitCode = 1;
         return;
     }
 
+
     console.log(
-        "SUCCESS: JavaScript agrees with all portable conformance vectors."
+        "SUCCESS: JavaScript agrees with all portable " +
+        "conformance vectors and preserves all " +
+        "preservation vectors."
     );
 }
 
