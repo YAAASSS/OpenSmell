@@ -1,0 +1,951 @@
+{
+  "format": "org.opensmell.experimental.resource-graph-conformance",
+  "version": "0.1",
+  "vectors": [
+    {
+      "name": "valid_empty_graph",
+      "valid": true,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": []
+      }
+    },
+    {
+      "name": "valid_unresolved_reference",
+      "valid": true,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "observation",
+            "id": "observation-1",
+            "stimulus": {
+              "resource_id": "missing-stimulus"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "valid_unknown_result_scheme",
+      "valid": true,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus",
+            "id": "stimulus-1"
+          },
+          {
+            "type": "observation",
+            "id": "observation-1",
+            "stimulus": {
+              "resource_id": "stimulus-1"
+            },
+            "results": [
+              {
+                "scheme": {
+                  "id": "vendor.example.future-result",
+                  "version": "7.2"
+                },
+                "data": {
+                  "something": 123
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "valid_document_extension",
+      "valid": true,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [],
+        "vendor_extension": {
+          "enabled": true
+        }
+      }
+    },
+    {
+      "name": "valid_stimulus_extension",
+      "valid": true,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus",
+            "id": "stimulus-1",
+            "vendor_extension": {
+              "value": 42
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "valid_condition_null_value",
+      "valid": true,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus",
+            "id": "stimulus-1",
+            "conditions": [
+              {
+                "property": "example",
+                "value": null
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "valid_source_null",
+      "valid": true,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus",
+            "id": "stimulus-1",
+            "source": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "valid_target_null",
+      "valid": true,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "observation",
+            "id": "observation-1",
+            "stimulus": {
+              "resource_id": "stimulus-1"
+            },
+            "target": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "valid_empty_result_data",
+      "valid": true,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "observation",
+            "id": "observation-1",
+            "stimulus": {
+              "resource_id": "stimulus-1"
+            },
+            "results": [
+              {
+                "scheme": {
+                  "id": "example.result",
+                  "version": "0.1"
+                },
+                "data": {}
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "valid_empty_context",
+      "valid": true,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "observation",
+            "id": "observation-1",
+            "stimulus": {
+              "resource_id": "stimulus-1"
+            },
+            "context": {}
+          }
+        ]
+      }
+    },
+
+    {
+      "name": "invalid_document_not_object",
+      "valid": false,
+      "document": []
+    },
+    {
+      "name": "invalid_missing_format",
+      "valid": false,
+      "document": {
+        "version": "0.1",
+        "resources": []
+      }
+    },
+    {
+      "name": "invalid_wrong_format",
+      "valid": false,
+      "document": {
+        "format": "wrong-format",
+        "version": "0.1",
+        "resources": []
+      }
+    },
+    {
+      "name": "invalid_missing_version",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "resources": []
+      }
+    },
+    {
+      "name": "invalid_wrong_version",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "999",
+        "resources": []
+      }
+    },
+    {
+      "name": "invalid_missing_resources",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1"
+      }
+    },
+    {
+      "name": "invalid_resources_not_array",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": {}
+      }
+    },
+    {
+      "name": "invalid_resource_not_object",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          "not-a-resource"
+        ]
+      }
+    },
+    {
+      "name": "invalid_resource_missing_type",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "id": "resource-1"
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_unknown_resource_type",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "future-resource",
+            "id": "resource-1"
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_resource_missing_id",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus"
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_resource_empty_id",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus",
+            "id": ""
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_resource_non_string_id",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus",
+            "id": 123
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_reference_missing_resource_id",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus",
+            "id": "stimulus-1",
+            "source": {}
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_reference_empty_resource_id",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus",
+            "id": "stimulus-1",
+            "source": {
+              "resource_id": ""
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_reference_non_string_resource_id",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus",
+            "id": "stimulus-1",
+            "source": {
+              "resource_id": 123
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_source_not_reference",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus",
+            "id": "stimulus-1",
+            "source": "stimulus-source"
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_identifiers_not_array",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus",
+            "id": "stimulus-1",
+            "identifiers": {}
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_identifier_not_object",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus",
+            "id": "stimulus-1",
+            "identifiers": [
+              "identifier"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_identifier_missing_scheme",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus",
+            "id": "stimulus-1",
+            "identifiers": [
+              {
+                "value": "123"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_identifier_missing_value",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus",
+            "id": "stimulus-1",
+            "identifiers": [
+              {
+                "scheme": "example"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_identifier_empty_scheme",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus",
+            "id": "stimulus-1",
+            "identifiers": [
+              {
+                "scheme": "",
+                "value": "123"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_identifier_empty_value",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus",
+            "id": "stimulus-1",
+            "identifiers": [
+              {
+                "scheme": "example",
+                "value": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_conditions_not_array",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus",
+            "id": "stimulus-1",
+            "conditions": {}
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_condition_not_object",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus",
+            "id": "stimulus-1",
+            "conditions": [
+              "condition"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_condition_missing_property",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus",
+            "id": "stimulus-1",
+            "conditions": [
+              {
+                "value": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_condition_missing_value",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus",
+            "id": "stimulus-1",
+            "conditions": [
+              {
+                "property": "temperature"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_condition_empty_property",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus",
+            "id": "stimulus-1",
+            "conditions": [
+              {
+                "property": "",
+                "value": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_condition_empty_unit",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus",
+            "id": "stimulus-1",
+            "conditions": [
+              {
+                "property": "temperature",
+                "value": 25,
+                "unit": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_condition_non_string_unit",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus",
+            "id": "stimulus-1",
+            "conditions": [
+              {
+                "property": "temperature",
+                "value": 25,
+                "unit": 123
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_observation_missing_stimulus",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "observation",
+            "id": "observation-1"
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_observation_stimulus_not_reference",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "observation",
+            "id": "observation-1",
+            "stimulus": "stimulus-1"
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_observation_target_not_reference_or_null",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "observation",
+            "id": "observation-1",
+            "stimulus": {
+              "resource_id": "stimulus-1"
+            },
+            "target": "target-1"
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_observation_results_not_array",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "observation",
+            "id": "observation-1",
+            "stimulus": {
+              "resource_id": "stimulus-1"
+            },
+            "results": {}
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_observation_context_not_object",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "observation",
+            "id": "observation-1",
+            "stimulus": {
+              "resource_id": "stimulus-1"
+            },
+            "context": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_observation_identifiers_not_array",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "observation",
+            "id": "observation-1",
+            "stimulus": {
+              "resource_id": "stimulus-1"
+            },
+            "identifiers": {}
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_result_not_object",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "observation",
+            "id": "observation-1",
+            "stimulus": {
+              "resource_id": "stimulus-1"
+            },
+            "results": [
+              "result"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_result_missing_scheme",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "observation",
+            "id": "observation-1",
+            "stimulus": {
+              "resource_id": "stimulus-1"
+            },
+            "results": [
+              {
+                "data": {}
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_result_missing_data",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "observation",
+            "id": "observation-1",
+            "stimulus": {
+              "resource_id": "stimulus-1"
+            },
+            "results": [
+              {
+                "scheme": {
+                  "id": "example.result",
+                  "version": "0.1"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_result_data_not_object",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "observation",
+            "id": "observation-1",
+            "stimulus": {
+              "resource_id": "stimulus-1"
+            },
+            "results": [
+              {
+                "scheme": {
+                  "id": "example.result",
+                  "version": "0.1"
+                },
+                "data": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_result_scheme_not_object",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "observation",
+            "id": "observation-1",
+            "stimulus": {
+              "resource_id": "stimulus-1"
+            },
+            "results": [
+              {
+                "scheme": "example.result",
+                "data": {}
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_result_scheme_missing_id",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "observation",
+            "id": "observation-1",
+            "stimulus": {
+              "resource_id": "stimulus-1"
+            },
+            "results": [
+              {
+                "scheme": {
+                  "version": "0.1"
+                },
+                "data": {}
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_result_scheme_missing_version",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "observation",
+            "id": "observation-1",
+            "stimulus": {
+              "resource_id": "stimulus-1"
+            },
+            "results": [
+              {
+                "scheme": {
+                  "id": "example.result"
+                },
+                "data": {}
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_result_scheme_empty_id",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "observation",
+            "id": "observation-1",
+            "stimulus": {
+              "resource_id": "stimulus-1"
+            },
+            "results": [
+              {
+                "scheme": {
+                  "id": "",
+                  "version": "0.1"
+                },
+                "data": {}
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_result_scheme_empty_version",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "observation",
+            "id": "observation-1",
+            "stimulus": {
+              "resource_id": "stimulus-1"
+            },
+            "results": [
+              {
+                "scheme": {
+                  "id": "example.result",
+                  "version": ""
+                },
+                "data": {}
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

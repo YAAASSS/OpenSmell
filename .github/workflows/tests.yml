@@ -64,3 +64,9 @@ jobs:
 
       - name: Verify JavaScript round-trip in Python
         run: python tools/verify_resource_graph_vectors_roundtrip.py
+
+      - name: Verify portable ResourceGraph conformance vectors in Python
+        run: pytest tests/test_experimental_resource_graph_conformance_vectors.py -q
+
+      - name: Verify portable ResourceGraph conformance vectors in JavaScript
+        run: node tools/verify_resource_graph_conformance.js
