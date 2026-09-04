@@ -1,0 +1,303 @@
+{
+  "vector_set": "org.opensmell.experimental.annotation-resource-graph.interop-vectors",
+  "version": "0.1",
+  "resource_graph_format": "org.opensmell.experimental.generic-resource-graph",
+  "resource_graph_version": "0.1",
+  "vectors": [
+    {
+      "name": "molecule_and_annotation",
+      "graph": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.opensmell.molecule",
+            "type_version": "0.1",
+            "id": "molecule-1",
+            "smiles": "CCO"
+          },
+          {
+            "type": "org.opensmell.annotation",
+            "type_version": "0.1",
+            "id": "annotation-1",
+            "subject": {
+              "resource_id": "molecule-1"
+            },
+            "scheme": {
+              "id": "org.opensmell.semantic.annotations",
+              "version": "0.1"
+            },
+            "data": {
+              "annotations": [
+                {
+                  "value": "floral",
+                  "language": "en",
+                  "state": "present"
+                },
+                {
+                  "value": "spice",
+                  "language": "en",
+                  "state": "absent"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "unresolved_annotation_subject",
+      "graph": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.opensmell.annotation",
+            "type_version": "0.1",
+            "id": "annotation-unresolved",
+            "subject": {
+              "resource_id": "molecule-not-in-graph"
+            },
+            "scheme": {
+              "id": "org.example.scheme",
+              "version": "1"
+            },
+            "data": {
+              "label": "example"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "unknown_annotation_scheme",
+      "graph": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.opensmell.molecule",
+            "type_version": "0.1",
+            "id": "molecule-unknown-scheme",
+            "smiles": "CC"
+          },
+          {
+            "type": "org.opensmell.annotation",
+            "type_version": "0.1",
+            "id": "annotation-unknown-scheme",
+            "subject": {
+              "resource_id": "molecule-unknown-scheme"
+            },
+            "scheme": {
+              "id": "org.example.future.annotation-scheme",
+              "version": "999"
+            },
+            "data": {
+              "future_payload": {
+                "enabled": true,
+                "values": [
+                  1,
+                  2,
+                  3
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "unknown_future_annotation_version",
+      "graph": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.opensmell.molecule",
+            "type_version": "0.1",
+            "id": "molecule-future-annotation",
+            "smiles": "CCC"
+          },
+          {
+            "type": "org.opensmell.annotation",
+            "type_version": "99.0",
+            "id": "annotation-future",
+            "subject": {
+              "resource_id": "molecule-future-annotation"
+            },
+            "scheme": {
+              "id": "org.example.future.scheme",
+              "version": "42"
+            },
+            "data": {
+              "future": true
+            },
+            "new_field_from_future": {
+              "preserve_me": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "unknown_resource_with_annotation",
+      "graph": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.example.future.sensor",
+            "type_version": "7",
+            "id": "future-sensor-1",
+            "channels": [
+              0.1,
+              0.2,
+              0.3
+            ],
+            "manufacturer_extension": {
+              "model": "future-device"
+            }
+          },
+          {
+            "type": "org.opensmell.annotation",
+            "type_version": "0.1",
+            "id": "annotation-future-sensor",
+            "subject": {
+              "resource_id": "future-sensor-1"
+            },
+            "scheme": {
+              "id": "org.example.sensor.annotation",
+              "version": "0.1"
+            },
+            "data": {
+              "quality": "experimental"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "mixed_molecule_annotation_unknown_and_future",
+      "graph": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.opensmell.molecule",
+            "type_version": "0.1",
+            "id": "molecule-mixed",
+            "smiles": "CCO",
+            "identifiers": [
+              {
+                "scheme": "pubchem.inchikey",
+                "value": "LFQSCWFLJHTTHZ-UHFFFAOYSA-N"
+              }
+            ]
+          },
+          {
+            "type": "org.opensmell.annotation",
+            "type_version": "0.1",
+            "id": "annotation-mixed",
+            "subject": {
+              "resource_id": "molecule-mixed",
+              "relationship_extension": "primary-subject"
+            },
+            "scheme": {
+              "id": "org.opensmell.semantic.annotations",
+              "version": "0.1",
+              "vocabulary_extension": "odornet-12"
+            },
+            "data": {
+              "annotations": [
+                {
+                  "value": "floral",
+                  "language": "en",
+                  "state": "present"
+                },
+                {
+                  "value": "odorless",
+                  "language": "en",
+                  "state": "absent"
+                }
+              ]
+            },
+            "provenance": {
+              "source": "interop-test"
+            }
+          },
+          {
+            "type": "org.example.unknown-resource",
+            "type_version": "3",
+            "id": "unknown-mixed",
+            "opaque": {
+              "nested": [
+                true,
+                null,
+                7
+              ]
+            }
+          },
+          {
+            "type": "org.opensmell.annotation",
+            "type_version": "99.0",
+            "id": "future-annotation-mixed",
+            "subject": {
+              "resource_id": "molecule-mixed"
+            },
+            "scheme": {
+              "id": "org.example.future",
+              "version": "β1"
+            },
+            "data": {
+              "future": "preserve"
+            },
+            "future_extension": "still-here"
+          }
+        ],
+        "graph_extension": {
+          "purpose": "RFC-0010 interoperability"
+        }
+      }
+    },
+    {
+      "name": "extensions_and_unicode",
+      "graph": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.opensmell.molecule",
+            "type_version": "0.1",
+            "id": "molécule-日本語-🧪",
+            "smiles": "C",
+            "molecule_extension": {
+              "label": "méthane"
+            }
+          },
+          {
+            "type": "org.opensmell.annotation",
+            "type_version": "0.1",
+            "id": "аннотация-🌸",
+            "subject": {
+              "resource_id": "molécule-日本語-🧪",
+              "reference_extension": "référence-参照"
+            },
+            "scheme": {
+              "id": "org.example.аромат",
+              "version": "β1",
+              "scheme_extension": "éèê-日本語"
+            },
+            "data": {
+              "label": "цветочный",
+              "description": "café-香り-🌹"
+            },
+            "annotation_extension": {
+              "russian": "запах"
+            }
+          }
+        ],
+        "unicode_graph_extension": "éèê-日本語-🚀"
+      }
+    }
+  ]
+}

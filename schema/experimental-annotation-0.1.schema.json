@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opensmell.org/schema/experimental-annotation-0.1.schema.json",
+  "title": "OpenSmell Experimental Annotation Resource 0.1",
+  "description": "Non-normative structural schema for the experimental OpenSmell Annotation resource defined by RFC-0010.",
+  "type": "object",
+  "required": [
+    "type",
+    "type_version",
+    "id",
+    "subject",
+    "scheme",
+    "data"
+  ],
+  "properties": {
+    "type": {
+      "const": "org.opensmell.annotation"
+    },
+    "type_version": {
+      "const": "0.1"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "subject": {
+      "$ref": "#/$defs/reference"
+    },
+    "scheme": {
+      "$ref": "#/$defs/scheme"
+    },
+    "data": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "reference": {
+      "type": "object",
+      "required": [
+        "resource_id"
+      ],
+      "properties": {
+        "resource_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": true
+    },
+    "scheme": {
+      "type": "object",
+      "required": [
+        "id",
+        "version"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

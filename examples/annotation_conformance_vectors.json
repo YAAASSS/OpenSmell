@@ -1,0 +1,782 @@
+{
+  "format": "org.opensmell.experimental.annotation-conformance",
+  "version": "0.1",
+  "vectors": [
+    {
+      "name": "valid_minimal",
+      "valid": true,
+      "preserve": true,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "annotation-1",
+        "subject": {
+          "resource_id": "resource-1"
+        },
+        "scheme": {
+          "id": "org.example.scheme",
+          "version": "0.1"
+        },
+        "data": {}
+      }
+    },
+    {
+      "name": "valid_semantic_annotations",
+      "valid": true,
+      "preserve": true,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "annotation-semantic",
+        "subject": {
+          "resource_id": "molecule-1"
+        },
+        "scheme": {
+          "id": "org.opensmell.semantic.annotations",
+          "version": "0.1"
+        },
+        "data": {
+          "annotations": [
+            {
+              "value": "floral",
+              "language": "en",
+              "state": "present"
+            },
+            {
+              "value": "spice",
+              "language": "en",
+              "state": "absent"
+            },
+            {
+              "value": "woody&mossy",
+              "language": "en",
+              "state": "unknown"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "valid_unknown_scheme",
+      "valid": true,
+      "preserve": true,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "annotation-unknown-scheme",
+        "subject": {
+          "resource_id": "resource-1"
+        },
+        "scheme": {
+          "id": "org.example.future.annotation",
+          "version": "999"
+        },
+        "data": {
+          "future": {
+            "payload": true
+          }
+        }
+      }
+    },
+    {
+      "name": "valid_opaque_scheme_version",
+      "valid": true,
+      "preserve": true,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "annotation-opaque-version",
+        "subject": {
+          "resource_id": "resource-1"
+        },
+        "scheme": {
+          "id": "org.example.scheme",
+          "version": "future-version-alpha"
+        },
+        "data": {}
+      }
+    },
+    {
+      "name": "valid_non_namespaced_scheme_id",
+      "valid": true,
+      "preserve": true,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "annotation-non-namespaced-scheme",
+        "subject": {
+          "resource_id": "resource-1"
+        },
+        "scheme": {
+          "id": "legacy-scheme",
+          "version": "1"
+        },
+        "data": {}
+      }
+    },
+    {
+      "name": "valid_unresolved_subject",
+      "valid": true,
+      "preserve": true,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "annotation-unresolved",
+        "subject": {
+          "resource_id": "external-resource-not-in-graph"
+        },
+        "scheme": {
+          "id": "org.example.scheme",
+          "version": "0.1"
+        },
+        "data": {}
+      }
+    },
+    {
+      "name": "valid_annotation_extensions",
+      "valid": true,
+      "preserve": true,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "annotation-extensions",
+        "subject": {
+          "resource_id": "resource-1"
+        },
+        "scheme": {
+          "id": "org.example.scheme",
+          "version": "0.1"
+        },
+        "data": {},
+        "provenance": {
+          "source": "example-dataset",
+          "record": 42
+        },
+        "org.example.extension": {
+          "enabled": true
+        }
+      }
+    },
+    {
+      "name": "valid_reference_extensions",
+      "valid": true,
+      "preserve": true,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "annotation-reference-extensions",
+        "subject": {
+          "resource_id": "resource-1",
+          "role": "annotated-resource",
+          "org.example.reference": {
+            "external": true
+          }
+        },
+        "scheme": {
+          "id": "org.example.scheme",
+          "version": "0.1"
+        },
+        "data": {}
+      }
+    },
+    {
+      "name": "valid_scheme_extensions",
+      "valid": true,
+      "preserve": true,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "annotation-scheme-extensions",
+        "subject": {
+          "resource_id": "resource-1"
+        },
+        "scheme": {
+          "id": "org.example.scheme",
+          "version": "0.1",
+          "vocabulary": {
+            "id": "org.example.vocabulary",
+            "version": "2"
+          },
+          "experimental": true
+        },
+        "data": {}
+      }
+    },
+    {
+      "name": "valid_extensions_at_all_levels",
+      "valid": true,
+      "preserve": true,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "annotation-all-extensions",
+        "subject": {
+          "resource_id": "resource-1",
+          "subject_extension": {
+            "value": 1
+          }
+        },
+        "scheme": {
+          "id": "org.example.scheme",
+          "version": "0.1",
+          "scheme_extension": {
+            "value": 2
+          }
+        },
+        "data": {
+          "opaque": {
+            "value": 3
+          }
+        },
+        "annotation_extension": {
+          "value": 4
+        }
+      }
+    },
+    {
+      "name": "valid_unicode",
+      "valid": true,
+      "preserve": true,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "аннотация-🌸",
+        "subject": {
+          "resource_id": "молекула-é"
+        },
+        "scheme": {
+          "id": "org.example.аромат",
+          "version": "версия-1"
+        },
+        "data": {
+          "label": "цветочный",
+          "description": "épicé 🌸"
+        },
+        "note": "аромат"
+      }
+    },
+    {
+      "name": "valid_deep_json_payload",
+      "valid": true,
+      "preserve": true,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "annotation-json-payload",
+        "subject": {
+          "resource_id": "resource-1"
+        },
+        "scheme": {
+          "id": "org.example.scheme",
+          "version": "0.1"
+        },
+        "data": {
+          "null_value": null,
+          "boolean_true": true,
+          "boolean_false": false,
+          "integer": 42,
+          "negative_integer": -7,
+          "float": 1.25,
+          "string": "value",
+          "array": [
+            null,
+            true,
+            1,
+            2.5,
+            "text",
+            {
+              "nested": [
+                1,
+                2,
+                3
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "invalid_missing_type",
+      "valid": false,
+      "resource": {
+        "type_version": "0.1",
+        "id": "annotation-1",
+        "subject": {
+          "resource_id": "resource-1"
+        },
+        "scheme": {
+          "id": "org.example.scheme",
+          "version": "0.1"
+        },
+        "data": {}
+      }
+    },
+    {
+      "name": "invalid_wrong_type",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "type_version": "0.1",
+        "id": "annotation-1",
+        "subject": {
+          "resource_id": "resource-1"
+        },
+        "scheme": {
+          "id": "org.example.scheme",
+          "version": "0.1"
+        },
+        "data": {}
+      }
+    },
+    {
+      "name": "invalid_type_null",
+      "valid": false,
+      "resource": {
+        "type": null,
+        "type_version": "0.1",
+        "id": "annotation-1",
+        "subject": {
+          "resource_id": "resource-1"
+        },
+        "scheme": {
+          "id": "org.example.scheme",
+          "version": "0.1"
+        },
+        "data": {}
+      }
+    },
+    {
+      "name": "invalid_missing_type_version",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "id": "annotation-1",
+        "subject": {
+          "resource_id": "resource-1"
+        },
+        "scheme": {
+          "id": "org.example.scheme",
+          "version": "0.1"
+        },
+        "data": {}
+      }
+    },
+    {
+      "name": "invalid_wrong_type_version",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.2",
+        "id": "annotation-1",
+        "subject": {
+          "resource_id": "resource-1"
+        },
+        "scheme": {
+          "id": "org.example.scheme",
+          "version": "0.1"
+        },
+        "data": {}
+      }
+    },
+    {
+      "name": "invalid_type_version_null",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": null,
+        "id": "annotation-1",
+        "subject": {
+          "resource_id": "resource-1"
+        },
+        "scheme": {
+          "id": "org.example.scheme",
+          "version": "0.1"
+        },
+        "data": {}
+      }
+    },
+    {
+      "name": "invalid_missing_id",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "subject": {
+          "resource_id": "resource-1"
+        },
+        "scheme": {
+          "id": "org.example.scheme",
+          "version": "0.1"
+        },
+        "data": {}
+      }
+    },
+    {
+      "name": "invalid_empty_id",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "",
+        "subject": {
+          "resource_id": "resource-1"
+        },
+        "scheme": {
+          "id": "org.example.scheme",
+          "version": "0.1"
+        },
+        "data": {}
+      }
+    },
+    {
+      "name": "invalid_non_string_id",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": 123,
+        "subject": {
+          "resource_id": "resource-1"
+        },
+        "scheme": {
+          "id": "org.example.scheme",
+          "version": "0.1"
+        },
+        "data": {}
+      }
+    },
+    {
+      "name": "invalid_missing_subject",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "annotation-1",
+        "scheme": {
+          "id": "org.example.scheme",
+          "version": "0.1"
+        },
+        "data": {}
+      }
+    },
+    {
+      "name": "invalid_subject_null",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "annotation-1",
+        "subject": null,
+        "scheme": {
+          "id": "org.example.scheme",
+          "version": "0.1"
+        },
+        "data": {}
+      }
+    },
+    {
+      "name": "invalid_subject_array",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "annotation-1",
+        "subject": [],
+        "scheme": {
+          "id": "org.example.scheme",
+          "version": "0.1"
+        },
+        "data": {}
+      }
+    },
+    {
+      "name": "invalid_subject_missing_resource_id",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "annotation-1",
+        "subject": {},
+        "scheme": {
+          "id": "org.example.scheme",
+          "version": "0.1"
+        },
+        "data": {}
+      }
+    },
+    {
+      "name": "invalid_subject_empty_resource_id",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "annotation-1",
+        "subject": {
+          "resource_id": ""
+        },
+        "scheme": {
+          "id": "org.example.scheme",
+          "version": "0.1"
+        },
+        "data": {}
+      }
+    },
+    {
+      "name": "invalid_subject_non_string_resource_id",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "annotation-1",
+        "subject": {
+          "resource_id": 42
+        },
+        "scheme": {
+          "id": "org.example.scheme",
+          "version": "0.1"
+        },
+        "data": {}
+      }
+    },
+    {
+      "name": "invalid_missing_scheme",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "annotation-1",
+        "subject": {
+          "resource_id": "resource-1"
+        },
+        "data": {}
+      }
+    },
+    {
+      "name": "invalid_scheme_null",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "annotation-1",
+        "subject": {
+          "resource_id": "resource-1"
+        },
+        "scheme": null,
+        "data": {}
+      }
+    },
+    {
+      "name": "invalid_scheme_array",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "annotation-1",
+        "subject": {
+          "resource_id": "resource-1"
+        },
+        "scheme": [],
+        "data": {}
+      }
+    },
+    {
+      "name": "invalid_scheme_missing_id",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "annotation-1",
+        "subject": {
+          "resource_id": "resource-1"
+        },
+        "scheme": {
+          "version": "0.1"
+        },
+        "data": {}
+      }
+    },
+    {
+      "name": "invalid_scheme_empty_id",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "annotation-1",
+        "subject": {
+          "resource_id": "resource-1"
+        },
+        "scheme": {
+          "id": "",
+          "version": "0.1"
+        },
+        "data": {}
+      }
+    },
+    {
+      "name": "invalid_scheme_non_string_id",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "annotation-1",
+        "subject": {
+          "resource_id": "resource-1"
+        },
+        "scheme": {
+          "id": 123,
+          "version": "0.1"
+        },
+        "data": {}
+      }
+    },
+    {
+      "name": "invalid_scheme_missing_version",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "annotation-1",
+        "subject": {
+          "resource_id": "resource-1"
+        },
+        "scheme": {
+          "id": "org.example.scheme"
+        },
+        "data": {}
+      }
+    },
+    {
+      "name": "invalid_scheme_empty_version",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "annotation-1",
+        "subject": {
+          "resource_id": "resource-1"
+        },
+        "scheme": {
+          "id": "org.example.scheme",
+          "version": ""
+        },
+        "data": {}
+      }
+    },
+    {
+      "name": "invalid_scheme_non_string_version",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "annotation-1",
+        "subject": {
+          "resource_id": "resource-1"
+        },
+        "scheme": {
+          "id": "org.example.scheme",
+          "version": 1
+        },
+        "data": {}
+      }
+    },
+    {
+      "name": "invalid_missing_data",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "annotation-1",
+        "subject": {
+          "resource_id": "resource-1"
+        },
+        "scheme": {
+          "id": "org.example.scheme",
+          "version": "0.1"
+        }
+      }
+    },
+    {
+      "name": "invalid_data_null",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "annotation-1",
+        "subject": {
+          "resource_id": "resource-1"
+        },
+        "scheme": {
+          "id": "org.example.scheme",
+          "version": "0.1"
+        },
+        "data": null
+      }
+    },
+    {
+      "name": "invalid_data_array",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "annotation-1",
+        "subject": {
+          "resource_id": "resource-1"
+        },
+        "scheme": {
+          "id": "org.example.scheme",
+          "version": "0.1"
+        },
+        "data": []
+      }
+    },
+    {
+      "name": "invalid_data_string",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "annotation-1",
+        "subject": {
+          "resource_id": "resource-1"
+        },
+        "scheme": {
+          "id": "org.example.scheme",
+          "version": "0.1"
+        },
+        "data": "opaque"
+      }
+    },
+    {
+      "name": "invalid_data_number",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "annotation-1",
+        "subject": {
+          "resource_id": "resource-1"
+        },
+        "scheme": {
+          "id": "org.example.scheme",
+          "version": "0.1"
+        },
+        "data": 42
+      }
+    },
+    {
+      "name": "invalid_resource_array",
+      "valid": false,
+      "resource": []
+    },
+    {
+      "name": "invalid_resource_null",
+      "valid": false,
+      "resource": null
+    },
+    {
+      "name": "invalid_resource_string",
+      "valid": false,
+      "resource": "annotation"
+    }
+  ]
+}
