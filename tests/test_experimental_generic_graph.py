@@ -1195,3 +1195,405 @@ def test_resources_with_type_rejects_invalid_registry() -> None:
             "stimulus",
             registry=object(),
         )
+
+
+
+@dataclass
+class VersionedExampleResourceV01:
+    id: str
+    value: str
+
+
+@dataclass
+class VersionedExampleResourceV02:
+    id: str
+    value: str
+    enabled: bool
+
+
+def _versioned_example_v01_from_dict(
+    value: Any,
+) -> VersionedExampleResourceV01:
+    if not isinstance(value, dict):
+        raise TypeError("versioned example resource must be an object")
+
+    return VersionedExampleResourceV01(
+        id=value["id"],
+        value=value["value"],
+    )
+
+
+def _versioned_example_v01_to_dict(
+    resource: VersionedExampleResourceV01,
+) -> dict[str, Any]:
+    return {
+        "type": "org.example.resource",
+        "type_version": "0.1",
+        "id": resource.id,
+        "value": resource.value,
+    }
+
+
+def _versioned_example_v02_from_dict(
+    value: Any,
+) -> VersionedExampleResourceV02:
+    if not isinstance(value, dict):
+        raise TypeError("versioned example resource must be an object")
+
+    return VersionedExampleResourceV02(
+        id=value["id"],
+        value=value["value"],
+        enabled=value["enabled"],
+    )
+
+
+def _versioned_example_v02_to_dict(
+    resource: VersionedExampleResourceV02,
+) -> dict[str, Any]:
+    return {
+        "type": "org.example.resource",
+        "type_version": "0.2",
+        "id": resource.id,
+        "value": resource.value,
+        "enabled": resource.enabled,
+    }
+
+
+def _create_versioned_example_registry() -> ResourceTypeRegistry:
+    registry = create_default_resource_type_registry()
+
+    registry.register(
+        "org.example.resource",
+        VersionedExampleResourceV01,
+        _versioned_example_v01_from_dict,
+        _versioned_example_v01_to_dict,
+        resource_type_version="0.1",
+    )
+
+    registry.register(
+        "org.example.resource",
+        VersionedExampleResourceV02,
+        _versioned_example_v02_from_dict,
+        _versioned_example_v02_to_dict,
+        resource_type_version="0.2",
+    )
+
+    return registry
+
+
+def test_generic_resource_preserves_type_version() -> None:
+    document = {
+        "type": "org.example.future-resource",
+        "type_version": "0.1",
+        "id": "future-1",
+        "payload": {
+            "value": 42,
+        },
+    }
+
+    resource = generic_resource_from_dict(document)
+
+    assert resource.type_version == "0.1"
+    assert "type_version" not in resource.data
+    assert generic_resource_to_dict(resource) == document
+
+
+def test_generic_resource_rejects_reserved_type_version_in_data() -> None:
+    with pytest.raises(
+        ValueError,
+        match="reserved field 'type_version'",
+    ):
+        GenericResource(
+            id="future-1",
+            type="org.example.future-resource",
+            data={
+                "type_version": "0.1",
+            },
+        )
+
+
+@pytest.mark.parametrize(
+    ("type_version", "exception_type"),
+    [
+        ("", ValueError),
+        (123, TypeError),
+    ],
+)
+def test_generic_resource_rejects_invalid_type_version(
+    type_version: Any,
+    exception_type: type[Exception],
+) -> None:
+    with pytest.raises(exception_type):
+        GenericResource(
+            id="future-1",
+            type="org.example.future-resource",
+            type_version=type_version,
+        )
+
+
+def test_registry_dispatches_same_resource_type_by_version() -> None:
+    registry = _create_versioned_example_registry()
+
+    resource_v01 = resource_from_dict(
+        {
+            "type": "org.example.resource",
+            "type_version": "0.1",
+            "id": "example-1",
+            "value": "hello",
+        },
+        registry=registry,
+    )
+
+    resource_v02 = resource_from_dict(
+        {
+            "type": "org.example.resource",
+            "type_version": "0.2",
+            "id": "example-2",
+            "value": "hello",
+            "enabled": True,
+        },
+        registry=registry,
+    )
+
+    assert isinstance(
+        resource_v01,
+        VersionedExampleResourceV01,
+    )
+    assert isinstance(
+        resource_v02,
+        VersionedExampleResourceV02,
+    )
+
+
+def test_registry_exposes_versioned_resource_contracts() -> None:
+    registry = _create_versioned_example_registry()
+
+    assert (
+        "org.example.resource",
+        "0.1",
+    ) in registry.resource_contracts()
+
+    assert (
+        "org.example.resource",
+        "0.2",
+    ) in registry.resource_contracts()
+
+    assert "org.example.resource" in registry
+
+
+def test_registry_rejects_duplicate_resource_type_version_pair() -> None:
+    registry = ResourceTypeRegistry()
+
+    registry.register(
+        "org.example.resource",
+        VersionedExampleResourceV01,
+        _versioned_example_v01_from_dict,
+        _versioned_example_v01_to_dict,
+        resource_type_version="0.1",
+    )
+
+    with pytest.raises(
+        ValueError,
+        match="resource type already registered",
+    ):
+        registry.register(
+            "org.example.resource",
+            Stimulus,
+            lambda value: Stimulus(id=value["id"]),
+            lambda resource: {
+                "type": "org.example.resource",
+                "type_version": "0.1",
+                "id": resource.id,
+            },
+            resource_type_version="0.1",
+        )
+
+
+def test_versioned_registry_requires_namespaced_resource_type() -> None:
+    registry = ResourceTypeRegistry()
+
+    with pytest.raises(
+        ValueError,
+        match="namespaced resource type identifier",
+    ):
+        registry.register(
+            "resource",
+            VersionedExampleResourceV01,
+            _versioned_example_v01_from_dict,
+            _versioned_example_v01_to_dict,
+            resource_type_version="0.1",
+        )
+
+
+def test_unknown_resource_type_version_falls_back_to_generic() -> None:
+    registry = _create_versioned_example_registry()
+
+    document = {
+        "type": "org.example.resource",
+        "type_version": "9.9",
+        "id": "example-future",
+        "value": "preserve me",
+        "future": {
+            "enabled": True,
+        },
+    }
+
+    resource = resource_from_dict(
+        document,
+        registry=registry,
+    )
+
+    assert isinstance(resource, GenericResource)
+    assert resource.type_version == "9.9"
+    assert resource_to_dict(
+        resource,
+        registry=registry,
+    ) == document
+
+
+def test_missing_version_does_not_select_versioned_handler() -> None:
+    registry = _create_versioned_example_registry()
+
+    document = {
+        "type": "org.example.resource",
+        "id": "example-unversioned",
+        "value": "preserve me",
+    }
+
+    resource = resource_from_dict(
+        document,
+        registry=registry,
+    )
+
+    assert isinstance(resource, GenericResource)
+    assert resource.type_version is None
+    assert resource_to_dict(
+        resource,
+        registry=registry,
+    ) == document
+
+
+def test_versioned_resource_serializer_preserves_registered_contract() -> None:
+    registry = _create_versioned_example_registry()
+
+    resource = VersionedExampleResourceV01(
+        id="example-1",
+        value="hello",
+    )
+
+    assert resource_to_dict(
+        resource,
+        registry=registry,
+    ) == {
+        "type": "org.example.resource",
+        "type_version": "0.1",
+        "id": "example-1",
+        "value": "hello",
+    }
+
+
+def test_versioned_serializer_must_return_matching_type_version() -> None:
+    registry = ResourceTypeRegistry()
+
+    def wrong_serializer(
+        resource: VersionedExampleResourceV01,
+    ) -> dict[str, Any]:
+        return {
+            "type": "org.example.resource",
+            "type_version": "0.2",
+            "id": resource.id,
+            "value": resource.value,
+        }
+
+    registry.register(
+        "org.example.resource",
+        VersionedExampleResourceV01,
+        _versioned_example_v01_from_dict,
+        wrong_serializer,
+        resource_type_version="0.1",
+    )
+
+    with pytest.raises(
+        ValueError,
+        match="mismatched type_version field",
+    ):
+        resource_to_dict(
+            VersionedExampleResourceV01(
+                id="example-1",
+                value="hello",
+            ),
+            registry=registry,
+        )
+
+
+def test_legacy_rfc0007_resources_remain_unversioned() -> None:
+    stimulus = Stimulus(
+        id="stimulus-1",
+    )
+
+    document = resource_to_dict(stimulus)
+
+    assert document == {
+        "type": "stimulus",
+        "id": "stimulus-1",
+    }
+    assert "type_version" not in document
+
+    parsed = resource_from_dict(document)
+    assert isinstance(parsed, Stimulus)
+
+
+def test_versioned_generic_resource_graph_round_trip() -> None:
+    registry = _create_versioned_example_registry()
+
+    document = {
+        "format": GENERIC_RESOURCE_GRAPH_FORMAT,
+        "version": GENERIC_RESOURCE_GRAPH_VERSION,
+        "resources": [
+            {
+                "type": "org.example.resource",
+                "type_version": "0.1",
+                "id": "example-1",
+                "value": "hello",
+            },
+            {
+                "type": "org.example.future-resource",
+                "type_version": "3.0",
+                "id": "future-1",
+                "payload": {
+                    "preserve": True,
+                },
+            },
+            {
+                "type": "stimulus",
+                "id": "stimulus-1",
+                "source": {
+                    "resource_id": "future-1",
+                },
+            },
+        ],
+    }
+
+    graph = generic_graph_from_dict(
+        document,
+        registry=registry,
+    )
+
+    assert isinstance(
+        graph.require("example-1"),
+        VersionedExampleResourceV01,
+    )
+
+    future = graph.require("future-1")
+    assert isinstance(future, GenericResource)
+    assert future.type_version == "3.0"
+
+    assert isinstance(
+        graph.require("stimulus-1"),
+        Stimulus,
+    )
+
+    assert generic_graph_to_dict(
+        graph,
+        registry=registry,
+    ) == document

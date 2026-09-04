@@ -82,6 +82,29 @@ def _require_string(value: Any, name: str) -> str:
     return value
 
 
+def _require_namespaced_resource_type(
+    value: Any,
+    name: str,
+) -> str:
+    resource_type = _require_string(value, name)
+    segments = resource_type.split(".")
+
+    if (
+        len(segments) < 2
+        or any(
+            not segment
+            or segment != segment.strip()
+            or any(character.isspace() for character in segment)
+            for segment in segments
+        )
+    ):
+        raise ValueError(
+            f"{name} must be a namespaced resource type identifier"
+        )
+
+    return resource_type
+
+
 def _copy_json_value(value: Any) -> Any:
     """Recursively copy JSON-compatible data."""
 
@@ -132,10 +155,18 @@ class GenericResource:
     id: str
     type: str
     data: dict[str, Any] = field(default_factory=dict)
+    type_version: str | None = None
 
     def __post_init__(self) -> None:
         _require_string(self.id, "generic resource.id")
         _require_string(self.type, "generic resource.type")
+
+        if self.type_version is not None:
+            _require_string(
+                self.type_version,
+                "generic resource.type_version",
+            )
+
         _require_dict(self.data, "generic resource.data")
 
         self.data = _copy_json_value(self.data)
@@ -150,6 +181,12 @@ class GenericResource:
                 "generic resource.data must not contain reserved field 'type'"
             )
 
+        if "type_version" in self.data:
+            raise ValueError(
+                "generic resource.data must not contain reserved field "
+                "'type_version'"
+            )
+
 
 GenericGraphResource: TypeAlias = ResourceLike
 
@@ -162,12 +199,23 @@ class ResourceTypeHandler:
     python_type: type[Any]
     parser: ResourceParser
     serializer: ResourceSerializer
+    resource_type_version: str | None = None
 
     def __post_init__(self) -> None:
         _require_string(
             self.resource_type,
             "resource type handler.resource_type",
         )
+
+        if self.resource_type_version is not None:
+            _require_string(
+                self.resource_type_version,
+                "resource type handler.resource_type_version",
+            )
+            _require_namespaced_resource_type(
+                self.resource_type,
+                "resource type handler.resource_type",
+            )
 
         if not isinstance(self.python_type, type):
             raise TypeError(
@@ -189,7 +237,10 @@ class ResourceTypeRegistry:
     """Registry of typed resource parsers and serializers."""
 
     def __init__(self) -> None:
-        self._by_resource_type: dict[str, ResourceTypeHandler] = {}
+        self._by_resource_contract: dict[
+            tuple[str, str | None],
+            ResourceTypeHandler,
+        ] = {}
         self._by_python_type: dict[type[Any], ResourceTypeHandler] = {}
 
     def register(
@@ -198,17 +249,26 @@ class ResourceTypeRegistry:
         python_type: type[Any],
         parser: ResourceParser,
         serializer: ResourceSerializer,
+        *,
+        resource_type_version: str | None = None,
     ) -> None:
         handler = ResourceTypeHandler(
             resource_type=resource_type,
             python_type=python_type,
             parser=parser,
             serializer=serializer,
+            resource_type_version=resource_type_version,
         )
 
-        if resource_type in self._by_resource_type:
+        contract = (
+            handler.resource_type,
+            handler.resource_type_version,
+        )
+
+        if contract in self._by_resource_contract:
             raise ValueError(
-                f"resource type already registered: {resource_type!r}"
+                "resource type already registered for contract: "
+                f"{contract!r}"
             )
 
         if python_type in self._by_python_type:
@@ -217,15 +277,25 @@ class ResourceTypeRegistry:
                 f"{python_type.__name__}"
             )
 
-        self._by_resource_type[resource_type] = handler
+        self._by_resource_contract[contract] = handler
         self._by_python_type[python_type] = handler
 
     def handler_for_resource_type(
         self,
         resource_type: str,
+        resource_type_version: str | None = None,
     ) -> ResourceTypeHandler | None:
         _require_string(resource_type, "resource_type")
-        return self._by_resource_type.get(resource_type)
+
+        if resource_type_version is not None:
+            _require_string(
+                resource_type_version,
+                "resource_type_version",
+            )
+
+        return self._by_resource_contract.get(
+            (resource_type, resource_type_version)
+        )
 
     def handler_for_resource(
         self,
@@ -234,13 +304,24 @@ class ResourceTypeRegistry:
         return self._by_python_type.get(type(resource))
 
     def resource_types(self) -> set[str]:
-        return set(self._by_resource_type)
+        return {
+            resource_type
+            for resource_type, _ in self._by_resource_contract
+        }
+
+    def resource_contracts(
+        self,
+    ) -> set[tuple[str, str | None]]:
+        return set(self._by_resource_contract)
 
     def __contains__(self, resource_type: object) -> bool:
         if not isinstance(resource_type, str):
             return False
 
-        return resource_type in self._by_resource_type
+        return any(
+            registered_type == resource_type
+            for registered_type, _ in self._by_resource_contract
+        )
 
 
 def create_default_resource_type_registry() -> ResourceTypeRegistry:
@@ -290,15 +371,26 @@ def generic_resource_from_dict(value: Any) -> GenericResource:
         "generic resource.type",
     )
 
+    type_version_value = obj.get("type_version")
+
+    if type_version_value is None:
+        resource_type_version = None
+    else:
+        resource_type_version = _require_string(
+            type_version_value,
+            "generic resource.type_version",
+        )
+
     data = {
         key: _copy_json_value(item)
         for key, item in obj.items()
-        if key not in {"id", "type"}
+        if key not in {"id", "type", "type_version"}
     }
 
     return GenericResource(
         id=resource_id,
         type=resource_type,
+        type_version=resource_type_version,
         data=data,
     )
 
@@ -315,6 +407,10 @@ def generic_resource_to_dict(
 
     result = _copy_json_value(resource.data)
     result["type"] = resource.type
+
+    if resource.type_version is not None:
+        result["type_version"] = resource.type_version
+
     result["id"] = resource.id
 
     return result
@@ -339,8 +435,19 @@ def resource_from_dict(
         "resource.type",
     )
 
+    type_version_value = obj.get("type_version")
+
+    if type_version_value is None:
+        resource_type_version = None
+    else:
+        resource_type_version = _require_string(
+            type_version_value,
+            "resource.type_version",
+        )
+
     handler = registry.handler_for_resource_type(
-        resource_type
+        resource_type,
+        resource_type_version,
     )
 
     if handler is None:
@@ -392,6 +499,19 @@ def resource_to_dict(
         raise ValueError(
             f"serializer for resource type {handler.resource_type!r} "
             "returned a mismatched type field"
+        )
+
+    if handler.resource_type_version is None:
+        if "type_version" in document:
+            raise ValueError(
+                f"serializer for legacy resource type "
+                f"{handler.resource_type!r} returned an unexpected "
+                "type_version field"
+            )
+    elif document.get("type_version") != handler.resource_type_version:
+        raise ValueError(
+            f"serializer for resource type {handler.resource_type!r} "
+            "returned a mismatched type_version field"
         )
 
     if document.get("id") != resource.id:
