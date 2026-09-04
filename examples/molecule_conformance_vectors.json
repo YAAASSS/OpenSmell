@@ -1,0 +1,462 @@
+{
+  "format": "org.opensmell.experimental.molecule-conformance",
+  "version": "0.1",
+  "vectors": [
+    {
+      "name": "valid_smiles_only",
+      "valid": true,
+      "preserve": true,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "type_version": "0.1",
+        "id": "molecule-1",
+        "smiles": "CCO"
+      }
+    },
+    {
+      "name": "valid_identifier_only",
+      "valid": true,
+      "preserve": true,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "type_version": "0.1",
+        "id": "molecule-2",
+        "identifiers": [
+          {
+            "scheme": "pubchem.inchikey",
+            "value": "LFQSCWFLJHTTHZ-UHFFFAOYSA-N"
+          }
+        ]
+      }
+    },
+    {
+      "name": "valid_smiles_and_identifier",
+      "valid": true,
+      "preserve": true,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "type_version": "0.1",
+        "id": "molecule-3",
+        "smiles": "CCO",
+        "identifiers": [
+          {
+            "scheme": "pubchem.inchikey",
+            "value": "LFQSCWFLJHTTHZ-UHFFFAOYSA-N"
+          }
+        ]
+      }
+    },
+    {
+      "name": "valid_multiple_identifiers",
+      "valid": true,
+      "preserve": true,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "type_version": "0.1",
+        "id": "molecule-4",
+        "identifiers": [
+          {
+            "scheme": "pubchem.inchikey",
+            "value": "LFQSCWFLJHTTHZ-UHFFFAOYSA-N"
+          },
+          {
+            "scheme": "example.identifier",
+            "value": "example-123"
+          }
+        ]
+      }
+    },
+    {
+      "name": "valid_empty_identifiers_with_smiles",
+      "valid": true,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "type_version": "0.1",
+        "id": "molecule-5",
+        "smiles": "CCO",
+        "identifiers": []
+      }
+    },
+    {
+      "name": "valid_resource_extension",
+      "valid": true,
+      "preserve": true,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "type_version": "0.1",
+        "id": "molecule-6",
+        "smiles": "CCO",
+        "experimental_note": {
+          "source": "portable-vector",
+          "values": [
+            1,
+            2,
+            3
+          ]
+        }
+      }
+    },
+    {
+      "name": "valid_identifier_extension",
+      "valid": true,
+      "preserve": true,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "type_version": "0.1",
+        "id": "molecule-7",
+        "identifiers": [
+          {
+            "scheme": "example.identifier",
+            "value": "abc",
+            "authority": "example",
+            "metadata": {
+              "preserve": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "valid_unicode_extensions",
+      "valid": true,
+      "preserve": true,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "type_version": "0.1",
+        "id": "molécule-香り",
+        "smiles": "CCO",
+        "label": "éthanol 香り",
+        "metadata": {
+          "language": "français",
+          "note": "préservation"
+        }
+      }
+    },
+    {
+      "name": "valid_opaque_smiles",
+      "valid": true,
+      "preserve": true,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "type_version": "0.1",
+        "id": "molecule-opaque",
+        "smiles": "this-is-not-chemically-validated"
+      }
+    },
+    {
+      "name": "valid_identifier_with_unicode",
+      "valid": true,
+      "preserve": true,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "type_version": "0.1",
+        "id": "molecule-unicode-identifier",
+        "identifiers": [
+          {
+            "scheme": "org.example.identifiant",
+            "value": "molécule-α-香"
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_not_object",
+      "valid": false,
+      "resource": []
+    },
+    {
+      "name": "invalid_missing_type",
+      "valid": false,
+      "resource": {
+        "type_version": "0.1",
+        "id": "molecule-1",
+        "smiles": "CCO"
+      }
+    },
+    {
+      "name": "invalid_wrong_type",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.other",
+        "type_version": "0.1",
+        "id": "molecule-1",
+        "smiles": "CCO"
+      }
+    },
+    {
+      "name": "invalid_type_null",
+      "valid": false,
+      "resource": {
+        "type": null,
+        "type_version": "0.1",
+        "id": "molecule-1",
+        "smiles": "CCO"
+      }
+    },
+    {
+      "name": "invalid_missing_type_version",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "id": "molecule-1",
+        "smiles": "CCO"
+      }
+    },
+    {
+      "name": "invalid_future_type_version_for_0_1_contract",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "type_version": "0.2",
+        "id": "future-molecule",
+        "smiles": "CCO"
+      }
+    },
+    {
+      "name": "invalid_empty_type_version",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "type_version": "",
+        "id": "molecule-1",
+        "smiles": "CCO"
+      }
+    },
+    {
+      "name": "invalid_null_type_version",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "type_version": null,
+        "id": "molecule-1",
+        "smiles": "CCO"
+      }
+    },
+    {
+      "name": "invalid_numeric_type_version",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "type_version": 0.1,
+        "id": "molecule-1",
+        "smiles": "CCO"
+      }
+    },
+    {
+      "name": "invalid_missing_id",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "type_version": "0.1",
+        "smiles": "CCO"
+      }
+    },
+    {
+      "name": "invalid_empty_id",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "type_version": "0.1",
+        "id": "",
+        "smiles": "CCO"
+      }
+    },
+    {
+      "name": "invalid_null_id",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "type_version": "0.1",
+        "id": null,
+        "smiles": "CCO"
+      }
+    },
+    {
+      "name": "invalid_numeric_id",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "type_version": "0.1",
+        "id": 123,
+        "smiles": "CCO"
+      }
+    },
+    {
+      "name": "invalid_no_chemical_identity",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "type_version": "0.1",
+        "id": "molecule-empty"
+      }
+    },
+    {
+      "name": "invalid_empty_identifiers_without_smiles",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "type_version": "0.1",
+        "id": "molecule-empty-identifiers",
+        "identifiers": []
+      }
+    },
+    {
+      "name": "invalid_empty_smiles",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "type_version": "0.1",
+        "id": "molecule-1",
+        "smiles": ""
+      }
+    },
+    {
+      "name": "invalid_null_smiles",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "type_version": "0.1",
+        "id": "molecule-1",
+        "smiles": null
+      }
+    },
+    {
+      "name": "invalid_numeric_smiles",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "type_version": "0.1",
+        "id": "molecule-1",
+        "smiles": 123
+      }
+    },
+    {
+      "name": "invalid_identifiers_not_array",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "type_version": "0.1",
+        "id": "molecule-1",
+        "identifiers": {
+          "scheme": "example",
+          "value": "123"
+        }
+      }
+    },
+    {
+      "name": "invalid_identifier_not_object",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "type_version": "0.1",
+        "id": "molecule-1",
+        "identifiers": [
+          "identifier"
+        ]
+      }
+    },
+    {
+      "name": "invalid_identifier_missing_scheme",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "type_version": "0.1",
+        "id": "molecule-1",
+        "identifiers": [
+          {
+            "value": "123"
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_identifier_empty_scheme",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "type_version": "0.1",
+        "id": "molecule-1",
+        "identifiers": [
+          {
+            "scheme": "",
+            "value": "123"
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_identifier_null_scheme",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "type_version": "0.1",
+        "id": "molecule-1",
+        "identifiers": [
+          {
+            "scheme": null,
+            "value": "123"
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_identifier_missing_value",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "type_version": "0.1",
+        "id": "molecule-1",
+        "identifiers": [
+          {
+            "scheme": "example"
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_identifier_empty_value",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "type_version": "0.1",
+        "id": "molecule-1",
+        "identifiers": [
+          {
+            "scheme": "example",
+            "value": ""
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_identifier_null_value",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "type_version": "0.1",
+        "id": "molecule-1",
+        "identifiers": [
+          {
+            "scheme": "example",
+            "value": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_identifier_numeric_value",
+      "valid": false,
+      "resource": {
+        "type": "org.opensmell.molecule",
+        "type_version": "0.1",
+        "id": "molecule-1",
+        "identifiers": [
+          {
+            "scheme": "example",
+            "value": 123
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opensmell.org/schema/experimental-molecule-0.1.schema.json",
+  "title": "OpenSmell Experimental Molecule Resource Type 0.1",
+  "description": "Non-normative experimental JSON Schema for the OpenSmell Molecule Resource Type defined by RFC-0009.",
+  "type": "object",
+  "required": [
+    "type",
+    "type_version",
+    "id"
+  ],
+  "properties": {
+    "type": {
+      "const": "org.opensmell.molecule"
+    },
+    "type_version": {
+      "const": "0.1"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "smiles": {
+      "type": "string",
+      "minLength": 1
+    },
+    "identifiers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/externalIdentifier"
+      }
+    }
+  },
+  "anyOf": [
+    {
+      "required": [
+        "smiles"
+      ]
+    },
+    {
+      "required": [
+        "identifiers"
+      ],
+      "properties": {
+        "identifiers": {
+          "minItems": 1
+        }
+      }
+    }
+  ],
+  "additionalProperties": true,
+  "$defs": {
+    "externalIdentifier": {
+      "type": "object",
+      "required": [
+        "scheme",
+        "value"
+      ],
+      "properties": {
+        "scheme": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}
