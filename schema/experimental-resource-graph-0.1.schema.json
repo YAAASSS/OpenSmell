@@ -1,0 +1,228 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opensmell.org/schema/experimental-resource-graph-0.1.schema.json",
+  "title": "OpenSmell Experimental ResourceGraph 0.1",
+  "description": "Experimental JSON exchange schema for the OpenSmell RFC-0007 ResourceGraph model. This schema is non-normative and does not modify OpenSmell Core 0.1.",
+  "type": "object",
+  "required": [
+    "format",
+    "version",
+    "resources"
+  ],
+  "properties": {
+    "format": {
+      "const": "org.opensmell.experimental.resource-graph"
+    },
+    "version": {
+      "const": "0.1"
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/resource"
+      }
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reference": {
+      "type": "object",
+      "required": [
+        "resource_id"
+      ],
+      "properties": {
+        "resource_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      },
+      "additionalProperties": true
+    },
+    "externalIdentifier": {
+      "type": "object",
+      "required": [
+        "scheme",
+        "value"
+      ],
+      "properties": {
+        "scheme": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "value": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      },
+      "additionalProperties": true
+    },
+    "condition": {
+      "type": "object",
+      "required": [
+        "property",
+        "value"
+      ],
+      "properties": {
+        "property": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "value": true,
+        "unit": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      },
+      "additionalProperties": true
+    },
+    "resultScheme": {
+      "type": "object",
+      "required": [
+        "id",
+        "version"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "version": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      },
+      "additionalProperties": true
+    },
+    "result": {
+      "type": "object",
+      "required": [
+        "scheme",
+        "data"
+      ],
+      "properties": {
+        "scheme": {
+          "$ref": "#/$defs/resultScheme"
+        },
+        "data": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": true
+    },
+    "stimulus": {
+      "type": "object",
+      "required": [
+        "type",
+        "id"
+      ],
+      "properties": {
+        "type": {
+          "const": "stimulus"
+        },
+        "id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/reference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "identifiers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/externalIdentifier"
+          }
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/condition"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "observationTarget": {
+      "type": "object",
+      "required": [
+        "type",
+        "id"
+      ],
+      "properties": {
+        "type": {
+          "const": "observation_target"
+        },
+        "id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "identifiers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/externalIdentifier"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "observation": {
+      "type": "object",
+      "required": [
+        "type",
+        "id",
+        "stimulus"
+      ],
+      "properties": {
+        "type": {
+          "const": "observation"
+        },
+        "id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "stimulus": {
+          "$ref": "#/$defs/reference"
+        },
+        "target": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/reference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "results": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/result"
+          }
+        },
+        "context": {
+          "type": "object"
+        },
+        "identifiers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/externalIdentifier"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "resource": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/stimulus"
+        },
+        {
+          "$ref": "#/$defs/observationTarget"
+        },
+        {
+          "$ref": "#/$defs/observation"
+        }
+      ]
+    }
+  }
+}
