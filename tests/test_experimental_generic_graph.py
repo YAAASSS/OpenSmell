@@ -1331,6 +1331,45 @@ def test_generic_resource_rejects_invalid_type_version(
         )
 
 
+@pytest.mark.parametrize(
+    ("type_version", "exception_type"),
+    [
+        (None, TypeError),
+        ("", ValueError),
+        (1, TypeError),
+    ],
+)
+def test_generic_resource_parser_rejects_invalid_present_type_version(
+    type_version: Any,
+    exception_type: type[Exception],
+) -> None:
+    document = {
+        "type": "org.example.future-resource",
+        "type_version": type_version,
+        "id": "future-1",
+    }
+
+    with pytest.raises(exception_type):
+        generic_resource_from_dict(document)
+
+    with pytest.raises(exception_type):
+        resource_from_dict(document)
+
+
+def test_generic_resource_parser_accepts_missing_type_version() -> None:
+    document = {
+        "type": "org.example.future-resource",
+        "id": "future-1",
+    }
+
+    generic_resource = generic_resource_from_dict(document)
+    resource = resource_from_dict(document)
+
+    assert generic_resource.type_version is None
+    assert isinstance(resource, GenericResource)
+    assert resource.type_version is None
+
+
 def test_registry_dispatches_same_resource_type_by_version() -> None:
     registry = _create_versioned_example_registry()
 

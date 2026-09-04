@@ -371,15 +371,13 @@ def generic_resource_from_dict(value: Any) -> GenericResource:
         "generic resource.type",
     )
 
-    type_version_value = obj.get("type_version")
-
-    if type_version_value is None:
-        resource_type_version = None
-    else:
+    if "type_version" in obj:
         resource_type_version = _require_string(
-            type_version_value,
+            obj["type_version"],
             "generic resource.type_version",
         )
+    else:
+        resource_type_version = None
 
     data = {
         key: _copy_json_value(item)
@@ -435,15 +433,13 @@ def resource_from_dict(
         "resource.type",
     )
 
-    type_version_value = obj.get("type_version")
-
-    if type_version_value is None:
-        resource_type_version = None
-    else:
+    if "type_version" in obj:
         resource_type_version = _require_string(
-            type_version_value,
+            obj["type_version"],
             "resource.type_version",
         )
+    else:
+        resource_type_version = None
 
     handler = registry.handler_for_resource_type(
         resource_type,

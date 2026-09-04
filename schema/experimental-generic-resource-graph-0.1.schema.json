@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opensmell.org/schema/experimental-generic-resource-graph-0.1.schema.json",
+  "title": "OpenSmell Experimental Generic ResourceGraph 0.1",
+  "description": "Experimental JSON exchange schema for the OpenSmell RFC-0008 Generic ResourceGraph model. This schema is non-normative, preserves support for unknown resource types, and does not modify OpenSmell Core 0.1 or RFC-0007.",
+  "type": "object",
+  "required": [
+    "format",
+    "version",
+    "resources"
+  ],
+  "properties": {
+    "format": {
+      "const": "org.opensmell.experimental.generic-resource-graph"
+    },
+    "version": {
+      "const": "0.1"
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/resource"
+      }
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "resource": {
+      "type": "object",
+      "required": [
+        "type",
+        "id"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "type_version": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "id": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

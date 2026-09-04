@@ -1,0 +1,186 @@
+{
+  "vector_set": "org.opensmell.experimental.generic-resource-graph.interop-vectors",
+  "version": "0.1",
+  "resource_graph_format": "org.opensmell.experimental.generic-resource-graph",
+  "resource_graph_version": "0.1",
+  "vectors": [
+    {
+      "name": "known_version_0_1",
+      "description": "A registered versioned resource contract must dispatch to its 0.1 handler and round-trip unchanged.",
+      "graph": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.example.interop.resource",
+            "type_version": "0.1",
+            "id": "known-01",
+            "value": 42,
+            "label": "version 0.1"
+          }
+        ]
+      }
+    },
+    {
+      "name": "known_version_0_2",
+      "description": "The same Resource Type ID may use a distinct registered 0.2 contract.",
+      "graph": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.example.interop.resource",
+            "type_version": "0.2",
+            "id": "known-02",
+            "value": 84,
+            "label": "version 0.2"
+          }
+        ]
+      }
+    },
+    {
+      "name": "unknown_future_version",
+      "description": "An unknown future version of a known Resource Type ID must fall back to GenericResource and remain preserved.",
+      "graph": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.example.interop.resource",
+            "type_version": "99.0",
+            "id": "future-version",
+            "future_payload": {
+              "enabled": true,
+              "values": [
+                1,
+                2,
+                3
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "unknown_resource_type",
+      "description": "An entirely unknown resource type must remain transportable and preserved.",
+      "graph": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.example.future.sensor-array",
+            "type_version": "7",
+            "id": "unknown-type",
+            "channels": [
+              0.1,
+              0.2,
+              0.3
+            ],
+            "metadata": {
+              "vendor": "example"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "legacy_rfc0007_resource",
+      "description": "An RFC-0007 legacy resource remains unversioned and dispatches through the default legacy handler.",
+      "graph": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus",
+            "id": "11111111-1111-4111-8111-111111111111",
+            "conditions": [
+              {
+                "property": "temperature",
+                "value": 23.5,
+                "unit": "degC"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "mixed_graph",
+      "description": "Legacy, known versioned, unknown future-version and unknown-type resources coexist in one graph.",
+      "graph": {
+        "graph_extension": {
+          "producer": "OpenSmell RFC-0008 interoperability test"
+        },
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus",
+            "id": "22222222-2222-4222-8222-222222222222"
+          },
+          {
+            "type": "org.example.interop.resource",
+            "type_version": "0.1",
+            "id": "mixed-known",
+            "value": 12,
+            "label": "known"
+          },
+          {
+            "type": "org.example.interop.resource",
+            "type_version": "99.0",
+            "id": "mixed-future",
+            "opaque": {
+              "answer": 42
+            }
+          },
+          {
+            "type": "org.example.unknown",
+            "type_version": "alpha",
+            "id": "mixed-unknown",
+            "payload": [
+              "a",
+              "b",
+              "c"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "extensions_and_unicode",
+      "description": "Graph/resource extensions and Unicode survive exchange across implementations.",
+      "graph": {
+        "unicode_graph_extension": "éèê-日本語-🚀",
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.example.interop.resource",
+            "type_version": "0.2",
+            "id": "unicode-known",
+            "value": 7,
+            "label": "café-香り-🌹",
+            "resource_extension": {
+              "russian": "запах",
+              "nested": [
+                true,
+                null,
+                {
+                  "message": "Crème brûlée — ваниль"
+                }
+              ]
+            }
+          },
+          {
+            "type": "org.example.future.resource",
+            "type_version": "β1",
+            "id": "unicode-unknown",
+            "label": "odeur-é",
+            "emoji": "🌹"
+          }
+        ]
+      }
+    }
+  ]
+}

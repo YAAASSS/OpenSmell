@@ -1,0 +1,560 @@
+{
+  "format": "org.opensmell.experimental.generic-resource-graph-conformance",
+  "version": "0.1",
+  "vectors": [
+    {
+      "name": "valid_empty_graph",
+      "valid": true,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": []
+      }
+    },
+    {
+      "name": "valid_legacy_stimulus",
+      "valid": true,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus",
+            "id": "stimulus-1"
+          }
+        ]
+      },
+      "preserve": true
+    },
+    {
+      "name": "valid_unknown_unversioned_resource",
+      "valid": true,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "future.sensor",
+            "id": "sensor-1",
+            "reading": 42
+          }
+        ]
+      },
+      "preserve": true
+    },
+    {
+      "name": "valid_versioned_unknown_resource",
+      "valid": true,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.example.sensor",
+            "type_version": "0.1",
+            "id": "sensor-1",
+            "reading": 42
+          }
+        ]
+      },
+      "preserve": true
+    },
+    {
+      "name": "valid_unknown_future_version",
+      "valid": true,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.example.sensor",
+            "type_version": "99.0",
+            "id": "sensor-1",
+            "future": {
+              "x": 1
+            }
+          }
+        ]
+      },
+      "preserve": true
+    },
+    {
+      "name": "valid_resource_extensions",
+      "valid": true,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.example.resource",
+            "type_version": "0.1",
+            "id": "resource-1",
+            "nested": {
+              "a": [
+                1,
+                true,
+                null,
+                {
+                  "b": "c"
+                }
+              ]
+            },
+            "vendor_extension": "preserve-me"
+          }
+        ]
+      },
+      "preserve": true
+    },
+    {
+      "name": "valid_graph_extensions",
+      "valid": true,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [],
+        "vendor": {
+          "flag": true
+        }
+      },
+      "preserve": true
+    },
+    {
+      "name": "valid_multiple_mixed_resources",
+      "valid": true,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus",
+            "id": "stimulus-1"
+          },
+          {
+            "type": "org.example.molecule",
+            "type_version": "0.1",
+            "id": "molecule-1",
+            "smiles": "CCO"
+          },
+          {
+            "type": "org.future.device",
+            "type_version": "7",
+            "id": "device-1",
+            "payload": [
+              1,
+              2,
+              3
+            ]
+          }
+        ]
+      },
+      "preserve": true
+    },
+    {
+      "name": "valid_unicode",
+      "valid": true,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.example.ressource",
+            "type_version": "β1",
+            "id": "odeur-é",
+            "label": "café ☕"
+          }
+        ]
+      },
+      "preserve": true
+    },
+    {
+      "name": "valid_non_namespaced_unversioned_unknown",
+      "valid": true,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "future",
+            "id": "future-1",
+            "payload": {}
+          }
+        ]
+      },
+      "preserve": true
+    },
+    {
+      "name": "valid_non_namespaced_versioned_transport",
+      "valid": true,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "future",
+            "type_version": "0.1",
+            "id": "future-1",
+            "payload": {}
+          }
+        ]
+      },
+      "preserve": true
+    },
+    {
+      "name": "valid_version_string_is_opaque",
+      "valid": true,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.example.resource",
+            "type_version": "draft-A",
+            "id": "resource-1"
+          }
+        ]
+      },
+      "preserve": true
+    },
+    {
+      "name": "invalid_document_null",
+      "valid": false,
+      "document": null
+    },
+    {
+      "name": "invalid_document_array",
+      "valid": false,
+      "document": []
+    },
+    {
+      "name": "invalid_missing_format",
+      "valid": false,
+      "document": {
+        "version": "0.1",
+        "resources": []
+      }
+    },
+    {
+      "name": "invalid_missing_version",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "resources": []
+      }
+    },
+    {
+      "name": "invalid_missing_resources",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1"
+      }
+    },
+    {
+      "name": "invalid_format_wrong_value",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": []
+      }
+    },
+    {
+      "name": "invalid_format_null",
+      "valid": false,
+      "document": {
+        "format": null,
+        "version": "0.1",
+        "resources": []
+      }
+    },
+    {
+      "name": "invalid_version_wrong_value",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.2",
+        "resources": []
+      }
+    },
+    {
+      "name": "invalid_version_null",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": null,
+        "resources": []
+      }
+    },
+    {
+      "name": "invalid_resources_null",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": null
+      }
+    },
+    {
+      "name": "invalid_resources_object",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": {}
+      }
+    },
+    {
+      "name": "invalid_resources_string",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": "not-an-array"
+      }
+    },
+    {
+      "name": "invalid_resource_null",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          null
+        ]
+      }
+    },
+    {
+      "name": "invalid_resource_array",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          []
+        ]
+      }
+    },
+    {
+      "name": "invalid_resource_string",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          "resource"
+        ]
+      }
+    },
+    {
+      "name": "invalid_resource_number",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          1
+        ]
+      }
+    },
+    {
+      "name": "invalid_resource_missing_type",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "id": "r1"
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_resource_missing_id",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.example.resource"
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_resource_type_null",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": null,
+            "id": "r1"
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_resource_type_number",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": 1,
+            "id": "r1"
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_resource_type_empty",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "",
+            "id": "r1"
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_resource_id_null",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.example.resource",
+            "id": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_resource_id_number",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.example.resource",
+            "id": 1
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_resource_id_empty",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.example.resource",
+            "id": ""
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_type_version_null",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.example.resource",
+            "type_version": null,
+            "id": "r1"
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_type_version_empty",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.example.resource",
+            "type_version": "",
+            "id": "r1"
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_type_version_number",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.example.resource",
+            "type_version": 1,
+            "id": "r1"
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_type_version_boolean",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.example.resource",
+            "type_version": true,
+            "id": "r1"
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_type_version_object",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.example.resource",
+            "type_version": {},
+            "id": "r1"
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid_type_version_array",
+      "valid": false,
+      "document": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.example.resource",
+            "type_version": [],
+            "id": "r1"
+          }
+        ]
+      }
+    }
+  ]
+}
