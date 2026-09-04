@@ -1,0 +1,302 @@
+{
+  "vector_set": "org.opensmell.experimental.resource-graph.interop-vectors",
+  "version": "0.1",
+  "resource_graph_format": "org.opensmell.experimental.resource-graph",
+  "resource_graph_version": "0.1",
+  "vectors": [
+    {
+      "name": "basic_graph",
+      "description": "Basic resolved Stimulus -> ObservationTarget -> Observation graph.",
+      "graph": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus",
+            "id": "11111111-1111-4111-8111-111111111111"
+          },
+          {
+            "type": "observation_target",
+            "id": "22222222-2222-4222-8222-222222222222"
+          },
+          {
+            "type": "observation",
+            "id": "33333333-3333-4333-8333-333333333333",
+            "stimulus": {
+              "resource_id": "11111111-1111-4111-8111-111111111111"
+            },
+            "target": {
+              "resource_id": "22222222-2222-4222-8222-222222222222"
+            },
+            "results": [
+              {
+                "scheme": {
+                  "id": "org.opensmell.experimental.test",
+                  "version": "0.1"
+                },
+                "data": {
+                  "value": 42.5
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "unicode",
+      "description": "Unicode strings must survive JSON exchange without ASCII-only assumptions.",
+      "graph": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "unicode_extension": "éèê-日本語-🚀",
+            "type": "stimulus",
+            "id": "44444444-4444-4444-8444-444444444444",
+            "identifiers": [
+              {
+                "scheme": "example.unicode",
+                "value": "café-香り-🌹"
+              }
+            ],
+            "conditions": [
+              {
+                "property": "description",
+                "value": "Crème brûlée — ваниль — 香り 🌹"
+              }
+            ]
+          },
+          {
+            "type": "observation",
+            "id": "55555555-5555-4555-8555-555555555555",
+            "stimulus": {
+              "resource_id": "44444444-4444-4444-8444-444444444444"
+            },
+            "results": [
+              {
+                "scheme": {
+                  "id": "org.opensmell.experimental.unicode",
+                  "version": "0.1"
+                },
+                "data": {
+                  "label": "café",
+                  "japanese": "香り",
+                  "russian": "запах",
+                  "emoji": "🌹"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "negative_zero",
+      "description": "Valid JSON negative zero must preserve its numeric sign.",
+      "graph": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus",
+            "id": "66666666-6666-4666-8666-666666666666"
+          },
+          {
+            "type": "observation",
+            "id": "77777777-7777-4777-8777-777777777777",
+            "stimulus": {
+              "resource_id": "66666666-6666-4666-8666-666666666666"
+            },
+            "results": [
+              {
+                "scheme": {
+                  "id": "org.opensmell.experimental.biological.measurements",
+                  "version": "0.1"
+                },
+                "data": {
+                  "property": "DeltaF",
+                  "value": -0.0
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "unresolved_references",
+      "description": "Structurally unresolved Resource IDs must remain representable.",
+      "graph": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus",
+            "id": "99999999-9999-4999-8999-999999999999",
+            "source": {
+              "resource_id": "88888888-8888-4888-8888-888888888888"
+            }
+          },
+          {
+            "type": "observation",
+            "id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+            "stimulus": {
+              "resource_id": "99999999-9999-4999-8999-999999999999"
+            },
+            "target": {
+              "resource_id": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb"
+            },
+            "results": [
+              {
+                "scheme": {
+                  "id": "org.opensmell.experimental.observation.categories",
+                  "version": "0.1"
+                },
+                "data": {
+                  "state": "present"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "extensions_and_unknown_scheme",
+      "description": "Unknown extension fields and an unknown Result scheme must survive exchange.",
+      "graph": {
+        "graph_extension": {
+          "producer": "OpenSmell interoperability test"
+        },
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "future_stimulus_field": {
+              "enabled": true,
+              "nested": {
+                "value": 123
+              }
+            },
+            "type": "stimulus",
+            "id": "cccccccc-cccc-4ccc-8ccc-cccccccccccc",
+            "conditions": [
+              {
+                "condition_extension": {
+                  "origin": "interop-test"
+                },
+                "property": "temperature",
+                "value": 23.5,
+                "unit": "degC"
+              }
+            ]
+          },
+          {
+            "future_target_field": [
+              "a",
+              "b",
+              "c"
+            ],
+            "type": "observation_target",
+            "id": "dddddddd-dddd-4ddd-8ddd-dddddddddddd"
+          },
+          {
+            "future_observation_field": {
+              "answer": 42
+            },
+            "type": "observation",
+            "id": "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee",
+            "stimulus": {
+              "resource_id": "cccccccc-cccc-4ccc-8ccc-cccccccccccc"
+            },
+            "target": {
+              "resource_id": "dddddddd-dddd-4ddd-8ddd-dddddddddddd"
+            },
+            "results": [
+              {
+                "result_extension": true,
+                "scheme": {
+                  "scheme_extension": "preserve-me",
+                  "id": "org.example.future.result-scheme",
+                  "version": "9.7"
+                },
+                "data": {
+                  "arbitrary": {
+                    "nested": [
+                      1,
+                      2,
+                      3
+                    ]
+                  }
+                }
+              }
+            ],
+            "context": {
+              "protocol": "future-protocol"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "multiple_results",
+      "description": "One Observation may carry multiple Results using independent schemes.",
+      "graph": {
+        "format": "org.opensmell.experimental.resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "stimulus",
+            "id": "ffffffff-ffff-4fff-8fff-ffffffffffff"
+          },
+          {
+            "type": "observation",
+            "id": "12345678-1234-4234-8234-123456789abc",
+            "stimulus": {
+              "resource_id": "ffffffff-ffff-4fff-8fff-ffffffffffff"
+            },
+            "results": [
+              {
+                "scheme": {
+                  "id": "org.opensmell.experimental.observation.categories",
+                  "version": "0.1"
+                },
+                "data": {
+                  "state": "present"
+                }
+              },
+              {
+                "scheme": {
+                  "id": "org.opensmell.perceptual.measurements",
+                  "version": "0.1"
+                },
+                "data": {
+                  "measurements": [
+                    {
+                      "property": "intensity",
+                      "value": 75.0,
+                      "scale": {
+                        "min": 0.0,
+                        "max": 100.0
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "scheme": {
+                  "id": "org.example.unknown",
+                  "version": "42"
+                },
+                "data": {
+                  "opaque": "preserve this"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

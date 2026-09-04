@@ -6,6 +6,7 @@ on:
 
 jobs:
   test:
+    name: Python ${{ matrix.python-version }}
     runs-on: ubuntu-latest
 
     strategy:
@@ -30,3 +31,36 @@ jobs:
 
       - name: Run tests
         run: pytest
+
+  resource-graph-interop:
+    name: ResourceGraph Python / JavaScript interoperability
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install OpenSmell
+        run: python -m pip install -e ".[dev]"
+
+      - name: Regenerate ResourceGraph interoperability vectors
+        run: python tools/generate_resource_graph_vectors.py
+
+      - name: Verify generated vectors are reproducible
+        run: git diff --exit-code -- examples/resource_graph_interop_vectors.json
+
+      - name: Verify Python-generated vectors in JavaScript
+        run: node tools/verify_resource_graph_vectors.js
+
+      - name: Verify JavaScript round-trip in Python
+        run: python tools/verify_resource_graph_vectors_roundtrip.py
