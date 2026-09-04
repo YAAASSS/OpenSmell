@@ -30,7 +30,7 @@ This module is non-normative and experimental.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any, Callable, TypeAlias
+from typing import Any, Callable, Protocol, TypeAlias
 
 from .graph_serialization import (
     observation_from_dict,
@@ -48,7 +48,12 @@ from .resources import (
 )
 
 
-KnownResource: TypeAlias = Stimulus | ObservationTarget | Observation
+class ResourceLike(Protocol):
+    """Structural typing contract for resources stored in a generic graph."""
+
+    id: str
+
+
 ResourceParser: TypeAlias = Callable[[Any], Any]
 ResourceSerializer: TypeAlias = Callable[[Any], dict[str, Any]]
 
@@ -146,7 +151,7 @@ class GenericResource:
             )
 
 
-GenericGraphResource: TypeAlias = KnownResource | GenericResource
+GenericGraphResource: TypeAlias = ResourceLike
 
 
 @dataclass(frozen=True)
@@ -490,32 +495,62 @@ class GenericResourceGraph:
 
         return self.get(reference.resource_id)
 
-    def known_resources(self) -> list[KnownResource]:
+    def known_resources(
+        self,
+        *,
+        registry: ResourceTypeRegistry = DEFAULT_RESOURCE_TYPE_REGISTRY,
+    ) -> list[GenericGraphResource]:
+        """Return typed resources understood by the supplied registry."""
+
+        if not isinstance(registry, ResourceTypeRegistry):
+            raise TypeError(
+                "registry must be a ResourceTypeRegistry"
+            )
+
         return [
             resource
             for resource in self.resources
-            if isinstance(
-                resource,
-                (
-                    Stimulus,
-                    ObservationTarget,
-                    Observation,
-                ),
+            if (
+                not isinstance(resource, GenericResource)
+                and registry.handler_for_resource(resource) is not None
             )
         ]
 
-    def unknown_resources(self) -> list[GenericResource]:
+    def unknown_resources(
+        self,
+        *,
+        registry: ResourceTypeRegistry = DEFAULT_RESOURCE_TYPE_REGISTRY,
+    ) -> list[GenericGraphResource]:
+        """Return resources not understood as typed by the supplied registry."""
+
+        if not isinstance(registry, ResourceTypeRegistry):
+            raise TypeError(
+                "registry must be a ResourceTypeRegistry"
+            )
+
         return [
             resource
             for resource in self.resources
-            if isinstance(resource, GenericResource)
+            if (
+                isinstance(resource, GenericResource)
+                or registry.handler_for_resource(resource) is None
+            )
         ]
 
     def resources_with_type(
         self,
         resource_type: str,
+        *,
+        registry: ResourceTypeRegistry = DEFAULT_RESOURCE_TYPE_REGISTRY,
     ) -> list[GenericGraphResource]:
+        """Return resources whose serialized type matches resource_type."""
+
         _require_string(resource_type, "resource_type")
+
+        if not isinstance(registry, ResourceTypeRegistry):
+            raise TypeError(
+                "registry must be a ResourceTypeRegistry"
+            )
 
         result: list[GenericGraphResource] = []
 
@@ -526,23 +561,11 @@ class GenericResourceGraph:
 
                 continue
 
-            if (
-                isinstance(resource, Stimulus) and
-                resource_type == "stimulus"
-            ):
-                result.append(resource)
-                continue
+            handler = registry.handler_for_resource(resource)
 
             if (
-                isinstance(resource, ObservationTarget) and
-                resource_type == "observation_target"
-            ):
-                result.append(resource)
-                continue
-
-            if (
-                isinstance(resource, Observation) and
-                resource_type == "observation"
+                handler is not None
+                and handler.resource_type == resource_type
             ):
                 result.append(resource)
 

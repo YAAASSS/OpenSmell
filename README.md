@@ -1080,9 +1080,11 @@ OpenSmell/
 │   ├── RFC-0004.md
 │   ├── RFC-0005.md
 │   ├── RFC-0006.md
-│   └── RFC-0007.md
+│   ├── RFC-0007.md
+│   └── RFC-0008.md
 │
 ├── schema/
+│   ├── experimental-resource-graph-0.1.schema.json
 │   └── opensmell-0.1.schema.json
 │
 ├── spec/
@@ -1095,6 +1097,7 @@ OpenSmell/
 │       ├── experimental/
 │       │   ├── graph.py
 │       │   ├── graph_serialization.py
+│       │   ├── generic_graph.py
 │       │   ├── identifiers.py
 │       │   └── resources.py
 │       ├── schemas/
@@ -1135,7 +1138,7 @@ an alternative base temporary directory may be specified.
 The current complete test baseline is:
 
 ```text
-333 passed
+578 passed
 ```
 
 The ResourceGraph serialization test module currently contains 63 passing test
@@ -1282,6 +1285,7 @@ RFC-0004  Semantic Annotation Model
 RFC-0005  Quantitative Perceptual Measurement Model
 RFC-0006  Resource Identification and Deterministic Source Identity
 RFC-0007  Stimulus and Observation Resource Model
+RFC-0008  Generic Resource Graph and Extensible Resource Types
 ```
 
 RFCs allow experimental concepts to be investigated without prematurely
@@ -1294,12 +1298,17 @@ RFC-0005 investigates quantitative perceptual measurements and explicitly
 distinguishes measurement absence from a measured value of zero.
 RFC-0006 investigates resource identity, deterministic dataset imports,
 structured source identity, references, and cross-language UUID generation.
-RFC-0007 investigates the generic relationship between Stimulus,
-ObservationTarget, Observation, and scheme-defined Result data. Its current
-prototype also includes a flat ResourceGraph and an experimental JSON graph
-serialization.
-RFC-0006 and RFC-0007 remain Draft experimental work targeting future OpenSmell
-versions.
+RFC-0007 investigates the relationship between Stimulus,
+ObservationTarget, Observation, and scheme-defined Result data. Its prototype
+also includes a flat ResourceGraph, an experimental JSON graph serialization,
+a Draft 2020-12 structural JSON Schema, portable conformance vectors, and
+Python/JavaScript interoperability checks.
+RFC-0008 investigates a successor generic graph architecture in which resource
+membership is not limited to a closed Python union. Unknown serialized resource
+types can be preserved as `GenericResource`, while typed resource parsing,
+serialization, and graph queries are driven by `ResourceTypeRegistry`.
+RFC-0006, RFC-0007, and RFC-0008 remain Draft experimental work targeting
+future OpenSmell versions.
 Experimental RFCs do not automatically modify OpenSmell 0.1.
 
 ---
@@ -1350,14 +1359,25 @@ Completed:
 - [x] Keller/Vosshall ResourceGraph round-trip
 - [x] Burton 2022 ResourceGraph round-trip
 - [x] strict non-finite JSON number rejection
+- [x] cross-language ResourceGraph serialization interoperability
+- [x] experimental ResourceGraph structural JSON Schema
+- [x] ResourceGraph schema/parser parity tests
+- [x] portable ResourceGraph conformance vectors
+- [x] nested Reference and ExternalIdentifier extension preservation
+- [x] portable preservation checks in Python and JavaScript
+- [x] RFC-0008 generic ResourceGraph prototype
+- [x] unknown future resource type preservation experiment
+- [x] extensible ResourceTypeRegistry prototype
+- [x] registry-aware generic graph queries
 
 ### Next investigations
 
-- [ ] cross-language ResourceGraph serialization interoperability
 - [ ] finalize the experimental resource identification model
 - [ ] investigate provenance integration with resource graphs
-- [ ] define formal ResourceGraph validation boundaries and schemas
-- [ ] investigate preservation of unknown future resource types
+- [ ] define RFC-0008 resource type naming and versioning policy
+- [ ] create an experimental RFC-0008 generic graph JSON Schema
+- [ ] create portable RFC-0008 generic graph conformance vectors
+- [ ] validate RFC-0008 custom resource types across language boundaries
 - [ ] investigate streaming or partial loading for large ResourceGraphs
 - [ ] investigate normative serialization and canonicalization requirements
 - [ ] investigate mixture and renderable representations
@@ -1403,13 +1423,15 @@ v0.1.0
 
 Development on the main branch has progressed substantially beyond the contents
 of the `v0.1.0` release.
-The current experimental branch state includes RFC-0007, the generic
-Stimulus/Observation resource model, ResourceGraph, versioned Result schemes,
-and experimental ResourceGraph JSON serialization.
+The current experimental branch state includes RFC-0007 and RFC-0008,
+the Stimulus/Observation resource model, the RFC-0007 ResourceGraph, versioned
+Result schemes, experimental ResourceGraph JSON serialization and conformance
+work, plus the RFC-0008 generic graph and extensible resource-type registry
+prototype.
 The current test baseline is:
 
 ```text
-333 passed
+578 passed
 ```
 
 Dataset-scale ResourceGraph JSON round trips have succeeded across three
@@ -1426,10 +1448,13 @@ resources and approximately 190.8 MB of compact JSON while preserving the
 scientific values and graph relationships under test.
 The format and APIs may still change before a stable `1.0` specification.
 Do not rely on the current experimental graph format for production systems.
-The current priority is to validate cross-language ResourceGraph
-interoperability and continue testing the architecture against genuinely
-different data and device domains before promoting experimental concepts into
-OpenSmell Core.
+Cross-language RFC-0007 ResourceGraph interoperability has been validated with
+Python/JavaScript golden vectors and portable conformance checks. The current
+priority is to mature RFC-0008: define resource type naming/versioning,
+introduce portable generic-graph conformance artifacts, validate custom resource
+types across language boundaries, and continue testing the architecture against
+genuinely different data and device domains before promoting experimental
+concepts into OpenSmell Core.
 
 ---
 

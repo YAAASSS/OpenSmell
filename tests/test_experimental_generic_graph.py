@@ -1005,3 +1005,193 @@ def test_unregistered_typed_resource_can_exist_in_graph_but_not_serialize() -> N
         generic_graph_to_dict(
             graph
         )
+
+
+def _create_example_registry() -> ResourceTypeRegistry:
+    registry = create_default_resource_type_registry()
+
+    registry.register(
+        "example.resource",
+        ExampleResource,
+        _example_resource_from_dict,
+        _example_resource_to_dict,
+    )
+
+    return registry
+
+
+def test_known_resources_uses_custom_registry_for_future_typed_resource() -> None:
+    registry = _create_example_registry()
+
+    stimulus = Stimulus(
+        id="stimulus-1",
+    )
+
+    example = ExampleResource(
+        id="example-1",
+        value="hello",
+    )
+
+    generic = GenericResource(
+        id="future-1",
+        type="future.resource",
+    )
+
+    graph = GenericResourceGraph(
+        resources=[
+            stimulus,
+            example,
+            generic,
+        ],
+    )
+
+    assert graph.known_resources(
+        registry=registry,
+    ) == [
+        stimulus,
+        example,
+    ]
+
+
+def test_known_resources_does_not_assume_unregistered_python_type() -> None:
+    example = ExampleResource(
+        id="example-1",
+        value="hello",
+    )
+
+    graph = GenericResourceGraph(
+        resources=[
+            example,
+        ],
+    )
+
+    assert graph.known_resources() == []
+
+
+def test_unknown_resources_is_registry_aware() -> None:
+    registry = _create_example_registry()
+
+    example = ExampleResource(
+        id="example-1",
+        value="hello",
+    )
+
+    generic = GenericResource(
+        id="future-1",
+        type="future.resource",
+    )
+
+    graph = GenericResourceGraph(
+        resources=[
+            example,
+            generic,
+        ],
+    )
+
+    assert graph.unknown_resources(
+        registry=registry,
+    ) == [
+        generic,
+    ]
+
+    assert graph.unknown_resources() == [
+        example,
+        generic,
+    ]
+
+
+def test_resources_with_type_uses_custom_registry() -> None:
+    registry = _create_example_registry()
+
+    example = ExampleResource(
+        id="example-1",
+        value="hello",
+    )
+
+    graph = GenericResourceGraph(
+        resources=[
+            example,
+        ],
+    )
+
+    assert graph.resources_with_type(
+        "example.resource",
+        registry=registry,
+    ) == [
+        example,
+    ]
+
+    assert graph.resources_with_type(
+        "example.resource",
+    ) == []
+
+
+def test_resources_with_type_combines_registered_and_generic_resources() -> None:
+    registry = _create_example_registry()
+
+    typed = ExampleResource(
+        id="example-1",
+        value="hello",
+    )
+
+    generic = GenericResource(
+        id="example-2",
+        type="example.resource",
+        data={
+            "value": "preserved",
+        },
+    )
+
+    graph = GenericResourceGraph(
+        resources=[
+            typed,
+            generic,
+        ],
+    )
+
+    assert graph.resources_with_type(
+        "example.resource",
+        registry=registry,
+    ) == [
+        typed,
+        generic,
+    ]
+
+
+@pytest.mark.parametrize(
+    "method_name",
+    [
+        "known_resources",
+        "unknown_resources",
+    ],
+)
+def test_registry_aware_resource_queries_reject_invalid_registry(
+    method_name: str,
+) -> None:
+    graph = GenericResourceGraph()
+
+    method = getattr(
+        graph,
+        method_name,
+    )
+
+    with pytest.raises(
+        TypeError,
+        match="registry must be a ResourceTypeRegistry",
+    ):
+        method(
+            registry=object(),
+        )
+
+
+def test_resources_with_type_rejects_invalid_registry() -> None:
+    graph = GenericResourceGraph()
+
+    with pytest.raises(
+        TypeError,
+        match="registry must be a ResourceTypeRegistry",
+    ):
+        graph.resources_with_type(
+            "stimulus",
+            registry=object(),
+        )
