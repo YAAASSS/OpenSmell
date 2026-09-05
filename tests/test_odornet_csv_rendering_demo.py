@@ -9,7 +9,19 @@ from types import ModuleType
 
 import pytest
 
-from opensmell.adapters.odornet import ODORNET_LABELS
+from opensmell.adapters.odornet import (
+    ODORNET_LABELS,
+)
+from opensmell.experimental.annotation import (
+    Annotation,
+)
+from opensmell.experimental.molecule import (
+    Molecule,
+)
+from opensmell.experimental.odornet_enriched_adapter import (
+    PUBCHEM_INCHIKEY_SCHEME,
+    enriched_odornet_record_to_graph,
+)
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -105,7 +117,9 @@ def _complete_row(
         "PubChem_Title": "Example molecule",
         "PubChem_IUPACName": "example",
         "PubChem_CanonicalSMILES": "CCO",
-        "PubChem_InChIKey": "EXAMPLE-INCHIKEY",
+        "PubChem_InChIKey": (
+            "EXAMPLE-INCHIKEY"
+        ),
     }
 
     row.update(
@@ -206,6 +220,232 @@ def test_load_row_converts_real_odornet_cell_semantics(
         raw_row["PubChem_Title"]
         == "Example molecule"
     )
+
+
+def test_load_row_includes_pubchem_enrichment_in_adapter_record(
+    tmp_path: Path,
+) -> None:
+    path = (
+        tmp_path
+        / "odornet.csv"
+    )
+
+    _write_csv(
+        path,
+        rows=[
+            _complete_row(
+                PubChem_Status="resolved",
+                PubChem_Title="Ethanol",
+                PubChem_IUPACName="ethanol",
+                PubChem_CanonicalSMILES="CCO",
+                PubChem_InChIKey=(
+                    "LFQSCWFLJHTTHZ-UHFFFAOYSA-N"
+                ),
+            )
+        ],
+    )
+
+    record, _ = load_row(
+        path,
+        0,
+    )
+
+    assert (
+        record["PubChem_Status"]
+        == "resolved"
+    )
+
+    assert (
+        record["PubChem_Title"]
+        == "Ethanol"
+    )
+
+    assert (
+        record["PubChem_IUPACName"]
+        == "ethanol"
+    )
+
+    assert (
+        record["PubChem_CanonicalSMILES"]
+        == "CCO"
+    )
+
+    assert (
+        record["PubChem_InChIKey"]
+        == "LFQSCWFLJHTTHZ-UHFFFAOYSA-N"
+    )
+
+
+def test_loaded_row_produces_structured_pubchem_identifier(
+    tmp_path: Path,
+) -> None:
+    path = (
+        tmp_path
+        / "odornet.csv"
+    )
+
+    _write_csv(
+        path,
+        rows=[
+            _complete_row(
+                PubChem_Status="resolved",
+                PubChem_InChIKey=(
+                    "LFQSCWFLJHTTHZ-UHFFFAOYSA-N"
+                ),
+            )
+        ],
+    )
+
+    record, _ = load_row(
+        path,
+        0,
+    )
+
+    result = (
+        enriched_odornet_record_to_graph(
+            record
+        )
+    )
+
+    molecule = result.graph.require(
+        result.molecule_id
+    )
+
+    assert isinstance(
+        molecule,
+        Molecule,
+    )
+
+    identifiers = [
+        identifier
+        for identifier
+        in molecule.identifiers
+        if (
+            identifier.scheme
+            == PUBCHEM_INCHIKEY_SCHEME
+        )
+    ]
+
+    assert len(
+        identifiers
+    ) == 1
+
+    assert (
+        identifiers[0].value
+        == "LFQSCWFLJHTTHZ-UHFFFAOYSA-N"
+    )
+
+
+def test_loaded_row_produces_annotation_referencing_molecule(
+    tmp_path: Path,
+) -> None:
+    path = (
+        tmp_path
+        / "odornet.csv"
+    )
+
+    _write_csv(
+        path,
+        rows=[
+            _complete_row(
+                **{
+                    "sweety&gourmand": "1.0",
+                    "floral": "0.0",
+                    "fruity&vegetable": "",
+                }
+            )
+        ],
+    )
+
+    record, _ = load_row(
+        path,
+        0,
+    )
+
+    result = (
+        enriched_odornet_record_to_graph(
+            record
+        )
+    )
+
+    annotation = result.graph.require(
+        result.annotation_id
+    )
+
+    assert isinstance(
+        annotation,
+        Annotation,
+    )
+
+    assert (
+        annotation.subject.resource_id
+        == result.molecule_id
+    )
+
+    states = {
+        item["value"]: item["state"]
+        for item
+        in annotation.data[
+            "annotations"
+        ]
+    }
+
+    assert (
+        states["sweety&gourmand"]
+        == "present"
+    )
+
+    assert (
+        states["floral"]
+        == "absent"
+    )
+
+    assert (
+        states["fruity&vegetable"]
+        == "unknown"
+    )
+
+
+def test_loaded_row_without_inchikey_remains_valid(
+    tmp_path: Path,
+) -> None:
+    path = (
+        tmp_path
+        / "odornet.csv"
+    )
+
+    _write_csv(
+        path,
+        rows=[
+            _complete_row(
+                PubChem_Status="resolved",
+                PubChem_InChIKey="",
+            )
+        ],
+    )
+
+    record, _ = load_row(
+        path,
+        0,
+    )
+
+    result = (
+        enriched_odornet_record_to_graph(
+            record
+        )
+    )
+
+    molecule = result.graph.require(
+        result.molecule_id
+    )
+
+    assert isinstance(
+        molecule,
+        Molecule,
+    )
+
+    assert molecule.smiles == "CCO"
+    assert molecule.identifiers == []
 
 
 def test_load_row_selects_requested_zero_based_row(

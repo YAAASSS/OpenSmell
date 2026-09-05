@@ -1,18 +1,25 @@
 """Render one real row from the enriched OdorNet CSV through OpenSmell.
 
 This example reads ``examples/odornet_enriched.csv`` by default, selects one
-real dataset row, shows both the original OdorNet semantic labels and the
-available PubChem enrichment metadata, converts the row with the existing
-OpenSmell OdorNet adapter, bridges the Core Odor into the experimental
-ResourceGraph, maps positive semantic annotations through an illustrative
-device policy, and records the resulting RenderingPlan with a
+real dataset row, converts it directly into the experimental OpenSmell
+ResourceGraph representation, maps positive semantic annotations through an
+illustrative device policy, and records the resulting RenderingPlan with a
 SimulatedDiffuser.
 
-The PubChem enrichment metadata is displayed for context only. The OpenSmell
-semantic annotation states still come from the original OdorNet label columns.
+The enriched OdorNet adapter creates:
+
+- one Molecule resource containing the original OdorNet SMILES;
+- an optional PubChem InChIKey ExternalIdentifier when available;
+- one Annotation resource containing all OdorNet semantic states.
+
+The OpenSmell semantic annotation states come from the original OdorNet label
+columns. PubChem enrichment supplements chemical identity information but does
+not determine semantic odor annotations.
 
 The mapping from semantic descriptors to virtual device channels is a demo
 policy only. It is not a scientific claim about physical odor reproduction.
+
+This example is experimental and non-normative.
 """
 
 from __future__ import annotations
@@ -23,15 +30,21 @@ from pathlib import Path
 from typing import Any
 
 from opensmell.adapters.odornet import (
-    ANNOTATION_SCHEME_ID,
     ODORNET_LABELS,
-    from_record_with_annotations,
 )
-from opensmell.experimental.annotation import Annotation
-from opensmell.experimental.odor_graph_bridge import (
-    bridge_odor_to_resource_graph,
+from opensmell.experimental.annotation import (
+    Annotation,
 )
-from opensmell.experimental.rendering import RenderRequest
+from opensmell.experimental.molecule import (
+    Molecule,
+)
+from opensmell.experimental.odornet_enriched_adapter import (
+    PUBCHEM_INCHIKEY_SCHEME,
+    enriched_odornet_record_to_graph,
+)
+from opensmell.experimental.rendering import (
+    RenderRequest,
+)
 from opensmell.experimental.semantic_channel_mapper import (
     SemanticChannelBinding,
     SemanticChannelMapper,
@@ -231,6 +244,17 @@ def load_row(
             )
         )
 
+    for (
+        _,
+        pubchem_field,
+    ) in PUBCHEM_FIELDS:
+        record[pubchem_field] = (
+            raw_row.get(
+                pubchem_field,
+                "",
+            )
+        )
+
     return (
         record,
         raw_row,
@@ -267,43 +291,34 @@ def main() -> None:
         args.row,
     )
 
-    odor = (
-        from_record_with_annotations(
-            record,
-            odor_id=(
-                "odornet-enriched-row-"
-                f"{args.row}"
-            ),
-        )
-    )
-
-    semantic = next(
-        representation
-        for representation
-        in odor.representations
-        if representation.scheme.id
-        == ANNOTATION_SCHEME_ID
-    )
-
     result = (
-        bridge_odor_to_resource_graph(
-            odor
+        enriched_odornet_record_to_graph(
+            record
         )
     )
 
-    annotation = (
-        result.graph.require(
-            result.annotation_ids[0]
-        )
+    molecule = result.graph.require(
+        result.molecule_id
     )
+
+    annotation = result.graph.require(
+        result.annotation_id
+    )
+
+    if not isinstance(
+        molecule,
+        Molecule,
+    ):
+        raise RuntimeError(
+            "expected Molecule resource"
+        )
 
     if not isinstance(
         annotation,
         Annotation,
     ):
         raise RuntimeError(
-            "expected bridged "
-            "Annotation resource"
+            "expected Annotation resource"
         )
 
     bindings = [
@@ -339,7 +354,7 @@ def main() -> None:
 
     request = RenderRequest(
         resource_id=(
-            result.primary_resource_id
+            result.molecule_id
         ),
         duration=args.duration,
     )
@@ -399,6 +414,54 @@ def main() -> None:
     print()
 
     print(
+        "OpenSmell Molecule:"
+    )
+
+    print(
+        "  Resource ID        : "
+        f"{molecule.id}"
+    )
+
+    print(
+        "  SMILES             : "
+        f"{molecule.smiles}"
+    )
+
+    if molecule.identifiers:
+        for identifier in (
+            molecule.identifiers
+        ):
+            print(
+                f"  {identifier.scheme:<18} : "
+                f"{identifier.value}"
+            )
+    else:
+        print(
+            "  External identifiers: "
+            "<none>"
+        )
+
+    pubchem_inchikey = next(
+        (
+            identifier.value
+            for identifier
+            in molecule.identifiers
+            if (
+                identifier.scheme
+                == PUBCHEM_INCHIKEY_SCHEME
+            )
+        ),
+        None,
+    )
+
+    print(
+        "  PubChem InChIKey   : "
+        f"{pubchem_inchikey or '<none>'}"
+    )
+
+    print()
+
+    print(
         "Raw OdorNet semantic values:"
     )
 
@@ -415,7 +478,9 @@ def main() -> None:
     )
 
     for item in (
-        semantic.data["annotations"]
+        annotation.data[
+            "annotations"
+        ]
     ):
         print(
             f"  {item['value']:<24} : "
@@ -430,7 +495,7 @@ def main() -> None:
 
     print(
         "  Molecule:   "
-        f"{result.primary_resource_id}"
+        f"{molecule.id}"
     )
 
     print(
