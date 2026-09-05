@@ -1004,59 +1004,59 @@ External data / research
 └── future models
         │
         ▼
-┌─────────────────────────────────┐
-│            OpenSmell            │
-│                                 │
-│  .osmell representation         │
-│  JSON Schema                    │
-│  Python models                  │
-│  Parser / serializer            │
-│  Scheme Registry                │
-│  Validation                     │
-│  Builders                       │
-│  Adapters                       │
-│  Experimental models            │
-│  ResourceGraph                  │
-│  Experimental graph JSON        │
-│  Optional enrichment            │
-└─────────────────────────────────┘
+┌──────────────────────────────────────────┐
+│                OpenSmell                 │
+│                                          │
+│  Core 0.1                                │
+│  .osmell / JSON Schema                   │
+│  models / parser / serializer            │
+│  Scheme Registry / validation / builders │
+│                                          │
+│  Experimental interoperability           │
+│  Resource identity                       │
+│  Generic ResourceGraph                   │
+│  Molecule / Annotation resources         │
+│  Structural reference discovery          │
+│  Dataset adapters / bridges              │
+└──────────────────────────────────────────┘
         │
-        ├───────────────┐
-        ▼               ▼
- Applications          Mapper
-                        │
-                        ▼
-                   Device adapter
-                        │
-                   ┌────┼────┐
-                   ▼    ▼    ▼
-                Existing Future Research
-                devices  devices systems
+        ▼
+  RenderRequest
+        │
+        ▼
+SemanticChannelMapper
+        │
+        ▼
+  RenderingPlan
+        │
+        ▼
+DeviceCapabilities / DeviceAdapter
+        │
+        ▼
+Device Protocol JSON 0.1
+        │
+        ▼
+ DeviceTransport
+        │
+        ├── MemoryDeviceTransport
+        └── SerialDeviceTransport
+                    │
+                    ▼
+              physical device
 ```
 
-The experimental resource architecture currently separates:
+The experimental resource architecture separates resource identity, graph
+transport, structural references, and scheme-defined interpretation. The
+rendering architecture separately converts selected graph information into a
+device-specific plan.
 
-```text
-source resource
-      │
-      ▼
-   Stimulus
-      │
-      ▼
- Observation ─────► ObservationTarget
-      │
-      ▼
-   Result(s)
-      │
-      ▼
-scheme-defined semantics
-```
+OpenSmell does not assume that a semantic descriptor, molecule, annotation, or
+other resource corresponds directly to a physical device channel. Mapping is
+explicitly device- or application-specific.
 
-This same generic structure has been exercised against human psychophysical
-measurements, mouse olfactory-bulb physiology, and electronic sensor-array
-features without introducing one universal measurement class.
-The lower rendering/device layers remain exploratory and are not defined by
-OpenSmell 0.1 Core.
+The rendering and device layers are experimental and are not part of OpenSmell
+0.1 Core. Current serial work validates software interoperability and physical
+actuation paths; it does not demonstrate faithful odor reproduction.
 
 ---
 
@@ -1064,56 +1064,54 @@ OpenSmell 0.1 Core.
 
 ```text
 OpenSmell/
-├── .github/
-│   └── workflows/
-│       └── tests.yml
-│
+├── .github/workflows/tests.yml
 ├── examples/
 │   ├── *.osmell
-│   ├── odornet_pipeline.py
-│   └── identifier_torture_vectors.json
-│
+│   ├── *_conformance_vectors.json
+│   ├── *_interop_vectors.json
+│   └── rendering / OdorNet demonstrations
 ├── rfcs/
-│   ├── RFC-0001.md
-│   ├── RFC-0002.md
-│   ├── RFC-0003.md
-│   ├── RFC-0004.md
-│   ├── RFC-0005.md
-│   ├── RFC-0006.md
-│   ├── RFC-0007.md
-│   └── RFC-0008.md
-│
+│   ├── RFC-0001.md ... RFC-0008.md
+│   ├── RFC-0009.md   # Molecule Resource Type
+│   ├── RFC-0010.md   # Generic Annotation Resource
+│   └── RFC-0011.md   # Structural Reference Discovery
 ├── schema/
+│   ├── opensmell-0.1.schema.json
 │   ├── experimental-resource-graph-0.1.schema.json
-│   └── opensmell-0.1.schema.json
-│
-├── spec/
-│   └── opensmell-0.1.md
-│
-├── src/
-│   └── opensmell/
-│       ├── adapters/
-│       ├── enrichment/
-│       ├── experimental/
-│       │   ├── graph.py
-│       │   ├── graph_serialization.py
-│       │   ├── generic_graph.py
-│       │   ├── identifiers.py
-│       │   └── resources.py
-│       ├── schemas/
-│       ├── schemes/
-│       ├── builders.py
-│       ├── exceptions.py
-│       ├── models.py
-│       ├── parser.py
-│       ├── serializer.py
-│       └── validation.py
-│
+│   ├── experimental-generic-resource-graph-0.1.schema.json
+│   ├── experimental-molecule-0.1.schema.json
+│   └── experimental-annotation-0.1.schema.json
+├── spec/opensmell-0.1.md
+├── src/opensmell/
+│   ├── adapters/
+│   ├── enrichment/
+│   ├── experimental/
+│   │   ├── identifiers.py
+│   │   ├── graph.py / graph_serialization.py
+│   │   ├── generic_graph.py
+│   │   ├── molecule.py / annotation.py
+│   │   ├── reference_discovery.py
+│   │   ├── odor_graph_bridge.py
+│   │   ├── odornet_enriched_adapter.py
+│   │   ├── rendering.py
+│   │   ├── semantic_channel_mapper.py
+│   │   ├── device_capabilities.py
+│   │   ├── device_adapter.py
+│   │   ├── render_pipeline.py
+│   │   ├── device_protocol.py
+│   │   ├── device_transport.py
+│   │   ├── protocol_device_adapter.py
+│   │   ├── serial_device_transport.py
+│   │   └── simulated_diffuser.py
+│   ├── schemas/
+│   ├── schemes/
+│   ├── builders.py
+│   ├── models.py
+│   ├── parser.py
+│   ├── serializer.py
+│   └── validation.py
 ├── tests/
-│
 ├── tools/
-│
-├── .gitignore
 ├── LICENSE
 ├── pyproject.toml
 └── README.md
@@ -1130,53 +1128,40 @@ excluded from Git where required.
 Install development dependencies and run:
 
 ```bash
+python -m pip install -e ".[dev]"
 python -m pytest
 ```
 
-On environments where the default pytest temporary directory is unavailable,
-an alternative base temporary directory may be specified.
-The current complete test baseline is:
+Serial support is optional for normal OpenSmell users:
 
-```text
-578 passed
+```bash
+python -m pip install -e ".[serial]"
 ```
 
-The ResourceGraph serialization test module currently contains 63 passing test
-cases.
-The suite covers core and experimental behavior, including:
-- parsing and serialization;
-- builders;
-- JSON Schema consistency;
-- conformance;
-- known and unknown schemes;
-- scheme/type validation;
-- extension preservation;
-- document-level round trips;
-- OdorNet adapter behavior;
-- PubChem enrichment behavior;
-- semantic annotation experiments;
-- Keller/Vosshall perceptual measurement experiments;
-- deterministic Resource ID generation;
-- canonical source identity;
-- Unicode and escaping edge cases;
-- golden interoperability vectors;
-- experimental ResourceGraph behavior;
-- ResourceGraph JSON serialization and parsing;
-- unresolved-reference preservation;
-- versioned Result schemes;
-- serialization stability;
-- rejection of non-standard JSON numeric constants such as `NaN`,
-  `Infinity`, and `-Infinity`;
-- preservation of valid finite values including explicit `-0.0`.
-GitHub Actions runs the tests against:
-- Python 3.10
-- Python 3.11
-- Python 3.12
-- Python 3.13
-Some dataset-scale interoperability experiments are development tools rather
-than normal unit tests because the underlying external datasets are not
-distributed with OpenSmell.
-Three complete experimental ResourceGraph JSON round trips currently succeed:
+The audited complete test baseline on 2026-09-06 is:
+
+```text
+1659 passed
+```
+
+The suite covers Core and experimental behavior, including parsing,
+serialization, builders, JSON Schema consistency, known and unknown schemes,
+extension preservation, lossless document round trips, dataset adapters,
+deterministic resource identity, ResourceGraph serialization, portable
+conformance vectors, Python/JavaScript interoperability, Molecule and Annotation
+resources, structural reference discovery, rendering, device capabilities,
+device adapters, the experimental JSON device protocol, transport boundaries,
+and serial protocol integration.
+
+GitHub Actions runs the Python suite against Python 3.10, 3.11, 3.12, and 3.13.
+Cross-language interoperability checks use Node.js where applicable.
+
+Some dataset-scale experiments are development tools rather than normal unit
+tests because the underlying external datasets are not distributed with
+OpenSmell.
+
+Three complete experimental RFC-0007 ResourceGraph JSON round trips have
+succeeded:
 
 ```text
 UCI Gas Sensor Array Drift
@@ -1198,7 +1183,9 @@ Compact JSON bytes:     190,814,842
 ```
 
 These experiments cover electronic olfaction, human psychophysics, and
-biological physiology.
+biological physiology. Additional RFC-0008 experiments validate extensible
+resource types, unknown-resource preservation, Molecule and Annotation
+resources, and structural reference discovery.
 
 ---
 
@@ -1286,30 +1273,28 @@ RFC-0005  Quantitative Perceptual Measurement Model
 RFC-0006  Resource Identification and Deterministic Source Identity
 RFC-0007  Stimulus and Observation Resource Model
 RFC-0008  Generic Resource Graph and Extensible Resource Types
+RFC-0009  Molecule Resource Type
+RFC-0010  Generic Annotation Resource
+RFC-0011  Structural Reference Discovery and Graph Navigation
 ```
 
 RFCs allow experimental concepts to be investigated without prematurely
 making them part of the OpenSmell Core specification.
-RFC-0003 investigates provenance without making provenance a normative
-OpenSmell 0.1 Core field.
-RFC-0004 investigates richer categorical semantic annotations, including the
-distinction between present, absent, and unknown information.
-RFC-0005 investigates quantitative perceptual measurements and explicitly
-distinguishes measurement absence from a measured value of zero.
-RFC-0006 investigates resource identity, deterministic dataset imports,
-structured source identity, references, and cross-language UUID generation.
-RFC-0007 investigates the relationship between Stimulus,
-ObservationTarget, Observation, and scheme-defined Result data. Its prototype
-also includes a flat ResourceGraph, an experimental JSON graph serialization,
-a Draft 2020-12 structural JSON Schema, portable conformance vectors, and
-Python/JavaScript interoperability checks.
-RFC-0008 investigates a successor generic graph architecture in which resource
-membership is not limited to a closed Python union. Unknown serialized resource
-types can be preserved as `GenericResource`, while typed resource parsing,
-serialization, and graph queries are driven by `ResourceTypeRegistry`.
-RFC-0006, RFC-0007, and RFC-0008 remain Draft experimental work targeting
-future OpenSmell versions.
-Experimental RFCs do not automatically modify OpenSmell 0.1.
+
+RFC-0003 investigates provenance without making provenance a normative Core
+0.1 field. RFC-0004 preserves present, absent, and unknown semantic annotation
+states. RFC-0005 investigates quantitative perceptual measurements. RFC-0006
+investigates deterministic resource identity and cross-language generation.
+RFC-0007 introduced Stimulus/Observation resources and the first experimental
+ResourceGraph. RFC-0008 generalizes that graph so unknown future resource types
+can be preserved. RFC-0009 adds an experimental Molecule resource. RFC-0010
+adds a generic Annotation resource. RFC-0011 adds registered structural
+reference discovery and graph navigation without scanning arbitrary opaque
+JSON.
+
+All of these RFCs remain experimental Draft work unless explicitly incorporated
+into a future OpenSmell specification. Experimental RFCs do not automatically
+modify OpenSmell 0.1 Core.
 
 ---
 
@@ -1318,79 +1303,62 @@ Experimental RFCs do not automatically modify OpenSmell 0.1.
 ### OpenSmell 0.1 foundation
 
 Completed:
-- [x] initial repository structure
-- [x] `.osmell` JSON representation
-- [x] JSON Schema validation
-- [x] Python data models
-- [x] `.osmell` parser
-- [x] `.osmell` serializer
-- [x] Python packaging
-- [x] automated tests
-- [x] GitHub Actions CI
-- [x] representation scheme architecture
-- [x] Scheme Registry
-- [x] semantic descriptor scheme
-- [x] chemical SMILES scheme
-- [x] public Python builders
-- [x] scheme-specific validation
-- [x] unknown scheme support
-- [x] extension preservation
-- [x] lossless document model
+- [x] `.osmell` JSON representation and Core JSON Schema
+- [x] Python data models, parser, serializer, builders, and validation
+- [x] representation Scheme Registry and built-in schemes
+- [x] unknown scheme support and extension preservation
+- [x] lossless Document model
 - [x] OpenSmell 0.1 specification
+- [x] Python packaging and multi-version CI
 - [x] RFC process
-- [x] OdorNet adapter experiment
-- [x] PubChem enrichment experiment
+- [x] OdorNet, Keller/Vosshall, and PubChem experiments
 
 ### Interoperability research completed or in progress
 
-- [x] semantic annotation model experiment
-- [x] full OdorNet annotation round-trip experiment
-- [x] quantitative perceptual measurement model experiment
-- [x] Keller/Vosshall measurement round-trip experiment
-- [x] resource identification design experiment
-- [x] deterministic source identity experiment
-- [x] Python/JavaScript identifier interoperability experiment
-- [x] Burton 2022 resource-graph identity experiment
-- [x] generic Stimulus and Observation resource model experiment
-- [x] versioned Result scheme experiment
-- [x] experimental ResourceGraph implementation
-- [x] experimental ResourceGraph JSON serialization
-- [x] UCI electronic-olfaction ResourceGraph round-trip
-- [x] Keller/Vosshall ResourceGraph round-trip
-- [x] Burton 2022 ResourceGraph round-trip
-- [x] strict non-finite JSON number rejection
-- [x] cross-language ResourceGraph serialization interoperability
-- [x] experimental ResourceGraph structural JSON Schema
-- [x] ResourceGraph schema/parser parity tests
-- [x] portable ResourceGraph conformance vectors
-- [x] nested Reference and ExternalIdentifier extension preservation
-- [x] portable preservation checks in Python and JavaScript
-- [x] RFC-0008 generic ResourceGraph prototype
-- [x] unknown future resource type preservation experiment
-- [x] extensible ResourceTypeRegistry prototype
-- [x] registry-aware generic graph queries
+- [x] semantic annotation model and OdorNet annotation round trip
+- [x] quantitative perceptual measurement model and Keller/Vosshall round trip
+- [x] deterministic resource identity and Python/JavaScript identifier tests
+- [x] RFC-0007 Stimulus/Observation ResourceGraph experiments
+- [x] dataset-scale UCI, Keller/Vosshall, and Burton graph round trips
+- [x] RFC-0007 structural schema and portable conformance vectors
+- [x] Python/JavaScript ResourceGraph interoperability
+- [x] RFC-0008 Generic ResourceGraph and ResourceTypeRegistry
+- [x] unknown future resource preservation
+- [x] RFC-0008 generic graph schema and portable conformance vectors
+- [x] RFC-0009 Molecule resource, schema, conformance, and real-data validation
+- [x] RFC-0010 Annotation resource, schema, conformance, and real-data validation
+- [x] RFC-0011 structural reference discovery and cross-language vectors
+- [x] Core Odor to ResourceGraph bridge experiment
+- [x] enriched OdorNet ResourceGraph adapter
+- [x] rendering request / plan model
+- [x] semantic channel mapper
+- [x] device capability and adapter boundaries
+- [x] simulated and multi-device rendering experiments
+- [x] experimental JSON device protocol 0.1
+- [x] protocol-backed device adapter
+- [x] transport abstraction and in-memory transport
+- [x] optional serial transport using PySerial
+- [x] serial protocol integration without physical hardware
 
 ### Next investigations
 
-- [ ] finalize the experimental resource identification model
+- [ ] validate the current serial/device path on physical ESP32 hardware
+- [ ] document rendering and device interoperability through a dedicated RFC
+- [ ] create portable device-protocol conformance artifacts
+- [ ] extend CI across the existing independent JavaScript verifiers
 - [ ] investigate provenance integration with resource graphs
-- [ ] define RFC-0008 resource type naming and versioning policy
-- [ ] create an experimental RFC-0008 generic graph JSON Schema
-- [ ] create portable RFC-0008 generic graph conformance vectors
-- [ ] validate RFC-0008 custom resource types across language boundaries
+- [ ] define resource type namespace/version governance
 - [ ] investigate streaming or partial loading for large ResourceGraphs
 - [ ] investigate normative serialization and canonicalization requirements
 - [ ] investigate mixture and renderable representations
 - [ ] investigate MPEG-V interoperability
-- [ ] design a device abstraction layer
-- [ ] build a virtual olfactory device/simulator
-- [ ] explore experimental hardware adapters
 - [ ] add CLI tooling
 - [ ] publish project documentation through opensmell.org
 - [ ] define the OpenSmell 0.2 roadmap
-The roadmap is intentionally incremental.
-New concepts should demonstrate a real interoperability need through
-experiments and real data before being incorporated into OpenSmell Core.
+
+The roadmap is intentionally incremental. New concepts should demonstrate a
+real interoperability need through experiments and real data before being
+incorporated into OpenSmell Core.
 
 ---
 
@@ -1415,46 +1383,39 @@ technologies that address parts of those problems.
 ## Current status
 
 OpenSmell is currently in **pre-alpha experimental development**.
+
 The first public development release is:
 
 ```text
 v0.1.0
 ```
 
-Development on the main branch has progressed substantially beyond the contents
-of the `v0.1.0` release.
-The current experimental branch state includes RFC-0007 and RFC-0008,
-the Stimulus/Observation resource model, the RFC-0007 ResourceGraph, versioned
-Result schemes, experimental ResourceGraph JSON serialization and conformance
-work, plus the RFC-0008 generic graph and extensible resource-type registry
-prototype.
-The current test baseline is:
+Development on `main` has progressed substantially beyond that release. The
+current repository contains experimental work through RFC-0011, including the
+Generic ResourceGraph, Molecule and Annotation resources, structural reference
+discovery, dataset bridges, rendering plans, device capabilities, device
+adapters, an experimental JSON device protocol, transport-independent protocol
+adapters, and optional serial transport.
+
+The audited test baseline on 2026-09-06 is:
 
 ```text
-578 passed
+1659 passed
 ```
 
-Dataset-scale ResourceGraph JSON round trips have succeeded across three
-independent domains:
+Dataset-scale ResourceGraph experiments span human psychophysics, biological
+physiology, and electronic olfaction. Portable conformance and independent
+Python/JavaScript checks exercise several experimental interoperability
+contracts.
 
-```text
-human psychophysics
-biological physiology
-electronic olfaction
-```
+The format and APIs may still change before a stable `1.0` specification. Do
+not rely on the current experimental graph, rendering, device, or protocol APIs
+for production systems.
 
-Together these experiments serialize and reconstruct 259,142 materialized
-resources and approximately 190.8 MB of compact JSON while preserving the
-scientific values and graph relationships under test.
-The format and APIs may still change before a stable `1.0` specification.
-Do not rely on the current experimental graph format for production systems.
-Cross-language RFC-0007 ResourceGraph interoperability has been validated with
-Python/JavaScript golden vectors and portable conformance checks. The current
-priority is to mature RFC-0008: define resource type naming/versioning,
-introduce portable generic-graph conformance artifacts, validate custom resource
-types across language boundaries, and continue testing the architecture against
-genuinely different data and device domains before promoting experimental
-concepts into OpenSmell Core.
+The current priority is to validate the device boundary on real hardware while
+bringing documentation and portable protocol conformance up to the level of the
+existing ResourceGraph interoperability work. Experimental concepts will only
+be considered for a future OpenSmell Core after sufficient independent evidence.
 
 ---
 

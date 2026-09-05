@@ -32,8 +32,8 @@ jobs:
       - name: Run tests
         run: pytest
 
-  resource-graph-interop:
-    name: ResourceGraph Python / JavaScript interoperability
+  interoperability:
+    name: Portable Python / JavaScript interoperability
     runs-on: ubuntu-latest
 
     steps:
@@ -53,20 +53,50 @@ jobs:
       - name: Install OpenSmell
         run: python -m pip install -e ".[dev]"
 
-      - name: Regenerate ResourceGraph interoperability vectors
+      - name: Regenerate RFC-0007 ResourceGraph interoperability vectors
         run: python tools/generate_resource_graph_vectors.py
 
-      - name: Verify generated vectors are reproducible
+      - name: Verify generated RFC-0007 vectors are reproducible
         run: git diff --exit-code -- examples/resource_graph_interop_vectors.json
 
-      - name: Verify Python-generated vectors in JavaScript
+      - name: Verify RFC-0007 ResourceGraph vectors in JavaScript
         run: node tools/verify_resource_graph_vectors.js
 
-      - name: Verify JavaScript round-trip in Python
+      - name: Verify RFC-0007 JavaScript round-trip in Python
         run: python tools/verify_resource_graph_vectors_roundtrip.py
 
-      - name: Verify portable ResourceGraph conformance vectors in Python
+      - name: Verify RFC-0007 portable conformance in Python
         run: pytest tests/test_experimental_resource_graph_conformance_vectors.py -q
 
-      - name: Verify portable ResourceGraph conformance vectors in JavaScript
+      - name: Verify RFC-0007 portable conformance in JavaScript
         run: node tools/verify_resource_graph_conformance.js
+
+      - name: Verify identifier golden vectors in JavaScript
+        run: node tools/verify_identifier_vectors.js
+
+      - name: Verify identifier torture vectors in JavaScript
+        run: node tools/verify_identifier_torture_vectors.js
+
+      - name: Verify RFC-0008 generic graph conformance in JavaScript
+        run: node tools/verify_generic_resource_graph_conformance.js
+
+      - name: Verify RFC-0008 generic graph interoperability in JavaScript
+        run: node tools/verify_generic_resource_graph_vectors.js
+
+      - name: Verify RFC-0008 JavaScript round-trip in Python
+        run: python tools/verify_generic_resource_graph_vectors_roundtrip.py
+
+      - name: Verify Molecule conformance in JavaScript
+        run: node tools/verify_molecule_conformance.js
+
+      - name: Verify Annotation conformance in JavaScript
+        run: node tools/verify_annotation_conformance.js
+
+      - name: Verify Annotation ResourceGraph interoperability in JavaScript
+        run: node tools/verify_annotation_resource_graph_vectors.js
+
+      - name: Verify structural reference discovery in JavaScript
+        run: node tools/verify_reference_discovery_vectors.js
+
+      - name: Verify enriched OdorNet interoperability fixture in JavaScript
+        run: node tools/verify_odornet_enriched_interop.js
