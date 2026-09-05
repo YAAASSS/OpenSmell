@@ -7,6 +7,10 @@ The simulated diffuser does not sleep for the requested rendering duration and
 does not attempt to reproduce an odor. It records immutable snapshots of the
 RenderingPlan values it receives.
 
+A simulated diffuser may optionally expose DeviceCapabilities. When
+capabilities are configured, every RenderingPlan is validated against those
+capabilities before it is recorded.
+
 This module is experimental and non-normative.
 """
 
@@ -15,7 +19,13 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from .rendering import DeviceCommand, RenderingPlan
+from .device_capabilities import (
+    DeviceCapabilities,
+)
+from .rendering import (
+    DeviceCommand,
+    RenderingPlan,
+)
 
 
 @dataclass(frozen=True)
@@ -27,27 +37,42 @@ class SimulatedRenderEvent:
     extra: dict[str, Any]
 
     def __post_init__(self) -> None:
-        if not isinstance(self.commands, tuple):
+        if not isinstance(
+            self.commands,
+            tuple,
+        ):
             raise TypeError(
                 "SimulatedRenderEvent.commands must be a tuple"
             )
 
         for command in self.commands:
-            if not isinstance(command, DeviceCommand):
+            if not isinstance(
+                command,
+                DeviceCommand,
+            ):
                 raise TypeError(
                     "SimulatedRenderEvent.commands must contain "
                     "DeviceCommand values"
                 )
 
-        if isinstance(self.duration, bool) or not isinstance(
-            self.duration,
-            (int, float),
+        if (
+            isinstance(
+                self.duration,
+                bool,
+            )
+            or not isinstance(
+                self.duration,
+                (int, float),
+            )
         ):
             raise TypeError(
                 "SimulatedRenderEvent.duration must be a number"
             )
 
-        if not isinstance(self.extra, dict):
+        if not isinstance(
+            self.extra,
+            dict,
+        ):
             raise TypeError(
                 "SimulatedRenderEvent.extra must be a dict"
             )
@@ -55,12 +80,17 @@ class SimulatedRenderEvent:
         object.__setattr__(
             self,
             "duration",
-            float(self.duration),
+            float(
+                self.duration
+            ),
         )
+
         object.__setattr__(
             self,
             "extra",
-            dict(self.extra),
+            dict(
+                self.extra
+            ),
         )
 
 
@@ -69,19 +99,55 @@ class SimulatedDiffuser:
 
     ``render`` records a snapshot immediately. It performs no real-time wait,
     hardware I/O, cartridge lookup, odor mapping, or physical diffusion.
+
+    ``capabilities`` optionally describes the technical constraints accepted
+    by this simulated target. When omitted, the diffuser preserves the original
+    unconstrained experimental behavior.
     """
 
-    def __init__(self) -> None:
-        self._events: list[SimulatedRenderEvent] = []
+    def __init__(
+        self,
+        capabilities: DeviceCapabilities | None = None,
+    ) -> None:
+        if (
+            capabilities is not None
+            and not isinstance(
+                capabilities,
+                DeviceCapabilities,
+            )
+        ):
+            raise TypeError(
+                "capabilities must be a DeviceCapabilities "
+                "or None"
+            )
+
+        self._capabilities = capabilities
+        self._events: list[
+            SimulatedRenderEvent
+        ] = []
 
     @property
-    def events(self) -> list[SimulatedRenderEvent]:
+    def capabilities(
+        self,
+    ) -> DeviceCapabilities | None:
+        """Return the configured device capabilities, if any."""
+
+        return self._capabilities
+
+    @property
+    def events(
+        self,
+    ) -> list[SimulatedRenderEvent]:
         """Return a copy of the recorded event list."""
 
-        return list(self._events)
+        return list(
+            self._events
+        )
 
     @property
-    def last_event(self) -> SimulatedRenderEvent | None:
+    def last_event(
+        self,
+    ) -> SimulatedRenderEvent | None:
         """Return the most recently recorded event, if any."""
 
         if not self._events:
@@ -93,24 +159,48 @@ class SimulatedDiffuser:
         self,
         plan: RenderingPlan,
     ) -> SimulatedRenderEvent:
-        """Record one RenderingPlan and return the recorded event."""
+        """Validate and record one RenderingPlan.
 
-        if not isinstance(plan, RenderingPlan):
+        When capabilities are configured, validation happens before any event
+        is recorded. An incompatible plan therefore leaves the simulated
+        device state unchanged.
+        """
+
+        if not isinstance(
+            plan,
+            RenderingPlan,
+        ):
             raise TypeError(
                 "plan must be a RenderingPlan"
             )
 
+        if (
+            self._capabilities
+            is not None
+        ):
+            self._capabilities.require_plan(
+                plan
+            )
+
         event = SimulatedRenderEvent(
-            commands=tuple(plan.commands),
+            commands=tuple(
+                plan.commands
+            ),
             duration=plan.duration,
-            extra=dict(plan.extra),
+            extra=dict(
+                plan.extra
+            ),
         )
 
-        self._events.append(event)
+        self._events.append(
+            event
+        )
 
         return event
 
-    def clear(self) -> None:
+    def clear(
+        self,
+    ) -> None:
         """Remove all recorded simulated rendering events."""
 
         self._events.clear()
