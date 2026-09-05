@@ -1,0 +1,134 @@
+{
+  "interop_test": "org.opensmell.experimental.odornet-enriched.interop",
+  "version": "0.1",
+  "source": {
+    "dataset": "OdorNet",
+    "row": 0
+  },
+  "expected": {
+    "molecule_id": "fe2abb2f-c5b9-515e-aa9c-2bad3113464a",
+    "annotation_id": "9374ab90-3ed8-5792-ab64-68e231323bfd",
+    "smiles": "CCCCCCOC(=O)CCC(C)C",
+    "pubchem_inchikey": "SGFIFPRTWTUJDX-UHFFFAOYSA-N",
+    "semantic_states": {
+      "animalic&ambery": "absent",
+      "sweety&gourmand": "present",
+      "floral": "absent",
+      "fruity&vegetable": "unknown",
+      "pungent&disagreeable": "absent",
+      "green&herbal": "present",
+      "nutty": "absent",
+      "woody&mossy": "absent",
+      "resinous&balsamic": "absent",
+      "cooked": "absent",
+      "odorless": "absent",
+      "spice": "absent"
+    }
+  },
+  "graph": {
+    "format": "org.opensmell.experimental.generic-resource-graph",
+    "version": "0.1",
+    "resources": [
+      {
+        "provenance": {
+          "source": "OdorNet"
+        },
+        "pubchem": {
+          "status": "resolved",
+          "title": "Hexyl isohexanoate",
+          "iupac_name": "hexyl 4-methylpentanoate",
+          "canonical_smiles": "CCCCCCOC(=O)CCC(C)C"
+        },
+        "type": "org.opensmell.molecule",
+        "type_version": "0.1",
+        "id": "fe2abb2f-c5b9-515e-aa9c-2bad3113464a",
+        "smiles": "CCCCCCOC(=O)CCC(C)C",
+        "identifiers": [
+          {
+            "scheme": "pubchem.inchikey",
+            "value": "SGFIFPRTWTUJDX-UHFFFAOYSA-N"
+          }
+        ]
+      },
+      {
+        "provenance": {
+          "source": "OdorNet"
+        },
+        "type": "org.opensmell.annotation",
+        "type_version": "0.1",
+        "id": "9374ab90-3ed8-5792-ab64-68e231323bfd",
+        "subject": {
+          "resource_id": "fe2abb2f-c5b9-515e-aa9c-2bad3113464a"
+        },
+        "scheme": {
+          "id": "org.opensmell.semantic.annotations",
+          "version": "0.1"
+        },
+        "data": {
+          "annotations": [
+            {
+              "value": "animalic&ambery",
+              "language": "en",
+              "state": "absent"
+            },
+            {
+              "value": "sweety&gourmand",
+              "language": "en",
+              "state": "present"
+            },
+            {
+              "value": "floral",
+              "language": "en",
+              "state": "absent"
+            },
+            {
+              "value": "fruity&vegetable",
+              "language": "en",
+              "state": "unknown"
+            },
+            {
+              "value": "pungent&disagreeable",
+              "language": "en",
+              "state": "absent"
+            },
+            {
+              "value": "green&herbal",
+              "language": "en",
+              "state": "present"
+            },
+            {
+              "value": "nutty",
+              "language": "en",
+              "state": "absent"
+            },
+            {
+              "value": "woody&mossy",
+              "language": "en",
+              "state": "absent"
+            },
+            {
+              "value": "resinous&balsamic",
+              "language": "en",
+              "state": "absent"
+            },
+            {
+              "value": "cooked",
+              "language": "en",
+              "state": "absent"
+            },
+            {
+              "value": "odorless",
+              "language": "en",
+              "state": "absent"
+            },
+            {
+              "value": "spice",
+              "language": "en",
+              "state": "absent"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
