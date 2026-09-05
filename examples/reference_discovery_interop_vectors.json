@@ -1,0 +1,311 @@
+{
+  "vector_set": "org.opensmell.experimental.reference-discovery.interop-vectors",
+  "version": "0.1",
+  "resource_graph_format": "org.opensmell.experimental.generic-resource-graph",
+  "resource_graph_version": "0.1",
+  "vectors": [
+    {
+      "name": "annotation_to_molecule",
+      "graph": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.opensmell.molecule",
+            "type_version": "0.1",
+            "id": "molecule-1",
+            "smiles": "CCO"
+          },
+          {
+            "type": "org.opensmell.annotation",
+            "type_version": "0.1",
+            "id": "annotation-1",
+            "subject": {
+              "resource_id": "molecule-1",
+              "role_extension": "subject"
+            },
+            "scheme": {
+              "id": "org.example.semantic",
+              "version": "0.1"
+            },
+            "data": {
+              "resource_id": "false-from-annotation-data"
+            }
+          }
+        ]
+      },
+      "expected_edges": [
+        {
+          "source_id": "annotation-1",
+          "target_id": "molecule-1"
+        }
+      ],
+      "expected_resolved": 1,
+      "expected_unresolved": 0
+    },
+    {
+      "name": "unresolved_annotation_subject",
+      "graph": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.opensmell.annotation",
+            "type_version": "0.1",
+            "id": "annotation-unresolved",
+            "subject": {
+              "resource_id": "missing-resource"
+            },
+            "scheme": {
+              "id": "org.example.scheme",
+              "version": "1"
+            },
+            "data": {}
+          }
+        ]
+      },
+      "expected_edges": [
+        {
+          "source_id": "annotation-unresolved",
+          "target_id": "missing-resource"
+        }
+      ],
+      "expected_resolved": 0,
+      "expected_unresolved": 1
+    },
+    {
+      "name": "unknown_resource_is_opaque",
+      "graph": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.opensmell.molecule",
+            "type_version": "0.1",
+            "id": "molecule-opaque",
+            "smiles": "C"
+          },
+          {
+            "type": "org.example.future-resource",
+            "type_version": "7",
+            "id": "unknown-1",
+            "resource_id": "molecule-opaque",
+            "nested": {
+              "resource_id": "molecule-opaque"
+            },
+            "items": [
+              {
+                "resource_id": "molecule-opaque"
+              }
+            ]
+          }
+        ]
+      },
+      "expected_edges": [],
+      "expected_resolved": 0,
+      "expected_unresolved": 0
+    },
+    {
+      "name": "future_annotation_version_is_opaque",
+      "graph": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.opensmell.molecule",
+            "type_version": "0.1",
+            "id": "molecule-future",
+            "smiles": "CC"
+          },
+          {
+            "type": "org.opensmell.annotation",
+            "type_version": "99.0",
+            "id": "future-annotation",
+            "subject": {
+              "resource_id": "molecule-future"
+            },
+            "scheme": {
+              "id": "org.example.future",
+              "version": "99"
+            },
+            "data": {}
+          }
+        ]
+      },
+      "expected_edges": [],
+      "expected_resolved": 0,
+      "expected_unresolved": 0
+    },
+    {
+      "name": "multiple_annotations_preserve_graph_order",
+      "graph": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.opensmell.molecule",
+            "type_version": "0.1",
+            "id": "molecule-a",
+            "smiles": "C"
+          },
+          {
+            "type": "org.opensmell.molecule",
+            "type_version": "0.1",
+            "id": "molecule-b",
+            "smiles": "CC"
+          },
+          {
+            "type": "org.opensmell.annotation",
+            "type_version": "0.1",
+            "id": "annotation-b",
+            "subject": {
+              "resource_id": "molecule-b"
+            },
+            "scheme": {
+              "id": "org.example",
+              "version": "1"
+            },
+            "data": {}
+          },
+          {
+            "type": "org.opensmell.annotation",
+            "type_version": "0.1",
+            "id": "annotation-a",
+            "subject": {
+              "resource_id": "molecule-a"
+            },
+            "scheme": {
+              "id": "org.example",
+              "version": "1"
+            },
+            "data": {}
+          },
+          {
+            "type": "org.opensmell.annotation",
+            "type_version": "0.1",
+            "id": "annotation-missing",
+            "subject": {
+              "resource_id": "missing-z"
+            },
+            "scheme": {
+              "id": "org.example",
+              "version": "1"
+            },
+            "data": {}
+          }
+        ]
+      },
+      "expected_edges": [
+        {
+          "source_id": "annotation-b",
+          "target_id": "molecule-b"
+        },
+        {
+          "source_id": "annotation-a",
+          "target_id": "molecule-a"
+        },
+        {
+          "source_id": "annotation-missing",
+          "target_id": "missing-z"
+        }
+      ],
+      "expected_resolved": 2,
+      "expected_unresolved": 1
+    },
+    {
+      "name": "opaque_payloads_do_not_create_edges",
+      "graph": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.opensmell.molecule",
+            "type_version": "0.1",
+            "id": "molecule-real",
+            "smiles": "CO",
+            "molecule_extension": {
+              "resource_id": "false-molecule-extra"
+            }
+          },
+          {
+            "type": "org.opensmell.annotation",
+            "type_version": "0.1",
+            "id": "annotation-real",
+            "subject": {
+              "resource_id": "molecule-real",
+              "reference_extension": {
+                "resource_id": "false-reference-extra"
+              }
+            },
+            "scheme": {
+              "id": "org.example",
+              "version": "1",
+              "scheme_extension": {
+                "resource_id": "false-scheme-extra"
+              }
+            },
+            "data": {
+              "resource_id": "false-data",
+              "nested": {
+                "resource_id": "false-nested"
+              }
+            },
+            "annotation_extension": {
+              "resource_id": "false-annotation-extra"
+            }
+          }
+        ],
+        "graph_extension": {
+          "resource_id": "false-graph-extra"
+        }
+      },
+      "expected_edges": [
+        {
+          "source_id": "annotation-real",
+          "target_id": "molecule-real"
+        }
+      ],
+      "expected_resolved": 1,
+      "expected_unresolved": 0
+    },
+    {
+      "name": "unicode_ids_and_reference_extensions",
+      "graph": {
+        "format": "org.opensmell.experimental.generic-resource-graph",
+        "version": "0.1",
+        "resources": [
+          {
+            "type": "org.opensmell.molecule",
+            "type_version": "0.1",
+            "id": "molécule-日本語-🧪",
+            "smiles": "C"
+          },
+          {
+            "type": "org.opensmell.annotation",
+            "type_version": "0.1",
+            "id": "аннотация-🌸",
+            "subject": {
+              "resource_id": "molécule-日本語-🧪",
+              "note": "référence-参照"
+            },
+            "scheme": {
+              "id": "org.example.аромат",
+              "version": "β1"
+            },
+            "data": {
+              "label": "café-香り-🌹"
+            }
+          }
+        ]
+      },
+      "expected_edges": [
+        {
+          "source_id": "аннотация-🌸",
+          "target_id": "molécule-日本語-🧪"
+        }
+      ],
+      "expected_resolved": 1,
+      "expected_unresolved": 0
+    }
+  ]
+}
