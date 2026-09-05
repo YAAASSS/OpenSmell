@@ -11,6 +11,11 @@ meaning in OpenSmell.
 This mapper is illustrative only. It does not claim that activating configured
 channels reproduces the annotated odor.
 
+The mapper can also inspect DeviceCapabilities to determine whether its
+configured bindings are technically compatible with a rendering target. This
+compatibility check does not replace validation of an actual RenderingPlan by
+the target device.
+
 This module is experimental and non-normative.
 """
 
@@ -20,6 +25,7 @@ from dataclasses import dataclass
 from typing import Any
 
 from .annotation import Annotation
+from .device_capabilities import DeviceCapabilities
 from .generic_graph import GenericResourceGraph
 from .reference_discovery import (
     ReferenceIndex,
@@ -99,6 +105,11 @@ class SemanticChannelMapper:
 
     The binding table is device/application policy, not an OpenSmell semantic
     definition.
+
+    Device capability inspection is intentionally separate from ``map``.
+    Applications may inspect whether the mapper configuration is compatible
+    with a target before mapping. The target device must still validate every
+    resulting RenderingPlan before execution.
     """
 
     def __init__(
@@ -157,6 +168,134 @@ class SemanticChannelMapper:
 
         return list(
             self._bindings
+        )
+
+    def compatible_bindings(
+        self,
+        capabilities: DeviceCapabilities,
+    ) -> list[SemanticChannelBinding]:
+        """Return bindings technically accepted by a target device.
+
+        Compatibility here concerns only the channel and intensity encoded by
+        each binding. Duration cannot be evaluated because a binding does not
+        contain a rendering duration.
+
+        This method does not modify the mapper configuration.
+        """
+
+        if not isinstance(
+            capabilities,
+            DeviceCapabilities,
+        ):
+            raise TypeError(
+                "capabilities must be a DeviceCapabilities"
+            )
+
+        return [
+            binding
+            for binding in self._bindings
+            if capabilities.accepts_command(
+                DeviceCommand(
+                    channel=binding.channel,
+                    intensity=binding.intensity,
+                )
+            )
+        ]
+
+    def incompatible_bindings(
+        self,
+        capabilities: DeviceCapabilities,
+    ) -> list[SemanticChannelBinding]:
+        """Return bindings not technically accepted by a target device.
+
+        A binding is incompatible when the device does not advertise its
+        channel or when the configured intensity falls outside the advertised
+        range.
+
+        Duration constraints are deliberately outside this check.
+        """
+
+        if not isinstance(
+            capabilities,
+            DeviceCapabilities,
+        ):
+            raise TypeError(
+                "capabilities must be a DeviceCapabilities"
+            )
+
+        return [
+            binding
+            for binding in self._bindings
+            if not capabilities.accepts_command(
+                DeviceCommand(
+                    channel=binding.channel,
+                    intensity=binding.intensity,
+                )
+            )
+        ]
+
+    def supports(
+        self,
+        capabilities: DeviceCapabilities,
+    ) -> bool:
+        """Return whether every configured binding is device-compatible.
+
+        This is a configuration-level check only. A concrete RenderingPlan
+        must still be validated by the target because request-specific
+        constraints such as duration are not represented by mapper bindings.
+        """
+
+        if not isinstance(
+            capabilities,
+            DeviceCapabilities,
+        ):
+            raise TypeError(
+                "capabilities must be a DeviceCapabilities"
+            )
+
+        return not self.incompatible_bindings(
+            capabilities
+        )
+
+    def require_support(
+        self,
+        capabilities: DeviceCapabilities,
+    ) -> None:
+        """Raise ValueError when any configured binding is incompatible.
+
+        The error identifies all incompatible descriptor/channel bindings so
+        applications can diagnose mapper/device configuration mismatches
+        before attempting rendering.
+        """
+
+        if not isinstance(
+            capabilities,
+            DeviceCapabilities,
+        ):
+            raise TypeError(
+                "capabilities must be a DeviceCapabilities"
+            )
+
+        incompatible = self.incompatible_bindings(
+            capabilities
+        )
+
+        if not incompatible:
+            return
+
+        details = ", ".join(
+            (
+                f"{binding.descriptor}"
+                f" -> channel {binding.channel}"
+                f" @ {binding.intensity}"
+            )
+            for binding in incompatible
+        )
+
+        raise ValueError(
+            "semantic channel mapper is not compatible "
+            f"with device {capabilities.device_id}: "
+            f"{details}"
         )
 
     def map(
