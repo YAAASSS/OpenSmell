@@ -22,7 +22,6 @@ keywords = [
 dependencies = [
     "jsonschema>=4.20"
 ]
-
 classifiers = [
     "Development Status :: 2 - Pre-Alpha",
     "Intended Audience :: Developers",
@@ -37,9 +36,13 @@ classifiers = [
 ]
 
 [project.optional-dependencies]
+serial = [
+    "pyserial>=3.5"
+]
 dev = [
     "pytest>=8.0",
-    "build>=1.2"
+    "build>=1.2",
+    "pyserial>=3.5"
 ]
 
 [project.urls]
