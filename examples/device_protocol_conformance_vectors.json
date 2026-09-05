@@ -1,0 +1,399 @@
+{
+  "protocol_version": "0.1",
+  "suite": "org.opensmell.experimental.device-protocol-conformance",
+  "suite_version": "0.1",
+  "valid": [
+    {
+      "id": "hello_request",
+      "kind": "hello_request",
+      "message": {
+        "protocol_version": "0.1",
+        "type": "hello"
+      }
+    },
+    {
+      "id": "hello_response",
+      "kind": "hello_response",
+      "message": {
+        "protocol_version": "0.1",
+        "type": "hello_response",
+        "device_id": "device-a"
+      }
+    },
+    {
+      "id": "capabilities_request",
+      "kind": "capabilities_request",
+      "message": {
+        "protocol_version": "0.1",
+        "type": "get_capabilities"
+      }
+    },
+    {
+      "id": "capabilities_response",
+      "kind": "capabilities_response",
+      "message": {
+        "protocol_version": "0.1",
+        "type": "capabilities",
+        "device_id": "device-a",
+        "channels": [
+          {
+            "channel": 0,
+            "min_intensity": 0.0,
+            "max_intensity": 1.0
+          },
+          {
+            "channel": 2,
+            "min_intensity": 0.25,
+            "max_intensity": 0.75
+          }
+        ],
+        "min_duration": 0.1,
+        "max_duration": 30.0
+      }
+    },
+    {
+      "id": "capabilities_empty_channels",
+      "kind": "capabilities_response",
+      "message": {
+        "protocol_version": "0.1",
+        "type": "capabilities",
+        "device_id": "device-empty",
+        "channels": [],
+        "min_duration": 0.1,
+        "max_duration": 1.0
+      }
+    },
+    {
+      "id": "render_single",
+      "kind": "render_request",
+      "message": {
+        "protocol_version": "0.1",
+        "type": "render",
+        "duration": 4.0,
+        "commands": [
+          {
+            "channel": 0,
+            "intensity": 0.7
+          }
+        ]
+      }
+    },
+    {
+      "id": "render_multiple",
+      "kind": "render_request",
+      "message": {
+        "protocol_version": "0.1",
+        "type": "render",
+        "duration": 1.5,
+        "commands": [
+          {
+            "channel": 0,
+            "intensity": 0.0
+          },
+          {
+            "channel": 2,
+            "intensity": 1.0
+          }
+        ]
+      }
+    },
+    {
+      "id": "render_empty_commands",
+      "kind": "render_request",
+      "message": {
+        "protocol_version": "0.1",
+        "type": "render",
+        "duration": 1.0,
+        "commands": []
+      }
+    },
+    {
+      "id": "ok_response",
+      "kind": "ok_response",
+      "message": {
+        "protocol_version": "0.1",
+        "type": "ok"
+      }
+    },
+    {
+      "id": "error_response",
+      "kind": "error_response",
+      "message": {
+        "protocol_version": "0.1",
+        "type": "error",
+        "code": "invalid_plan",
+        "message": "rendering plan rejected"
+      }
+    },
+    {
+      "id": "hello_response_unknown_field",
+      "kind": "hello_response",
+      "message": {
+        "protocol_version": "0.1",
+        "type": "hello_response",
+        "device_id": "device-a",
+        "extension": {
+          "vendor": "example"
+        }
+      }
+    },
+    {
+      "id": "render_unknown_fields",
+      "kind": "render_request",
+      "message": {
+        "protocol_version": "0.1",
+        "type": "render",
+        "duration": 2.0,
+        "commands": [
+          {
+            "channel": 1,
+            "intensity": 0.5,
+            "vendor_value": 7
+          }
+        ],
+        "vendor_extension": true
+      }
+    }
+  ],
+  "invalid": [
+    {
+      "id": "hello_response_wrong_version",
+      "kind": "hello_response",
+      "message": {
+        "protocol_version": "9.9",
+        "type": "hello_response",
+        "device_id": "device-a"
+      }
+    },
+    {
+      "id": "hello_response_missing_version",
+      "kind": "hello_response",
+      "message": {
+        "type": "hello_response",
+        "device_id": "device-a"
+      }
+    },
+    {
+      "id": "hello_response_wrong_type",
+      "kind": "hello_response",
+      "message": {
+        "protocol_version": "0.1",
+        "type": "hello",
+        "device_id": "device-a"
+      }
+    },
+    {
+      "id": "hello_response_empty_device_id",
+      "kind": "hello_response",
+      "message": {
+        "protocol_version": "0.1",
+        "type": "hello_response",
+        "device_id": ""
+      }
+    },
+    {
+      "id": "capabilities_channels_not_array",
+      "kind": "capabilities_response",
+      "message": {
+        "protocol_version": "0.1",
+        "type": "capabilities",
+        "device_id": "device-a",
+        "channels": {},
+        "min_duration": 0.1,
+        "max_duration": 1.0
+      }
+    },
+    {
+      "id": "capabilities_channel_boolean",
+      "kind": "capabilities_response",
+      "message": {
+        "protocol_version": "0.1",
+        "type": "capabilities",
+        "device_id": "device-a",
+        "channels": [
+          {
+            "channel": true,
+            "min_intensity": 0.0,
+            "max_intensity": 1.0
+          }
+        ],
+        "min_duration": 0.1,
+        "max_duration": 1.0
+      }
+    },
+    {
+      "id": "capabilities_negative_channel",
+      "kind": "capabilities_response",
+      "message": {
+        "protocol_version": "0.1",
+        "type": "capabilities",
+        "device_id": "device-a",
+        "channels": [
+          {
+            "channel": -1,
+            "min_intensity": 0.0,
+            "max_intensity": 1.0
+          }
+        ],
+        "min_duration": 0.1,
+        "max_duration": 1.0
+      }
+    },
+    {
+      "id": "capabilities_invalid_intensity_range",
+      "kind": "capabilities_response",
+      "message": {
+        "protocol_version": "0.1",
+        "type": "capabilities",
+        "device_id": "device-a",
+        "channels": [
+          {
+            "channel": 0,
+            "min_intensity": 0.8,
+            "max_intensity": 0.2
+          }
+        ],
+        "min_duration": 0.1,
+        "max_duration": 1.0
+      }
+    },
+    {
+      "id": "capabilities_invalid_duration_range",
+      "kind": "capabilities_response",
+      "message": {
+        "protocol_version": "0.1",
+        "type": "capabilities",
+        "device_id": "device-a",
+        "channels": [],
+        "min_duration": 2.0,
+        "max_duration": 1.0
+      }
+    },
+    {
+      "id": "render_commands_not_array",
+      "kind": "render_request",
+      "message": {
+        "protocol_version": "0.1",
+        "type": "render",
+        "duration": 1.0,
+        "commands": {}
+      }
+    },
+    {
+      "id": "render_duration_zero",
+      "kind": "render_request",
+      "message": {
+        "protocol_version": "0.1",
+        "type": "render",
+        "duration": 0.0,
+        "commands": []
+      }
+    },
+    {
+      "id": "render_duration_boolean",
+      "kind": "render_request",
+      "message": {
+        "protocol_version": "0.1",
+        "type": "render",
+        "duration": true,
+        "commands": []
+      }
+    },
+    {
+      "id": "render_intensity_below_zero",
+      "kind": "render_request",
+      "message": {
+        "protocol_version": "0.1",
+        "type": "render",
+        "duration": 1.0,
+        "commands": [
+          {
+            "channel": 0,
+            "intensity": -0.1
+          }
+        ]
+      }
+    },
+    {
+      "id": "render_intensity_above_one",
+      "kind": "render_request",
+      "message": {
+        "protocol_version": "0.1",
+        "type": "render",
+        "duration": 1.0,
+        "commands": [
+          {
+            "channel": 0,
+            "intensity": 1.1
+          }
+        ]
+      }
+    },
+    {
+      "id": "ok_wrong_version",
+      "kind": "ok_response",
+      "message": {
+        "protocol_version": "1.0",
+        "type": "ok"
+      }
+    },
+    {
+      "id": "ok_wrong_type",
+      "kind": "ok_response",
+      "message": {
+        "protocol_version": "0.1",
+        "type": "hello"
+      }
+    },
+    {
+      "id": "error_empty_code",
+      "kind": "error_response",
+      "message": {
+        "protocol_version": "0.1",
+        "type": "error",
+        "code": "",
+        "message": "failure"
+      }
+    },
+    {
+      "id": "error_empty_message",
+      "kind": "error_response",
+      "message": {
+        "protocol_version": "0.1",
+        "type": "error",
+        "code": "failure",
+        "message": ""
+      }
+    }
+  ],
+  "strict_json_invalid_text": [
+    {
+      "id": "json_nan",
+      "text": "{\"protocol_version\":\"0.1\",\"type\":\"render\",\"duration\":NaN,\"commands\":[]}"
+    },
+    {
+      "id": "json_infinity",
+      "text": "{\"protocol_version\":\"0.1\",\"type\":\"render\",\"duration\":Infinity,\"commands\":[]}"
+    },
+    {
+      "id": "json_array_root",
+      "text": "[]"
+    },
+    {
+      "id": "json_empty",
+      "text": ""
+    },
+    {
+      "id": "json_malformed",
+      "text": "{\"protocol_version\":\"0.1\","
+    }
+  ],
+  "lexical_json": [
+    {
+      "id": "render_channel_decimal_lexeme",
+      "kind": "render_request",
+      "text": "{\"protocol_version\":\"0.1\",\"type\":\"render\",\"duration\":1.0,\"commands\":[{\"channel\":1.0,\"intensity\":0.5}]}",
+      "note": "JSON 1.0 and 1 have the same numeric value in JavaScript after JSON.parse; lexical rejection is therefore not part of portable semantic conformance."
+    }
+  ]
+}

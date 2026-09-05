@@ -100,3 +100,9 @@ jobs:
 
       - name: Verify enriched OdorNet interoperability fixture in JavaScript
         run: node tools/verify_odornet_enriched_interop.js
+
+      - name: Verify Device Protocol 0.1 portable conformance in Python
+        run: pytest tests/test_experimental_device_protocol_conformance_vectors.py -q
+
+      - name: Verify Device Protocol 0.1 portable conformance in JavaScript
+        run: node tools/verify_device_protocol_conformance.js
