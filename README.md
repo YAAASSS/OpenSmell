@@ -1138,10 +1138,11 @@ Serial support is optional for normal OpenSmell users:
 python -m pip install -e ".[serial]"
 ```
 
-The audited complete test baseline on 2026-09-06 is:
+The audited complete test baseline on 2026-09-06, after adding portable
+Device Protocol 0.1 conformance, is:
 
 ```text
-1659 passed
+1708 passed
 ```
 
 The suite covers Core and experimental behavior, including parsing,
@@ -1343,9 +1344,9 @@ Completed:
 ### Next investigations
 
 - [ ] validate the current serial/device path on physical ESP32 hardware
-- [ ] document rendering and device interoperability through a dedicated RFC
-- [ ] create portable device-protocol conformance artifacts
-- [ ] extend CI across the existing independent JavaScript verifiers
+- [x] document rendering and device interoperability through RFC-0012
+- [x] create portable Device Protocol 0.1 conformance artifacts
+- [x] extend CI across the existing independent JavaScript verifiers
 - [ ] investigate provenance integration with resource graphs
 - [ ] define resource type namespace/version governance
 - [ ] investigate streaming or partial loading for large ResourceGraphs
@@ -1391,16 +1392,17 @@ v0.1.0
 ```
 
 Development on `main` has progressed substantially beyond that release. The
-current repository contains experimental work through RFC-0011, including the
+current repository contains experimental work through RFC-0012, including the
 Generic ResourceGraph, Molecule and Annotation resources, structural reference
 discovery, dataset bridges, rendering plans, device capabilities, device
 adapters, an experimental JSON device protocol, transport-independent protocol
 adapters, and optional serial transport.
 
-The audited test baseline on 2026-09-06 is:
+The audited test baseline on 2026-09-06, after adding portable Device Protocol
+0.1 conformance, is:
 
 ```text
-1659 passed
+1708 passed
 ```
 
 Dataset-scale ResourceGraph experiments span human psychophysics, biological
@@ -1412,10 +1414,11 @@ The format and APIs may still change before a stable `1.0` specification. Do
 not rely on the current experimental graph, rendering, device, or protocol APIs
 for production systems.
 
-The current priority is to validate the device boundary on real hardware while
-bringing documentation and portable protocol conformance up to the level of the
-existing ResourceGraph interoperability work. Experimental concepts will only
-be considered for a future OpenSmell Core after sufficient independent evidence.
+The current priority is to validate the device boundary on real hardware. The
+rendering/device architecture is documented by RFC-0012, and Device Protocol
+0.1 now has portable Python/JavaScript conformance artifacts integrated into CI.
+Experimental concepts will only be considered for a future OpenSmell Core after
+sufficient independent evidence.
 
 ---
 
