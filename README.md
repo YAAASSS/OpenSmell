@@ -1,19 +1,101 @@
 # OpenSmell
 
-**An open interoperability framework for digital olfaction.**
-OpenSmell is an experimental open-source project for representing, exchanging,
-validating, and eventually rendering digital olfactory information across
-applications and devices.
-The goal is not to define how smell must physically be reproduced. Instead,
-OpenSmell aims to provide a common interoperability layer between odor data,
-software applications, scientific models, and heterogeneous olfactory
-rendering technologies.
+**An open interoperability layer for digital olfaction.**
+
+[![Tests](https://github.com/YAAASSS/OpenSmell/actions/workflows/tests.yml/badge.svg)](https://github.com/YAAASSS/OpenSmell/actions/workflows/tests.yml)
+[![Python](https://img.shields.io/badge/Python-3.10--3.13-blue)](#python-reference-implementation)
+[![License](https://img.shields.io/badge/License-Apache--2.0-blue)](LICENSE)
+[![Status](https://img.shields.io/badge/status-experimental%20pre--alpha-orange)](#current-status)
+
+OpenSmell provides a device-independent way to **represent, exchange, validate,
+and request the rendering of digital olfactory information** across software,
+data sources, scientific models, and heterogeneous devices.
+
+<p align="center">
+  <img src="docs/images/opensmell-architecture.png"
+       alt="OpenSmell interoperability architecture"
+       width="100%">
+</p>
+
+> **OpenSmell does not define how an odor must physically be reproduced.**
+> It provides an interoperability layer between systems that produce, store,
+> transform, interpret, or render olfactory information.
+
+### The interoperability problem
+
+Digital olfaction already spans odor datasets, chemical information, machine-
+learning models, electronic noses, research software, and scent-display
+ hardware. These systems may use different representations, vocabularies, data
+models, and device interfaces. OpenSmell explores a common layer that lets them
+exchange olfactory information **without requiring one universal physical smell
+reproduction technology**.
+
+```text
+Dataset A ─┐
+Model B   ─┼──► different representations ──► OpenSmell ──► applications / devices
+Sensor C  ─┘
+```
+
+### 30-second example
+
+An `.osmell` document can carry multiple representations of the same conceptual
+odor. Applications use the representations they understand and preserve the
+ones they do not.
+
+```python
+import opensmell
+
+odor = opensmell.load("examples/coffee.osmell")
+
+print(odor.id)
+print(odor.metadata.labels.get("en"))
+for representation in odor.representations:
+    print(representation.type, representation.scheme.id)
+```
+
+OpenSmell can therefore transport semantic, perceptual, chemical, mixture, or
+future representations while keeping physical rendering decisions outside the
+Core format.
+
+### Current implementation at a glance
+
+| Area | Status |
+| --- | --- |
+| OpenSmell Core 0.1 format and JSON Schema | Implemented |
+| Python reference implementation | Implemented |
+| Forward-compatible schemes and extension preservation | Implemented |
+| Experimental ResourceGraph interoperability | Implemented and tested |
+| Portable Python/JavaScript interoperability vectors | Implemented |
+| Experimental rendering and device architecture | Documented through RFC-0012 |
+| Device Protocol 0.1 and serial transport | Implemented experimentally |
+| Automated Python test baseline | **1711 passed** |
+| Physical hardware validation | **Next milestone** |
+
 > [!IMPORTANT]
->
-> OpenSmell is currently an early-stage experimental project.
->
-> Version `0.1` is a pre-alpha release and should not be considered a stable
-> standard.
+> OpenSmell is an **early-stage experimental project**. Version `0.1` is
+> pre-alpha and must not be treated as a stable standard. Experimental graph,
+> rendering, device, and protocol APIs may change.
+
+### What OpenSmell is — and is not
+
+OpenSmell is an interoperability framework. It is **not** an electronic nose, a
+chemical analysis platform, an odor-prediction model, a physical scent
+diffuser, or a claim that arbitrary smells can already be perfectly digitized
+and reproduced. Those technologies may produce or consume information through
+OpenSmell, but they remain separate systems.
+
+### Explore the project
+
+- [Why OpenSmell?](#why-opensmell)
+- [Core principle](#core-principle)
+- [What OpenSmell 0.1 provides](#what-opensmell-01-provides)
+- [`.osmell` documents](#osmell-documents)
+- [Python reference implementation](#python-reference-implementation)
+- [Architecture](#architecture)
+- [RFCs](#rfcs)
+- [Roadmap](#roadmap)
+- [Relationship with existing work](#relationship-with-existing-work)
+- [Contributing](#contributing)
 
 ---
 
@@ -1074,7 +1156,8 @@ OpenSmell/
 │   ├── RFC-0001.md ... RFC-0008.md
 │   ├── RFC-0009.md   # Molecule Resource Type
 │   ├── RFC-0010.md   # Generic Annotation Resource
-│   └── RFC-0011.md   # Structural Reference Discovery
+│   ├── RFC-0011.md   # Structural Reference Discovery
+│   └── RFC-0012.md   # Rendering and Device Interoperability Architecture
 ├── schema/
 │   ├── opensmell-0.1.schema.json
 │   ├── experimental-resource-graph-0.1.schema.json
@@ -1138,11 +1221,11 @@ Serial support is optional for normal OpenSmell users:
 python -m pip install -e ".[serial]"
 ```
 
-The audited complete test baseline on 2026-09-06, after adding portable
+The audited complete test baseline on 2026-09-06, after adding the Core scheme registry architecture guardrail and portable
 Device Protocol 0.1 conformance, is:
 
 ```text
-1708 passed
+1711 passed
 ```
 
 The suite covers Core and experimental behavior, including parsing,
@@ -1277,6 +1360,7 @@ RFC-0008  Generic Resource Graph and Extensible Resource Types
 RFC-0009  Molecule Resource Type
 RFC-0010  Generic Annotation Resource
 RFC-0011  Structural Reference Discovery and Graph Navigation
+RFC-0012  Experimental Rendering and Device Interoperability Architecture
 ```
 
 RFCs allow experimental concepts to be investigated without prematurely
@@ -1291,7 +1375,8 @@ ResourceGraph. RFC-0008 generalizes that graph so unknown future resource types
 can be preserved. RFC-0009 adds an experimental Molecule resource. RFC-0010
 adds a generic Annotation resource. RFC-0011 adds registered structural
 reference discovery and graph navigation without scanning arbitrary opaque
-JSON.
+JSON. RFC-0012 documents the experimental rendering, device, protocol, and
+transport architecture without making those layers part of Core 0.1.
 
 All of these RFCs remain experimental Draft work unless explicitly incorporated
 into a future OpenSmell specification. Experimental RFCs do not automatically
@@ -1398,11 +1483,11 @@ discovery, dataset bridges, rendering plans, device capabilities, device
 adapters, an experimental JSON device protocol, transport-independent protocol
 adapters, and optional serial transport.
 
-The audited test baseline on 2026-09-06, after adding portable Device Protocol
+The audited test baseline on 2026-09-06, after adding the Core scheme registry architecture guardrail and portable Device Protocol
 0.1 conformance, is:
 
 ```text
-1708 passed
+1711 passed
 ```
 
 Dataset-scale ResourceGraph experiments span human psychophysics, biological
