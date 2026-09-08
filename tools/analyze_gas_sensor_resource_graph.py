@@ -68,7 +68,7 @@ DATASET_ID = "uci_gas_sensor_drift"
 SENSOR_RESULT_SCHEME_ID = (
     "org.opensmell.experimental.sensor-array.features"
 )
-SENSOR_RESULT_SCHEME_VERSION = "0.1" 
+SENSOR_RESULT_SCHEME_VERSION = "0.1"
 
 ANALYTES = {
     1: "ethanol",

@@ -1,0 +1,101 @@
+{
+  "opensmell": "0.1",
+  "odor": {
+    "id": "urn:uuid:89e67268-14dc-4b5b-9743-447c24deec41",
+    "representations": [
+      {
+        "provenance": {
+          "source": "OdorNet"
+        },
+        "type": "chemical",
+        "scheme": {
+          "id": "org.opensmell.chemical.smiles",
+          "version": "0.1"
+        },
+        "data": {
+          "smiles": "CC(C)=CCC/C(C)=C/CO"
+        }
+      },
+      {
+        "provenance": {
+          "source": "OdorNet"
+        },
+        "type": "semantic",
+        "scheme": {
+          "id": "org.opensmell.semantic.annotations",
+          "version": "0.1"
+        },
+        "data": {
+          "annotations": [
+            {
+              "value": "animalic&ambery",
+              "language": "en",
+              "state": "unknown"
+            },
+            {
+              "value": "sweety&gourmand",
+              "language": "en",
+              "state": "unknown"
+            },
+            {
+              "value": "floral",
+              "language": "en",
+              "state": "present"
+            },
+            {
+              "value": "fruity&vegetable",
+              "language": "en",
+              "state": "unknown"
+            },
+            {
+              "value": "pungent&disagreeable",
+              "language": "en",
+              "state": "absent"
+            },
+            {
+              "value": "green&herbal",
+              "language": "en",
+              "state": "unknown"
+            },
+            {
+              "value": "nutty",
+              "language": "en",
+              "state": "absent"
+            },
+            {
+              "value": "woody&mossy",
+              "language": "en",
+              "state": "absent"
+            },
+            {
+              "value": "resinous&balsamic",
+              "language": "en",
+              "state": "absent"
+            },
+            {
+              "value": "cooked",
+              "language": "en",
+              "state": "absent"
+            },
+            {
+              "value": "odorless",
+              "language": "en",
+              "state": "absent"
+            },
+            {
+              "value": "spice",
+              "language": "en",
+              "state": "absent"
+            }
+          ]
+        }
+      }
+    ],
+    "metadata": {
+      "labels": {
+        "en": "Geraniol"
+      },
+      "description": "Geraniol record converted from the enriched OdorNet dataset."
+    }
+  }
+}

@@ -3,8 +3,9 @@
 A fake serial connection is used so these tests require no physical serial
 port or microcontroller.
 
-The tests validate line framing, UTF-8 handling, timeout behavior, connection
-closing, and compatibility with the DeviceTransport contract.
+The tests validate line framing, UTF-8 handling, timeout behavior, startup
+preparation, connection closing, and compatibility with the DeviceTransport
+contract.
 
 This module is experimental and non-normative.
 """
@@ -21,6 +22,8 @@ from opensmell.experimental.device_transport import (
 )
 from opensmell.experimental.serial_device_transport import (
     DEFAULT_BAUDRATE,
+    DEFAULT_DISCARD_INITIAL_INPUT,
+    DEFAULT_STARTUP_DELAY,
     DEFAULT_TIMEOUT,
     SerialDeviceTransport,
 )
@@ -39,6 +42,7 @@ class FakeSerial:
         self.writes: list[bytes] = []
         self.flush_count = 0
         self.closed = False
+        self.reset_input_buffer_count = 0
 
     def write(
         self,
@@ -62,6 +66,10 @@ class FakeSerial:
         return self.responses.pop(
             0
         )
+
+    def reset_input_buffer(self) -> None:
+        self.reset_input_buffer_count += 1
+        self.responses.clear()
 
     def close(self) -> None:
         self.closed = True
@@ -97,6 +105,13 @@ def test_default_serial_settings() -> None:
     assert target.baudrate == 115200
     assert target.timeout == DEFAULT_TIMEOUT
     assert target.timeout == 2.0
+    assert target.startup_delay == DEFAULT_STARTUP_DELAY
+    assert target.startup_delay == 0.0
+    assert (
+        target.discard_initial_input
+        == DEFAULT_DISCARD_INITIAL_INPUT
+    )
+    assert target.discard_initial_input is False
 
 
 def test_custom_serial_settings() -> None:
@@ -110,12 +125,16 @@ def test_custom_serial_settings() -> None:
         "COM9",
         baudrate=9600,
         timeout=5.0,
+        startup_delay=0.0,
+        discard_initial_input=False,
         serial_instance=fake,
     )
 
     assert target.port == "COM9"
     assert target.baudrate == 9600
     assert target.timeout == 5.0
+    assert target.startup_delay == 0.0
+    assert target.discard_initial_input is False
     assert target.serial_instance is fake
 
 
@@ -479,6 +498,237 @@ def test_constructor_rejects_nonpositive_timeout(
                 responses=[]
             ),
         )
+
+
+@pytest.mark.parametrize(
+    "startup_delay",
+    [
+        None,
+        "2",
+        False,
+    ],
+)
+def test_constructor_rejects_invalid_startup_delay_type(
+    startup_delay: Any,
+) -> None:
+    with pytest.raises(
+        TypeError,
+        match="startup_delay must be a number",
+    ):
+        SerialDeviceTransport(
+            "COM_TEST",
+            startup_delay=startup_delay,
+            serial_instance=FakeSerial(
+                responses=[]
+            ),
+        )
+
+
+@pytest.mark.parametrize(
+    "startup_delay",
+    [
+        -1,
+        -0.1,
+    ],
+)
+def test_constructor_rejects_negative_startup_delay(
+    startup_delay: float,
+) -> None:
+    with pytest.raises(
+        ValueError,
+        match="startup_delay must be non-negative",
+    ):
+        SerialDeviceTransport(
+            "COM_TEST",
+            startup_delay=startup_delay,
+            serial_instance=FakeSerial(
+                responses=[]
+            ),
+        )
+
+
+@pytest.mark.parametrize(
+    "discard_initial_input",
+    [
+        None,
+        0,
+        1,
+        "true",
+        [],
+        {},
+    ],
+)
+def test_constructor_rejects_invalid_discard_initial_input_type(
+    discard_initial_input: Any,
+) -> None:
+    with pytest.raises(
+        TypeError,
+        match="discard_initial_input must be a boolean",
+    ):
+        SerialDeviceTransport(
+            "COM_TEST",
+            discard_initial_input=discard_initial_input,
+            serial_instance=FakeSerial(
+                responses=[]
+            ),
+        )
+
+
+def test_startup_delay_uses_sleep(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    sleeps: list[float] = []
+
+    def fake_sleep(
+        seconds: float,
+    ) -> None:
+        sleeps.append(
+            seconds
+        )
+
+    monkeypatch.setattr(
+        "opensmell.experimental.serial_device_transport.time.sleep",
+        fake_sleep,
+    )
+
+    fake = FakeSerial(
+        responses=[]
+    )
+
+    target = SerialDeviceTransport(
+        "COM_TEST",
+        startup_delay=1.5,
+        serial_instance=fake,
+    )
+
+    assert target.startup_delay == 1.5
+    assert sleeps == [
+        1.5,
+    ]
+
+
+def test_zero_startup_delay_does_not_sleep(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    sleeps: list[float] = []
+
+    def fake_sleep(
+        seconds: float,
+    ) -> None:
+        sleeps.append(
+            seconds
+        )
+
+    monkeypatch.setattr(
+        "opensmell.experimental.serial_device_transport.time.sleep",
+        fake_sleep,
+    )
+
+    SerialDeviceTransport(
+        "COM_TEST",
+        startup_delay=0.0,
+        serial_instance=FakeSerial(
+            responses=[]
+        ),
+    )
+
+    assert sleeps == []
+
+
+def test_discard_initial_input_resets_serial_buffer() -> None:
+    fake = FakeSerial(
+        responses=[
+            b"BOOT MESSAGE\n",
+        ]
+    )
+
+    target = SerialDeviceTransport(
+        "COM_TEST",
+        discard_initial_input=True,
+        serial_instance=fake,
+    )
+
+    assert target.discard_initial_input is True
+    assert fake.reset_input_buffer_count == 1
+    assert fake.responses == []
+
+
+def test_default_does_not_reset_serial_buffer() -> None:
+    fake = FakeSerial(
+        responses=[
+            b"BOOT MESSAGE\n",
+        ]
+    )
+
+    target = SerialDeviceTransport(
+        "COM_TEST",
+        serial_instance=fake,
+    )
+
+    assert target.discard_initial_input is False
+    assert fake.reset_input_buffer_count == 0
+    assert fake.responses == [
+        b"BOOT MESSAGE\n",
+    ]
+
+
+def test_discard_initial_input_requires_supported_serial_object() -> None:
+    class SerialWithoutReset:
+        def close(self) -> None:
+            pass
+
+    with pytest.raises(
+        RuntimeError,
+        match="does not support reset_input_buffer",
+    ):
+        SerialDeviceTransport(
+            "COM_TEST",
+            discard_initial_input=True,
+            serial_instance=SerialWithoutReset(),
+        )
+
+
+def test_startup_delay_happens_before_input_discard(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    events: list[str] = []
+
+    def fake_sleep(
+        seconds: float,
+    ) -> None:
+        events.append(
+            f"sleep:{seconds}"
+        )
+
+    class OrderedFakeSerial(FakeSerial):
+        def reset_input_buffer(self) -> None:
+            events.append(
+                "reset_input_buffer"
+            )
+            super().reset_input_buffer()
+
+    monkeypatch.setattr(
+        "opensmell.experimental.serial_device_transport.time.sleep",
+        fake_sleep,
+    )
+
+    fake = OrderedFakeSerial(
+        responses=[
+            b"BOOT MESSAGE\n",
+        ]
+    )
+
+    SerialDeviceTransport(
+        "COM_TEST",
+        startup_delay=2.0,
+        discard_initial_input=True,
+        serial_instance=fake,
+    )
+
+    assert events == [
+        "sleep:2.0",
+        "reset_input_buffer",
+    ]
 
 
 def test_close_closes_serial_connection() -> None:

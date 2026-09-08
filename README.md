@@ -68,8 +68,8 @@ Core format.
 | Portable Python/JavaScript interoperability vectors | Implemented |
 | Experimental rendering and device architecture | Documented through RFC-0012 |
 | Device Protocol 0.1 and serial transport | Implemented experimentally |
-| Automated Python test baseline | **1711 passed** |
-| Physical hardware validation | **Next milestone** |
+| Automated Python test suite | **More than 1,700 tests passing in the latest audited local run** |
+| Physical hardware validation | **ESP32/LED control path validated experimentally** |
 
 > [!IMPORTANT]
 > OpenSmell is an **early-stage experimental project**. Version `0.1` is
@@ -181,6 +181,12 @@ The current reference implementation includes:
 - an experimental Keller/Vosshall adapter for quantitative perceptual
   measurements;
 - optional PubChem chemical identity enrichment;
+- an experimental Geraniol `.osmell` fixture and reproducible generation path;
+- experimental rendering requests, rendering plans, semantic channel mapping,
+  device capabilities, and device adapters;
+- experimental Device Protocol 0.1 with transport-independent adapters;
+- optional serial transport using PySerial;
+- a physically validated ESP32/LED control-path prototype;
 - experimental deterministic resource identification based on canonical source
   identity and UUIDs;
 - cross-language Python/JavaScript identifier interoperability tests;
@@ -1149,6 +1155,9 @@ OpenSmell/
 ├── .github/workflows/tests.yml
 ├── examples/
 │   ├── *.osmell
+│   ├── geraniol.osmell
+│   ├── generate_geraniol_osmell.py
+│   ├── geraniol_esp32_render.py
 │   ├── *_conformance_vectors.json
 │   ├── *_interop_vectors.json
 │   └── rendering / OdorNet demonstrations
@@ -1193,6 +1202,12 @@ OpenSmell/
 │   ├── parser.py
 │   ├── serializer.py
 │   └── validation.py
+├── hardware/
+│   └── esp32/
+│       ├── README.md
+│       ├── esp32_physical_render.py
+│       └── opensmell_device_protocol_0_1/
+│           └── opensmell_device_protocol_0_1.ino
 ├── tests/
 ├── tools/
 ├── LICENSE
@@ -1221,12 +1236,13 @@ Serial support is optional for normal OpenSmell users:
 python -m pip install -e ".[serial]"
 ```
 
-The audited complete test baseline on 2026-09-06, after adding the Core scheme registry architecture guardrail and portable
-Device Protocol 0.1 conformance, is:
+The latest audited local run passes **more than 1,700 automated Python tests**.
+Exact counts are not treated as a stable project property because the suite grows
+as experimental interoperability work is added.
 
-```text
-1711 passed
-```
+The audited suite includes the Geraniol software rendering-pipeline regression
+test. Physical ESP32 validation is intentionally manual and is not part of the
+normal automated test suite.
 
 The suite covers Core and experimental behavior, including parsing,
 serialization, builders, JSON Schema consistency, known and unknown schemes,
@@ -1270,6 +1286,71 @@ These experiments cover electronic olfaction, human psychophysics, and
 biological physiology. Additional RFC-0008 experiments validate extensible
 resource types, unknown-resource preservation, Molecule and Annotation
 resources, and structural reference discovery.
+
+---
+
+## Physical ESP32 prototype
+
+OpenSmell now includes an experimental physical endpoint validation using an
+ESP32 and an LED as an observable stand-in actuator.
+
+The generic hardware validation can be run with:
+
+```powershell
+python hardware\esp32\esp32_physical_render.py --port COM8
+```
+
+Replace `COM8` with the serial port assigned to the ESP32.
+
+The firmware is located at:
+
+```text
+hardware/esp32/opensmell_device_protocol_0_1/
+    opensmell_device_protocol_0_1.ino
+```
+
+The tested prototype exposes Device Protocol 0.1 over newline-delimited UTF-8
+JSON at 115200 baud. It advertises device ID `opensmell-esp32-led-001`,
+channel `0`, normalized intensity `0.0` through `1.0`, and rendering durations
+from `0.1` through `30.0` seconds.
+
+A valid render request is acknowledged without blocking for the complete
+rendering duration, after which timed actuator execution continues
+independently. The physical device validates channel, intensity, and duration
+independently of client-side checks.
+
+A longer demonstration uses the committed Geraniol example:
+
+```powershell
+python examples\geraniol_esp32_render.py --port COM8
+```
+
+The demonstrated path is:
+
+```text
+geraniol.osmell
+    -> Core OpenSmell Odor
+    -> ResourceGraph
+    -> SemanticChannelMapper
+    -> RenderingPlan
+    -> Device Protocol 0.1
+    -> SerialDeviceTransport
+    -> ESP32
+    -> LED
+```
+
+For this demonstration only, application policy maps:
+
+```text
+floral -> channel 0
+```
+
+This mapping is not a universal OpenSmell channel meaning. The LED validates
+the software-to-hardware control path; it does **not** reproduce Geraniol or
+any other physical odor.
+
+See `hardware/esp32/README.md` and RFC-0012 for the prototype boundaries,
+validation evidence, and remaining open questions.
 
 ---
 
@@ -1376,7 +1457,8 @@ can be preserved. RFC-0009 adds an experimental Molecule resource. RFC-0010
 adds a generic Annotation resource. RFC-0011 adds registered structural
 reference discovery and graph navigation without scanning arbitrary opaque
 JSON. RFC-0012 documents the experimental rendering, device, protocol, and
-transport architecture without making those layers part of Core 0.1.
+transport architecture and records the first physical ESP32/LED validation
+without making those layers part of Core 0.1.
 
 All of these RFCs remain experimental Draft work unless explicitly incorporated
 into a future OpenSmell specification. Experimental RFCs do not automatically
@@ -1425,10 +1507,12 @@ Completed:
 - [x] transport abstraction and in-memory transport
 - [x] optional serial transport using PySerial
 - [x] serial protocol integration without physical hardware
+- [x] physical ESP32/LED validation of the serial/device control path
+- [x] Geraniol `.osmell` to ResourceGraph to mapper to ESP32/LED demonstration
 
 ### Next investigations
 
-- [ ] validate the current serial/device path on physical ESP32 hardware
+- [x] validate the current serial/device path on physical ESP32 hardware
 - [x] document rendering and device interoperability through RFC-0012
 - [x] create portable Device Protocol 0.1 conformance artifacts
 - [x] extend CI across the existing independent JavaScript verifiers
@@ -1483,27 +1567,31 @@ discovery, dataset bridges, rendering plans, device capabilities, device
 adapters, an experimental JSON device protocol, transport-independent protocol
 adapters, and optional serial transport.
 
-The audited test baseline on 2026-09-06, after adding the Core scheme registry architecture guardrail and portable Device Protocol
-0.1 conformance, is:
-
-```text
-1711 passed
-```
+The latest audited local run passes **more than 1,700 automated Python tests**.
+Portable conformance and independent Python/JavaScript checks exercise several
+experimental interoperability contracts, including Device Protocol 0.1.
 
 Dataset-scale ResourceGraph experiments span human psychophysics, biological
-physiology, and electronic olfaction. Portable conformance and independent
-Python/JavaScript checks exercise several experimental interoperability
-contracts.
+physiology, and electronic olfaction.
 
 The format and APIs may still change before a stable `1.0` specification. Do
 not rely on the current experimental graph, rendering, device, or protocol APIs
 for production systems.
 
-The current priority is to validate the device boundary on real hardware. The
-rendering/device architecture is documented by RFC-0012, and Device Protocol
-0.1 now has portable Python/JavaScript conformance artifacts integrated into CI.
-Experimental concepts will only be considered for a future OpenSmell Core after
-sufficient independent evidence.
+The first physical device-boundary milestone has now been completed with an
+ESP32 and LED stand-in actuator. The experiment validated serial communication,
+device discovery and capabilities, plan delivery, device-side validation, and
+timed physical output. A Geraniol example also exercised the longer path from
+an `.osmell` document through ResourceGraph, semantic mapping, Device Protocol
+0.1, serial transport, and the ESP32.
+
+The demonstration used the application-level policy `floral -> channel 0`.
+This is not a universal channel meaning and does not constitute physical odor
+reproduction.
+
+The rendering/device architecture and the physical validation evidence are
+documented by RFC-0012. Experimental concepts will only be considered for a
+future OpenSmell Core after sufficient independent evidence.
 
 ---
 

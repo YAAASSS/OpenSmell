@@ -53,7 +53,7 @@ CATEGORICAL_RESULT_SCHEME_VERSION = "0.1"
 PERCEPTUAL_RESULT_SCHEME_ID = (
     "org.opensmell.perceptual.measurements"
 )
-PERCEPTUAL_RESULT_SCHEME_VERSION = "0.1" 
+PERCEPTUAL_RESULT_SCHEME_VERSION = "0.1"
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 

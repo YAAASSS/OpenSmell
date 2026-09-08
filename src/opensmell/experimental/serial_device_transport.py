@@ -12,6 +12,11 @@ Each exchange:
 5. removes the line terminator,
 6. decodes the response as strict UTF-8.
 
+Some serial devices reset when the host opens the serial port. The transport
+therefore supports optional startup settling and initial input-buffer
+discarding. These behaviors are transport-level concerns and do not interpret
+the OpenSmell device protocol.
+
 The transport does not interpret the OpenSmell device protocol itself.
 Protocol parsing remains the responsibility of ProtocolDeviceAdapter and
 device_protocol.
@@ -32,6 +37,7 @@ This module is experimental and non-normative.
 
 from __future__ import annotations
 
+import time
 from typing import Any
 
 try:
@@ -42,6 +48,8 @@ except ImportError:  # pragma: no cover
 
 DEFAULT_BAUDRATE = 115200
 DEFAULT_TIMEOUT = 2.0
+DEFAULT_STARTUP_DELAY = 0.0
+DEFAULT_DISCARD_INITIAL_INPUT = False
 
 
 class SerialDeviceTransport:
@@ -53,6 +61,8 @@ class SerialDeviceTransport:
         *,
         baudrate: int = DEFAULT_BAUDRATE,
         timeout: float = DEFAULT_TIMEOUT,
+        startup_delay: float = DEFAULT_STARTUP_DELAY,
+        discard_initial_input: bool = DEFAULT_DISCARD_INITIAL_INPUT,
         serial_instance: Any | None = None,
     ) -> None:
         if not isinstance(port, str):
@@ -93,9 +103,34 @@ class SerialDeviceTransport:
                 "timeout must be positive"
             )
 
+        if isinstance(startup_delay, bool) or not isinstance(
+            startup_delay,
+            (int, float),
+        ):
+            raise TypeError(
+                "startup_delay must be a number"
+            )
+
+        startup_delay = float(startup_delay)
+
+        if startup_delay < 0:
+            raise ValueError(
+                "startup_delay must be non-negative"
+            )
+
+        if not isinstance(
+            discard_initial_input,
+            bool,
+        ):
+            raise TypeError(
+                "discard_initial_input must be a boolean"
+            )
+
         self._port = port
         self._baudrate = baudrate
         self._timeout = timeout
+        self._startup_delay = startup_delay
+        self._discard_initial_input = discard_initial_input
 
         if serial_instance is None:
             if serial is None:
@@ -112,6 +147,8 @@ class SerialDeviceTransport:
             )
         else:
             self._serial = serial_instance
+
+        self._prepare_connection()
 
     @property
     def port(self) -> str:
@@ -132,10 +169,47 @@ class SerialDeviceTransport:
         return self._timeout
 
     @property
+    def startup_delay(self) -> float:
+        """Return the configured startup settling delay."""
+
+        return self._startup_delay
+
+    @property
+    def discard_initial_input(self) -> bool:
+        """Return whether startup input is discarded."""
+
+        return self._discard_initial_input
+
+    @property
     def serial_instance(self) -> Any:
         """Return the underlying serial connection."""
 
         return self._serial
+
+    def _prepare_connection(self) -> None:
+        """Apply optional serial startup preparation."""
+
+        if self._startup_delay > 0:
+            time.sleep(
+                self._startup_delay
+            )
+
+        if self._discard_initial_input:
+            reset_input_buffer = getattr(
+                self._serial,
+                "reset_input_buffer",
+                None,
+            )
+
+            if not callable(
+                reset_input_buffer
+            ):
+                raise RuntimeError(
+                    "serial connection does not support "
+                    "reset_input_buffer"
+                )
+
+            reset_input_buffer()
 
     def exchange(
         self,
