@@ -13,10 +13,23 @@ const float MAX_INTENSITY = 1.0;
 const float MIN_DURATION = 0.1;
 const float MAX_DURATION = 30.0;
 
+// Prototype-specific serial framing limit.
+//
+// This is a constraint of this ESP32 implementation,
+// not a universal OpenSmell Device Protocol limit.
+//
+// One byte is reserved for the terminating '\0'.
+const size_t MAX_SERIAL_MESSAGE_BYTES = 1024;
+
 // Current rendering state.
 bool rendering = false;
 unsigned long renderStartedAt = 0;
 unsigned long renderDurationMs = 0;
+
+// Current serial receive state.
+char serialBuffer[MAX_SERIAL_MESSAGE_BYTES + 1];
+size_t serialLength = 0;
+bool serialMessageTooLong = false;
 
 
 // --------------------------------------------------
@@ -223,7 +236,7 @@ void handleRender(JsonDocument& request) {
 // Protocol message handling
 // --------------------------------------------------
 
-void handleMessage(String line) {
+void handleMessage(const char* line) {
 
   JsonDocument request;
 
@@ -309,6 +322,95 @@ void handleMessage(String line) {
 
 
 // --------------------------------------------------
+// Serial framing
+// --------------------------------------------------
+
+void resetSerialMessage() {
+  serialLength = 0;
+  serialMessageTooLong = false;
+}
+
+
+void finishSerialMessage() {
+
+  if (serialMessageTooLong) {
+
+    sendError(
+      "message_too_large",
+      "serial message exceeds device limit"
+    );
+
+    resetSerialMessage();
+    return;
+  }
+
+
+  if (serialLength == 0) {
+    resetSerialMessage();
+    return;
+  }
+
+
+  // Ignore an optional carriage return from CRLF framing.
+  if (
+    serialLength > 0 &&
+    serialBuffer[serialLength - 1] == '\r'
+  ) {
+    serialLength--;
+  }
+
+
+  if (serialLength == 0) {
+    resetSerialMessage();
+    return;
+  }
+
+
+  serialBuffer[serialLength] = '\0';
+
+  handleMessage(serialBuffer);
+
+  resetSerialMessage();
+}
+
+
+void receiveSerialMessages() {
+
+  while (Serial.available() > 0) {
+
+    char incoming =
+        (char)Serial.read();
+
+
+    // Newline completes one protocol frame.
+    if (incoming == '\n') {
+
+      finishSerialMessage();
+      continue;
+    }
+
+
+    // Once the frame is known to be too large,
+    // discard bytes until the terminating newline.
+    if (serialMessageTooLong) {
+      continue;
+    }
+
+
+    if (serialLength >= MAX_SERIAL_MESSAGE_BYTES) {
+
+      serialMessageTooLong = true;
+      continue;
+    }
+
+
+    serialBuffer[serialLength] = incoming;
+    serialLength++;
+  }
+}
+
+
+// --------------------------------------------------
 // Arduino
 // --------------------------------------------------
 
@@ -319,6 +421,8 @@ void setup() {
   stopRendering();
 
   Serial.begin(115200);
+
+  resetSerialMessage();
 
   // Do not emit arbitrary text here.
   // SerialDeviceTransport expects protocol
@@ -342,15 +446,9 @@ void loop() {
 
 
   // One OpenSmell JSON message per line.
-  if (Serial.available() > 0) {
-
-    String line =
-        Serial.readStringUntil('\n');
-
-    line.trim();
-
-    if (line.length() > 0) {
-      handleMessage(line);
-    }
-  }
+  //
+  // Reception is incremental and bounded so a malformed
+  // or untrusted peer cannot make the device allocate an
+  // arbitrarily large String before a newline is received.
+  receiveSerialMessages();
 }

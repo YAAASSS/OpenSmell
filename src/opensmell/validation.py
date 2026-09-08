@@ -1,6 +1,7 @@
 """Validation of OpenSmell documents."""
 
 import json
+import math
 from importlib.resources import files
 from typing import Any
 
@@ -21,6 +22,63 @@ def _load_schema() -> dict[str, Any]:
 
     with schema_resource.open("r", encoding="utf-8") as file:
         return json.load(file)
+
+
+def _json_location(path: tuple[str | int, ...]) -> str:
+    """Return a readable location for a value in a JSON document."""
+
+    if not path:
+        return "$"
+
+    location = "$"
+
+    for part in path:
+        if isinstance(part, int):
+            location += f"[{part}]"
+        else:
+            location += f".{part}"
+
+    return location
+
+
+def _validate_json_value(
+    value: Any,
+    path: tuple[str | int, ...] = (),
+) -> None:
+    """Reject values that cannot be represented faithfully as strict JSON."""
+
+    if value is None or isinstance(value, (str, bool)):
+        return
+
+    if isinstance(value, int):
+        return
+
+    if isinstance(value, float):
+        if not math.isfinite(value):
+            raise OpenSmellValidationError(
+                f"{_json_location(path)}: non-finite numbers are not valid JSON"
+            )
+        return
+
+    if isinstance(value, list):
+        for index, item in enumerate(value):
+            _validate_json_value(item, path + (index,))
+        return
+
+    if isinstance(value, dict):
+        for key, item in value.items():
+            if not isinstance(key, str):
+                raise OpenSmellValidationError(
+                    f"{_json_location(path)}: JSON object keys must be strings"
+                )
+
+            _validate_json_value(item, path + (key,))
+        return
+
+    raise OpenSmellValidationError(
+        f"{_json_location(path)}: value of type "
+        f"{type(value).__name__!r} is not a valid JSON value"
+    )
 
 
 def _validate_representation_schemes(
@@ -63,6 +121,8 @@ def _validate_representation_schemes(
 
 def validate_document(document: dict[str, Any]) -> None:
     """Validate an OpenSmell document."""
+
+    _validate_json_value(document)
 
     schema = _load_schema()
     validator = Draft202012Validator(schema)

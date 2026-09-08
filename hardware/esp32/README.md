@@ -78,6 +78,31 @@ actuator for the requested duration.
 The physical device independently validates the requested channel,
 intensity, and duration.
 
+### Serial framing
+
+The current ESP32 implementation uses UTF-8 JSON messages framed by a
+newline over a `115200` baud serial connection.
+
+Serial input is received incrementally into a fixed-size buffer. A single
+message may contain at most `1024` bytes before its terminating newline.
+
+If a message exceeds this implementation limit, the ESP32 discards the
+remainder of that frame, waits for the terminating newline to restore frame
+synchronization, and returns an error with code:
+
+```text
+message_too_large
+```
+
+The next complete serial frame can then be processed normally.
+
+The `1024`-byte limit is a constraint of this experimental ESP32 prototype.
+It is **not** a universal limit of OpenSmell Device Protocol 0.1.
+
+This behavior has been physically validated on the ESP32 by sending an
+oversized frame followed immediately by a valid `hello` frame. The oversized
+frame was rejected and the following frame was processed successfully.
+
 ## Physical validation script
 
 The manual hardware validation script is:

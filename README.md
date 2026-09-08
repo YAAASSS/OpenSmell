@@ -181,7 +181,8 @@ The current reference implementation includes:
 - an experimental Keller/Vosshall adapter for quantitative perceptual
   measurements;
 - optional PubChem chemical identity enrichment;
-- an experimental Geraniol `.osmell` fixture and reproducible generation path;
+- an experimental Geraniol `.osmell` fixture and deterministic regeneration path
+  from a locally prepared external OdorNet + PubChem enrichment dataset;
 - experimental rendering requests, rendering plans, semantic channel mapping,
   device capabilities, and device adapters;
 - experimental Device Protocol 0.1 with transport-independent adapters;
@@ -679,8 +680,15 @@ OpenSmell currently performs two levels of validation.
 
 ### Core validation
 
-The complete document is validated against the OpenSmell 0.1 JSON Schema.
-This verifies structural requirements such as:
+The complete document is first required to belong to the strict JSON data
+domain and is then validated against the OpenSmell 0.1 JSON Schema.
+
+The reference implementation rejects non-standard JSON numeric values such as
+`NaN`, `Infinity`, and `-Infinity`, including non-finite values produced while
+parsing numeric input. Serialization likewise rejects values that cannot be
+represented as strict JSON.
+
+Schema validation then verifies structural requirements such as:
 - OpenSmell version;
 - odor identifier;
 - representations;
@@ -1318,6 +1326,15 @@ A valid render request is acknowledged without blocking for the complete
 rendering duration, after which timed actuator execution continues
 independently. The physical device validates channel, intensity, and duration
 independently of client-side checks.
+
+The current ESP32 firmware also bounds each newline-delimited serial message to
+`1024` bytes. Oversized frames are discarded through their terminating newline
+and rejected with `message_too_large`, allowing the following frame to be
+processed normally. This limit is specific to the experimental ESP32 prototype
+and is **not** a universal Device Protocol 0.1 limit.
+
+Oversized-frame rejection and subsequent frame resynchronization have been
+validated on the physical ESP32.
 
 A longer demonstration uses the committed Geraniol example:
 

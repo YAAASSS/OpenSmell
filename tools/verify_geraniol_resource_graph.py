@@ -140,7 +140,19 @@ def load_enriched_row(
 
     if not csv_path.is_file():
         raise FileNotFoundError(
-            f"OdorNet CSV not found: {csv_path}"
+            "Enriched OdorNet dataset not found: "
+            f"{csv_path}\n"
+            "\n"
+            "This verification tool depends on the locally prepared "
+            "OdorNet + PubChem enrichment dataset. The dataset is "
+            "external to OpenSmell and is intentionally not tracked "
+            "in the repository.\n"
+            "\n"
+            "Expected local path:\n"
+            f"  {csv_path}\n"
+            "\n"
+            "The committed examples/geraniol.osmell fixture and the "
+            "Core OpenSmell tests do not require this external dataset."
         )
 
     if row_index < 0:

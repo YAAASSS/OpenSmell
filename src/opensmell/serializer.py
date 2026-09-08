@@ -1,108 +1,113 @@
-"""Serialization of OpenSmell objects."""
+"""Serialization of OpenSmell documents."""
 
 import json
 from pathlib import Path
 from typing import Any
 
-from .models import Document, Odor
+from .models import Document, Metadata, Odor, Representation, Scheme
 from .validation import validate_document
 
 
-def odor_to_data(
-    odor: Odor,
-) -> dict[str, Any]:
-    """Convert an Odor object into its JSON-compatible dictionary."""
+def _scheme_to_dict(scheme: Scheme) -> dict[str, Any]:
+    """Convert a Scheme model to its JSON-compatible dictionary form."""
 
-    representations = []
+    result = dict(scheme.extra)
 
-    for representation in odor.representations:
-        scheme_data = dict(
-            representation.scheme.extra
-        )
-
-        scheme_data.update(
-            {
-                "id": representation.scheme.id,
-                "version": representation.scheme.version,
-            }
-        )
-
-        representation_data = dict(
-            representation.extra
-        )
-
-        representation_data.update(
-            {
-                "type": representation.type,
-                "scheme": scheme_data,
-                "data": representation.data,
-            }
-        )
-
-        representations.append(
-            representation_data
-        )
-
-    odor_data: dict[str, Any] = dict(
-        odor.extra
+    result.update(
+        {
+            "id": scheme.id,
+            "version": scheme.version,
+        }
     )
 
-    odor_data.update(
+    return result
+
+
+def _representation_to_dict(
+    representation: Representation,
+) -> dict[str, Any]:
+    """Convert a Representation model to its dictionary form."""
+
+    result = dict(representation.extra)
+
+    result.update(
+        {
+            "type": representation.type,
+            "scheme": _scheme_to_dict(representation.scheme),
+            "data": representation.data,
+        }
+    )
+
+    return result
+
+
+def _metadata_to_dict(metadata: Metadata) -> dict[str, Any]:
+    """Convert Metadata to its dictionary form."""
+
+    result = dict(metadata.extra)
+
+    if metadata.labels:
+        result["labels"] = metadata.labels
+
+    if metadata.description is not None:
+        result["description"] = metadata.description
+
+    return result
+
+
+def _odor_to_dict(odor: Odor) -> dict[str, Any]:
+    """Convert an Odor model to its dictionary form."""
+
+    result = dict(odor.extra)
+
+    result.update(
         {
             "id": odor.id,
-            "representations": representations,
+            "representations": [
+                _representation_to_dict(representation)
+                for representation in odor.representations
+            ],
         }
     )
 
     if odor.metadata is not None:
-        metadata = dict(
-            odor.metadata.extra
-        )
+        result["metadata"] = _metadata_to_dict(odor.metadata)
 
-        if odor.metadata.labels:
-            metadata["labels"] = odor.metadata.labels
-
-        if odor.metadata.description is not None:
-            metadata["description"] = odor.metadata.description
-
-        odor_data["metadata"] = metadata
-
-    return odor_data
+    return result
 
 
-def document_to_dict(
-    document: Document,
-) -> dict[str, Any]:
-    """Convert a Document into a JSON-compatible dictionary."""
+def _document_to_dict(document: Document) -> dict[str, Any]:
+    """Convert a Document model to its dictionary form."""
 
-    data = dict(
-        document.extra
-    )
+    result = dict(document.extra)
 
-    data.update(
+    result.update(
         {
             "opensmell": document.version,
-            "odor": odor_to_data(document.odor),
+            "odor": _odor_to_dict(document.odor),
         }
     )
 
-    return data
+    return result
 
 
-def odor_to_dict(
-    odor: Odor,
-) -> dict[str, Any]:
-    """Convert an Odor into a complete OpenSmell document.
+def _serialize_document(document: Document) -> str:
+    """Validate and serialize a Document as strict JSON.
 
-    This function is retained for compatibility with the
-    OpenSmell 0.1 API.
+    Serialization is completed in memory before the destination file is
+    opened. This prevents a serialization failure from truncating or
+    partially overwriting an existing file.
     """
 
-    return document_to_dict(
-        Document(
-            odor=odor,
-            version="0.1",
-        )
+    data = _document_to_dict(document)
+
+    validate_document(data)
+
+    return json.dumps(
+        data,
+        ensure_ascii=False,
+        indent=2,
+        allow_nan=False,
     )
 
 
@@ -110,29 +115,22 @@ def dump(
     value: Odor | Document,
     path: str | Path,
 ) -> None:
-    """Write an Odor or Document to an OpenSmell file."""
+    """Serialize an Odor or Document to an OpenSmell file."""
 
     if isinstance(value, Document):
-        document = document_to_dict(value)
-
+        document = value
     elif isinstance(value, Odor):
-        document = odor_to_dict(value)
-
+        document = Document(
+            odor=value,
+            version="0.1",
+        )
     else:
         raise TypeError(
-            "dump() expects an Odor or Document"
+            "dump() expects an Odor or Document instance"
         )
 
-    validate_document(document)
+    serialized = _serialize_document(document)
 
-    path = Path(path)
-
-    with path.open("w", encoding="utf-8") as file:
-        json.dump(
-            document,
-            file,
-            ensure_ascii=False,
-            indent=2,
-        )
-
+    with open(path, "w", encoding="utf-8", newline="\n") as file:
+        file.write(serialized)
         file.write("\n")

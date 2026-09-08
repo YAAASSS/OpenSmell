@@ -6,6 +6,10 @@ This example selects the Geraniol record from:
 
 and converts it using the existing Core OdorNet adapter.
 
+The enriched OdorNet + PubChem dataset is an external, locally prepared
+development input. It is intentionally not tracked in the OpenSmell
+repository.
+
 The generated .osmell document intentionally contains only information that
 belongs in, or is already experimentally supported by, the Core OpenSmell
 document model:
@@ -23,6 +27,10 @@ experimental Molecule / ResourceGraph layer, where OpenSmell already has a
 dedicated enriched OdorNet adapter.
 
 The script writes the file and then reloads it to verify the Core round trip.
+
+The committed Geraniol fixture uses a stable OpenSmell odor identifier so
+regenerating the fixture from the same source record does not create a new
+identity on every run.
 """
 
 from __future__ import annotations
@@ -49,6 +57,10 @@ OUTPUT_PATH = Path(
 )
 
 GERANIOL_ROW = 2106
+
+GERANIOL_ODOR_ID = (
+    "urn:uuid:89e67268-14dc-4b5b-9743-447c24deec41"
+)
 
 EXPECTED_TITLE = "Geraniol"
 
@@ -123,7 +135,21 @@ def load_enriched_row(
 
     if not csv_path.is_file():
         raise FileNotFoundError(
-            f"OdorNet CSV not found: {csv_path}"
+            "Enriched OdorNet dataset not found: "
+            f"{csv_path}\n"
+            "\n"
+            "This generator depends on the locally prepared "
+            "OdorNet + PubChem enrichment dataset. The dataset is "
+            "external to OpenSmell and is intentionally not tracked "
+            "in the repository.\n"
+            "\n"
+            "Expected local path:\n"
+            f"  {csv_path}\n"
+            "\n"
+            "The committed examples/geraniol.osmell fixture is "
+            "already available without this external dataset. "
+            "This dataset is required only when regenerating the "
+            "fixture from the enriched OdorNet source."
         )
 
     if row_index < 0:
@@ -332,7 +358,7 @@ def main() -> None:
         "Source record:"
     )
     print(
-        f"  dataset       : OdorNet enriched"
+        "  dataset       : OdorNet enriched"
     )
     print(
         f"  row           : {GERANIOL_ROW}"
@@ -350,7 +376,8 @@ def main() -> None:
 
     odor = (
         from_record_with_annotations(
-            record
+            record,
+            odor_id=GERANIOL_ODOR_ID,
         )
     )
 
@@ -421,6 +448,11 @@ def main() -> None:
     if reloaded.id != odor.id:
         raise RuntimeError(
             "odor ID changed during round trip"
+        )
+
+    if reloaded.id != GERANIOL_ODOR_ID:
+        raise RuntimeError(
+            "Geraniol fixture ID changed during generation"
         )
 
     if (

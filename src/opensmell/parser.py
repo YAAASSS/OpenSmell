@@ -1,152 +1,167 @@
-"""Parser for OpenSmell documents."""
+"""Parsing OpenSmell documents."""
 
 import json
 from pathlib import Path
 from typing import Any
 
-from .models import (
-    Document,
-    Metadata,
-    Odor,
-    Representation,
-    Scheme,
-)
+from .exceptions import OpenSmellValidationError
+from .models import Document, Metadata, Odor, Representation, Scheme
 from .validation import validate_document
 
 
-_DOCUMENT_FIELDS = {
-    "opensmell",
-    "odor",
-}
+def _reject_non_standard_json_constant(value: str) -> None:
+    """Reject non-standard numeric constants accepted by Python's json module."""
 
-_ODOR_FIELDS = {
-    "id",
-    "metadata",
-    "representations",
-}
-
-_METADATA_FIELDS = {
-    "labels",
-    "description",
-}
-
-_REPRESENTATION_FIELDS = {
-    "type",
-    "scheme",
-    "data",
-}
-
-_SCHEME_FIELDS = {
-    "id",
-    "version",
-}
+    raise ValueError(
+        f"non-standard JSON numeric constant {value!r}"
+    )
 
 
-def _extra_fields(
-    data: dict[str, Any],
-    known_fields: set[str],
-) -> dict[str, Any]:
-    """Return fields not defined by the OpenSmell core model."""
+def _load_json(path: str | Path) -> dict[str, Any]:
+    """Load and validate a strict JSON OpenSmell document."""
 
-    return {
-        key: value
-        for key, value in data.items()
-        if key not in known_fields
+    try:
+        with open(path, "r", encoding="utf-8") as file:
+            document = json.load(
+                file,
+                parse_constant=_reject_non_standard_json_constant,
+            )
+    except (json.JSONDecodeError, ValueError) as error:
+        raise OpenSmellValidationError(
+            f"invalid JSON: {error}"
+        ) from error
+
+    if not isinstance(document, dict):
+        raise OpenSmellValidationError(
+            "OpenSmell document root must be a JSON object"
+        )
+
+    # In addition to schema validation, this rejects values that Python
+    # cannot represent faithfully as strict JSON. For example, the valid
+    # JSON number 1e400 is parsed by Python as positive infinity.
+    validate_document(document)
+
+    return document
+
+
+def _parse_scheme(data: dict[str, Any]) -> Scheme:
+    """Parse a scheme while preserving unknown extension fields."""
+
+    known_fields = {"id", "version"}
+
+    return Scheme(
+        id=data["id"],
+        version=data["version"],
+        extra={
+            key: value
+            for key, value in data.items()
+            if key not in known_fields
+        },
+    )
+
+
+def _parse_representation(data: dict[str, Any]) -> Representation:
+    """Parse a representation while preserving unknown extension fields."""
+
+    known_fields = {
+        "type",
+        "scheme",
+        "data",
     }
 
+    return Representation(
+        type=data["type"],
+        scheme=_parse_scheme(data["scheme"]),
+        data=data["data"],
+        extra={
+            key: value
+            for key, value in data.items()
+            if key not in known_fields
+        },
+    )
 
-def parse_odor(data: dict[str, Any]) -> Odor:
-    """Convert an OpenSmell odor dictionary into an Odor object."""
 
-    metadata_data = data.get("metadata")
+def _parse_metadata(data: dict[str, Any]) -> Metadata:
+    """Parse metadata while preserving unknown extension fields."""
 
-    metadata = None
+    known_fields = {
+        "labels",
+        "description",
+    }
 
-    if metadata_data is not None:
-        metadata = Metadata(
-            labels=metadata_data.get("labels", {}),
-            description=metadata_data.get("description"),
-            extra=_extra_fields(
-                metadata_data,
-                _METADATA_FIELDS,
-            ),
-        )
+    return Metadata(
+        labels=data.get("labels", {}),
+        description=data.get("description"),
+        extra={
+            key: value
+            for key, value in data.items()
+            if key not in known_fields
+        },
+    )
 
-    representations = []
 
-    for representation_data in data["representations"]:
-        scheme_data = representation_data["scheme"]
+def _parse_odor(data: dict[str, Any]) -> Odor:
+    """Parse an odor while preserving unknown extension fields."""
 
-        scheme = Scheme(
-            id=scheme_data["id"],
-            version=scheme_data["version"],
-            extra=_extra_fields(
-                scheme_data,
-                _SCHEME_FIELDS,
-            ),
-        )
+    known_fields = {
+        "id",
+        "metadata",
+        "representations",
+    }
 
-        representation = Representation(
-            type=representation_data["type"],
-            scheme=scheme,
-            data=representation_data["data"],
-            extra=_extra_fields(
-                representation_data,
-                _REPRESENTATION_FIELDS,
-            ),
-        )
-
-        representations.append(representation)
+    metadata = data.get("metadata")
 
     return Odor(
         id=data["id"],
-        metadata=metadata,
-        representations=representations,
-        extra=_extra_fields(
-            data,
-            _ODOR_FIELDS,
+        representations=[
+            _parse_representation(representation)
+            for representation in data["representations"]
+        ],
+        metadata=(
+            _parse_metadata(metadata)
+            if metadata is not None
+            else None
         ),
+        extra={
+            key: value
+            for key, value in data.items()
+            if key not in known_fields
+        },
     )
 
 
-def parse_document(
-    data: dict[str, Any],
-) -> Document:
-    """Convert an OpenSmell document dictionary into a Document."""
+def _parse_document(data: dict[str, Any]) -> Document:
+    """Parse a complete OpenSmell document."""
 
-    validate_document(data)
+    known_fields = {
+        "opensmell",
+        "odor",
+    }
 
     return Document(
+        odor=_parse_odor(data["odor"]),
         version=data["opensmell"],
-        odor=parse_odor(data["odor"]),
-        extra=_extra_fields(
-            data,
-            _DOCUMENT_FIELDS,
-        ),
+        extra={
+            key: value
+            for key, value in data.items()
+            if key not in known_fields
+        },
     )
 
 
-def load_document(
-    path: str | Path,
-) -> Document:
-    """Load a complete OpenSmell document from disk."""
+def load_document(path: str | Path) -> Document:
+    """Load and validate a complete OpenSmell document."""
 
-    path = Path(path)
-
-    with path.open("r", encoding="utf-8") as file:
-        data = json.load(file)
-
-    return parse_document(data)
+    data = _load_json(path)
+    return _parse_document(data)
 
 
 def load(path: str | Path) -> Odor:
-    """Load an OpenSmell odor from disk.
+    """Load an OpenSmell document and return its Odor.
 
-    This function preserves the OpenSmell 0.1 API and returns
-    the odor contained in the document.
-
-    Use load_document() when document-level extension fields
-    must also be preserved.
+    This preserves the historical public API. Use ``load_document()``
+    when the complete document, including document-level extensions,
+    must be preserved.
     """
 
     return load_document(path).odor
