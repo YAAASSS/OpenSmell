@@ -389,6 +389,30 @@ def test_parse_render_request_rejects_negative_channel() -> None:
         )
 
 
+def test_parse_render_request_rejects_duplicate_channels() -> None:
+    with pytest.raises(
+        DeviceProtocolError,
+        match="invalid rendering plan",
+    ):
+        parse_render_request(
+            {
+                "protocol_version": "0.1",
+                "type": "render",
+                "duration": 1.0,
+                "commands": [
+                    {
+                        "channel": 1,
+                        "intensity": 0.2,
+                    },
+                    {
+                        "channel": 1,
+                        "intensity": 0.8,
+                    },
+                ],
+            }
+        )
+
+
 def test_parse_render_request_rejects_invalid_intensity() -> None:
     with pytest.raises(
         DeviceProtocolError,

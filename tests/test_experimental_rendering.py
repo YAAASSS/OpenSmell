@@ -264,6 +264,26 @@ def test_rendering_plan_accepts_empty_commands() -> None:
     assert plan.commands == []
 
 
+def test_rendering_plan_rejects_duplicate_channels() -> None:
+    with pytest.raises(
+        ValueError,
+        match="duplicate channels: 1",
+    ):
+        RenderingPlan(
+            commands=[
+                DeviceCommand(
+                    channel=1,
+                    intensity=0.2,
+                ),
+                DeviceCommand(
+                    channel=1,
+                    intensity=0.8,
+                ),
+            ],
+            duration=1.0,
+        )
+
+
 def test_rendering_plan_rejects_non_list_commands() -> None:
     with pytest.raises(TypeError):
         RenderingPlan(

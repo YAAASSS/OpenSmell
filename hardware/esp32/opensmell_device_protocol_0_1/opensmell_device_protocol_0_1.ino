@@ -293,6 +293,7 @@ void handleRender(
   // This means that channels omitted from the
   // RenderingPlan are explicitly off for this render.
   float targetIntensities[CHANNEL_COUNT];
+  bool seenChannels[CHANNEL_COUNT];
 
   for (
     int channel = 0;
@@ -301,6 +302,9 @@ void handleRender(
   ) {
     targetIntensities[channel] =
         0.0;
+
+    seenChannels[channel] =
+        false;
   }
 
 
@@ -334,6 +338,20 @@ void handleRender(
 
       return;
     }
+
+    if (
+      seenChannels[channel]
+    ) {
+      sendError(
+        "invalid_plan",
+        "duplicate channel in render plan"
+      );
+
+      return;
+    }
+
+    seenChannels[channel] =
+        true;
 
 
     if (

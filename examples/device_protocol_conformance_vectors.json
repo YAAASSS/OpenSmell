@@ -330,6 +330,25 @@
       }
     },
     {
+      "id": "render_duplicate_channel",
+      "kind": "render_request",
+      "message": {
+        "protocol_version": "0.1",
+        "type": "render",
+        "duration": 1.0,
+        "commands": [
+          {
+            "channel": 1,
+            "intensity": 0.2
+          },
+          {
+            "channel": 1,
+            "intensity": 0.8
+          }
+        ]
+      }
+    },
+    {
       "id": "ok_wrong_version",
       "kind": "ok_response",
       "message": {

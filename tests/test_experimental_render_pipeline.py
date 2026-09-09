@@ -28,6 +28,12 @@ from opensmell.experimental.generic_graph import (
 from opensmell.experimental.molecule import (
     Molecule,
 )
+from opensmell.experimental.perceptual_channel_mapper import (
+    PERCEPTUAL_MEASUREMENTS_SCHEME,
+    PERCEPTUAL_MEASUREMENTS_SCHEME_VERSION,
+    PerceptualChannelBinding,
+    PerceptualChannelMapper,
+)
 from opensmell.experimental.render_pipeline import (
     build_rendering_plan,
     render_to_device,
@@ -37,7 +43,10 @@ from opensmell.experimental.rendering import (
     RenderingPlan,
 )
 from opensmell.experimental.resources import (
+    Observation,
     Reference,
+    Result,
+    ResultScheme,
 )
 from opensmell.experimental.scheme import (
     Scheme,
@@ -391,7 +400,7 @@ def test_pipeline_rejects_invalid_mapper(
     with pytest.raises(
         TypeError,
         match=(
-            "mapper must be a SemanticChannelMapper"
+            "mapper must implement RenderingMapper"
         ),
     ):
         render_to_device(
@@ -436,7 +445,7 @@ def test_build_plan_rejects_invalid_mapper() -> None:
     with pytest.raises(
         TypeError,
         match=(
-            "mapper must be a SemanticChannelMapper"
+            "mapper must implement RenderingMapper"
         ),
     ):
         build_rendering_plan(
@@ -552,3 +561,146 @@ def test_same_information_can_render_through_two_pipeline_targets() -> None:
         == event_b.extra["source_resource_id"]
         == shared_request.resource_id
     )
+
+def perceptual_graph() -> GenericResourceGraph:
+    observation = Observation(
+        id="pipeline-observation",
+        stimulus=Reference(
+            resource_id="pipeline-stimulus",
+        ),
+        results=[
+            Result(
+                scheme=ResultScheme(
+                    id=PERCEPTUAL_MEASUREMENTS_SCHEME,
+                    version=(
+                        PERCEPTUAL_MEASUREMENTS_SCHEME_VERSION
+                    ),
+                ),
+                data={
+                    "measurements": [
+                        {
+                            "property": "flower",
+                            "value": 25.0,
+                            "scale": {
+                                "min": 0.0,
+                                "max": 100.0,
+                            },
+                        },
+                        {
+                            "property": "grass",
+                            "value": 40.0,
+                            "scale": {
+                                "min": 0.0,
+                                "max": 100.0,
+                            },
+                        },
+                    ]
+                },
+            )
+        ],
+    )
+
+    return GenericResourceGraph(
+        resources=[
+            observation,
+        ]
+    )
+
+
+def perceptual_mapper() -> PerceptualChannelMapper:
+    return PerceptualChannelMapper(
+        bindings=[
+            PerceptualChannelBinding(
+                property="flower",
+                channel=1,
+            ),
+            PerceptualChannelBinding(
+                property="grass",
+                channel=2,
+            ),
+        ]
+    )
+
+
+def perceptual_request() -> RenderRequest:
+    return RenderRequest(
+        resource_id="pipeline-observation",
+        duration=3.0,
+    )
+
+
+def test_build_pipeline_accepts_perceptual_mapper() -> None:
+    target = adapter()
+
+    plan = build_rendering_plan(
+        perceptual_graph(),
+        perceptual_request(),
+        perceptual_mapper(),
+        target,
+    )
+
+    assert [
+        (
+            command.channel,
+            command.intensity,
+        )
+        for command in plan.commands
+    ] == [
+        (1, 0.25),
+        (2, 0.4),
+    ]
+
+    assert target.events == []
+
+
+def test_render_pipeline_accepts_perceptual_mapper() -> None:
+    target = adapter()
+
+    event = render_to_device(
+        perceptual_graph(),
+        perceptual_request(),
+        perceptual_mapper(),
+        target,
+    )
+
+    assert [
+        (
+            command.channel,
+            command.intensity,
+        )
+        for command in event.commands
+    ] == [
+        (1, 0.25),
+        (2, 0.4),
+    ]
+
+    assert target.events == [
+        event
+    ]
+
+
+def test_pipeline_rejects_mapper_returning_wrong_type() -> None:
+    class InvalidMapper:
+        def map(
+            self,
+            graph: GenericResourceGraph,
+            request: RenderRequest,
+        ) -> object:
+            return {}
+
+    target = adapter()
+
+    with pytest.raises(
+        TypeError,
+        match=(
+            "mapper.map must return a RenderingPlan"
+        ),
+    ):
+        render_to_device(
+            graph(),
+            request(),
+            InvalidMapper(),
+            target,
+        )
+
+    assert target.events == []

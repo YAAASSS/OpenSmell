@@ -219,6 +219,8 @@ class RenderingPlan:
                 "RenderingPlan.commands must be a list"
             )
 
+        seen_channels: set[int] = set()
+
         for command in self.commands:
             if not isinstance(
                 command,
@@ -228,6 +230,17 @@ class RenderingPlan:
                     "RenderingPlan.commands must contain "
                     "DeviceCommand values"
                 )
+
+            if command.channel in seen_channels:
+                raise ValueError(
+                    "RenderingPlan.commands must not contain "
+                    "duplicate channels: "
+                    f"{command.channel}"
+                )
+
+            seen_channels.add(
+                command.channel
+            )
 
         self.commands = list(
             self.commands

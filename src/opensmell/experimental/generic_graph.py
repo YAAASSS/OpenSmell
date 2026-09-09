@@ -30,6 +30,7 @@ This module is non-normative and experimental.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+import math
 from typing import Any, Callable, Protocol, TypeAlias
 
 from .graph_serialization import (
@@ -121,6 +122,11 @@ def _copy_json_value(value: Any) -> Any:
         return value
 
     if isinstance(value, float):
+        if not math.isfinite(value):
+            raise ValueError(
+                "JSON numeric values must be finite"
+            )
+
         return value
 
     if isinstance(value, list):

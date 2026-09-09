@@ -108,13 +108,18 @@ function validateRender(message) {
     fail("commands must be an array");
   }
 
+  const seenChannels = new Set();
+
   for (const [index, command] of message.commands.entries()) {
     object(command, `commands[${index}]`);
 
-    nonnegativeIntegerValue(
+    const channel = nonnegativeIntegerValue(
       command.channel,
       `commands[${index}].channel`
     );
+
+    if (seenChannels.has(channel)) fail("duplicate render channel");
+    seenChannels.add(channel);
 
     const intensity = finiteNumber(
       command.intensity,
