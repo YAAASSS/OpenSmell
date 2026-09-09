@@ -4,10 +4,12 @@ This directory contains the first physical OpenSmell Device Protocol 0.1
 prototype.
 
 The prototype demonstrates communication between the experimental OpenSmell
-rendering stack and a physical device over a serial transport.
+rendering stack and a physical device over a serial transport. The current
+hardware exposes three independently controlled LED channels and has been used
+to exercise both semantic and perceptual rendering paths.
 
-It does **not** reproduce a physical odor. An LED is used as a simple,
-observable stand-in actuator.
+It does **not** reproduce a physical odor. LEDs are used as simple, observable
+stand-in actuators.
 
 ## Architecture
 
@@ -27,11 +29,12 @@ ESP32
 LED
 ```
 
-Semantic-to-channel mapping is performed outside the device.
+Scientific interpretation and mapping to device channels are performed
+outside the device.
 
 The ESP32 firmware only understands device-level concepts such as channels,
 intensities, and rendering duration. It does not assign universal odor
-semantics to channel 0.
+semantics to channels 0, 1, or 2.
 
 ## Hardware
 
@@ -39,15 +42,18 @@ The current prototype uses:
 
 - an ESP32 development board;
 - USB serial communication;
-- an LED or equivalent test output connected to GPIO23;
-- device channel `0`.
+- three LED or equivalent test outputs;
+- channel `0` on GPIO23;
+- channel `1` on GPIO22;
+- channel `2` on GPIO21;
+- a common ground.
 
 The firmware exposes:
 
 - protocol version: `0.1`;
-- device ID: `opensmell-esp32-led-001`;
-- channel: `0`;
-- intensity range: `0.0` to `1.0`;
+- device ID: `opensmell-esp32-led-3ch-001`;
+- channels: `0`, `1`, and `2`;
+- intensity range per channel: `0.0` to `1.0`;
 - rendering duration range: `0.1` to `30.0` seconds;
 - serial baud rate: `115200`.
 
@@ -75,8 +81,11 @@ Rendering is non-blocking. After accepting a valid rendering request, the
 device returns an `ok` response immediately and continues driving the
 actuator for the requested duration.
 
-The physical device independently validates the requested channel,
-intensity, and duration.
+The physical device validates the complete rendering plan before changing
+outputs. It independently validates requested channels, intensities, and
+duration. Duplicate channel commands are rejected, omitted channels remain
+off, and valid commands in one plan are executed simultaneously for the shared
+duration.
 
 ### Serial framing
 
@@ -132,6 +141,9 @@ The script:
 5. verifies local rejection of an unsupported channel;
 6. verifies local rejection of an unsupported duration.
 
+Additional physical experiments have exercised simultaneous commands on all
+three channels and confirmed device-side rejection of duplicate-channel plans.
+
 ## Geraniol end-to-end demonstration
 
 A separate example demonstrates a longer experimental pipeline:
@@ -170,6 +182,64 @@ This mapping is only demonstration policy.
 
 It does **not** mean that OpenSmell defines channel 0 as floral, nor that the
 LED or current ESP32 prototype physically reproduces the smell of Geraniol.
+
+## Multi-source (-)-beta-pinene demonstrations
+
+The current three-channel endpoint has also been used with the experimental
+multi-source (-)-beta-pinene fixture documented by RFC-0013.
+
+That graph preserves two scientifically different branches:
+
+```text
+Molecule
+  |
+  +-- OdorNet Annotation
+  |
+  +-- Keller/Vosshall Stimulus -> ObservationTarget -> Observation
+```
+
+The branches can be interpreted by two materially different mapping policies:
+
+```text
+OdorNet categorical annotations
+    -> SemanticChannelMapper
+    -> RenderingPlan
+
+Keller/Vosshall quantitative perceptual measurements
+    -> PerceptualChannelMapper
+    -> RenderingPlan
+```
+
+For the current reference experiment, the semantic demonstration policy
+produces:
+
+```text
+channel 1 -> 0.6
+channel 2 -> 1.0
+```
+
+The perceptual demonstration policy produces:
+
+```text
+channel 0 -> 0.01
+channel 1 -> 0.86
+channel 2 -> 0.97
+```
+
+Both plans target the same three-channel ESP32 endpoint. The mappings are
+experimental application policy, not universal OpenSmell channel semantics.
+
+In particular, the experiment does **not** claim that OdorNet categorical
+states are equivalent to Keller/Vosshall quantitative measurements, that
+related descriptor names are universally equivalent, or that either rendering
+plan physically reproduces (-)-beta-pinene.
+
+The experiment validates interoperability across heterogeneous source data,
+different mapping policies, a common RenderingPlan boundary, Device Protocol
+0.1, serial transport, and the same physical control endpoint.
+
+See RFC-0012 for the rendering/device architecture and RFC-0013 for the
+multi-source and multi-mapper interoperability experiment.
 
 ## Status
 
