@@ -15,6 +15,10 @@ from opensmell.experimental.annotation import (
 from opensmell.experimental.molecule import (
     Molecule,
 )
+from opensmell.experimental.provenance import (
+    provenance_from_dict,
+    provenance_to_dict,
+)
 from opensmell.experimental.odornet_enriched_adapter import (
     PUBCHEM_INCHIKEY_SCHEME,
     enriched_odornet_record_to_graph,
@@ -229,7 +233,20 @@ def test_pubchem_metadata_is_preserved_in_molecule_extra() -> None:
     assert molecule.extra[
         "provenance"
     ] == {
-        "source": "OdorNet",
+        "source": {
+            "name": "OdorNet",
+        },
+        "record": {
+            "identity": {
+                "smiles": "CCO",
+            }
+        },
+        "derivation": {
+            "method": (
+                "opensmell.experimental."
+                "odornet_enriched_adapter"
+            )
+        },
     }
 
     assert molecule.extra[
@@ -581,5 +598,98 @@ def test_annotation_provenance_is_preserved() -> None:
     assert annotation.extra[
         "provenance"
     ] == {
-        "source": "OdorNet",
+        "source": {
+            "name": "OdorNet",
+        },
+        "record": {
+            "identity": {
+                "smiles": "CCO",
+            }
+        },
+        "derivation": {
+            "method": (
+                "opensmell.experimental."
+                "odornet_enriched_adapter"
+            )
+        },
     }
+
+
+def test_molecule_and_annotation_share_structured_provenance() -> None:
+    result = enriched_odornet_record_to_graph(
+        _record(
+            SMILES="  CCO  ",
+        )
+    )
+
+    molecule = result.graph.require(
+        result.molecule_id
+    )
+    annotation = result.graph.require(
+        result.annotation_id
+    )
+
+    assert isinstance(molecule, Molecule)
+    assert isinstance(annotation, Annotation)
+
+    molecule_provenance = molecule.extra[
+        "provenance"
+    ]
+    annotation_provenance = annotation.extra[
+        "provenance"
+    ]
+
+    assert molecule_provenance == annotation_provenance
+    assert molecule_provenance["record"]["identity"] == {
+        "smiles": "CCO",
+    }
+    assert "version" not in molecule_provenance["source"]
+    assert "identifier" not in molecule_provenance["source"]
+
+
+def test_odornet_provenance_round_trips_through_model() -> None:
+    result = enriched_odornet_record_to_graph(
+        _record()
+    )
+
+    molecule = result.graph.require(
+        result.molecule_id
+    )
+    assert isinstance(molecule, Molecule)
+
+    document = molecule.extra[
+        "provenance"
+    ]
+
+    assert provenance_to_dict(
+        provenance_from_dict(document)
+    ) == document
+
+
+def test_pubchem_enrichment_does_not_change_source_record_provenance() -> None:
+    first = enriched_odornet_record_to_graph(
+        _record()
+    )
+    second = enriched_odornet_record_to_graph(
+        _record(
+            PubChem_Status="not_found",
+            PubChem_Title="Different",
+            PubChem_IUPACName="Different",
+            PubChem_CanonicalSMILES="Different",
+            PubChem_InChIKey="",
+        )
+    )
+
+    first_molecule = first.graph.require(
+        first.molecule_id
+    )
+    second_molecule = second.graph.require(
+        second.molecule_id
+    )
+
+    assert isinstance(first_molecule, Molecule)
+    assert isinstance(second_molecule, Molecule)
+    assert (
+        first_molecule.extra["provenance"]
+        == second_molecule.extra["provenance"]
+    )

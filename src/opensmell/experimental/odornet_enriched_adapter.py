@@ -46,6 +46,13 @@ from .resources import (
     ExternalIdentifier,
     Reference,
 )
+from .provenance import (
+    Provenance,
+    ProvenanceDerivation,
+    ProvenanceRecord,
+    ProvenanceSource,
+    provenance_to_dict,
+)
 from .scheme import Scheme
 
 
@@ -182,13 +189,37 @@ def _pubchem_identifiers(
     ]
 
 
+def _provenance(
+    smiles: str,
+) -> dict[str, Any]:
+    return provenance_to_dict(
+        Provenance(
+            source=ProvenanceSource(
+                name="OdorNet",
+            ),
+            record=ProvenanceRecord(
+                identity={
+                    "smiles": smiles,
+                }
+            ),
+            derivation=ProvenanceDerivation(
+                method=(
+                    "opensmell.experimental."
+                    "odornet_enriched_adapter"
+                ),
+            ),
+        )
+    )
+
+
 def _molecule_extra(
     record: dict[str, Any],
+    smiles: str,
 ) -> dict[str, Any]:
     extra: dict[str, Any] = {
-        "provenance": {
-            "source": "OdorNet",
-        }
+        "provenance": _provenance(
+            smiles
+        )
     }
 
     pubchem_status = _normalized_text(
@@ -329,7 +360,8 @@ def enriched_odornet_record_to_graph(
             )
         ),
         extra=_molecule_extra(
-            record
+            record,
+            smiles,
         ),
     )
 
@@ -348,9 +380,9 @@ def enriched_odornet_record_to_graph(
             record
         ),
         extra={
-            "provenance": {
-                "source": "OdorNet",
-            }
+            "provenance": _provenance(
+                smiles
+            )
         },
     )
 
