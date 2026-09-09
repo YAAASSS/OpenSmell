@@ -133,11 +133,8 @@ def main() -> None:
 
     parser.add_argument(
         "--port",
-        default="COM8",
-        help=(
-            "ESP32 serial port "
-            "(default: COM8)"
-        ),
+        required=True,
+        help="ESP32 serial port.",
     )
 
     parser.add_argument(

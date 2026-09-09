@@ -59,8 +59,6 @@ OSMELL_PATH = Path(
     "examples/geraniol.osmell"
 )
 
-DEFAULT_PORT = "COM8"
-
 DURATION_SECONDS = 4.0
 
 FLORAL_INTENSITY = 0.7
@@ -76,11 +74,8 @@ def parse_args() -> argparse.Namespace:
 
     parser.add_argument(
         "--port",
-        default=DEFAULT_PORT,
-        help=(
-            "Serial port connected to the ESP32 "
-            f"(default: {DEFAULT_PORT})."
-        ),
+        required=True,
+        help="Serial port connected to the ESP32.",
     )
 
     return parser.parse_args()

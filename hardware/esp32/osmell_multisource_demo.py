@@ -368,10 +368,10 @@ def main() -> None:
 
     parser.add_argument(
         "--port",
-        default="COM8",
+        default=None,
         help=(
-            "ESP32 serial port "
-            "(default: COM8)"
+            "ESP32 serial port. Required when "
+            "--render is semantic or perceptual."
         ),
     )
 
@@ -386,6 +386,12 @@ def main() -> None:
     )
 
     args = parser.parse_args()
+
+    if args.render != "none" and args.port is None:
+        parser.error(
+            "--port is required when --render is "
+            "semantic or perceptual"
+        )
 
     print(
         "Loading .osmell:",

@@ -28,8 +28,6 @@ from opensmell.experimental.serial_device_transport import (
 )
 
 
-DEFAULT_PORT = "COM8"
-
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -40,11 +38,8 @@ def parse_args() -> argparse.Namespace:
 
     parser.add_argument(
         "--port",
-        default=DEFAULT_PORT,
-        help=(
-            "Serial port connected to the ESP32 "
-            f"(default: {DEFAULT_PORT})."
-        ),
+        required=True,
+        help="Serial port connected to the ESP32.",
     )
 
     return parser.parse_args()
