@@ -31,6 +31,13 @@ from opensmell.experimental.graph import ResourceGraph
 from opensmell.experimental.identifiers import (
     deterministic_resource_id_from_source,
 )
+from opensmell.experimental.provenance import (
+    Provenance,
+    ProvenanceDerivation,
+    ProvenanceRecord,
+    ProvenanceSource,
+    provenance_to_dict,
+)
 from opensmell.experimental.resources import (
     Condition,
     ExternalIdentifier,
@@ -623,7 +630,7 @@ def build_observations(
         int
     )
 
-    for _, row in dataframe.iterrows():
+    for source_row, row in dataframe.iterrows():
         subject = clean_source_value(
             row[subject_column]
         )
@@ -726,6 +733,32 @@ def build_observations(
                 results=results,
                 context={
                     "measurement_domain": "psychophysical",
+                },
+                extra={
+                    "provenance": provenance_to_dict(
+                        Provenance(
+                            source=ProvenanceSource(
+                                name="Keller/Vosshall",
+                            ),
+                            record=ProvenanceRecord(
+                                identity={
+                                    "source_row": (
+                                        int(source_row)
+                                        if isinstance(source_row, int)
+                                        else str(source_row)
+                                    ),
+                                }
+                            ),
+                            derivation=ProvenanceDerivation(
+                                method=(
+                                    "tools."
+                                    "analyze_keller_vosshall_"
+                                    "resource_graph."
+                                    "build_observations"
+                                ),
+                            ),
+                        )
+                    )
                 },
             )
         )
