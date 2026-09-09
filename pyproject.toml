@@ -42,7 +42,8 @@ serial = [
 dev = [
     "pytest>=8.0",
     "build>=1.2",
-    "pyserial>=3.5"
+    "pyserial>=3.5",
+    "pandas>=2.2"
 ]
 
 [project.urls]
