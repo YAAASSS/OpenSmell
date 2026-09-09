@@ -143,6 +143,7 @@ activemq-data/
 .env
 .envrc
 .venv
+.venv-package-test/
 env/
 venv/
 ENV/
@@ -244,6 +245,3 @@ examples/behavior.csv
 # The Python-generated interoperability vectors are versioned golden vectors;
 # this JavaScript file is only a temporary verification artifact.
 examples/resource_graph_interop_vectors_js.json
-
-# Local pytest base temporary directory
-pytest-temp/
