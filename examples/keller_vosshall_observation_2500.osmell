@@ -30,6 +30,19 @@
       ]
     },
     {
+      "provenance": {
+        "source": {
+          "name": "Keller/Vosshall"
+        },
+        "record": {
+          "identity": {
+            "source_row": 2500
+          }
+        },
+        "derivation": {
+          "method": "tools.analyze_keller_vosshall_resource_graph.build_observations"
+        }
+      },
       "type": "observation",
       "id": "c4ed1a27-1e6a-51f0-a336-b7c8f974e025",
       "stimulus": {
