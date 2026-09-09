@@ -72,9 +72,9 @@ Core format.
 | Physical hardware validation | **ESP32/3-channel LED control path validated experimentally** |
 
 > [!IMPORTANT]
-> OpenSmell is an **early-stage experimental project**. Version `0.1` is
-> pre-alpha and must not be treated as a stable standard. Experimental graph,
-> rendering, device, and protocol APIs may change.
+> OpenSmell is an **early-stage experimental project**. The current public
+> software release, `v0.1.0`, is pre-alpha and must not be treated as a stable
+> standard. Experimental graph, rendering, device, and protocol APIs may change.
 
 ### What OpenSmell is — and is not
 
