@@ -35,16 +35,7 @@ if str(PROJECT_ROOT) not in sys.path:
         str(PROJECT_ROOT),
     )
 
-TOOLS_PATH = PROJECT_ROOT / "tools"
-
-if str(TOOLS_PATH) not in sys.path:
-    sys.path.insert(
-        0,
-        str(TOOLS_PATH),
-    )
-
-
-from analyze_keller_vosshall_resource_graph import (  # noqa: E402
+from tools.analyze_keller_vosshall_resource_graph import (  # noqa: E402
     build_resource_graph,
     clean_source_value,
     get_perceptual_measurements,
