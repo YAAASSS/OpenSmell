@@ -7,7 +7,17 @@
   "resources": [
     {
       "provenance": {
-        "source": "OdorNet"
+        "source": {
+          "name": "OdorNet"
+        },
+        "record": {
+          "identity": {
+            "smiles": "C=C1CC[C@H]2C[C@@H]1C2(C)C"
+          }
+        },
+        "derivation": {
+          "method": "opensmell.experimental.odornet_enriched_adapter"
+        }
       },
       "pubchem": {
         "status": "resolved",
@@ -28,7 +38,17 @@
     },
     {
       "provenance": {
-        "source": "OdorNet"
+        "source": {
+          "name": "OdorNet"
+        },
+        "record": {
+          "identity": {
+            "smiles": "C=C1CC[C@H]2C[C@@H]1C2(C)C"
+          }
+        },
+        "derivation": {
+          "method": "opensmell.experimental.odornet_enriched_adapter"
+        }
       },
       "type": "org.opensmell.annotation",
       "type_version": "0.1",
@@ -106,9 +126,6 @@
       }
     },
     {
-      "provenance": {
-        "source": "Keller/Vosshall"
-      },
       "source_label": "(-)-beta-Pinene",
       "source_pubchem_cid": "440967",
       "identity_match": {
@@ -135,9 +152,6 @@
     },
     {
       "kind": "human_subject",
-      "provenance": {
-        "source": "Keller/Vosshall"
-      },
       "type": "observation_target",
       "id": "109e8758-0fdb-5817-b38d-af89ef4daf7f",
       "identifiers": [
@@ -148,6 +162,19 @@
       ]
     },
     {
+      "provenance": {
+        "source": {
+          "name": "Keller/Vosshall"
+        },
+        "record": {
+          "identity": {
+            "source_row": 46426
+          }
+        },
+        "derivation": {
+          "method": "tools.export_multisource_beta_pinene.main"
+        }
+      },
       "type": "observation",
       "id": "7c2fbfd4-ee9f-5e41-a268-a1f5de7c778f",
       "stimulus": {
@@ -158,9 +185,6 @@
       },
       "results": [
         {
-          "provenance": {
-            "source": "Keller/Vosshall"
-          },
           "scheme": {
             "id": "org.opensmell.perceptual.measurements",
             "version": "0.1"

@@ -47,6 +47,13 @@ from opensmell.experimental.molecule import (
 from opensmell.experimental.odornet_enriched_adapter import (
     enriched_odornet_record_to_graph,
 )
+from opensmell.experimental.provenance import (
+    Provenance,
+    ProvenanceDerivation,
+    ProvenanceRecord,
+    ProvenanceSource,
+    provenance_to_dict,
+)
 from opensmell.experimental.resources import (
     Condition,
     ExternalIdentifier,
@@ -621,11 +628,6 @@ def main() -> None:
             stimulus_conditions
         ),
         extra={
-            "provenance": {
-                "source": (
-                    "Keller/Vosshall"
-                ),
-            },
             "source_label": (
                 keller_name
             ),
@@ -664,11 +666,6 @@ def main() -> None:
             "kind": (
                 "human_subject"
             ),
-            "provenance": {
-                "source": (
-                    "Keller/Vosshall"
-                ),
-            },
         },
     )
 
@@ -689,13 +686,6 @@ def main() -> None:
             "measurements": (
                 perceptual_measurements
             ),
-        },
-        extra={
-            "provenance": {
-                "source": (
-                    "Keller/Vosshall"
-                ),
-            }
         },
     )
 
@@ -720,6 +710,29 @@ def main() -> None:
             ),
             "source_row": (
                 TARGET_KELLER_ROW
+            ),
+        },
+        extra={
+            "provenance": provenance_to_dict(
+                Provenance(
+                    source=ProvenanceSource(
+                        name="Keller/Vosshall",
+                    ),
+                    record=ProvenanceRecord(
+                        identity={
+                            "source_row": (
+                                TARGET_KELLER_ROW
+                            ),
+                        },
+                    ),
+                    derivation=ProvenanceDerivation(
+                        method=(
+                            "tools."
+                            "export_multisource_beta_pinene."
+                            "main"
+                        ),
+                    ),
+                )
             ),
         },
     )
