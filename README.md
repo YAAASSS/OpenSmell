@@ -66,10 +66,10 @@ Core format.
 | Forward-compatible schemes and extension preservation | Implemented |
 | Experimental ResourceGraph interoperability | Implemented and tested |
 | Portable Python/JavaScript interoperability vectors | Implemented |
-| Experimental rendering and device architecture | Documented through RFC-0012 |
+| Experimental rendering and device architecture | Documented through RFC-0013 |
 | Device Protocol 0.1 and serial transport | Implemented experimentally |
-| Automated Python test suite | **More than 1,700 tests passing in the latest audited local run** |
-| Physical hardware validation | **ESP32/LED control path validated experimentally** |
+| Automated Python test suite | **1818 tests passing in the latest audited local run** |
+| Physical hardware validation | **ESP32/3-channel LED control path validated experimentally** |
 
 > [!IMPORTANT]
 > OpenSmell is an **early-stage experimental project**. Version `0.1` is
@@ -183,11 +183,17 @@ The current reference implementation includes:
 - optional PubChem chemical identity enrichment;
 - an experimental Geraniol `.osmell` fixture and deterministic regeneration path
   from a locally prepared external OdorNet + PubChem enrichment dataset;
-- experimental rendering requests, rendering plans, semantic channel mapping,
-  device capabilities, and device adapters;
+- a deterministic multi-source (-)-beta-pinene fixture linking independent
+  OdorNet categorical annotations and Keller/Vosshall perceptual observations
+  through exact chemical identity evidence without merging their semantics;
+- structured experimental scientific provenance separating source, source-local
+  record identity, and derivation;
+- experimental rendering requests, rendering plans, a structural
+  `RenderingMapper` contract, semantic and perceptual channel mapping, device
+  capabilities, and device adapters;
 - experimental Device Protocol 0.1 with transport-independent adapters;
 - optional serial transport using PySerial;
-- a physically validated ESP32/LED control-path prototype;
+- a physically validated three-channel ESP32/LED control-path prototype;
 - experimental deterministic resource identification based on canonical source
   identity and UUIDs;
 - cross-language Python/JavaScript identifier interoperability tests;
@@ -828,20 +834,34 @@ part of the OpenSmell source distribution or Core specification.
 
 ## Provenance experiment
 
-Representation-level provenance is being investigated through RFC-0003.
-Example:
+RFC-0003 introduced provenance as an experimental direction. Subsequent
+implementation work now uses a structured experimental provenance model that
+separates three concerns:
 
-```json
-{
-  "provenance": {
-    "source": "OdorNet"
-  }
-}
+```text
+source
+  -> where the information came from
+
+record
+  -> which source-local record was used
+
+derivation
+  -> which import or transformation produced the OpenSmell resource
 ```
 
-This information can be preserved through the OpenSmell extension mechanism.
-Provenance is currently experimental.
-It is **not yet a normative OpenSmell 0.1 Core field**.
+For example, an imported OdorNet resource can identify OdorNet as its source,
+the normalized source SMILES as the source-local record identity, and the
+adapter operation as the derivation. Keller/Vosshall observations can likewise
+identify the source dataset, the original source row, and the importer that
+created the OpenSmell observation.
+
+Chemical identity evidence such as a PubChem InChIKey remains separate from
+provenance. Matching two resources by exact InChIKey can support cross-dataset
+identity without claiming that their semantic annotations, measurements, or
+provenance are equivalent.
+
+Structured provenance is implemented experimentally and tested, but it remains
+outside OpenSmell 0.1 Core.
 
 ---
 
@@ -1120,7 +1140,10 @@ External data / research
   RenderRequest
         │
         ▼
-SemanticChannelMapper
+  RenderingMapper
+        │
+        ├── SemanticChannelMapper
+        └── PerceptualChannelMapper
         │
         ▼
   RenderingPlan
@@ -1174,7 +1197,8 @@ OpenSmell/
 │   ├── RFC-0009.md   # Molecule Resource Type
 │   ├── RFC-0010.md   # Generic Annotation Resource
 │   ├── RFC-0011.md   # Structural Reference Discovery
-│   └── RFC-0012.md   # Rendering and Device Interoperability Architecture
+│   ├── RFC-0012.md   # Rendering and Device Interoperability Architecture
+│   └── RFC-0013.md   # Multi-Source and Multi-Mapper Interoperability
 ├── schema/
 │   ├── opensmell-0.1.schema.json
 │   ├── experimental-resource-graph-0.1.schema.json
@@ -1195,6 +1219,8 @@ OpenSmell/
 │   │   ├── odornet_enriched_adapter.py
 │   │   ├── rendering.py
 │   │   ├── semantic_channel_mapper.py
+│   │   ├── perceptual_channel_mapper.py
+│   │   ├── provenance.py
 │   │   ├── device_capabilities.py
 │   │   ├── device_adapter.py
 │   │   ├── render_pipeline.py
@@ -1244,12 +1270,13 @@ Serial support is optional for normal OpenSmell users:
 python -m pip install -e ".[serial]"
 ```
 
-The latest audited local run passes **more than 1,700 automated Python tests**.
+The latest audited local run passes **1818 automated Python tests**.
 Exact counts are not treated as a stable project property because the suite grows
 as experimental interoperability work is added.
 
-The audited suite includes the Geraniol software rendering-pipeline regression
-test. Physical ESP32 validation is intentionally manual and is not part of the
+The audited suite includes rendering-pipeline regression tests, the
+multi-source (-)-beta-pinene interoperability fixture, and structured provenance
+tests. Physical ESP32 validation is intentionally manual and is not part of the
 normal automated test suite.
 
 The suite covers Core and experimental behavior, including parsing,
@@ -1257,9 +1284,10 @@ serialization, builders, JSON Schema consistency, known and unknown schemes,
 extension preservation, lossless document round trips, dataset adapters,
 deterministic resource identity, ResourceGraph serialization, portable
 conformance vectors, Python/JavaScript interoperability, Molecule and Annotation
-resources, structural reference discovery, rendering, device capabilities,
-device adapters, the experimental JSON device protocol, transport boundaries,
-and serial protocol integration.
+resources, structural reference discovery, semantic and perceptual rendering
+mappers, the structural `RenderingMapper` contract, device capabilities, device
+adapters, structured experimental provenance, the experimental JSON device
+protocol, transport boundaries, and serial protocol integration.
 
 GitHub Actions runs the Python suite against Python 3.10, 3.11, 3.12, and 3.13.
 Cross-language interoperability checks use Node.js where applicable.
@@ -1318,9 +1346,15 @@ hardware/esp32/opensmell_device_protocol_0_1/
 ```
 
 The tested prototype exposes Device Protocol 0.1 over newline-delimited UTF-8
-JSON at 115200 baud. It advertises device ID `opensmell-esp32-led-001`,
-channel `0`, normalized intensity `0.0` through `1.0`, and rendering durations
-from `0.1` through `30.0` seconds.
+JSON at 115200 baud. It advertises device ID `opensmell-esp32-led-3ch-001`,
+channels `0`, `1`, and `2`, normalized intensity `0.0` through `1.0` per
+channel, and rendering durations from `0.1` through `30.0` seconds.
+
+The three channels have been exercised simultaneously. The same physical
+endpoint has also accepted plans produced through both the semantic and
+perceptual mapping paths. These experiments validate multi-channel control and
+the software/device boundary; they do not demonstrate physical odor
+reproduction.
 
 A valid render request is acknowledged without blocking for the complete
 rendering duration, after which timed actuator execution continues
@@ -1366,8 +1400,16 @@ This mapping is not a universal OpenSmell channel meaning. The LED validates
 the software-to-hardware control path; it does **not** reproduce Geraniol or
 any other physical odor.
 
-See `hardware/esp32/README.md` and RFC-0012 for the prototype boundaries,
-validation evidence, and remaining open questions.
+A second, multi-source demonstration uses (-)-beta-pinene. It preserves an
+OdorNet categorical annotation branch and a Keller/Vosshall quantitative
+observation branch as distinct scientific information linked through exact
+chemical identity evidence. A semantic mapper and a perceptual mapper can then
+independently produce RenderingPlans for the same three-channel ESP32 endpoint.
+The demonstration does not assert that OdorNet descriptors are equivalent to
+Keller/Vosshall measurements, or that either plan reproduces (-)-beta-pinene.
+
+See `hardware/esp32/README.md`, RFC-0012, and RFC-0013 for the prototype
+boundaries, validation evidence, and remaining open questions.
 
 ---
 
@@ -1459,6 +1501,7 @@ RFC-0009  Molecule Resource Type
 RFC-0010  Generic Annotation Resource
 RFC-0011  Structural Reference Discovery and Graph Navigation
 RFC-0012  Experimental Rendering and Device Interoperability Architecture
+RFC-0013  Multi-Source and Multi-Mapper Interoperability
 ```
 
 RFCs allow experimental concepts to be investigated without prematurely
@@ -1474,8 +1517,10 @@ can be preserved. RFC-0009 adds an experimental Molecule resource. RFC-0010
 adds a generic Annotation resource. RFC-0011 adds registered structural
 reference discovery and graph navigation without scanning arbitrary opaque
 JSON. RFC-0012 documents the experimental rendering, device, protocol, and
-transport architecture and records the first physical ESP32/LED validation
-without making those layers part of Core 0.1.
+transport architecture and records the physical ESP32/LED validation without
+making those layers part of Core 0.1. RFC-0013 documents the multi-source and
+multi-mapper experiment, including the separation of shared chemical identity
+from semantic or measurement equivalence.
 
 All of these RFCs remain experimental Draft work unless explicitly incorporated
 into a future OpenSmell specification. Experimental RFCs do not automatically
@@ -1517,6 +1562,7 @@ Completed:
 - [x] enriched OdorNet ResourceGraph adapter
 - [x] rendering request / plan model
 - [x] semantic channel mapper
+- [x] perceptual channel mapper and structural `RenderingMapper` contract
 - [x] device capability and adapter boundaries
 - [x] simulated and multi-device rendering experiments
 - [x] experimental JSON device protocol 0.1
@@ -1524,8 +1570,12 @@ Completed:
 - [x] transport abstraction and in-memory transport
 - [x] optional serial transport using PySerial
 - [x] serial protocol integration without physical hardware
-- [x] physical ESP32/LED validation of the serial/device control path
+- [x] physical three-channel ESP32/LED validation of the serial/device control path
 - [x] Geraniol `.osmell` to ResourceGraph to mapper to ESP32/LED demonstration
+- [x] structured scientific provenance for OdorNet and Keller/Vosshall resources
+- [x] deterministic multi-source (-)-beta-pinene graph and cross-language verification
+- [x] semantic and perceptual multi-mapper rendering to the same ESP32 endpoint
+- [x] document multi-source and multi-mapper interoperability through RFC-0013
 
 ### Next investigations
 
@@ -1533,7 +1583,7 @@ Completed:
 - [x] document rendering and device interoperability through RFC-0012
 - [x] create portable Device Protocol 0.1 conformance artifacts
 - [x] extend CI across the existing independent JavaScript verifiers
-- [ ] investigate provenance integration with resource graphs
+- [x] investigate provenance integration with resource graphs
 - [ ] define resource type namespace/version governance
 - [ ] investigate streaming or partial loading for large ResourceGraphs
 - [ ] investigate normative serialization and canonicalization requirements
@@ -1578,13 +1628,14 @@ v0.1.0
 ```
 
 Development on `main` has progressed substantially beyond that release. The
-current repository contains experimental work through RFC-0012, including the
+current repository contains experimental work through RFC-0013, including the
 Generic ResourceGraph, Molecule and Annotation resources, structural reference
-discovery, dataset bridges, rendering plans, device capabilities, device
-adapters, an experimental JSON device protocol, transport-independent protocol
-adapters, and optional serial transport.
+discovery, dataset bridges, structured scientific provenance, rendering plans,
+the structural `RenderingMapper` contract, semantic and perceptual mappers,
+device capabilities, device adapters, an experimental JSON device protocol,
+transport-independent protocol adapters, and optional serial transport.
 
-The latest audited local run passes **more than 1,700 automated Python tests**.
+The latest audited local run passes **1818 automated Python tests**.
 Portable conformance and independent Python/JavaScript checks exercise several
 experimental interoperability contracts, including Device Protocol 0.1.
 
@@ -1595,19 +1646,25 @@ The format and APIs may still change before a stable `1.0` specification. Do
 not rely on the current experimental graph, rendering, device, or protocol APIs
 for production systems.
 
-The first physical device-boundary milestone has now been completed with an
-ESP32 and LED stand-in actuator. The experiment validated serial communication,
-device discovery and capabilities, plan delivery, device-side validation, and
-timed physical output. A Geraniol example also exercised the longer path from
-an `.osmell` document through ResourceGraph, semantic mapping, Device Protocol
-0.1, serial transport, and the ESP32.
+The physical device-boundary milestone now uses a three-channel ESP32 with LED
+stand-in actuators. The experiments validated serial communication, device
+discovery and capabilities, plan delivery, device-side validation, timed
+physical output, and simultaneous multi-channel control. The Geraniol example
+still exercises the Core-to-semantic-mapper path.
 
-The demonstration used the application-level policy `floral -> channel 0`.
-This is not a universal channel meaning and does not constitute physical odor
-reproduction.
+The later (-)-beta-pinene experiment adds a heterogeneous multi-source graph,
+structured provenance, exact cross-dataset chemical identity evidence, and two
+materially different mapping policies: semantic and perceptual. Both paths can
+produce plans for the same three-channel endpoint while their source semantics
+remain separate.
 
-The rendering/device architecture and the physical validation evidence are
-documented by RFC-0012. Experimental concepts will only be considered for a
+These demonstrations validate interoperability and physical control paths.
+They do not establish descriptor equivalence, perceptual equivalence, chemical
+reproduction, or faithful odor reproduction.
+
+The rendering/device architecture and physical validation evidence are
+documented by RFC-0012. Multi-source and multi-mapper interoperability is
+documented by RFC-0013. Experimental concepts will only be considered for a
 future OpenSmell Core after sufficient independent evidence.
 
 ---
