@@ -18,6 +18,8 @@ This model is experimental and non-normative.
 
 from __future__ import annotations
 
+import math
+
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -59,10 +61,21 @@ def _copy_json_value(
     if value is None:
         return None
 
-    if isinstance(
-        value,
-        (bool, str, int, float),
-    ):
+    if isinstance(value, bool):
+        return value
+
+    if isinstance(value, str):
+        return value
+
+    if isinstance(value, int):
+        return value
+
+    if isinstance(value, float):
+        if not math.isfinite(value):
+            raise ValueError(
+                "JSON numeric values must be finite"
+            )
+
         return value
 
     if isinstance(value, list):
