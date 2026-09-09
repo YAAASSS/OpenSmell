@@ -1,0 +1,140 @@
+{
+  "source_dataset": "Keller/Vosshall",
+  "source_row": 2500,
+  "experiment": "single_psychophysical_observation",
+  "format": "org.opensmell.experimental.resource-graph",
+  "version": "0.1",
+  "resources": [
+    {
+      "type": "stimulus",
+      "id": "554b2ea4-82ef-5dde-ad7e-710e643a0a75",
+      "source": {
+        "resource_id": "ee30a8f3-4e88-55f6-9700-dff289769879"
+      },
+      "conditions": [
+        {
+          "property": "dilution",
+          "value": "1/1,000"
+        }
+      ]
+    },
+    {
+      "kind": "human_subject",
+      "type": "observation_target",
+      "id": "4b05d4e0-4b48-5e6e-b149-3fe76be697d4",
+      "identifiers": [
+        {
+          "scheme": "keller_vosshall.subject",
+          "value": "3"
+        }
+      ]
+    },
+    {
+      "type": "observation",
+      "id": "c4ed1a27-1e6a-51f0-a336-b7c8f974e025",
+      "stimulus": {
+        "resource_id": "554b2ea4-82ef-5dde-ad7e-710e643a0a75"
+      },
+      "target": {
+        "resource_id": "4b05d4e0-4b48-5e6e-b149-3fe76be697d4"
+      },
+      "results": [
+        {
+          "scheme": {
+            "id": "org.opensmell.experimental.observation.categories",
+            "version": "0.1"
+          },
+          "data": {
+            "detection": "detected",
+            "recognition": "I know what the odor is"
+          }
+        },
+        {
+          "scheme": {
+            "id": "org.opensmell.perceptual.measurements",
+            "version": "0.1"
+          },
+          "data": {
+            "measurements": [
+              {
+                "property": "intensity",
+                "value": 10.0,
+                "scale": {
+                  "min": 0,
+                  "max": 100
+                }
+              },
+              {
+                "property": "pleasantness",
+                "value": 80.0,
+                "scale": {
+                  "min": 0,
+                  "max": 100
+                }
+              },
+              {
+                "property": "familiarity",
+                "value": 85.0,
+                "scale": {
+                  "min": 0,
+                  "max": 100
+                }
+              },
+              {
+                "property": "SWEET",
+                "value": 38.0,
+                "scale": {
+                  "min": 0,
+                  "max": 100
+                }
+              },
+              {
+                "property": "SOUR",
+                "value": 19.0,
+                "scale": {
+                  "min": 0,
+                  "max": 100
+                }
+              },
+              {
+                "property": "WARM",
+                "value": 35.0,
+                "scale": {
+                  "min": 0,
+                  "max": 100
+                }
+              },
+              {
+                "property": "WOOD",
+                "value": 89.0,
+                "scale": {
+                  "min": 0,
+                  "max": 100
+                }
+              },
+              {
+                "property": "GRASS",
+                "value": 38.0,
+                "scale": {
+                  "min": 0,
+                  "max": 100
+                }
+              },
+              {
+                "property": "FLOWER",
+                "value": 26.0,
+                "scale": {
+                  "min": 0,
+                  "max": 100
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "context": {
+        "measurement_domain": "psychophysical"
+      }
+    }
+  ]
+}

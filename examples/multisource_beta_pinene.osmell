@@ -1,0 +1,268 @@
+{
+  "example": "OdorNet and Keller/Vosshall multi-source (-)-beta-pinene",
+  "identity_basis": "exact PubChem InChIKey",
+  "shared_inchikey": "WTARULDDTDQWMU-IUCAKERBSA-N",
+  "format": "org.opensmell.experimental.generic-resource-graph",
+  "version": "0.1",
+  "resources": [
+    {
+      "provenance": {
+        "source": "OdorNet"
+      },
+      "pubchem": {
+        "status": "resolved",
+        "title": "(-)-beta-Pinene",
+        "iupac_name": "(1S,5S)-6,6-dimethyl-2-methylidenebicyclo[3.1.1]heptane",
+        "canonical_smiles": "CC1(C2CCC(=C)C1C2)C"
+      },
+      "type": "org.opensmell.molecule",
+      "type_version": "0.1",
+      "id": "2d5a1039-904c-5b19-a60f-71c1ada5bac2",
+      "smiles": "C=C1CC[C@H]2C[C@@H]1C2(C)C",
+      "identifiers": [
+        {
+          "scheme": "pubchem.inchikey",
+          "value": "WTARULDDTDQWMU-IUCAKERBSA-N"
+        }
+      ]
+    },
+    {
+      "provenance": {
+        "source": "OdorNet"
+      },
+      "type": "org.opensmell.annotation",
+      "type_version": "0.1",
+      "id": "b59be6be-8996-5d53-bd94-032691bcafe8",
+      "subject": {
+        "resource_id": "2d5a1039-904c-5b19-a60f-71c1ada5bac2"
+      },
+      "scheme": {
+        "id": "org.opensmell.semantic.annotations",
+        "version": "0.1"
+      },
+      "data": {
+        "annotations": [
+          {
+            "value": "animalic&ambery",
+            "language": "en",
+            "state": "absent"
+          },
+          {
+            "value": "sweety&gourmand",
+            "language": "en",
+            "state": "absent"
+          },
+          {
+            "value": "floral",
+            "language": "en",
+            "state": "absent"
+          },
+          {
+            "value": "fruity&vegetable",
+            "language": "en",
+            "state": "absent"
+          },
+          {
+            "value": "pungent&disagreeable",
+            "language": "en",
+            "state": "absent"
+          },
+          {
+            "value": "green&herbal",
+            "language": "en",
+            "state": "present"
+          },
+          {
+            "value": "nutty",
+            "language": "en",
+            "state": "absent"
+          },
+          {
+            "value": "woody&mossy",
+            "language": "en",
+            "state": "present"
+          },
+          {
+            "value": "resinous&balsamic",
+            "language": "en",
+            "state": "present"
+          },
+          {
+            "value": "cooked",
+            "language": "en",
+            "state": "absent"
+          },
+          {
+            "value": "odorless",
+            "language": "en",
+            "state": "absent"
+          },
+          {
+            "value": "spice",
+            "language": "en",
+            "state": "absent"
+          }
+        ]
+      }
+    },
+    {
+      "provenance": {
+        "source": "Keller/Vosshall"
+      },
+      "source_label": "(-)-beta-Pinene",
+      "source_pubchem_cid": "440967",
+      "identity_match": {
+        "method": "exact_pubchem_inchikey",
+        "inchikey": "WTARULDDTDQWMU-IUCAKERBSA-N"
+      },
+      "type": "stimulus",
+      "id": "71fae47c-4e96-5a80-a3f9-b6c987a68db1",
+      "source": {
+        "resource_id": "2d5a1039-904c-5b19-a60f-71c1ada5bac2"
+      },
+      "identifiers": [
+        {
+          "scheme": "cas",
+          "value": "18172-67-3"
+        }
+      ],
+      "conditions": [
+        {
+          "property": "dilution",
+          "value": "1/10"
+        }
+      ]
+    },
+    {
+      "kind": "human_subject",
+      "provenance": {
+        "source": "Keller/Vosshall"
+      },
+      "type": "observation_target",
+      "id": "109e8758-0fdb-5817-b38d-af89ef4daf7f",
+      "identifiers": [
+        {
+          "scheme": "keller_vosshall.subject_this_study",
+          "value": "47"
+        }
+      ]
+    },
+    {
+      "type": "observation",
+      "id": "7c2fbfd4-ee9f-5e41-a268-a1f5de7c778f",
+      "stimulus": {
+        "resource_id": "71fae47c-4e96-5a80-a3f9-b6c987a68db1"
+      },
+      "target": {
+        "resource_id": "109e8758-0fdb-5817-b38d-af89ef4daf7f"
+      },
+      "results": [
+        {
+          "provenance": {
+            "source": "Keller/Vosshall"
+          },
+          "scheme": {
+            "id": "org.opensmell.perceptual.measurements",
+            "version": "0.1"
+          },
+          "data": {
+            "measurements": [
+              {
+                "property": "intensity",
+                "value": 100,
+                "scale": {
+                  "min": 0,
+                  "max": 100
+                }
+              },
+              {
+                "property": "pleasantness",
+                "value": 100,
+                "scale": {
+                  "min": 0,
+                  "max": 100
+                }
+              },
+              {
+                "property": "familiarity",
+                "value": 99,
+                "scale": {
+                  "min": 0,
+                  "max": 100
+                }
+              },
+              {
+                "property": "sweet",
+                "value": 46,
+                "scale": {
+                  "min": 0,
+                  "max": 100
+                }
+              },
+              {
+                "property": "fruit",
+                "value": 8,
+                "scale": {
+                  "min": 0,
+                  "max": 100
+                }
+              },
+              {
+                "property": "spices",
+                "value": 54,
+                "scale": {
+                  "min": 0,
+                  "max": 100
+                }
+              },
+              {
+                "property": "warm",
+                "value": 62,
+                "scale": {
+                  "min": 0,
+                  "max": 100
+                }
+              },
+              {
+                "property": "decayed",
+                "value": 31,
+                "scale": {
+                  "min": 0,
+                  "max": 100
+                }
+              },
+              {
+                "property": "wood",
+                "value": 97,
+                "scale": {
+                  "min": 0,
+                  "max": 100
+                }
+              },
+              {
+                "property": "grass",
+                "value": 86,
+                "scale": {
+                  "min": 0,
+                  "max": 100
+                }
+              },
+              {
+                "property": "flower",
+                "value": 1,
+                "scale": {
+                  "min": 0,
+                  "max": 100
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "context": {
+        "source_dataset": "Keller/Vosshall",
+        "source_row": 46426
+      }
+    }
+  ]
+}
