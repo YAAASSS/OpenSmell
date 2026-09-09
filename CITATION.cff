@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use OpenSmell in your work, please cite this software."
+title: "OpenSmell"
+type: software
+authors:
+  - family-names: "Vranesi"
+    given-names: "Cyril"
+version: "0.1.0"
+date-released: "2026-09-02"
+url: "https://github.com/YAAASSS/OpenSmell"
+repository-code: "https://github.com/YAAASSS/OpenSmell"
+license: "Apache-2.0"
+abstract: >-
+  OpenSmell is an experimental open interoperability layer for representing,
+  connecting, exchanging, validating, and rendering heterogeneous digital
+  olfaction information across datasets, software, scientific models, and
+  devices. It does not define how odors must be physically reproduced.
+keywords:
+  - "digital olfaction"
+  - "olfaction"
+  - "interoperability"
+  - "odor representation"
+  - "scent display"
+  - "sensory data"
