@@ -11,6 +11,40 @@ to exercise both semantic and perceptual rendering paths.
 It does **not** reproduce a physical odor. LEDs are used as simple, observable
 stand-in actuators.
 
+## Local Explorer interface
+
+The experimental pre-alpha [Local Explorer](../../apps/local_demo/README.md)
+provides an English interface for offline data exploration, both mapping
+previews and explicit control of this existing prototype. From the repository
+root, in the Python environment used for OpenSmell:
+
+```bash
+python -m pip install -e ".[serial]"
+python -m apps.local_demo
+```
+
+The browser opens at `http://127.0.0.1:8765`; `--port 8766 --no-browser` selects
+another loopback port without opening a browser. The `serial` extra is optional
+for preview. The app requires a checkout, not just an installed SDK package.
+Close CLI demos and serial monitors before opening the same port in the app.
+Select the port, click **Connect**, inspect the received identity and
+capabilities, calculate a preview, then explicitly click **Send to device**.
+Importing data or changing a policy never sends a render command.
+
+An `ok` response means **Command accepted**, not confirmed completion. The
+remaining duration is estimated locally; the protocol supplies no completion
+or LED-state telemetry. **Disconnect** closes the link without stopping an
+accepted command. The app enforces preview freshness, single submission and
+capability checks; these additional rules do not change the firmware protocol.
+
+The user confirmed the local application's Semantic and Perceptual LED behavior
+at 5 seconds and refusal at 31 seconds against the advertised 30-second limit.
+The [application guide](../../apps/local_demo/README.md) separates these physical
+confirmations from historical simulated tests and supplies a repeatable manual
+procedure. The [documentation audit](../../docs/local-explorer-milestone.md)
+records remaining limits. No new hardware tests accompanied that audit, and
+these confirmations do not extend to odor reproduction or electrical accuracy.
+
 ## Architecture
 
 The demonstrated path is:

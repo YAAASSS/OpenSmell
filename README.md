@@ -68,7 +68,8 @@ Core format.
 | Portable Python/JavaScript interoperability vectors | Implemented |
 | Experimental rendering and device architecture | Documented through RFC-0013 |
 | Device Protocol 0.1 and serial transport | Implemented experimentally |
-| Automated Python test suite | **1818 tests passing in the latest audited local run** |
+| Local Explorer application | English interface, offline previews and explicit ESP32 control; [guide](apps/local_demo/README.md) |
+| Automated Python test suite | **1,890 passed in the previously reported implementation run**, including 119 targeted tests; [historical evidence](apps/local_demo/README.md) |
 | Physical hardware validation | **ESP32/3-channel LED control path validated experimentally** |
 
 > [!IMPORTANT]
@@ -91,6 +92,7 @@ OpenSmell, but they remain separate systems.
 - [What OpenSmell 0.1 provides](#what-opensmell-01-provides)
 - [`.osmell` documents](#osmell-documents)
 - [Python reference implementation](#python-reference-implementation)
+- [Local demonstration interface](#local-demonstration-interface)
 - [Architecture](#architecture)
 - [RFCs](#rfcs)
 - [Roadmap](#roadmap)
@@ -594,13 +596,33 @@ From the repository root, with OpenSmell installed:
 python -m apps.local_demo
 ```
 
-The English-language interface opens at `http://127.0.0.1:8765`. It loads the
-bundled beta-pinene fixture offline, displays source data and declared provenance,
-and uses the existing semantic and perceptual mappers to compare LED command
-previews. Preview requires no serial dependency. Optional ESP32 control uses the
-existing `serial` extra: choose a port, **Connect**, then explicitly **Send to
-device**. Received capabilities are checked before sending; previews never send
-commands. See [launch instructions, hardware test procedure and verification results](apps/local_demo/README.md).
+The English-language **Local Explorer** opens at `http://127.0.0.1:8765`, with
+the two official logos. It loads the bundled beta-pinene fixture offline,
+displays source data and declared provenance, and uses the existing semantic
+and perceptual mappers to compare LED command previews. Run it from a repository
+checkout: `apps.local_demo` is not installed as an SDK package. Use
+`python -m apps.local_demo --port 8766 --no-browser` for another local port.
+
+Preview requires no serial dependency. For optional ESP32 control, install
+`python -m pip install -e ".[serial]"` in the same environment, choose a port,
+**Connect**, then explicitly **Send to device**. Received capabilities and the
+freshness of the selected preview are checked before sending. Loading,
+importing and recalculating never send render commands.
+
+Import supports a restricted experimental Generic ResourceGraph profile, not
+Core 0.1 documents merely because their filename ends in `.osmell`. The two
+policies are application examples, not universal odor-to-channel conversions.
+**Command accepted** acknowledges a request; the remaining duration is an
+estimate with no completion telemetry. **Disconnect** releases the port and
+does not stop an accepted command.
+
+The user confirmed physical LED behavior for both policies at 5 seconds and
+refusal at 31 seconds against the advertised 30-second limit. This is separate
+from automated tests and simulated browser checks, and does not validate odor
+reproduction. The application remains an **experimental pre-alpha**. See the
+[launch, import, mapping and validation guide](apps/local_demo/README.md), the
+[ESP32 guide](hardware/esp32/README.md) and the
+[milestone documentation audit and open discrepancy](docs/local-explorer-milestone.md).
 
 ## Loading an odor
 
@@ -1200,6 +1222,10 @@ actuation paths; it does not demonstrate faithful odor reproduction.
 ```text
 OpenSmell/
 ├── .github/workflows/tests.yml
+├── apps/local_demo/       # Local Explorer and its launch/validation guide
+├── docs/
+│   ├── images/            # Official logos
+│   └── local-explorer-milestone.md
 ├── examples/
 │   ├── *.osmell
 │   ├── geraniol.osmell
@@ -1286,7 +1312,11 @@ Serial support is optional for normal OpenSmell users:
 python -m pip install -e ".[serial]"
 ```
 
-The latest audited local run passes **1818 automated Python tests**.
+The Local Explorer implementation run previously reported **1,890 passing
+Python tests**, including **119 targeted tests**, and successful
+interoperability checks. These are historical results, not tests rerun for the
+documentation audit. See the [verification record](apps/local_demo/README.md)
+and [checks performed for the documentation audit](docs/local-explorer-milestone.md).
 Exact counts are not treated as a stable project property because the suite grows
 as experimental interoperability work is added.
 
@@ -1651,9 +1681,12 @@ the structural `RenderingMapper` contract, semantic and perceptual mappers,
 device capabilities, device adapters, an experimental JSON device protocol,
 transport-independent protocol adapters, and optional serial transport.
 
-The latest audited local run passes **1818 automated Python tests**.
-Portable conformance and independent Python/JavaScript checks exercise several
-experimental interoperability contracts, including Device Protocol 0.1.
+Local Explorer adds an English local interface for data exploration, preview
+and explicit ESP32 control without changing the SDK or firmware. The previously
+reported implementation run passed **1,890 Python tests**, including 119
+targeted tests, with successful Python/JavaScript interoperability checks.
+The [milestone record](docs/local-explorer-milestone.md) separates those
+historical results, user-confirmed physical checks and documentation-audit checks.
 
 Dataset-scale ResourceGraph experiments span human psychophysics, biological
 physiology, and electronic olfaction.
@@ -1723,6 +1756,32 @@ Areas of particular interest include:
 Because OpenSmell is experimental, proposals should preferably be supported
 by concrete interoperability requirements, existing research, real datasets,
 or reproducible experiments.
+
+### Milestone review checklist
+
+At each milestone, review the following before publication:
+
+- **Tests:** inspect affected code and the required checks in
+  [the CI workflow](.github/workflows/tests.yml). Run relevant checks locally;
+  for documentation-only changes, check links, paths, commands and diffs
+  without needlessly rerunning unchanged suites. Record what ran now, what is
+  historical and what remains unverified. CI still runs the configured Python
+  matrix and interoperability jobs on pushes and pull requests.
+- **README and guides:** update features, launch commands, optional dependencies,
+  links and limitations together. Attribute physical observations to their
+  source; distinguish simulated tests, accepted commands, observed execution,
+  estimated time and device telemetry. Preserve experimental status.
+- **RFCs:** check the relevant contracts against implementation. Separate RFC
+  requirements from application policy, add justified implementation evidence
+  using the existing RFC structure and status, and record functional gaps
+  separately. Propose a new Draft RFC only when a new architectural decision
+  or interoperability contract needs one; do not change a contract to conceal
+  an implementation mismatch.
+- **Publication:** inspect the branch, working tree, remotes and every outgoing
+  commit after refreshing remote references. Keep unrelated changes separate.
+  Publish only when authorized, respect branch protections, and use a normal
+  push. Verify the expected commit on the remote and report the final working
+  tree and CI state accurately; a local commit alone is not publication.
 
 ---
 

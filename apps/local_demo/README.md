@@ -42,6 +42,10 @@ python -m venv .venv
 On Linux/macOS, use `.venv/bin/python` instead of
 `.\.venv\Scripts\python.exe`, from the repository root.
 
+The application lives in the checkout and is not included in the installed
+`opensmell` SDK package. Keep the repository as the working directory so Python
+can find `apps.local_demo` and the shared `tools` helpers.
+
 Initial installation may require Internet access for SDK dependencies. After
 installation, the sample and interface work offline. No external datasets,
 accounts, PubChem calls, web framework, Node.js or PySerial are needed for
@@ -86,7 +90,8 @@ cd D:\OpenSmell
 
 Changing source, policy or duration invalidates the sendable preview until a
 fresh calculation succeeds. Each preview can be submitted once and expires
-after ten minutes; click **Recalculate** for a new explicit send. The server
+after ten minutes; the bounded cache can also evict old previews after 64 client
+entries. Click **Recalculate** for a new explicit send. The server
 checks freshness and all capabilities again immediately before transmission.
 Unsupported plans are rejected whole, without clipping values or dropping
 commands. Empty semantic plans remain visible but cannot be sent.
@@ -183,8 +188,8 @@ are preserved as supplied, regardless of their language. “Absent”, “Unknow
 
 ## Supported imports
 
-This application is not a universal `.osmell` reader. Import requires a UTF-8
-JSON file of at most 1 MiB, in
+This application is not a universal `.osmell` reader. The browser accepts UTF-8
+JSON files of at most 1 MiB, in
 `org.opensmell.experimental.generic-resource-graph` format, version `0.1`, with:
 
 - exactly one `org.opensmell.molecule` 0.1 and one `observation`;
@@ -197,6 +202,14 @@ JSON file of at most 1 MiB, in
   `org.opensmell.perceptual.measurements` 0.1, with a numeric value and a valid
   explicit scale.
 
+The registered resource type and version determine recognition; an unknown
+type or future version is preserved as a generic resource and does not satisfy
+these prerequisites. Both Core 0.1 documents and the older RFC-0007 graph
+envelope are rejected. The filename extension does not select or convert a
+format. The separate Geraniol Core-to-graph example is not an importer for this
+interface. See [Core 0.1](../../spec/opensmell-0.1.md) and
+[Generic ResourceGraph, RFC-0008](../../rfcs/RFC-0008.md).
+
 An empty semantic plan is valid, for example when all categories are absent.
 The existing mapper skips unusable measurements; they remain available in the
 data view and JSON. A result with no perceptual commands is diagnosed as
@@ -205,8 +218,46 @@ are displayed only when declared in the file’s provenance.
 
 Imports are sent only to the server on this computer and processed in memory,
 without saving the file. The server exposes no arbitrary filesystem paths or
-directory listings and limits JSON requests to 2 MiB. The interface uses no
-CDNs, remote fonts or persistent browser storage.
+directory listings and limits the complete JSON request body to 2 MiB. It does
+not independently enforce the browser's 1 MiB file limit: a direct local HTTP
+request can import a larger file within that body limit. This remains an
+[open application discrepancy](../../docs/local-explorer-milestone.md), with no
+code change in this documentation milestone. The interface uses no CDNs,
+remote fonts or persistent browser storage.
+
+## Mapping policies and contracts
+
+Both plans use the shared rules in
+[tools/multisource_demo.py](../../tools/multisource_demo.py) and the existing
+SDK mappers. The policies do not merge the semantic and perceptual sources.
+
+| Policy | Input mapped to channels | Command level |
+| --- | --- | --- |
+| Semantic | `floral` → CH0; `green&herbal` → CH1; `woody&mossy` → CH2 | Fixed levels 0.25, 0.60 and 1.00, respectively, for `present` annotations only. |
+| Perceptual | `flower` → CH0; `grass` → CH1; `wood` → CH2 | `(value - min) / (max - min)` using each measurement's explicit scale. |
+
+Semantic mapping follows structural Annotation subject references to the
+selected Molecule and reads matching semantic scheme 0.1 data. Missing,
+`absent`, `unknown`, malformed or unmapped entries do not create commands.
+Perceptual mapping reads matching scheme 0.1 results on the selected
+Observation; missing or malformed numeric values/scales, `min >= max`, and
+out-of-range values are skipped rather than clamped. For either mapper, the
+first usable mapped entry for a channel wins; duplicates are not averaged.
+Numeric zero remains a command. Unused data remains in the graph.
+
+Generic graph loading validates resource containers, not every opaque scheme
+payload. The application's input prerequisites and mapper filtering are not
+universal scientific validation. Duration is a shared finite positive number;
+changing it does not alter command levels. Device-specific limits are checked
+against the actual connected device, after preview calculation.
+
+The application directly composes mappers, a cached `RenderingPlan`, concrete
+capability checks and `ProtocolDeviceAdapter`; it does not call the high-level
+`render_pipeline` helper or its optional whole-mapper-configuration check.
+`RenderingPlan` JSON includes metadata and is distinct from the serialized
+Device Protocol `render` message. See the
+[RFC and implementation audit](../../docs/local-explorer-milestone.md) for the
+boundary between shared contracts and application choices.
 
 ## Implementation and hardware boundary
 
@@ -284,7 +335,8 @@ node --check apps/local_demo/static/hardware.js
 git diff --check
 ```
 
-The complete interoperability command list is in `.github/workflows/tests.yml`.
+The complete CI interoperability command list is in
+[.github/workflows/tests.yml](../../.github/workflows/tests.yml).
 
 ## Hardware validation — user confirmation
 
@@ -312,9 +364,14 @@ The protocol limitations remain unchanged:
   or a completion acknowledgement.
 - **Disconnect** closes the serial link; it does not stop an accepted command.
 
-For this documentation update, verification is limited to reviewing the wording,
-the exact commit contents and Git whitespace checks. Redundant blank lines at
+For the validation-record update included in commit `4b1ddd3`, verification was
+limited to reviewing the wording, the exact commit contents and Git whitespace
+checks. Redundant blank lines at
 the end of the shared demo helper were removed to satisfy the whitespace check.
 Application behavior, tests, logos, scientific data, calculations, SDK and
 firmware are unchanged by this update. The historical software results above
 are not presented as newly run tests.
+
+The subsequent [documentation audit](../../docs/local-explorer-milestone.md)
+records its own checks and open discrepancy separately. Neither documentation
+intervention performed additional physical tests.
