@@ -32,204 +32,26 @@ if str(PROJECT_ROOT) not in sys.path:
     )
 
 
-from opensmell.experimental.annotation import (  # noqa: E402
-    register_annotation_resource_type,
-)
-from opensmell.experimental.generic_graph import (  # noqa: E402
-    GenericResourceGraph,
-    create_default_resource_type_registry,
-    generic_graph_loads,
-)
-from opensmell.experimental.molecule import (  # noqa: E402
-    Molecule,
-    register_molecule_resource_type,
-)
-from opensmell.experimental.perceptual_channel_mapper import (  # noqa: E402
-    PerceptualChannelBinding,
-    PerceptualChannelMapper,
-)
 from opensmell.experimental.protocol_device_adapter import (  # noqa: E402
     ProtocolDeviceAdapter,
 )
-from opensmell.experimental.rendering import (  # noqa: E402
-    RenderingPlan,
-    RenderRequest,
-)
-from opensmell.experimental.resources import (  # noqa: E402
-    Observation,
-)
-from opensmell.experimental.semantic_channel_mapper import (  # noqa: E402
-    SemanticChannelBinding,
-    SemanticChannelMapper,
-)
+from opensmell.experimental.rendering import RenderingPlan  # noqa: E402
 from opensmell.experimental.serial_device_transport import (  # noqa: E402
     SerialDeviceTransport,
 )
-
-
-EXPECTED_DEVICE_ID = (
-    "opensmell-esp32-led-3ch-001"
+from tools.multisource_demo import (  # noqa: E402
+    DEFAULT_DURATION,
+    SEMANTIC_BINDINGS,
+    PERCEPTUAL_BINDINGS,
+    create_registry,
+    load_graph,
+    select_single_molecule,
+    select_single_observation,
+    build_semantic_plan,
+    build_perceptual_plan,
 )
 
-DEFAULT_DURATION = 5.0
-
-
-SEMANTIC_BINDINGS = [
-    SemanticChannelBinding(
-        descriptor="floral",
-        channel=0,
-        intensity=0.25,
-    ),
-    SemanticChannelBinding(
-        descriptor="green&herbal",
-        channel=1,
-        intensity=0.60,
-    ),
-    SemanticChannelBinding(
-        descriptor="woody&mossy",
-        channel=2,
-        intensity=1.00,
-    ),
-]
-
-
-PERCEPTUAL_BINDINGS = [
-    PerceptualChannelBinding(
-        property="flower",
-        channel=0,
-    ),
-    PerceptualChannelBinding(
-        property="grass",
-        channel=1,
-    ),
-    PerceptualChannelBinding(
-        property="wood",
-        channel=2,
-    ),
-]
-
-
-def create_registry():
-    """Create the registry required by the multi-source graph."""
-
-    registry = (
-        create_default_resource_type_registry()
-    )
-
-    register_molecule_resource_type(
-        registry
-    )
-
-    register_annotation_resource_type(
-        registry
-    )
-
-    return registry
-
-
-def load_graph(
-    path: Path,
-) -> GenericResourceGraph:
-    """Load one multi-source .osmell GenericResourceGraph."""
-
-    text = path.read_text(
-        encoding="utf-8"
-    )
-
-    registry = create_registry()
-
-    return generic_graph_loads(
-        text,
-        registry=registry,
-    )
-
-
-def select_single_molecule(
-    graph: GenericResourceGraph,
-) -> Molecule:
-    """Return the graph's single Molecule resource."""
-
-    molecules = [
-        resource
-        for resource in graph.resources
-        if isinstance(
-            resource,
-            Molecule,
-        )
-    ]
-
-    if len(molecules) != 1:
-        raise RuntimeError(
-            "This demonstration requires exactly "
-            "one Molecule resource; "
-            f"found {len(molecules)}"
-        )
-
-    return molecules[0]
-
-
-def select_single_observation(
-    graph: GenericResourceGraph,
-) -> Observation:
-    """Return the graph's single Observation resource."""
-
-    observations = [
-        resource
-        for resource in graph.resources
-        if isinstance(
-            resource,
-            Observation,
-        )
-    ]
-
-    if len(observations) != 1:
-        raise RuntimeError(
-            "This demonstration requires exactly "
-            "one Observation resource; "
-            f"found {len(observations)}"
-        )
-
-    return observations[0]
-
-
-def build_semantic_plan(
-    graph: GenericResourceGraph,
-    molecule: Molecule,
-    duration: float,
-) -> RenderingPlan:
-    """Build the semantic RenderingPlan."""
-
-    mapper = SemanticChannelMapper(
-        bindings=SEMANTIC_BINDINGS
-    )
-
-    return mapper.map(
-        graph,
-        RenderRequest(
-            resource_id=molecule.id,
-            duration=duration,
-        ),
-    )
-
-
-def build_perceptual_plan(
-    graph: GenericResourceGraph,
-    observation: Observation,
-    duration: float,
-) -> RenderingPlan:
-    """Build the quantitative perceptual RenderingPlan."""
-
-    mapper = PerceptualChannelMapper(
-        bindings=PERCEPTUAL_BINDINGS
-    )
-
-    return mapper.map(
-        graph,
-        RenderRequest(
-            resource_id=observation.id,
-            duration=duration,
-        ),
-    )
+EXPECTED_DEVICE_ID = "opensmell-esp32-led-3ch-001"
 
 
 def print_plan(

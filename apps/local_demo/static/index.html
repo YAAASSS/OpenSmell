@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>OpenSmell · Local Explorer</title>
+  <link rel="icon" href="/logo-small.png" type="image/png">
+  <link rel="stylesheet" href="/app.css">
+  <script src="/app.js" defer></script>
+  <script src="/hardware.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="OpenSmell, home"><img src="/logo-full.png" alt="OpenSmell" width="250" height="100"></a>
+    <span class="app-name">LOCAL EXPLORER</span>
+    <span class="badge alpha">Experimental pre-alpha</span>
+  </header>
+  <nav class="journey" aria-label="Demo workflow">
+    <span><b>01</b> Data</span><i>→</i><span><b>02</b> Interpretation</span><i>→</i><span><b>03</b> Planned commands</span><i>→</i><span><b>04</b> ESP32 connection</span>
+  </nav>
+  <main>
+    <section class="intro">
+      <div><p class="eyebrow">FROM DATA TO A COMMAND PLAN</p><h1>One file. Two interpretations.</h1>
+        <p class="lead">Explore the same molecule through two independent sources,<br class="wide-only"> then compare the plans their mapping policies produce.</p></div>
+      <div class="local-note"><span class="status-dot"></span><strong>Everything stays on this computer</strong><span>Offline preview · Optional USB hardware</span></div>
+    </section>
+    <section class="file-bar" aria-label="Open data">
+      <div class="file-description"><span class="file-icon" aria-hidden="true">{ }</span><div><strong id="file-name">β-pinene demo</strong><span id="file-meta">Sample file included with OpenSmell · ready to explore</span></div></div>
+      <div class="file-actions"><button id="load-demo" class="primary">Open demo <span aria-hidden="true">↗</span></button><button id="import-file" class="secondary">Import graph</button><input id="file-input" type="file" accept=".osmell,.json" hidden></div>
+    </section>
+    <details class="import-help"><summary>Which files can I import?</summary><p>This explorer supports experimental generic graphs version 0.1 with exactly one Molecule and one Observation, linked by a Stimulus included in the graph; a semantic.annotations 0.1 Annotation for that molecule; and at least one flower, grass or wood measurement supported by perceptual.measurements 0.1, with a valid numeric value and min/max scale. Any referenced target must be present. Core documents and other graphs are not supported. File size limit: 1 MiB. Imported files are not saved.</p></details>
+    <p id="request-status" role="status" aria-live="polite">Open the demo to get started.</p>
+    <div id="error" class="error" role="alert" hidden></div>
+    <section id="welcome" class="welcome"><img src="/logo-small.png" alt="" width="72" height="72"><h2>One exploration, three steps.</h2><p>Open the sample file, explore its sources, choose an interpretation.<br>The displayed values will be calculated by Python and the OpenSmell mappers.</p><div class="welcome-labels"><span>01 · Explore the data</span><span>02 · Compare policies</span><span>03 · Preview LED commands</span></div></section>
+    <div id="workspace" class="workspace hardware-only">
+      <section class="data-column" aria-label="Graph data">
+        <article class="molecule-card"><p class="eyebrow">01 / SHARED MOLECULE</p><h2 id="molecule-title"></h2><p class="molecule-subtitle">Identity declared in the file</p><dl id="molecule-fields" class="identity"></dl><div id="graph-meta" class="graph-meta"></div></article>
+        <div class="tabbar" role="tablist" aria-label="Explore the file">
+          <button id="tab-data" role="tab" aria-selected="true" aria-controls="panel-data" data-tab="data">Source data</button>
+          <button id="tab-provenance" role="tab" aria-selected="false" aria-controls="panel-provenance" data-tab="provenance" tabindex="-1">Provenance</button>
+          <button id="tab-json" role="tab" aria-selected="false" aria-controls="panel-json" data-tab="json" tabindex="-1">Graph JSON</button>
+        </div>
+        <section id="panel-data" role="tabpanel" aria-labelledby="tab-data">
+          <p class="source-note">The two vocabularies remain separate. A categorical annotation is not a perceptual measurement.</p>
+          <div class="source-grid"><article class="source-card"><div class="source-heading"><span class="source-marker">A</span><div><h3 id="semantic-source"></h3><p>Categorical annotations</p></div></div><div id="annotations"></div></article><article class="source-card"><div class="source-heading"><span class="source-marker perceptual">B</span><div><h3 id="perceptual-source"></h3><p>Perceptual measurements</p></div></div><div id="measurements"></div></article></div>
+          <p class="footnote">“Absent”, “unknown”, a value of zero and information not provided remain distinct. Missing data is never filled in.</p>
+        </section>
+        <section id="panel-provenance" role="tabpanel" aria-labelledby="tab-provenance" hidden><p class="source-note">Information declared in the file; no external verification or PubChem queries.</p><div id="provenance"></div></section>
+        <section id="panel-json" role="tabpanel" aria-labelledby="tab-json" hidden><p class="source-note">Graph read and serialized by the experimental OpenSmell generic API. Extensions remain available for inspection.</p><pre id="graph-json"></pre></section>
+      </section>
+      <aside class="preview-column" aria-label="Interpretation and planned commands">
+        <section class="preview-card"><p class="eyebrow">02 / INTERPRETATION</p><h2>Choose a mapping policy</h2><fieldset id="policy-picker" class="policy-picker"><legend class="sr-only">Mapping policy</legend><label><input type="radio" name="policy" value="semantic" checked><span>Semantic<small>Categories → fixed levels</small></span></label><label><input type="radio" name="policy" value="perceptual"><span>Perceptual<small>Measurements → normalized levels</small></span></label></fieldset>
+          <form id="duration-form" novalidate><label for="duration">Plan duration <small>in seconds</small></label><div class="duration-controls"><input id="duration" name="duration" type="number" value="5" step="any" required aria-describedby="duration-note duration-error"><button type="submit" class="secondary">Recalculate</button></div></form><p id="duration-error" class="error" role="alert" hidden></p><p id="duration-note" class="footnote">Duration must be greater than zero. A connected device’s actual capabilities are checked before sending.</p>
+          <details class="rules"><summary>View demo rules</summary><p>Application choices shared with the CLI demo. They do not establish olfactory equivalence.</p><div id="rules-content"></div></details>
+          <div id="calculated-preview"><div class="preview-heading"><div><p class="eyebrow">03 / PLANNED COMMANDS</p><h2 id="plan-title">Semantic plan</h2></div><span class="badge preview-badge">Preview</span></div>
+          <div id="led-preview" class="led-preview"></div><p class="preview-disclaimer">Illustration of planned LED commands.<br>This is not feedback from the hardware.</p>
+          <div class="plan-summary"><span id="plan-count"></span><strong id="plan-duration"></strong></div>
+          <h3 class="comparison-title">Compare both plans</h3><table class="comparison"><thead><tr><th scope="col">Channel</th><th scope="col">Semantic</th><th scope="col">Perceptual</th></tr></thead><tbody id="comparison-body"></tbody></table><p class="footnote">Command levels are normalized from 0 to 1. “No command” means the channel is omitted, not that a value of 0 is sent. The reference firmware turns off omitted channels when applying a plan.</p>
+          <details class="plan-details"><summary>View the calculated RenderingPlan</summary><pre id="plan-json"></pre></details></div>
+        </section>
+        <section id="hardware-panel" class="hardware-card" aria-labelledby="hardware-heading">
+          <div class="hardware-heading"><div><p class="eyebrow">04 / OPTIONAL HARDWARE</p><h2 id="hardware-heading">ESP32 · LED prototype</h2></div><span id="connection-state" class="badge preview-badge" role="status">Disconnected</span></div>
+          <p id="simulation-note" class="error" hidden>Simulated hardware · software test only. No physical device is connected.</p>
+          <p id="hardware-message" class="footnote" role="status">Checking optional serial support…</p>
+          <label class="port-label" for="serial-port">Serial port</label>
+          <div class="port-controls"><input id="serial-port" list="serial-ports" placeholder="e.g. COM3" autocomplete="off" aria-describedby="port-help"><datalist id="serial-ports"></datalist><button id="refresh-ports" class="secondary">Refresh ports</button></div>
+          <p id="port-help" class="footnote">Select a listed port or type its name. Refresh only lists ports; it does not open them.</p>
+          <p id="port-message" class="footnote" role="status"></p>
+          <div class="hardware-actions"><button id="connect-device" class="secondary">Connect</button><button id="disconnect-device" class="secondary" disabled>Disconnect</button></div>
+          <div id="device-info" hidden><dl id="device-identity" class="identity"></dl><details><summary>View received capabilities</summary><pre id="device-capabilities"></pre></details></div>
+          <p id="send-readiness" class="readiness" role="status">Calculate a preview to prepare a command.</p>
+          <button id="send-device" class="primary" disabled>Send to device</button>
+          <p id="hardware-error" class="error" role="alert" hidden></p>
+          <div id="execution-info" hidden><p class="eyebrow">LAST SEND</p><h3 id="execution-heading"></h3><p id="execution-duration" class="footnote"></p><p id="execution-estimate" class="footnote"></p><details><summary>View command response</summary><pre id="execution-response"></pre></details></div>
+          <p class="footnote">Previewing never sends a command. Disconnect closes the serial link; it does not stop an accepted command. No LED telemetry or completion signal is available. Cable removal is detected on the next exchange.</p>
+        </section>
+      </aside>
+    </div>
+  </main>
+  <footer><img src="/logo-small.png" alt="Official OpenSmell symbol" width="32" height="32"><span>OpenSmell <span class="footer-divider">/</span> Experimental explorer</span><span>Data & preview</span></footer>
+</body>
+</html>

@@ -586,6 +586,22 @@ python -m pip install -e ".[dev]"
 
 ---
 
+## Local demonstration interface
+
+From the repository root, with OpenSmell installed:
+
+```bash
+python -m apps.local_demo
+```
+
+The English-language interface opens at `http://127.0.0.1:8765`. It loads the
+bundled beta-pinene fixture offline, displays source data and declared provenance,
+and uses the existing semantic and perceptual mappers to compare LED command
+previews. Preview requires no serial dependency. Optional ESP32 control uses the
+existing `serial` extra: choose a port, **Connect**, then explicitly **Send to
+device**. Received capabilities are checked before sending; previews never send
+commands. See [launch instructions, hardware test procedure and verification results](apps/local_demo/README.md).
+
 ## Loading an odor
 
 The simple API returns the odor contained in an OpenSmell document:
