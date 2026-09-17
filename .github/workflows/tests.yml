@@ -56,6 +56,12 @@ jobs:
       - name: Verify Local Explorer import handling in JavaScript
         run: node --test tests/local_demo_import.test.cjs
 
+      - name: Verify independent JavaScript graph reader and intact transfers
+        run: node --test tests/graph_viewer_js.test.cjs
+
+      - name: Verify JavaScript reader exchange with Python Local Explorer
+        run: python -m pytest tests/test_graph_viewer_js_exchange.py -q
+
       - name: Regenerate RFC-0007 ResourceGraph interoperability vectors
         run: python tools/generate_resource_graph_vectors.py
 

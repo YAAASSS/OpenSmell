@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenSmell · JavaScript Graph Reader</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="reader.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header><img src="logo-full.png" alt="OpenSmell official logo" width="204"><span class="badge">Experimental pre-alpha</span></header>
+  <main>
+    <section class="intro"><div><p class="eyebrow">JAVASCRIPT GRAPH READER</p><h1>Read here. Carry it intact.</h1><p>Explore two independent source branches.<br>Transfer the original file to Local Explorer without changing a byte.</p></div><img src="logo-small.png" alt="" width="82" height="82"></section>
+    <div class="toolbar"><button id="open-file" class="primary">Open graph file</button><input id="file-input" type="file" accept=".osmell,.json,application/json" hidden><button id="download-copy" disabled>Download intact copy</button><button id="download-report" disabled>Download inspection report</button></div>
+    <p class="hint">Local files only · Up to 1,048,576 bytes · JavaScript analysis · No hardware control</p>
+    <p id="status" role="status" aria-live="polite">Choose an experimental Generic ResourceGraph 0.1 file to begin.</p>
+    <p id="error" class="error" role="alert" hidden></p>
+    <section id="welcome" class="welcome"><p class="eyebrow">ONE FILE, TWO TOOLS</p><h2>Inspect → Download → Open in Python</h2><p>This reader is developed within OpenSmell. Its JavaScript analysis runs independently of the Python application.</p><p>It reads a limited profile. Opaque content stays in the file; its meaning is not validated.</p></section>
+    <div id="inspection" hidden>
+      <section class="file-card" aria-label="Original file"><h2 id="file-name"></h2><p id="file-meta"></p><div class="hash"><strong>SHA-256 · original bytes</strong><code id="file-hash"></code></div><p id="format"></p></section>
+      <section class="identity-card"><p class="eyebrow">IDENTITY DECLARED IN THE FILE</p><div id="molecules"></div></section>
+      <p class="source-note">Follow the declared references. Connecting branches does not make categories and measurements equivalent.</p>
+      <div class="branches"><section class="card" aria-labelledby="categories-heading"><p class="eyebrow">A / CATEGORICAL BRANCH</p><h2 id="categories-heading">Categorical annotations</h2><div id="annotations"></div></section><section class="card" aria-labelledby="measurements-heading"><p class="eyebrow">B / QUANTITATIVE BRANCH</p><h2 id="measurements-heading">Perceptual measurements</h2><div id="observations"></div><p class="hint">Source ratings, not physical output levels. Zero, explicit null and missing fields remain distinct.</p></section></div>
+      <section class="card diagnostics"><h2>Inspection scope & diagnostics</h2><p id="inspection-summary"></p><ul id="diagnostics"></ul><details><summary>Checks performed and interpretation limits</summary><ul id="checks"></ul><ul id="limits"></ul></details></section>
+      <section class="card"><h2>Known structural references</h2><p class="hint">Only registered fields are followed. Arbitrary fields and opaque payloads do not create links.</p><div id="references"></div></section>
+      <details class="card"><summary>Resources and declared provenance</summary><div id="resources"></div><div id="provenance"></div></details>
+      <p class="transfer-note">The copy contains the original bytes, including unknown fields and any UTF-8 BOM. The separate report describes this reader's checks; it is not a certificate or a standard OpenSmell document.</p>
+    </div>
+  </main>
+  <footer><img src="logo-small.png" alt="Official OpenSmell symbol" width="30" height="30"><span>OpenSmell / JavaScript inspection</span><span>No upload. No hardware command.</span></footer>
+</body>
+</html>

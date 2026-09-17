@@ -69,7 +69,8 @@ Core format.
 | Experimental rendering and device architecture | Documented through RFC-0013 |
 | Device Protocol 0.1 and serial transport | Implemented experimentally |
 | Local Explorer application | English interface, offline previews and explicit ESP32 control; [guide](apps/local_demo/README.md) |
-| Automated Python test suite | **1,927 passed for the second real example**, including 163 targeted tests; [verification record](docs/diphenyl-ether-example.md#verification-and-its-limits) |
+| JavaScript Graph Reader | Independent limited inspection and original-byte transfer to Python; [guide](apps/graph_viewer_js/README.md) |
+| Automated Python test suite | **1,931 passed for the JS/Python exchange**, including 167 targeted tests; [verification record](docs/js-python-exchange.md#verification-actually-performed) |
 | Physical hardware validation | **ESP32/3-channel LED control path validated experimentally** |
 
 > [!IMPORTANT]
@@ -190,6 +191,9 @@ The current reference implementation includes:
   through exact chemical identity evidence without merging their semantics;
 - a second real [diphenyl ether fixture](docs/diphenyl-ether-example.md), using
   the same Local Explorer import workflow and unchanged mapping policies;
+- a standalone [JavaScript Graph Reader](apps/graph_viewer_js/README.md), with
+  independent browser inspection, explicit scope and original-byte downloads
+  verified against Python Local Explorer for both real examples;
 - structured experimental scientific provenance separating source, source-local
   record identity, and derivation;
 - experimental rendering requests, rendering plans, a structural
@@ -633,6 +637,21 @@ from beta-pinene using the same bindings. In addition to software/browser checks
 the user subsequently gave an [overall positive ESP32 confirmation](docs/diphenyl-ether-example.md#hardware-validation--user-confirmation)
 for both policies in the proposed 5-second workflow. Expected command levels
 are not physical measurements, and this report does not demonstrate odor reproduction.
+
+### Independent JavaScript reader and file exchange
+
+From the repository root, run `node apps/graph_viewer_js/server.cjs` and open
+`http://127.0.0.1:8766` (Node.js 22 or later, no package installation). The static
+server does not analyze files: the browser independently reads the known graph
+profile, separates the source branches and follows known structural references.
+Unknown content remains opaque. Download the original-byte `.osmell` copy and
+import it into Local Explorer to calculate the unchanged plans in Python.
+
+The [exchange guide](docs/js-python-exchange.md) records tests, actual screenshots,
+verified hashes and a 40-second filming outline. Byte identity is distinct from
+correct interpretation and from generic JSON reserialization. Both tools are
+developed within OpenSmell; this is not third-party certification. Physical LED
+confirmation of this new transferred-file workflow remains a separate user step.
 
 ## Loading an odor
 
@@ -1233,6 +1252,7 @@ actuation paths; it does not demonstrate faithful odor reproduction.
 OpenSmell/
 ├── .github/workflows/tests.yml
 ├── apps/local_demo/       # Local Explorer and its launch/validation guide
+├── apps/graph_viewer_js/  # Independent JavaScript reader and intact transfers
 ├── docs/
 │   ├── images/            # Official logos
 │   └── local-explorer-milestone.md
@@ -1322,7 +1342,14 @@ Serial support is optional for normal OpenSmell users:
 python -m pip install -e ".[serial]"
 ```
 
-The second real Local Explorer example passed **1,927 Python tests**, including
+The JavaScript/Python exchange passed **1,931 Python tests**, including **167
+targeted tests**, **33 new JavaScript reader tests**, **8 existing JavaScript
+import tests**, and the CI interoperability commands. The
+[exchange record](docs/js-python-exchange.md#verification-actually-performed)
+separates independent data interpretation, byte preservation, real-browser
+checks and the untested physical transfer workflow.
+
+Previously, the second real Local Explorer example passed **1,927 Python tests**, including
 **163 targeted tests**, plus **8 JavaScript import tests** and the existing
 CI interoperability checks. Its [verification record](docs/diphenyl-ether-example.md#verification-and-its-limits)
 distinguishes historical software/browser checks from the subsequent physical

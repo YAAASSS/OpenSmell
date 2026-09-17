@@ -7,6 +7,11 @@ calculates both RenderingPlans using the existing Python mappers.
 The second real [diphenyl ether example](../../docs/diphenyl-ether-example.md)
 uses the same **Import graph** button and policies.
 
+The separate [JavaScript Graph Reader](../graph_viewer_js/README.md) independently
+inspects these two files and downloads their original bytes for import here.
+See the [exchange guide](../../docs/js-python-exchange.md) for matching hashes,
+both expected plans, actual screenshots and the separate pending hardware trial.
+
 The illustrations represent planned commands for the LED prototype, never its
 physical state. Preview works without a device or PySerial. Opening a serial port
 requires **Connect**; transmitting a plan requires **Send to device**. Loading,
@@ -214,6 +219,13 @@ Wait for the estimated window and observe LED extinction before another explicit
 send; Disconnect still does not stop an accepted command.
 
 ## Supported imports
+
+A `.osmell` copy downloaded by the JavaScript reader uses this same import
+workflow. Byte transfer preserves the complete original file; the reader's
+separate inspection report is not an importable graph. The reader understands
+a broader limited inspection profile, so its checks do not guarantee acceptance
+by Local Explorer's narrower mapping profile below. No new import format or
+mapper has been added to this application.
 
 This application is not a universal `.osmell` reader. Both the browser and the
 server independently accept UTF-8 JSON imports of at most **1 MiB (1,048,576
