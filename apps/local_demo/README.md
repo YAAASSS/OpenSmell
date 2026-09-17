@@ -4,6 +4,8 @@ A local data explorer with optional ESP32 control. **English is the default lang
 The application remains an **experimental pre-alpha**.
 It reads the bundled β-pinene sample offline, keeps the sources separate and
 calculates both RenderingPlans using the existing Python mappers.
+The second real [diphenyl ether example](../../docs/diphenyl-ether-example.md)
+uses the same **Import graph** button and policies.
 
 The illustrations represent planned commands for the LED prototype, never its
 physical state. Preview works without a device or PySerial. Opening a serial port
@@ -185,6 +187,29 @@ and launch messages are in English. Displayed numbers use English formatting.
 Scientific data, source text, identifiers, schemes, JSON keys and JSON values
 are preserved as supplied, regardless of their language. “Absent”, “Unknown”,
 “Not provided”, “Not specified (null)” and a numeric zero remain distinct.
+
+## Try the second real example
+
+Use **Import graph** to open
+[examples/multisource_diphenyl_ether.osmell](../../examples/multisource_diphenyl_ether.osmell).
+Check the shared InChIKey `USIUVYZYUHIAEV-UHFFFAOYSA-N`, the 12 OdorNet states
+(including two unknowns), and the seven available Keller/Vosshall ratings.
+**Provenance** identifies source rows, file fingerprints, participant 35 and
+dilution `1/1,000`. Missing ratings remain distinct from the recorded familiarity
+rating of zero. The graph is self-contained; source datasets and network access
+are not needed to import it.
+
+At **5 seconds**, Semantic must show **CH0 0.25, CH1 0.60, CH2 No command**;
+Perceptual must show **CH0 0.47, CH1 0.18, CH2 0.15**. **Open demo** still loads
+beta-pinene with its original expected plans. No binding or interface change
+is needed. The [example sheet](../../docs/diphenyl-ether-example.md) records the
+selected source observation, independent calculations, reproducible export,
+software/browser verification and a short manual ESP32 procedure.
+
+The new example's physical LED behavior is **not yet confirmed**. Previous
+user-confirmed physical results below concern beta-pinene only. Wait for the
+estimated window and observe LED extinction before another explicit send;
+Disconnect still does not stop an accepted command.
 
 ## Supported imports
 
@@ -428,3 +453,24 @@ preview revocation, late calculations/file reads and recovery with a valid file.
 See the [fix verification record](../../docs/local-explorer-milestone.md#import-size-fix-and-verification)
 for results actually obtained in this intervention, distinct from earlier
 software results and user-confirmed physical LED checks.
+
+## Second real example verification
+
+On 17 September 2026, the diphenyl ether addition passed **163 targeted Python
+tests** and the full **1,927-test Python suite**, including 18 new offline cases.
+The **8 JavaScript import tests**, vector regeneration with an unchanged diff,
+and all 16 other interoperability commands from the CI workflow also passed.
+Local versions were Python 3.13.14 and Node.js 24.19.0. These are fresh results
+for this addition; the earlier runs above remain historical.
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest tests/test_local_demo.py tests/test_local_demo_hardware.py tests/test_local_demo_import_limits.py tests/test_multisource_demo.py tests/test_experimental_semantic_channel_mapper.py tests/test_perceptual_channel_mapper.py tests/test_multisource_diphenyl_ether.py tests/test_multisource_beta_pinene_provenance.py tests/test_multisource_beta_pinene_interop.py -q
+.\.venv\Scripts\python.exe -m pytest -q
+node --test tests/local_demo_import.test.cjs
+```
+
+A real in-app browser checked Open demo, import of the new file, source data,
+provenance and both policies against the expected plans. The isolated loopback
+server disabled serial enumeration and access; it did not use the ESP32.
+No console errors were reported. The [example sheet](../../docs/diphenyl-ether-example.md)
+records source-byte reproducibility checks and the pending manual LED procedure.

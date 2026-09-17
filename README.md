@@ -69,7 +69,7 @@ Core format.
 | Experimental rendering and device architecture | Documented through RFC-0013 |
 | Device Protocol 0.1 and serial transport | Implemented experimentally |
 | Local Explorer application | English interface, offline previews and explicit ESP32 control; [guide](apps/local_demo/README.md) |
-| Automated Python test suite | **1,909 passed for the import-size fix**, including 138 targeted tests; [verification record](docs/local-explorer-milestone.md#import-size-fix-and-verification) |
+| Automated Python test suite | **1,927 passed for the second real example**, including 163 targeted tests; [verification record](docs/diphenyl-ether-example.md#verification-and-its-limits) |
 | Physical hardware validation | **ESP32/3-channel LED control path validated experimentally** |
 
 > [!IMPORTANT]
@@ -188,6 +188,8 @@ The current reference implementation includes:
 - a deterministic multi-source (-)-beta-pinene fixture linking independent
   OdorNet categorical annotations and Keller/Vosshall perceptual observations
   through exact chemical identity evidence without merging their semantics;
+- a second real [diphenyl ether fixture](docs/diphenyl-ether-example.md), using
+  the same Local Explorer import workflow and unchanged mapping policies;
 - structured experimental scientific provenance separating source, source-local
   record identity, and derivation;
 - experimental rendering requests, rendering plans, a structural
@@ -623,6 +625,12 @@ reproduction. The application remains an **experimental pre-alpha**. See the
 [launch, import, mapping and validation guide](apps/local_demo/README.md), the
 [ESP32 guide](hardware/esp32/README.md) and the
 [milestone documentation audit and import-size fix](docs/local-explorer-milestone.md).
+
+A [second real example, diphenyl ether](docs/diphenyl-ether-example.md), can be
+opened through **Import graph**. It preserves one selected observation and both
+source branches with file fingerprints. Its Semantic and Perceptual plans differ
+from beta-pinene using the same bindings. Software/browser checks cover this new
+input; its physical LED behavior remains to be confirmed by the user.
 
 ## Loading an odor
 
@@ -1312,7 +1320,12 @@ Serial support is optional for normal OpenSmell users:
 python -m pip install -e ".[serial]"
 ```
 
-The Local Explorer import-size fix passed **1,909 Python tests**, including
+The second real Local Explorer example passed **1,927 Python tests**, including
+**163 targeted tests**, plus **8 JavaScript import tests** and the existing
+CI interoperability checks. Its [verification record](docs/diphenyl-ether-example.md#verification-and-its-limits)
+distinguishes local software/browser checks from pending physical confirmation.
+
+Previously, the Local Explorer import-size fix passed **1,909 Python tests**, including
 **138 targeted tests**, plus **8 JavaScript import tests** and the remaining
 CI interoperability checks. The [verification record](docs/local-explorer-milestone.md#import-size-fix-and-verification)
 separates this run from the earlier implementation's 1,890 tests and the
@@ -1683,11 +1696,14 @@ device capabilities, device adapters, an experimental JSON device protocol,
 transport-independent protocol adapters, and optional serial transport.
 
 Local Explorer adds an English local interface for data exploration, preview
-and explicit ESP32 control without changing the SDK or firmware. Verification
-of its import-size fix passed **1,909 Python tests**, including 138 targeted
-tests, plus 8 JavaScript import tests and the CI interoperability checks.
-The [milestone record](docs/local-explorer-milestone.md) separates this run from
-earlier software results, user-confirmed physical checks and documentation-audit checks.
+and explicit ESP32 control without changing the SDK or firmware. The
+[second real example](docs/diphenyl-ether-example.md) adds diphenyl ether using
+the same import and policies. Verification passed **1,927 Python tests**,
+including 163 targeted tests, plus 8 JavaScript import tests and the existing
+CI interoperability checks. Its physical LED behavior awaits user confirmation.
+The [earlier milestone record](docs/local-explorer-milestone.md) retains the
+historical software results, user-confirmed beta-pinene physical checks and
+documentation-audit checks.
 
 Dataset-scale ResourceGraph experiments span human psychophysics, biological
 physiology, and electronic olfaction.

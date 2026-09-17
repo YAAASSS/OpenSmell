@@ -1,0 +1,402 @@
+{
+  "example": "OdorNet and Keller/Vosshall multi-source diphenyl ether",
+  "identity_basis": "exact PubChem InChIKey",
+  "shared_inchikey": "USIUVYZYUHIAEV-UHFFFAOYSA-N",
+  "export": {
+    "method": "tools.export_multisource_diphenyl_ether.build_example",
+    "source_files": {
+      "odornet": {
+        "file_name": "odornet_enriched.csv",
+        "sha256": "f0248b02c34fa58ddc38760e8454bf75dca6ca9764c27577401060a1d2f8bf3a",
+        "byte_length": 1762609
+      },
+      "keller": {
+        "file_name": "keller_vosshall.xlsx",
+        "sha256": "efcb1b07558431c869c5578abcd3fa1e4405a38cc68a8b1c1621594c673d9f62",
+        "byte_length": 9461137
+      },
+      "identity_cache": {
+        "file_name": "keller_pubchem_identity_cache.json",
+        "sha256": "a0580274144b994871f15b58275e0df5032383697570a33c2e54e2a5feadefec",
+        "byte_length": 145461
+      }
+    },
+    "selection": {
+      "pubchem_cid": "7583",
+      "inchikey": "USIUVYZYUHIAEV-UHFFFAOYSA-N",
+      "odornet_row_index": 6065,
+      "keller_row_index": 34028,
+      "identity_cache_key": "cid:7583",
+      "aggregation": "none"
+    },
+    "selected_records": {
+      "odornet": {
+        "SMILES": "c1ccc(Oc2ccccc2)cc1",
+        "animalic&ambery": 0.0,
+        "sweety&gourmand": null,
+        "floral": 1.0,
+        "fruity&vegetable": 0.0,
+        "pungent&disagreeable": null,
+        "green&herbal": 1.0,
+        "nutty": 0.0,
+        "woody&mossy": 0.0,
+        "resinous&balsamic": 0.0,
+        "cooked": 0.0,
+        "odorless": 0.0,
+        "spice": 0.0,
+        "PubChem_Status": "resolved",
+        "PubChem_Title": "Diphenyl Ether",
+        "PubChem_IUPACName": "phenoxybenzene",
+        "PubChem_CanonicalSMILES": "C1=CC=C(C=C1)OC2=CC=CC=C2",
+        "PubChem_InChIKey": "USIUVYZYUHIAEV-UHFFFAOYSA-N"
+      },
+      "keller": {
+        "C.A.S.": "101-84-8",
+        "Catalogue #*": "W36670-6",
+        "CID": 7583,
+        "Odor": "Diphenyl ether",
+        "Odor dilution": "1/1,000",
+        "Subject # (this study)": 35,
+        "Subject # (DREAM challenge)": null,
+        "Gender": "F",
+        "Race\n (\"unknown\" indicates\n that the subject did not\n wish to specify)": "White",
+        "Ethnicity": "Hispanic",
+        "Age": 30,
+        "VIAL #": 590,
+        "CAN OR CAN'T SMELL": "I smell something",
+        "KNOW OR DON'T KNOW THE SMELL": "I don't know what the odor is",
+        "THE ODOR IS:": "No Answer",
+        "HOW STRONG IS THE SMELL?": 95.0,
+        "HOW PLEASANT IS THE SMELL?": 2.0,
+        "HOW FAMILIAR IS THE SMELL?": 0.0,
+        "EDIBLE": null,
+        "BAKERY": null,
+        "SWEET": null,
+        "FRUIT": null,
+        "FISH": null,
+        "GARLIC": null,
+        "SPICES": null,
+        "COLD": null,
+        "SOUR": null,
+        "BURNT": null,
+        "ACID": null,
+        "WARM": null,
+        "MUSKY": null,
+        "SWEATY": null,
+        "AMMONIA/URINOUS": null,
+        "DECAYED": null,
+        "WOOD": 15.0,
+        "GRASS": 18.0,
+        "FLOWER": 47.0,
+        "CHEMICAL": 1.0
+      },
+      "identity_cache": {
+        "status": "resolved",
+        "cid": "7583",
+        "title": "Diphenyl Ether",
+        "iupac_name": "phenoxybenzene",
+        "canonical_smiles": "C1=CC=C(C=C1)OC2=CC=CC=C2",
+        "inchikey": "USIUVYZYUHIAEV-UHFFFAOYSA-N",
+        "source_kind": "cid",
+        "source_value": "7583"
+      }
+    },
+    "missing_cells": "Empty/NaN source cells are recorded as JSON null, never as zero."
+  },
+  "format": "org.opensmell.experimental.generic-resource-graph",
+  "version": "0.1",
+  "resources": [
+    {
+      "provenance": {
+        "source": {
+          "file_name": "odornet_enriched.csv",
+          "name": "OdorNet",
+          "identifier": {
+            "scheme": "sha256",
+            "value": "f0248b02c34fa58ddc38760e8454bf75dca6ca9764c27577401060a1d2f8bf3a"
+          }
+        },
+        "record": {
+          "row_index": 6065,
+          "indexing": "zero-based data records, header excluded",
+          "identity": {
+            "smiles": "c1ccc(Oc2ccccc2)cc1"
+          }
+        },
+        "derivation": {
+          "method": "opensmell.experimental.odornet_enriched_adapter"
+        }
+      },
+      "pubchem": {
+        "status": "resolved",
+        "title": "Diphenyl Ether",
+        "iupac_name": "phenoxybenzene",
+        "canonical_smiles": "C1=CC=C(C=C1)OC2=CC=CC=C2"
+      },
+      "type": "org.opensmell.molecule",
+      "type_version": "0.1",
+      "id": "e6ad8ce3-dc6e-5d94-9287-57665d48fc0b",
+      "smiles": "c1ccc(Oc2ccccc2)cc1",
+      "identifiers": [
+        {
+          "scheme": "pubchem.inchikey",
+          "value": "USIUVYZYUHIAEV-UHFFFAOYSA-N"
+        }
+      ]
+    },
+    {
+      "provenance": {
+        "source": {
+          "file_name": "odornet_enriched.csv",
+          "name": "OdorNet",
+          "identifier": {
+            "scheme": "sha256",
+            "value": "f0248b02c34fa58ddc38760e8454bf75dca6ca9764c27577401060a1d2f8bf3a"
+          }
+        },
+        "record": {
+          "row_index": 6065,
+          "indexing": "zero-based data records, header excluded",
+          "identity": {
+            "smiles": "c1ccc(Oc2ccccc2)cc1"
+          }
+        },
+        "derivation": {
+          "method": "opensmell.experimental.odornet_enriched_adapter"
+        }
+      },
+      "type": "org.opensmell.annotation",
+      "type_version": "0.1",
+      "id": "11236528-72cf-5ef2-9306-b6a34d7b5601",
+      "subject": {
+        "resource_id": "e6ad8ce3-dc6e-5d94-9287-57665d48fc0b"
+      },
+      "scheme": {
+        "id": "org.opensmell.semantic.annotations",
+        "version": "0.1"
+      },
+      "data": {
+        "annotations": [
+          {
+            "value": "animalic&ambery",
+            "language": "en",
+            "state": "absent"
+          },
+          {
+            "value": "sweety&gourmand",
+            "language": "en",
+            "state": "unknown"
+          },
+          {
+            "value": "floral",
+            "language": "en",
+            "state": "present"
+          },
+          {
+            "value": "fruity&vegetable",
+            "language": "en",
+            "state": "absent"
+          },
+          {
+            "value": "pungent&disagreeable",
+            "language": "en",
+            "state": "unknown"
+          },
+          {
+            "value": "green&herbal",
+            "language": "en",
+            "state": "present"
+          },
+          {
+            "value": "nutty",
+            "language": "en",
+            "state": "absent"
+          },
+          {
+            "value": "woody&mossy",
+            "language": "en",
+            "state": "absent"
+          },
+          {
+            "value": "resinous&balsamic",
+            "language": "en",
+            "state": "absent"
+          },
+          {
+            "value": "cooked",
+            "language": "en",
+            "state": "absent"
+          },
+          {
+            "value": "odorless",
+            "language": "en",
+            "state": "absent"
+          },
+          {
+            "value": "spice",
+            "language": "en",
+            "state": "absent"
+          }
+        ]
+      }
+    },
+    {
+      "source_label": "Diphenyl ether",
+      "source_pubchem_cid": "7583",
+      "identity_match": {
+        "method": "exact_pubchem_inchikey",
+        "inchikey": "USIUVYZYUHIAEV-UHFFFAOYSA-N"
+      },
+      "type": "stimulus",
+      "id": "e0f448bb-849f-5d50-b6af-de67761cfe1e",
+      "source": {
+        "resource_id": "e6ad8ce3-dc6e-5d94-9287-57665d48fc0b"
+      },
+      "identifiers": [
+        {
+          "scheme": "cas",
+          "value": "101-84-8"
+        }
+      ],
+      "conditions": [
+        {
+          "property": "dilution",
+          "value": "1/1,000"
+        }
+      ]
+    },
+    {
+      "kind": "human_subject",
+      "type": "observation_target",
+      "id": "917fdd45-c58d-5312-9254-e8d88e971d85",
+      "identifiers": [
+        {
+          "scheme": "keller_vosshall.subject_this_study",
+          "value": "35"
+        }
+      ]
+    },
+    {
+      "provenance": {
+        "source": {
+          "file_name": "keller_vosshall.xlsx",
+          "name": "Keller/Vosshall",
+          "identifier": {
+            "scheme": "sha256",
+            "value": "efcb1b07558431c869c5578abcd3fa1e4405a38cc68a8b1c1621594c673d9f62"
+          }
+        },
+        "record": {
+          "worksheet": "data",
+          "header_row": 3,
+          "row_index": 34028,
+          "worksheet_row": 34032,
+          "indexing": "zero-based data rows after the third worksheet row",
+          "identity": {
+            "source_row": 34028
+          }
+        },
+        "derivation": {
+          "method": "tools.export_multisource_diphenyl_ether.build_example"
+        }
+      },
+      "type": "observation",
+      "id": "219ef28c-9b58-52f2-93a7-0807f5897857",
+      "stimulus": {
+        "resource_id": "e0f448bb-849f-5d50-b6af-de67761cfe1e"
+      },
+      "target": {
+        "resource_id": "917fdd45-c58d-5312-9254-e8d88e971d85"
+      },
+      "results": [
+        {
+          "scheme": {
+            "id": "org.opensmell.perceptual.measurements",
+            "version": "0.1"
+          },
+          "data": {
+            "measurements": [
+              {
+                "property": "intensity",
+                "value": 95,
+                "scale": {
+                  "min": 0,
+                  "max": 100
+                }
+              },
+              {
+                "property": "pleasantness",
+                "value": 2,
+                "scale": {
+                  "min": 0,
+                  "max": 100
+                }
+              },
+              {
+                "property": "familiarity",
+                "value": 0,
+                "scale": {
+                  "min": 0,
+                  "max": 100
+                }
+              },
+              {
+                "property": "wood",
+                "value": 15,
+                "scale": {
+                  "min": 0,
+                  "max": 100
+                }
+              },
+              {
+                "property": "grass",
+                "value": 18,
+                "scale": {
+                  "min": 0,
+                  "max": 100
+                }
+              },
+              {
+                "property": "flower",
+                "value": 47,
+                "scale": {
+                  "min": 0,
+                  "max": 100
+                }
+              },
+              {
+                "property": "chemical",
+                "value": 1,
+                "scale": {
+                  "min": 0,
+                  "max": 100
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "context": {
+        "source_dataset": "Keller/Vosshall",
+        "source_row": 34028,
+        "source_metadata": {
+          "C.A.S.": "101-84-8",
+          "Catalogue #*": "W36670-6",
+          "CID": 7583,
+          "Odor": "Diphenyl ether",
+          "Odor dilution": "1/1,000",
+          "Subject # (this study)": 35,
+          "Subject # (DREAM challenge)": null,
+          "Gender": "F",
+          "Race\n (\"unknown\" indicates\n that the subject did not\n wish to specify)": "White",
+          "Ethnicity": "Hispanic",
+          "Age": 30,
+          "VIAL #": 590,
+          "CAN OR CAN'T SMELL": "I smell something",
+          "KNOW OR DON'T KNOW THE SMELL": "I don't know what the odor is",
+          "THE ODOR IS:": "No Answer"
+        }
+      }
+    }
+  ]
+}

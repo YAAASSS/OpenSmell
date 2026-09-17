@@ -45,6 +45,12 @@ procedure. The [documentation audit](../../docs/local-explorer-milestone.md)
 records remaining limits. No new hardware tests accompanied that audit, and
 these confirmations do not extend to odor reproduction or electrical accuracy.
 
+The [diphenyl ether example](../../docs/diphenyl-ether-example.md) now provides a
+second file for the same import and control workflow, with explicit 5-second
+plans and a manual procedure. Its physical LED behavior has **not yet been
+confirmed**; the earlier user confirmations concern beta-pinene only. Wait for
+the estimated window and observed LED extinction before sending another plan.
+
 ## Architecture
 
 The demonstrated path is:

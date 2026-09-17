@@ -189,19 +189,28 @@ def load_identity_cache() -> dict[str, dict[str, Any]]:
     return value
 
 
-def main() -> None:
-    print("Loading source datasets...")
+def build_graph(
+    keller: pd.DataFrame,
+    odornet: pd.DataFrame,
+    cache: dict[str, dict[str, Any]],
+    *,
+    pubchem_cid: str = TARGET_PUBCHEM_CID,
+    keller_row_index: int = TARGET_KELLER_ROW,
+    example_name: str = "(-)-beta-pinene",
+    derivation_method: str = "tools.export_multisource_beta_pinene.main",
+) -> GenericResourceGraph:
+    """Reuse the existing assembly for one explicitly selected observation.
 
-    keller = load_keller()
-    odornet = load_odornet()
-    cache = load_identity_cache()
+    Defaults retain the historical beta-pinene graph, including its IDs and
+    provenance. File selection and additional export evidence stay with callers.
+    """
 
     # ------------------------------------------------------------
     # Resolve selected Keller chemical identity
     # ------------------------------------------------------------
 
     cache_key = (
-        f"cid:{TARGET_PUBCHEM_CID}"
+        f"cid:{pubchem_cid}"
     )
 
     identity = cache.get(
@@ -239,7 +248,7 @@ def main() -> None:
     inchikey = inchikey.strip()
 
     print(
-        f"PubChem CID: {TARGET_PUBCHEM_CID}"
+        f"PubChem CID: {pubchem_cid}"
     )
     print(
         f"InChIKey: {inchikey}"
@@ -269,9 +278,8 @@ def main() -> None:
         odornet_matches.iloc[0]
     )
 
-    odornet_record = (
-        odornet_row.to_dict()
-    )
+    # The adapter uses None for unknown states; pandas reads empty CSV cells as NaN.
+    odornet_record = {key: clean(value) for key, value in odornet_row.items()}
 
     odornet_title = clean(
         odornet_row.get(
@@ -409,15 +417,15 @@ def main() -> None:
     # Keller selected observation
     # ------------------------------------------------------------
 
-    if TARGET_KELLER_ROW not in keller.index:
+    if keller_row_index not in keller.index:
         raise RuntimeError(
             "Selected Keller row does not exist: "
-            f"{TARGET_KELLER_ROW}"
+            f"{keller_row_index}"
         )
 
     keller_row = (
         keller.loc[
-            TARGET_KELLER_ROW
+            keller_row_index
         ]
     )
 
@@ -429,12 +437,12 @@ def main() -> None:
 
     if (
         keller_cid
-        != TARGET_PUBCHEM_CID
+        != pubchem_cid
     ):
         raise RuntimeError(
             "Selected Keller row has CID "
             f"{keller_cid}, expected "
-            f"{TARGET_PUBCHEM_CID}"
+            f"{pubchem_cid}"
         )
 
     keller_name = clean(
@@ -513,7 +521,7 @@ def main() -> None:
     print()
     print("Keller/Vosshall:")
     print(
-        f"  row: {TARGET_KELLER_ROW}"
+        f"  row: {keller_row_index}"
     )
     print(
         f"  name: {keller_name}"
@@ -578,7 +586,7 @@ def main() -> None:
             resource_type="observation",
             source_identity={
                 "row": str(
-                    TARGET_KELLER_ROW
+                    keller_row_index
                 ),
             },
         )
@@ -632,7 +640,7 @@ def main() -> None:
                 keller_name
             ),
             "source_pubchem_cid": (
-                TARGET_PUBCHEM_CID
+                pubchem_cid
             ),
             "identity_match": {
                 "method": (
@@ -709,7 +717,7 @@ def main() -> None:
                 "Keller/Vosshall"
             ),
             "source_row": (
-                TARGET_KELLER_ROW
+                keller_row_index
             ),
         },
         extra={
@@ -721,16 +729,12 @@ def main() -> None:
                     record=ProvenanceRecord(
                         identity={
                             "source_row": (
-                                TARGET_KELLER_ROW
+                                keller_row_index
                             ),
                         },
                     ),
                     derivation=ProvenanceDerivation(
-                        method=(
-                            "tools."
-                            "export_multisource_beta_pinene."
-                            "main"
-                        ),
+                        method=derivation_method,
                     ),
                 )
             ),
@@ -752,7 +756,7 @@ def main() -> None:
         extra={
             "example": (
                 "OdorNet and Keller/Vosshall "
-                "multi-source (-)-beta-pinene"
+                f"multi-source {example_name}"
             ),
             "identity_basis": (
                 "exact PubChem InChIKey"
@@ -762,6 +766,16 @@ def main() -> None:
             ),
         },
     )
+
+    return graph
+
+
+def main() -> None:
+    print("Loading source datasets...")
+    graph = build_graph(load_keller(), load_odornet(), load_identity_cache())
+    molecule, annotation, stimulus, target, observation = graph.resources
+    molecule_id, annotation_id = molecule.id, annotation.id
+    stimulus_id, target_id, observation_id = stimulus.id, target.id, observation.id
 
     # ------------------------------------------------------------
     # Registry
