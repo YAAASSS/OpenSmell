@@ -206,10 +206,12 @@ is needed. The [example sheet](../../docs/diphenyl-ether-example.md) records the
 selected source observation, independent calculations, reproducible export,
 software/browser verification and a short manual ESP32 procedure.
 
-The new example's physical LED behavior is **not yet confirmed**. Previous
-user-confirmed physical results below concern beta-pinene only. Wait for the
-estimated window and observe LED extinction before another explicit send;
-Disconnect still does not stop an accepted command.
+The user has now given an **overall positive confirmation for both policies**
+in this example's proposed 5-second ESP32 workflow. The
+[confirmation record](../../docs/diphenyl-ether-example.md#hardware-validation--user-confirmation)
+distinguishes that report from software checks and measured output levels.
+Wait for the estimated window and observe LED extinction before another explicit
+send; Disconnect still does not stop an accepted command.
 
 ## Supported imports
 
@@ -389,8 +391,10 @@ The complete CI interoperability command list is in
 
 ## Hardware validation — user confirmation
 
-Recorded on 17 September 2026. The user performed the following checks with
-their real ESP32 and explicitly confirmed the results. These are user-reported
+### Beta-pinene — earlier confirmation
+
+Recorded on 17 September 2026. The user performed the following beta-pinene
+checks with their real ESP32 and explicitly confirmed the results. These are user-reported
 physical observations, separate from the automated tests and simulated browser
 checks above. No additional hardware test was run for this documentation update.
 
@@ -426,6 +430,24 @@ records its own checks and the original import-size discrepancy separately,
 followed by the application fix. Neither documentation intervention nor the
 import-size fix performed additional physical tests.
 
+### Diphenyl ether — subsequent confirmation
+
+Recorded on 17 September 2026 from the user's supplied confirmation note.
+When asked whether both policies worked as expected, the user replied,
+translated into English, **“Yes, it works.”** This is an overall confirmation
+for Semantic and Perceptual in the proposed 5-second diphenyl ether workflow,
+using Import graph and explicit ESP32 transmission. The expected plans are
+listed under **Try the second real example**; those values are commands, not
+measured physical levels.
+
+The [detailed record](../../docs/diphenyl-ether-example.md#hardware-validation--user-confirmation)
+identifies `8a3382a` as the transmitted milestone reference. The actual PC
+environment was not independently inspected. No electrical measurements,
+precise timings, screenshots or additional serial traces were supplied; no
+new 31-second refusal test is claimed. The agent ran no new hardware test.
+This report adds user-observed LED-control evidence without changing the
+protocol limits above or claiming odor reproduction or universal compatibility.
+
 ## Import-size fix verification
 
 On 17 September 2026, the fix passed **138 targeted Python tests**, the full
@@ -456,12 +478,14 @@ software results and user-confirmed physical LED checks.
 
 ## Second real example verification
 
-On 17 September 2026, the diphenyl ether addition passed **163 targeted Python
-tests** and the full **1,927-test Python suite**, including 18 new offline cases.
+At implementation commit `8a3382a` on 17 September 2026, the diphenyl ether addition
+passed **163 targeted Python tests** and the full **1,927-test Python suite**,
+including 18 new offline cases.
 The **8 JavaScript import tests**, vector regeneration with an unchanged diff,
 and all 16 other interoperability commands from the CI workflow also passed.
-Local versions were Python 3.13.14 and Node.js 24.19.0. These are fresh results
-for this addition; the earlier runs above remain historical.
+Local versions were Python 3.13.14 and Node.js 24.19.0. These are historical
+implementation results for the subsequent documentation-only confirmation
+update; the unchanged suites and browser checks were not rerun locally for it.
 
 ```powershell
 .\.venv\Scripts\python.exe -m pytest tests/test_local_demo.py tests/test_local_demo_hardware.py tests/test_local_demo_import_limits.py tests/test_multisource_demo.py tests/test_experimental_semantic_channel_mapper.py tests/test_perceptual_channel_mapper.py tests/test_multisource_diphenyl_ether.py tests/test_multisource_beta_pinene_provenance.py tests/test_multisource_beta_pinene_interop.py -q
@@ -473,4 +497,5 @@ A real in-app browser checked Open demo, import of the new file, source data,
 provenance and both policies against the expected plans. The isolated loopback
 server disabled serial enumeration and access; it did not use the ESP32.
 No console errors were reported. The [example sheet](../../docs/diphenyl-ether-example.md)
-records source-byte reproducibility checks and the pending manual LED procedure.
+records source-byte reproducibility checks, the subsequent user confirmation
+and the manual LED procedure retained for repeat trials.

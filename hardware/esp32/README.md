@@ -37,8 +37,9 @@ or LED-state telemetry. **Disconnect** closes the link without stopping an
 accepted command. The app enforces preview freshness, single submission and
 capability checks; these additional rules do not change the firmware protocol.
 
-The user confirmed the local application's Semantic and Perceptual LED behavior
-at 5 seconds and refusal at 31 seconds against the advertised 30-second limit.
+The user confirmed the local application's beta-pinene Semantic and Perceptual
+LED behavior at 5 seconds and refusal at 31 seconds against the advertised
+30-second limit.
 The [application guide](../../apps/local_demo/README.md) separates these physical
 confirmations from historical simulated tests and supplies a repeatable manual
 procedure. The [documentation audit](../../docs/local-explorer-milestone.md)
@@ -47,9 +48,13 @@ these confirmations do not extend to odor reproduction or electrical accuracy.
 
 The [diphenyl ether example](../../docs/diphenyl-ether-example.md) now provides a
 second file for the same import and control workflow, with explicit 5-second
-plans and a manual procedure. Its physical LED behavior has **not yet been
-confirmed**; the earlier user confirmations concern beta-pinene only. Wait for
-the estimated window and observed LED extinction before sending another plan.
+plans and a manual procedure. The user subsequently gave an **overall positive
+confirmation for both policies** in that proposed 5-second ESP32 workflow.
+The [confirmation record](../../docs/diphenyl-ether-example.md#hardware-validation--user-confirmation)
+separates this report from software tests and expected command values from
+physical measurements. No new 31-second refusal test or agent-run hardware
+trial is claimed. Wait for the estimated window and observed LED extinction
+before sending another plan.
 
 ## Architecture
 

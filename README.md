@@ -618,8 +618,8 @@ policies are application examples, not universal odor-to-channel conversions.
 estimate with no completion telemetry. **Disconnect** releases the port and
 does not stop an accepted command.
 
-The user confirmed physical LED behavior for both policies at 5 seconds and
-refusal at 31 seconds against the advertised 30-second limit. This is separate
+For beta-pinene, the user confirmed physical LED behavior for both policies at
+5 seconds and refusal at 31 seconds against the advertised 30-second limit. This is separate
 from automated tests and simulated browser checks, and does not validate odor
 reproduction. The application remains an **experimental pre-alpha**. See the
 [launch, import, mapping and validation guide](apps/local_demo/README.md), the
@@ -629,8 +629,10 @@ reproduction. The application remains an **experimental pre-alpha**. See the
 A [second real example, diphenyl ether](docs/diphenyl-ether-example.md), can be
 opened through **Import graph**. It preserves one selected observation and both
 source branches with file fingerprints. Its Semantic and Perceptual plans differ
-from beta-pinene using the same bindings. Software/browser checks cover this new
-input; its physical LED behavior remains to be confirmed by the user.
+from beta-pinene using the same bindings. In addition to software/browser checks,
+the user subsequently gave an [overall positive ESP32 confirmation](docs/diphenyl-ether-example.md#hardware-validation--user-confirmation)
+for both policies in the proposed 5-second workflow. Expected command levels
+are not physical measurements, and this report does not demonstrate odor reproduction.
 
 ## Loading an odor
 
@@ -1323,7 +1325,9 @@ python -m pip install -e ".[serial]"
 The second real Local Explorer example passed **1,927 Python tests**, including
 **163 targeted tests**, plus **8 JavaScript import tests** and the existing
 CI interoperability checks. Its [verification record](docs/diphenyl-ether-example.md#verification-and-its-limits)
-distinguishes local software/browser checks from pending physical confirmation.
+distinguishes historical software/browser checks from the subsequent physical
+confirmation supplied by the user. The documentation-only confirmation update
+did not rerun the unchanged suites locally.
 
 Previously, the Local Explorer import-size fix passed **1,909 Python tests**, including
 **138 targeted tests**, plus **8 JavaScript import tests** and the remaining
@@ -1700,7 +1704,9 @@ and explicit ESP32 control without changing the SDK or firmware. The
 [second real example](docs/diphenyl-ether-example.md) adds diphenyl ether using
 the same import and policies. Verification passed **1,927 Python tests**,
 including 163 targeted tests, plus 8 JavaScript import tests and the existing
-CI interoperability checks. Its physical LED behavior awaits user confirmation.
+CI interoperability checks. Those implementation results are historical for the
+documentation-only update recording the user's subsequent overall positive
+ESP32 confirmation for both policies in the proposed 5-second workflow.
 The [earlier milestone record](docs/local-explorer-milestone.md) retains the
 historical software results, user-confirmed beta-pinene physical checks and
 documentation-audit checks.

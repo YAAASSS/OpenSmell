@@ -181,14 +181,16 @@ a hash: use the identified input bytes and inspect any differences.
 
 ## Verification and its limits
 
-On 17 September 2026, local verification passed **1,927 Python tests**, including
+At implementation commit `8a3382a` on 17 September 2026, local verification
+passed **1,927 Python tests**, including
 **163 targeted tests** and 18 new offline cases. The **8 JavaScript import tests**,
 vector regeneration with an unchanged diff and all **16 other interoperability
 commands** in the CI workflow passed too (19 workflow commands in total).
 Python 3.13.14 and Node.js 24.19.0 were used locally. App JavaScript syntax,
 export/launch help, local documentation links and Git whitespace were also checked.
 These results are separate from the earlier import-size fix's 1,909/138 Python
-results; no previous physical confirmation is extended to this new input.
+results. They are historical for the subsequent documentation-only confirmation
+update; the suites and browser checks were not rerun locally for that update.
 
 The new [offline regression tests](../tests/test_multisource_diphenyl_ether.py)
 check identity, graph references, provenance, all source states/ratings, missing
@@ -208,7 +210,8 @@ software/browser checks, not a new physical ESP32 test.
 
 The earlier user-confirmed hardware observations concern **beta-pinene only**:
 Semantic 5 s, Perceptual 5 s and refusal at 31 s against the advertised 30-second
-maximum. **Diphenyl ether physical behavior remains to be confirmed by the user.**
+maximum. The subsequent diphenyl ether confirmation is recorded separately below;
+no new 31-second refusal test is claimed.
 
 [RFC-0004](../rfcs/RFC-0004.md)/[0005](../rfcs/RFC-0005.md) describe the representations,
 [RFC-0006](../rfcs/RFC-0006.md) and [RFC-0008](../rfcs/RFC-0008.md)–[0011](../rfcs/RFC-0011.md)
@@ -217,7 +220,47 @@ the rendering and multi-source architecture.
 This is a second example of the same contracts. Only RFC-0013's implementation
 evidence needs updating; it remains Draft. No new RFC or protocol is introduced.
 
-## Short manual ESP32 procedure — not yet performed for this input
+## Hardware validation — user confirmation
+
+Recorded on 17 September 2026 from the user-supplied note
+`OpenSmell_Confirmation_ESP32_Diphenyl_Ether_2026-09-17.md`. After being asked
+explicitly whether both policies worked as expected, the user replied,
+translated into English, **“Yes, it works.”** This is an overall user confirmation
+for Semantic and Perceptual with diphenyl ether in the proposed 5-second workflow:
+**Import graph**, then explicit transmission to the ESP32.
+
+| Policy | Proposed duration | Expected commands | User report |
+| --- | --- | --- | --- |
+| Semantic | 5 s | CH0 = 0.25; CH1 = 0.60; CH2 omitted | Overall expected operation confirmed. |
+| Perceptual | 5 s | CH0 = 0.47; CH1 = 0.18; CH2 = 0.15 | Overall expected operation confirmed. |
+
+The table lists expected command values, **not measured output levels or exact
+timing**. No electrical measurements, precise timing, screenshots or additional
+serial traces were supplied. The reference for the transmitted milestone is
+commit `8a3382a7ee1f7aa8bca0919bca875cf4fa5e41bd`; the actual PC environment used
+for the trials was not independently inspected during this confirmation.
+The report is not a separate measurement or detailed observation of each channel.
+
+Both beta-pinene and diphenyl ether now have positive user reports for both
+policies. Earlier statements that this second input was awaiting physical
+confirmation described the state at implementation time and are superseded by
+this report. Automated tests, software doubles and the isolated real-browser
+checks above remain separate evidence; no new hardware test was run by the agent.
+
+This supports LED control in the reported cases, **not odor reproduction or
+universal compatibility**. There is still no execution-completion telemetry;
+remaining time is estimated, and **Disconnect does not stop an accepted command**.
+The project remains an **experimental pre-alpha**.
+
+The documentation update checked affected wording, local links and anchors,
+unchanged command paths, the documentation-only diff and Git whitespace. It did
+not rerun the unchanged software suites locally. Publication and CI results are
+reported separately in the accompanying Work handoff.
+
+## Short manual ESP32 procedure
+
+Retained for repeat trials. The overall user confirmation is recorded above;
+this documentation update does not execute the procedure again.
 
 1. Launch Local Explorer from the repository root with
    `python -m apps.local_demo`. Use **Import graph** to open
