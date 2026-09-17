@@ -69,7 +69,7 @@ Core format.
 | Experimental rendering and device architecture | Documented through RFC-0013 |
 | Device Protocol 0.1 and serial transport | Implemented experimentally |
 | Local Explorer application | English interface, offline previews and explicit ESP32 control; [guide](apps/local_demo/README.md) |
-| Automated Python test suite | **1,890 passed in the previously reported implementation run**, including 119 targeted tests; [historical evidence](apps/local_demo/README.md) |
+| Automated Python test suite | **1,909 passed for the import-size fix**, including 138 targeted tests; [verification record](docs/local-explorer-milestone.md#import-size-fix-and-verification) |
 | Physical hardware validation | **ESP32/3-channel LED control path validated experimentally** |
 
 > [!IMPORTANT]
@@ -622,7 +622,7 @@ from automated tests and simulated browser checks, and does not validate odor
 reproduction. The application remains an **experimental pre-alpha**. See the
 [launch, import, mapping and validation guide](apps/local_demo/README.md), the
 [ESP32 guide](hardware/esp32/README.md) and the
-[milestone documentation audit and open discrepancy](docs/local-explorer-milestone.md).
+[milestone documentation audit and import-size fix](docs/local-explorer-milestone.md).
 
 ## Loading an odor
 
@@ -1312,11 +1312,12 @@ Serial support is optional for normal OpenSmell users:
 python -m pip install -e ".[serial]"
 ```
 
-The Local Explorer implementation run previously reported **1,890 passing
-Python tests**, including **119 targeted tests**, and successful
-interoperability checks. These are historical results, not tests rerun for the
-documentation audit. See the [verification record](apps/local_demo/README.md)
-and [checks performed for the documentation audit](docs/local-explorer-milestone.md).
+The Local Explorer import-size fix passed **1,909 Python tests**, including
+**138 targeted tests**, plus **8 JavaScript import tests** and the remaining
+CI interoperability checks. The [verification record](docs/local-explorer-milestone.md#import-size-fix-and-verification)
+separates this run from the earlier implementation's 1,890 tests and the
+documentation-only audit. The [application guide](apps/local_demo/README.md)
+lists focused verification commands.
 Exact counts are not treated as a stable project property because the suite grows
 as experimental interoperability work is added.
 
@@ -1682,11 +1683,11 @@ device capabilities, device adapters, an experimental JSON device protocol,
 transport-independent protocol adapters, and optional serial transport.
 
 Local Explorer adds an English local interface for data exploration, preview
-and explicit ESP32 control without changing the SDK or firmware. The previously
-reported implementation run passed **1,890 Python tests**, including 119
-targeted tests, with successful Python/JavaScript interoperability checks.
-The [milestone record](docs/local-explorer-milestone.md) separates those
-historical results, user-confirmed physical checks and documentation-audit checks.
+and explicit ESP32 control without changing the SDK or firmware. Verification
+of its import-size fix passed **1,909 Python tests**, including 138 targeted
+tests, plus 8 JavaScript import tests and the CI interoperability checks.
+The [milestone record](docs/local-explorer-milestone.md) separates this run from
+earlier software results, user-confirmed physical checks and documentation-audit checks.
 
 Dataset-scale ResourceGraph experiments span human psychophysics, biological
 physiology, and electronic olfaction.

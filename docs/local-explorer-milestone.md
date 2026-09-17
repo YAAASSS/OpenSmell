@@ -6,6 +6,10 @@ record of the **experimental pre-alpha** application, not a new specification.
 The documentation update leaves application behavior, official logos,
 scientific data, calculations, SDK and firmware unchanged.
 
+The audit below is historical. The later
+[import-size fix and verification](#import-size-fix-and-verification) records
+the resolution of its application discrepancy separately.
+
 ## Documents and implementation reviewed
 
 The audit covers the [main README](../README.md), the
@@ -128,15 +132,16 @@ reproduction. Acceptance is distinct from observed execution; estimated time
 is distinct from completion telemetry; Disconnect is distinct from hardware
 stop. Those protocol and validation limits remain open beyond this milestone.
 
-## Open functional discrepancy
+## Historical functional discrepancy
 
-**Import-size enforcement differs between the browser and server.** The
-browser rejects a file larger than 1 MiB. The HTTP handler limits the entire
-JSON body to 2 MiB but does not independently enforce a 1 MiB source-file limit.
-A direct local `/api/preview` request can therefore bypass the browser limit
-while remaining within the server limit. The README now describes both actual
-boundaries. A later implementation change would need to decide and consistently
-enforce the intended import limit; none is made in this documentation task.
+**At audit commit `fd2dd59000c8bde7ef3ba2ac3380b6ea2341a009`, import-size
+enforcement differed between the browser and server.** The browser rejected a
+file larger than 1 MiB. The HTTP handler limited the entire JSON body to 2 MiB
+but did not independently enforce a 1 MiB source-file limit. A direct local
+`/api/preview` request could therefore bypass the browser limit while remaining
+within the server limit. The README described both boundaries, and the issue
+was left open for an implementation fix; no code changed in the documentation
+audit. The later resolution is recorded below without replacing this evidence.
 
 Reproduction during this audit used the bundled fixture plus a synthetic
 top-level extension, entirely in memory. The source was **1,052,643 bytes** and
@@ -175,3 +180,63 @@ Publication is a separate Git operation: inspect every outgoing commit, push
 normally to the existing remote branch and compare the expected commit with
 the remote branch reference. The final publication report records that result;
 this document does not treat a local commit as proof of publication.
+
+## Import-size fix and verification
+
+The subsequent fix on 17 September 2026 starts from the clean, published audit
+commit `fd2dd59000c8bde7ef3ba2ac3380b6ea2341a009`. It resolves the discrepancy
+with application-only byte limits; the existing graph loader, scientific data,
+calculations, SDK, firmware, English interface and official logos are preserved.
+The project remains an **experimental pre-alpha**.
+
+The inclusive import limit is **1,048,576 UTF-8 bytes**, enforced independently
+by the browser's File byte size and the server's encoding of the received
+`text`. The server does not trust size metadata, compact the source or parse
+the graph before checking. The browser preserves the UTF-8 BOM during decoding
+and transport. The server counts its **three bytes** before ignoring one leading
+BOM for parsing; embedded BOM characters are preserved as data.
+
+The independent inclusive HTTP-body limit is **6,356,992 bytes**, checked before
+body reading. Its budget is **6 × 1,048,576 + 65,536**: JSON can escape each ASCII
+source character as six bytes (`\uXXXX`), with an additional 64 KiB for the
+request fields. Unicode escaping never requires a larger ratio per original
+UTF-8 byte. Tests include valid 1 MiB graphs transported in bodies larger than
+the former 2 MiB limit, including fully escaped ASCII source text. Arbitrarily
+large metadata or envelope whitespace is not exempt from the HTTP-body cap.
+
+Oversized imported text and oversized HTTP bodies both return **413**, with
+distinct English errors. An oversized file in a tracked request revokes the
+previous preview before rejection; a pending older calculation cannot publish
+after it. An oversized envelope is rejected without parsing or publishing it.
+The UI invalidates its prior preview before reading any newly selected file.
+Valid subsequent imports work normally, including at the exact file limit.
+
+RFC-0008's graph format and RFC-0012/0013's mapper, rendering and device
+boundaries remain unchanged. RFC-0012 and RFC-0013 only link the resolved
+application issue in their implementation evidence; both remain Draft.
+No new architecture or portable contract is introduced, so no new RFC is needed.
+
+Verification uses the new
+[HTTP regression tests](../tests/test_local_demo_import_limits.py) and
+[JavaScript import tests](../tests/local_demo_import.test.cjs), alongside existing
+application and mapper tests. Servers are isolated, serial factory/enumeration
+are disabled with failing doubles, and the JavaScript handler runs with DOM
+doubles. These are software tests, not new browser-on-device or physical tests.
+The CI interoperability job now also runs the JavaScript import tests.
+
+Results actually obtained locally for the fix on Windows, Python **3.13.14**
+and Node.js **24.19.0**:
+
+- **138 targeted Python tests passed**, including 19 new HTTP import tests.
+- **1,909 Python tests passed** in the full regression suite.
+- **8 JavaScript import tests passed**, plus syntax checks for both app scripts.
+- **16 remaining CI interoperability commands passed**, including vector
+  regeneration with no changes and Python/JavaScript round trips. The CI's
+  Python conformance selections were already covered by the full Python run.
+- Local Markdown links and anchors, the app's English launch help, exact change
+  scope and Git whitespace checks passed review.
+
+No new physical measurements or ESP32 commands accompanied this fix. The earlier
+1,890/119-test report and user-confirmed LED checks above remain historical.
+The GitHub run for the eventual commit is checked after publication and reported
+separately; local success is not presented as proof of remote CI completion.

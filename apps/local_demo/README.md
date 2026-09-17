@@ -188,9 +188,11 @@ are preserved as supplied, regardless of their language. “Absent”, “Unknow
 
 ## Supported imports
 
-This application is not a universal `.osmell` reader. The browser accepts UTF-8
-JSON files of at most 1 MiB, in
-`org.opensmell.experimental.generic-resource-graph` format, version `0.1`, with:
+This application is not a universal `.osmell` reader. Both the browser and the
+server independently accept UTF-8 JSON imports of at most **1 MiB (1,048,576
+bytes)**, including any leading UTF-8 BOM. Exactly that size is admissible;
+larger files are refused. The supported format is
+`org.opensmell.experimental.generic-resource-graph`, version `0.1`, with:
 
 - exactly one `org.opensmell.molecule` 0.1 and one `observation`;
 - the observation’s referenced `stimulus`, whose `source` references the molecule;
@@ -218,12 +220,34 @@ are displayed only when declared in the file’s provenance.
 
 Imports are sent only to the server on this computer and processed in memory,
 without saving the file. The server exposes no arbitrary filesystem paths or
-directory listings and limits the complete JSON request body to 2 MiB. It does
-not independently enforce the browser's 1 MiB file limit: a direct local HTTP
-request can import a larger file within that body limit. This remains an
-[open application discrepancy](../../docs/local-explorer-milestone.md), with no
-code change in this documentation milestone. The interface uses no CDNs,
-remote fonts or persistent browser storage.
+directory listings. It measures `text` in UTF-8 bytes before loading the graph
+or calculating plans, without trusting a client-supplied size, compacting JSON
+or counting characters. Whitespace and JSON escapes in the source file count
+toward its size. The browser preserves a leading BOM when transmitting the
+text; the server counts its three bytes before ignoring that one marker for
+JSON parsing. BOM characters inside JSON strings remain data. Invalid UTF-8
+files are rejected instead of decoded with replacement characters.
+
+The complete HTTP JSON request body has a separate inclusive limit of
+**6,356,992 bytes (6 MiB + 64 KiB)**, checked against `Content-Length` before
+reading the body. This allows up to six transport bytes per source byte when
+a JSON encoder uses `\uXXXX` escapes, plus 64 KiB for request fields such as
+the filename, policy, duration and preview revision. Extra envelope fields or
+excessive envelope whitespace can still exceed this independent limit. The
+former 2 MiB limit could reject valid 1 MiB imports transported with extensive
+JSON escaping; increasing the envelope allowance does not raise the file cap.
+
+Both size failures return **HTTP 413**, with distinct English diagnostics:
+**File too large** for imported text and **HTTP request too large** for the
+whole body. An oversized file with a valid preview session/revision invalidates
+the previous ticket before its rejection; no replacement preview is published.
+An oversized envelope is refused before its contents are read or parsed and
+cannot create a ticket. Browser import changes also invalidate the prior preview
+before file reading. A subsequent valid import can calculate normally.
+
+The [milestone record](../../docs/local-explorer-milestone.md) preserves the
+original discrepancy and records its resolution and verification. The interface
+uses no CDNs, remote fonts or persistent browser storage.
 
 ## Mapping policies and contracts
 
@@ -373,5 +397,34 @@ firmware are unchanged by this update. The historical software results above
 are not presented as newly run tests.
 
 The subsequent [documentation audit](../../docs/local-explorer-milestone.md)
-records its own checks and open discrepancy separately. Neither documentation
-intervention performed additional physical tests.
+records its own checks and the original import-size discrepancy separately,
+followed by the application fix. Neither documentation intervention nor the
+import-size fix performed additional physical tests.
+
+## Import-size fix verification
+
+On 17 September 2026, the fix passed **138 targeted Python tests**, the full
+**1,909-test Python suite**, **8 JavaScript import tests**, and the remaining
+CI interoperability commands locally with Python 3.13.14 and Node.js 24.19.0.
+JavaScript syntax, launch help, local links and whitespace checks also passed.
+These are new software results, separate from the historical records above;
+other Python versions are checked by CI rather than claimed as local runs.
+
+The fix adds exact-byte HTTP regression cases and tests of the real JavaScript
+import handler with WHATWG File/TextDecoder and DOM doubles. The JavaScript
+tests run in the existing CI interoperability job with Node.js 22 and require
+no new dependency. The Python tests use isolated loopback servers with serial
+operations disabled; they never contact the ESP32 or the normal app server.
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest tests/test_local_demo.py tests/test_local_demo_hardware.py tests/test_local_demo_import_limits.py tests/test_multisource_demo.py tests/test_experimental_semantic_channel_mapper.py tests/test_perceptual_channel_mapper.py -q
+node --test tests/local_demo_import.test.cjs
+```
+
+Coverage includes valid graphs at 1,048,575 / 1,048,576 / 1,048,577 bytes,
+multibyte Unicode, JSON transport escaping beyond 2 MiB, leading and embedded
+BOM characters, the independent HTTP limit, rejection before graph calculation,
+preview revocation, late calculations/file reads and recovery with a valid file.
+See the [fix verification record](../../docs/local-explorer-milestone.md#import-size-fix-and-verification)
+for results actually obtained in this intervention, distinct from earlier
+software results and user-confirmed physical LED checks.

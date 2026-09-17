@@ -53,6 +53,9 @@ jobs:
       - name: Install OpenSmell
         run: python -m pip install -e ".[dev]"
 
+      - name: Verify Local Explorer import handling in JavaScript
+        run: node --test tests/local_demo_import.test.cjs
+
       - name: Regenerate RFC-0007 ResourceGraph interoperability vectors
         run: python tools/generate_resource_graph_vectors.py
 

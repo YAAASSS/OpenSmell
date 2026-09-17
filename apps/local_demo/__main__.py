@@ -13,7 +13,10 @@ from .hardware import HardwareError, HardwareService
 from .preview_store import PreviewStore, StalePreview
 
 STATIC = Path(__file__).parent / "static"
-MAX_BODY = 2 * 1024 * 1024
+MAX_IMPORT_BYTES = 1024 * 1024
+# JSON may represent each source byte as six ASCII bytes (e.g. \u007b).
+# Reserve another 64 KiB for the request fields, independently of the file cap.
+MAX_BODY = 6 * MAX_IMPORT_BYTES + 64 * 1024
 ASSETS = {
     "/": (STATIC / "index.html", "text/html; charset=utf-8"),
     "/app.css": (STATIC / "app.css", "text/css; charset=utf-8"),
@@ -80,8 +83,10 @@ class Handler(BaseHTTPRequestHandler):
             return self._reply(415, {"error": "A JSON request is required."})
         try:
             size = int(self.headers.get("Content-Length", "0"))
-            if not 0 < size <= MAX_BODY:
-                return self._reply(413, {"error": "Request is empty or too large (limit: 2 MiB)."})
+            if size > MAX_BODY:
+                return self._reply(413, {"error": "HTTP request too large: the limit is 6,356,992 bytes (6 MiB + 64 KiB)."})
+            if size <= 0:
+                return self._reply(400, {"error": "A non-empty JSON request is required."})
             self.connection.settimeout(10)
             payload = json.loads(self.rfile.read(size).decode("utf-8"))
             if not isinstance(payload, dict):
@@ -112,6 +117,12 @@ class Handler(BaseHTTPRequestHandler):
                 graph_text = FIXTURE.read_text(encoding="utf-8")
             elif source == "file" and isinstance(payload.get("text"), str):
                 graph_text = payload["text"]
+                # Measure the received text, not client metadata or reserialized JSON.
+                # Count a leading UTF-8 BOM before ignoring it for graph parsing.
+                if len(graph_text.encode("utf-8")) > MAX_IMPORT_BYTES:
+                    return self._reply(413, {"error": "File too large: the limit is 1 MiB (1,048,576 bytes)."})
+                if graph_text.startswith("\ufeff"):
+                    graph_text = graph_text[1:]
             else:
                 raise PreviewError("Unknown source or missing file content.")
             result = preview(

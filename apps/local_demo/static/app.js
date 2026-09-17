@@ -266,8 +266,9 @@ $("#file-input").addEventListener("change", async (event) => {
   invalidateServerPreview(importId);
   source = null;
   try {
-    if (file.size > 1024 * 1024) throw new Error("File too large: the limit is 1 MiB.");
-    const text = new TextDecoder("utf-8", {fatal: true}).decode(await file.arrayBuffer());
+    if (file.size > 1024 * 1024) throw new Error("File too large: the limit is 1 MiB (1,048,576 bytes).");
+    // Preserve the BOM in transit so the server counts the same bytes as file.size.
+    const text = new TextDecoder("utf-8", {fatal: true, ignoreBOM: true}).decode(await file.arrayBuffer());
     if (importId !== requestId) return;
     source = {source: "file", name: file.name, text};
     if ($("#duration").getAttribute("aria-invalid") === "true") $("#duration").value = "5";
