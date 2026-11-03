@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "last_completed_brussels_date": null,
+  "last_processed_main_sha": "52d4504f2b99d0557cbfacf7b81f6fc7dd22f4ca",
+  "lease": {
+    "owner": "bootstrap-2026-11-03T23:56:11.645Z",
+    "expires_at": "2026-11-04T00:26:11.645Z"
+  },
+  "open_work": {
+    "branch": "automation/bootstrap-json-integrity",
+    "pull_request": null,
+    "objective": "Reject ambiguous duplicate JSON keys in Generic ResourceGraph imports and establish autonomous continuity"
+  },
+  "last_result": null,
+  "recent_sessions": [],
+  "next_objective": "Verify first scheduled execution and complete any pending bootstrap PR before selecting new work."
+}
