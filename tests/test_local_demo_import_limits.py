@@ -215,3 +215,23 @@ def test_late_calculation_cannot_publish_after_oversized_import(server, monkeypa
     assert code == 409
     assert "preview_ticket" not in result
     assert server.previews.clients[CLIENT]["plan"] is None
+
+
+def test_duplicate_key_import_revokes_preview_and_recovers(server):
+    text = FIXTURE.read_text(encoding="utf-8")
+    payload = {"client_id": CLIENT, "revision": 1, "source": "file", "text": text}
+    code, result = post(server, payload)
+    assert code == 200
+    old_ticket = result["preview_ticket"]
+    ambiguous = text.rstrip()[:-1] + ',"extension":{"value":1,"value":2}}'
+    code, result = post(server, {**payload, "revision": 2, "text": ambiguous})
+    assert code == 400
+    assert "duplicate JSON object key" in result["error"]
+    assert "preview_ticket" not in result
+    assert server.previews.clients[CLIENT]["plan"] is None
+    with pytest.raises(StalePreview):
+        with server.previews.current(old_ticket):
+            pytest.fail("Ambiguous import left the old preview usable")
+    code, result = post(server, {**payload, "revision": 3})
+    assert code == 200
+    assert_plans(result)

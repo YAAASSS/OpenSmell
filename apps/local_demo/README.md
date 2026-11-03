@@ -460,6 +460,16 @@ new 31-second refusal test is claimed. The agent ran no new hardware test.
 This report adds user-observed LED-control evidence without changing the
 protocol limits above or claiming odor reproduction or universal compatibility.
 
+## Ambiguous JSON imports
+
+Generic ResourceGraph imports reject repeated JSON object keys, including
+inside unknown payloads and provenance/extensions. Python previously kept the
+last value silently; it now reports an English error, matching the JavaScript
+Graph Reader. Resolve duplicates from the original source rather than choosing
+a value automatically. A rejected tracked import invalidates its previous
+sendable preview; importing a valid file restores normal preview generation.
+This is an input-integrity safeguard, not scientific validation of the data.
+
 ## Import-size fix verification
 
 On 17 September 2026, the fix passed **138 targeted Python tests**, the full

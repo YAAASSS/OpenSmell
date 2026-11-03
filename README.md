@@ -1621,6 +1621,11 @@ modify OpenSmell 0.1 Core.
 
 ## Roadmap
 
+See the [current development status and short backlog](docs/development-status.md)
+for bounded maintenance priorities and verification evidence. The
+[autonomous maintenance runbook](docs/autonomous-development.md) describes
+continuity, publication and unattended-work limits.
+
 ### OpenSmell 0.1 foundation
 
 Completed:
