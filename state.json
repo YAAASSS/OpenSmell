@@ -2,7 +2,10 @@
   "schema_version": 1,
   "last_completed_brussels_date": null,
   "last_processed_main_sha": "2867639b8585904b9eab2cdf8cdc432576459b33",
-  "lease": null,
+  "lease": {
+    "owner": "daily-20261104-d374ic27gh6",
+    "expires_at": "2026-11-04T05:30:48.000Z"
+  },
   "open_work": null,
   "last_result": {
     "session_kind": "manual_bootstrap",
