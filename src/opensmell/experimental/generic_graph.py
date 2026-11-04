@@ -34,6 +34,7 @@ import math
 from typing import Any, Callable, Protocol, TypeAlias
 
 from .graph_serialization import (
+    _unique_json_object,
     observation_from_dict,
     observation_target_from_dict,
     observation_target_to_dict,
@@ -830,16 +831,6 @@ def _reject_nonstandard_json_constant(value: str) -> Any:
     raise ValueError(
         f"non-standard JSON numeric constant is not allowed: {value}"
     )
-
-
-def _unique_json_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
-    """Reject ambiguous object members before a dict can discard a value."""
-    result: dict[str, Any] = {}
-    for key, value in pairs:
-        if key in result:
-            raise ValueError(f"duplicate JSON object key is not allowed: {key!r}")
-        result[key] = value
-    return result
 
 
 def generic_graph_loads(

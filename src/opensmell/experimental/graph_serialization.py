@@ -730,6 +730,16 @@ def _reject_nonstandard_json_constant(value: str) -> Any:
     )
 
 
+def _unique_json_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    """Reject ambiguous object members before a dict can discard a value."""
+    result: dict[str, Any] = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError(f"duplicate JSON object key is not allowed: {key!r}")
+        result[key] = value
+    return result
+
+
 def loads(value: str) -> ResourceGraph:
     """Parse a ResourceGraph from JSON text."""
 
@@ -741,6 +751,7 @@ def loads(value: str) -> ResourceGraph:
     parsed = json.loads(
         value,
         parse_constant=_reject_nonstandard_json_constant,
+        object_pairs_hook=_unique_json_object,
     )
 
     return graph_from_dict(parsed)

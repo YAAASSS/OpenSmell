@@ -1510,3 +1510,16 @@ def test_dict_round_trip_is_stable():
     )
 
     assert dict_2 == dict_3
+
+
+@pytest.mark.parametrize("members", [
+    '"resources":[],"resources":[]',
+    r'"resources":[],"extra":[{"source":1,"\u0073ource":2}]',
+])
+def test_loads_rejects_duplicate_members_before_data_loss(members):
+    envelope = '{"format":"org.opensmell.experimental.resource-graph","version":"0.1",'
+    with pytest.raises(ValueError, match="duplicate JSON object key"):
+        loads(envelope + members + "}")
+
+    valid = envelope + '"resources":[],"extra":[{"source":1,"Source":2},{"source":3}]}'
+    assert graph_to_dict(loads(valid)) == json.loads(valid)
