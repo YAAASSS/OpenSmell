@@ -832,12 +832,26 @@ def _reject_nonstandard_json_constant(value: str) -> Any:
     )
 
 
+def _unique_json_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    """Reject ambiguous object members before a dict can discard a value."""
+    result: dict[str, Any] = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError(f"duplicate JSON object key is not allowed: {key!r}")
+        result[key] = value
+    return result
+
+
 def generic_graph_loads(
     value: str,
     *,
     registry: ResourceTypeRegistry = DEFAULT_RESOURCE_TYPE_REGISTRY,
 ) -> GenericResourceGraph:
-    """Parse a GenericResourceGraph from strict JSON text."""
+    """Parse strict JSON, rejecting duplicate object keys at every depth.
+
+    This includes unknown resources and extension data: choosing either value
+    would silently lose information before resource dispatch or preservation.
+    """
 
     import json
 
@@ -849,6 +863,7 @@ def generic_graph_loads(
     parsed = json.loads(
         value,
         parse_constant=_reject_nonstandard_json_constant,
+        object_pairs_hook=_unique_json_object,
     )
 
     return generic_graph_from_dict(
