@@ -7,10 +7,11 @@
     "expires_at": "2026-11-04T13:19:31.273Z"
   },
   "open_work": {
-    "branch": "automation/rfc0007-json-integrity",
+    "branch": "automation/rfc0007-json-integrity-recovery",
     "base_sha": "2867639b8585904b9eab2cdf8cdc432576459b33",
     "commit": "32bcd0c96eadb1a4998e4a0d1ae17925757434f5",
-    "next_action": "Recover the verified RFC-0007 changes on automation/rfc0007-json-integrity, then open a PR and verify its exact-head CI before merge."
+    "next_action": "Check CI for the recovered commit and merge when ready.",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/3"
   },
   "last_result": {
     "session_kind": "daily",
