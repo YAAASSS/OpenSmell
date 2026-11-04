@@ -48,8 +48,8 @@ the linked PR/check runs in the operational state for subsequent CI/merge eviden
 
 | Priority | Problem and bounded next action | Success criterion / dependencies |
 | --- | --- | --- |
-| 1 | Verify the first scheduled run's tools and finish any pending bootstrap PR. | Actual clone, execution and authenticated publication available; lease respected; report any missing capability once. No extra test run just to trigger automation. |
-| 2 | Audit duplicate-member handling at the remaining Core/RFC-0007 and HTTP boundaries. Reproduce first, then choose a compatibility-aware bounded fix. | No silent value choice in the selected boundary; explicit producer guidance and meaningful rejection/recovery tests. Depends on current contracts, not assumptions from this fix. |
+| 1 | Finish any pending RFC-0007 duplicate-member PR recorded in control state. Scheduled clone, Python/Node execution and authenticated GitHub write verified. | RFC-0007 text loads reject repeated names before extension data is lost; unique names round-trip. |
+| 2 | Reproduce duplicate-member handling in Local Explorer HTTP envelopes, then assess Core separately. | An ambiguous request is rejected before dispatch; a later valid request works. |
 | 3 | Improve installation/first-run reproducibility. Test a clean source install and both documented launch paths, then fix one demonstrated obstacle. | A new contributor can inspect a shipped example without serial hardware; no new runtime dependency unless justified. |
 | 4 | Evaluate a small offline diagnostic CLI from the existing roadmap. First define one user scenario and reuse existing validators. | Useful input diagnostics and predictable exit status without sending commands; keep Core and experimental graph profiles explicit. Proceed only after higher-priority gaps. |
 
