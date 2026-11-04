@@ -8,10 +8,19 @@
   },
   "open_work": {
     "branch": "automation/bootstrap-json-integrity",
-    "pull_request": null,
-    "objective": "Reject ambiguous duplicate JSON keys in Generic ResourceGraph imports and establish autonomous continuity"
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/2",
+    "objective": "Reject ambiguous duplicate JSON keys in Generic ResourceGraph imports and establish autonomous continuity",
+    "head_sha": "0078ff084784b7338a84762a05b37554b7176303"
   },
   "last_result": null,
   "recent_sessions": [],
-  "next_objective": "Verify first scheduled execution and complete any pending bootstrap PR before selecting new work."
+  "next_objective": "Verify first scheduled execution and complete any pending bootstrap PR before selecting new work.",
+  "automation": {
+    "id": "6aea757cc4248191829c086d66717db1",
+    "title": "OpenSmell — développement autonome quotidien",
+    "timezone": "Europe/Brussels",
+    "start_local": "2026-11-04T06:00:00+01:00",
+    "environment_selection": "inherited",
+    "first_scheduled_execution_verified": false
+  }
 }
