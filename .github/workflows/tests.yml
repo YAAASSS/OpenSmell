@@ -54,7 +54,7 @@ jobs:
         run: python -m pip install -e ".[dev]"
 
       - name: Verify Local Explorer import handling in JavaScript
-        run: node --test tests/local_demo_import.test.cjs
+        run: node --test tests/local_demo_import.test.cjs tests/local_demo_lifecycle.test.cjs
 
       - name: Verify independent JavaScript graph reader and intact transfers
         run: node --test tests/graph_viewer_js.test.cjs

@@ -59,6 +59,39 @@ accounts, PubChem calls, web framework, Node.js or PySerial are needed for
 preview. The server uses the Python standard library; mandatory SDK
 dependencies are unchanged.
 
+## Try execution and Stop without hardware
+
+Run `python -m apps.local_demo --simulate` from an installed source checkout.
+This mode never enumerates or opens serial ports and needs no PySerial.
+
+1. Click **Open demo**, leave the duration at **5** seconds, then **Connect**.
+   The port is prefilled as **SIMULATED**; the panel explicitly says software
+   simulator and identifies `opensmell-local-simulator-001`.
+2. Click **Send to device**. The simulator assigns an execution ID. After five
+   seconds, polling shows **Simulator completed**, with the matching device reply.
+3. Click **Recalculate**, send again, then click **Stop** before five seconds.
+   Expect **Simulator stopped**, with a different execution ID. A stale Stop
+   cannot target this new execution. Stop after completion does not rewrite it.
+4. Recalculate and send again, then **Disconnect** before completion. The state
+   remains **Execution unknown** even after the duration elapses. Closing the
+   link does not prove a stop; no automatic reconnect or resend occurs.
+
+The endpoint owns its timer and terminal state; the UI does not promote a local
+countdown into completion. Status replies are correlated with the accepted
+execution ID. Invalid replies or transport failure produce an unknown outcome.
+The normal freshness, once-only preview, capability and 30-second limits apply.
+
+This is an in-process software endpoint using JSON request/response exchanges,
+not a separate physical ESP32 or an independently implemented third-party device.
+The app-local lifecycle profile is experimental: see [RFC-0014](../../rfcs/RFC-0014.md).
+Device Protocol 0.1 and the physical firmware remain unchanged. Stop appears only
+when the simulator has advertised lifecycle support; physical devices are not
+claimed compatible. Neither simulation nor LEDs measure an olfactory result.
+
+Software checks: `python -m pytest tests/test_local_demo_simulator.py -q` and
+`node --test tests/local_demo_lifecycle.test.cjs`. The HTTP tests use a controlled
+endpoint clock for boundary cases; the normal `--simulate` entry uses real time.
+
 ## Connect the ESP32
 
 The supported reference prototype is **opensmell-esp32-led-3ch-001**, running

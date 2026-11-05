@@ -35,12 +35,16 @@ const hardware = {
     $("#send-device").disabled = !this.ticket || !this.ready || busy || state?.connection !== "connected";
     $("#connect-device").disabled = busy || !state?.available || state?.connection === "connected";
     $("#disconnect-device").disabled = busy || state?.connection !== "connected";
+    $("#stop-device").hidden = !state?.lifecycle_capabilities?.stop;
+    $("#stop-device").disabled = busy || state?.connection !== "connected" || state?.execution?.state !== "running";
     $("#serial-port").disabled = busy || state?.connection === "connected";
     $("#refresh-ports").disabled = busy || !state?.available;
   },
 
   render(state) {
     this.state = state;
+    $("#hardware-heading").textContent = state.simulated ? "Software simulator · no physical output" : "ESP32 · LED prototype";
+    if (state.simulated && !$("#serial-port").value) $("#serial-port").value = "SIMULATED";
     if (state.connection === "connected" && state.port) $("#serial-port").value = state.port;
     $("#connection-state").textContent = !state.available ? "Hardware unavailable" :
       ({disconnected: "Disconnected", connecting: "Connecting", connected: "Connected"}[state.connection]);
@@ -61,14 +65,19 @@ const hardware = {
     if (execution) {
       $("#execution-duration").textContent = `Submitted plan duration: ${number.format(execution.duration)} s.`;
       $("#execution-heading").textContent = {sending: "Sending…", accepted: "Command accepted",
-        rejected: "Command rejected", uncertain: "Execution uncertain"}[execution.state];
+        running: "Simulator running", completed: "Simulator completed", stopped: "Simulator stopped", unknown: "Execution unknown", rejected: "Command rejected", uncertain: "Execution uncertain"}[execution.state];
       const remaining = state.remaining_seconds;
       $("#execution-estimate").textContent = remaining > 0 ?
         `Estimated wait: ${Math.ceil(remaining)} s. Local estimate only; no device completion signal.` :
         execution.state === "accepted" ? "Estimated duration elapsed. Completion has not been confirmed by the device." :
         execution.state === "uncertain" ? "The command may have run. Check the LEDs before reconnecting or sending again." :
         execution.state === "rejected" ? "The device returned an error. No automatic retry." : "Waiting for a device response…";
-      $("#execution-response").textContent = execution.response ? JSON.stringify(execution.response, null, 2) :
+      if (["running", "completed", "stopped"].includes(execution.state)) {
+        $("#execution-estimate").textContent = `Device-reported ${execution.state} · execution ${execution.execution_id}. Software simulation only.`;
+      } else if (execution.state === "unknown") {
+        $("#execution-estimate").textContent = "Link lost before confirmation. Outcome unknown; no automatic retry.";
+      }
+      $("#execution-response").textContent = execution.observation ? JSON.stringify(execution.observation, null, 2) : execution.response ? JSON.stringify(execution.response, null, 2) :
         execution.detail || "No response received yet.";
     }
     this.buttons();
@@ -126,7 +135,7 @@ const hardware = {
     }
     this.buttons();
     try {
-      const payload = action === "connect" ? {port: $("#serial-port").value} : action === "send" ? ticket : {};
+      const payload = action === "connect" ? {port: $("#serial-port").value} : action === "send" ? ticket : action === "stop" ? {execution_id: this.state?.execution?.execution_id} : {};
       this.render(await this.request(`/api/hardware/${action}`, payload));
     } catch (error) {
       $("#hardware-error").textContent = error instanceof TypeError ?
@@ -162,5 +171,6 @@ $("#refresh-ports").addEventListener("click", async () => {
 $("#connect-device").addEventListener("click", () => hardware.action("connect"));
 $("#disconnect-device").addEventListener("click", () => hardware.action("disconnect"));
 $("#send-device").addEventListener("click", () => hardware.action("send"));
+$("#stop-device").addEventListener("click", () => hardware.action("stop"));
 hardware.refresh();
 setInterval(() => hardware.refresh(), 1000);

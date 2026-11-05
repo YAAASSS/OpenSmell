@@ -72,10 +72,11 @@ def device_error_reply(reply):
 
 class HardwareService:
     def __init__(self, *, factory=open_transport, available=serial_available,
-                 ports=list_ports, clock=time.monotonic, simulated=False):
+                 ports=list_ports, clock=time.monotonic, simulated=False, expected_device_id=EXPECTED_DEVICE_ID):
         self._factory, self._available, self._ports = factory, available, ports
         self._clock = clock
         self._simulated = simulated
+        self._expected_device_id = expected_device_id
         self._operation = threading.Lock()
         self._state_lock = threading.RLock()
         self._state = "disconnected"
@@ -158,8 +159,8 @@ class HardwareService:
                     self._transport = transport
                 recorded = RecordedTransport(transport)
                 adapter = ProtocolDeviceAdapter(recorded)
-                if adapter.device_id != EXPECTED_DEVICE_ID:
-                    raise HardwareError(f"Unexpected device: {adapter.device_id!r}. Expected {EXPECTED_DEVICE_ID}.")
+                if adapter.device_id != self._expected_device_id:
+                    raise HardwareError(f"Unexpected device: {adapter.device_id!r}. Expected {self._expected_device_id}.")
                 with self._state_lock:
                     self._adapter, self._recorded = adapter, recorded
                     self._state = "connected"

@@ -1673,6 +1673,14 @@ Completed:
 - [x] semantic and perceptual multi-mapper rendering to the same ESP32 endpoint
 - [x] document multi-source and multi-mapper interoperability through RFC-0013
 
+### Reproducible execution experiment
+
+Run `python -m apps.local_demo --simulate` to try a five-second plan, device-reported
+completion and correlated Stop without physical hardware. See the
+[Local Explorer walkthrough](apps/local_demo/README.md#try-execution-and-stop-without-hardware).
+The lifecycle profile is app-local and experimental; physical ESP32 support is
+not implied.
+
 ### Next investigations
 
 - [x] validate the current serial/device path on physical ESP32 hardware
