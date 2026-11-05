@@ -6,7 +6,12 @@
     "owner": "daily-20261105-1793855145213-36gchi28y2g",
     "expires_at": "2026-11-05T05:35:45.213Z"
   },
-  "open_work": null,
+  "open_work": {
+    "branch": "automation/simulated-lifecycle-20261105",
+    "commit": "715db7b86a8758f2c08c5b75d95f16b954a68333",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/4",
+    "next_action": "Check exact-head CI and reviews, merge if allowed; record Work handoff."
+  },
   "last_result": {
     "session_kind": "manual_publication_recovery",
     "completed_at": "2026-11-04T12:54:27.312Z",
