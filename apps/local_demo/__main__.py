@@ -77,7 +77,7 @@ class Handler(BaseHTTPRequestHandler):
             return self._reply(403, {"error": "Local access only, via 127.0.0.1."})
         if self.path not in {"/api/preview", "/api/preview/invalidate",
                              "/api/hardware/connect", "/api/hardware/disconnect",
-                             "/api/hardware/check", "/api/hardware/send"}:
+                             "/api/hardware/check", "/api/hardware/send", "/api/hardware/stop"}:
             return self._reply(404, {"error": "Unknown action."})
         if self.headers.get("Content-Type") != "application/json":
             return self._reply(415, {"error": "A JSON request is required."})
@@ -104,6 +104,12 @@ class Handler(BaseHTTPRequestHandler):
                     if payload:
                         raise HardwareError("Disconnect does not accept commands.", 400)
                     result = hardware.disconnect()
+                elif self.path.endswith("/stop"):
+                    if set(payload) != {"execution_id"} or not isinstance(payload["execution_id"], str):
+                        raise HardwareError("Stop requires one execution identifier.", 400)
+                    if not hasattr(hardware, "stop"):
+                        raise HardwareError("This device does not advertise Stop support.")
+                    result = hardware.stop(payload["execution_id"])
                 elif self.path.endswith("/check"):
                     result = hardware.check(self.server.previews, payload)
                 else:
@@ -166,9 +172,11 @@ def main():
     parser = argparse.ArgumentParser(description="OpenSmell — Local Explorer, offline preview and explicit ESP32 control.")
     parser.add_argument("--port", type=int, default=8765)
     parser.add_argument("--no-browser", action="store_true", help="Do not open the browser automatically.")
+    parser.add_argument("--simulate", action="store_true", help="Use the software-only lifecycle simulator; no serial access.")
     args = parser.parse_args()
     try:
-        server = create_server(args.port)
+        from .simulator import SimulatedHardwareService
+        server = create_server(args.port, hardware=SimulatedHardwareService() if args.simulate else None)
     except (OSError, OverflowError) as exc:
         parser.exit(1, f"Could not start: {exc}. Try --port 8766.\n")
     url = f"http://127.0.0.1:{server.server_port}"

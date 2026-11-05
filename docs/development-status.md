@@ -44,14 +44,32 @@ The full Python suite then passed **1,939 tests** in this environment (Python 3.
 No UI code, mapping calculation, firmware or physical behavior changed. Read
 the linked PR/check runs in the operational state for subsequent CI/merge evidence.
 
+## Active product milestone — simulated execution lifecycle (2026-11-05)
+
+External developers should be able to reproduce an exchange and distinguish
+acceptance from device-reported execution, without special hardware. Local
+Explorer now has `--simulate`: explicit connection, a five-second plan, normal
+completion, correlated Stop, and unknown outcome after loss of connection.
+The endpoint supplies execution IDs and terminal replies across JSON exchanges.
+The UI exposes received status and keeps physical Device Protocol 0.1 unchanged.
+See the [walkthrough](../apps/local_demo/README.md#try-execution-and-stop-without-hardware)
+and [Draft RFC-0014](../rfcs/RFC-0014.md).
+
+Local verification: 1,946 Python tests passed, including five new HTTP lifecycle
+cases; eight JavaScript import tests and one lifecycle UI test passed. JavaScript
+syntax and whitespace checks passed. The CLI simulator launched successfully.
+The browser environment could not reach the local server (connection refused),
+so no visual browser verification is claimed. No physical device was accessed.
+CI and merge evidence are recorded on `automation/control`, not inferred here.
+
 ## Prioritized next work
 
-| Priority | Problem and bounded next action | Success criterion / dependencies |
+| Priority | Outcome | Acceptance criterion |
 | --- | --- | --- |
-| 1 | Finish any pending RFC-0007 duplicate-member PR recorded in control state. Scheduled clone, Python/Node execution and authenticated GitHub write verified. | RFC-0007 text loads reject repeated names before extension data is lost; unique names round-trip. |
-| 2 | Reproduce duplicate-member handling in Local Explorer HTTP envelopes, then assess Core separately. | An ambiguous request is rejected before dispatch; a later valid request works. |
-| 3 | Improve installation/first-run reproducibility. Test a clean source install and both documented launch paths, then fix one demonstrated obstacle. | A new contributor can inspect a shipped example without serial hardware; no new runtime dependency unless justified. |
-| 4 | Evaluate a small offline diagnostic CLI from the existing roadmap. First define one user scenario and reuse existing validators. | Useful input diagnostics and predictable exit status without sending commands; keep Core and experimental graph profiles explicit. Proceed only after higher-priority gaps. |
+| 1 | Minimal independent lifecycle adapter example and reference cases | A second implementation passes normal completion, correlated Stop, stale-ID and lost-link cases; do not claim third-party compatibility before observation. |
+| 2 | Reproducible visual walkthrough | Exercise five-second completion, Stop and disconnect through the actual browser when an accessible local browser is available. |
+| 3 | Assess lifecycle contract promotion | Use independent implementation evidence to revise Draft RFC-0014 before any physical firmware support. |
 
-Keep this list short. Add new work only with a concrete problem, benefit, cost,
-dependencies and verification plan; do not repeat a complete audit each day.
+The RFC-0007 integrity fix is merged via PR #3. HTTP-envelope duplicate keys and
+Core parsing remain scoped follow-ups, below the active product milestone unless
+a concrete critical regression is demonstrated. No daily microfix quota.

@@ -66,13 +66,13 @@
           <div class="port-controls"><input id="serial-port" list="serial-ports" placeholder="e.g. COM3" autocomplete="off" aria-describedby="port-help"><datalist id="serial-ports"></datalist><button id="refresh-ports" class="secondary">Refresh ports</button></div>
           <p id="port-help" class="footnote">Select a listed port or type its name. Refresh only lists ports; it does not open them.</p>
           <p id="port-message" class="footnote" role="status"></p>
-          <div class="hardware-actions"><button id="connect-device" class="secondary">Connect</button><button id="disconnect-device" class="secondary" disabled>Disconnect</button></div>
+          <div class="hardware-actions"><button id="connect-device" class="secondary">Connect</button><button id="disconnect-device" class="secondary" disabled>Disconnect</button><button id="stop-device" class="secondary" hidden disabled>Stop</button></div>
           <div id="device-info" hidden><dl id="device-identity" class="identity"></dl><details><summary>View received capabilities</summary><pre id="device-capabilities"></pre></details></div>
           <p id="send-readiness" class="readiness" role="status">Calculate a preview to prepare a command.</p>
           <button id="send-device" class="primary" disabled>Send to device</button>
           <p id="hardware-error" class="error" role="alert" hidden></p>
           <div id="execution-info" hidden><p class="eyebrow">LAST SEND</p><h3 id="execution-heading"></h3><p id="execution-duration" class="footnote"></p><p id="execution-estimate" class="footnote"></p><details><summary>View command response</summary><pre id="execution-response"></pre></details></div>
-          <p class="footnote">Previewing never sends a command. Disconnect closes the serial link; it does not stop an accepted command. No LED telemetry or completion signal is available. Cable removal is detected on the next exchange.</p>
+          <p class="footnote">Previewing never sends a command. Disconnect closes the serial link; it does not stop an accepted command. Physical ESP32: no LED telemetry or completion signal. Simulator: execution status and Stop are supported. Cable removal is detected on the next exchange.</p>
         </section>
       </aside>
     </div>
