@@ -172,11 +172,19 @@ def main():
     parser = argparse.ArgumentParser(description="OpenSmell — Local Explorer, offline preview and explicit ESP32 control.")
     parser.add_argument("--port", type=int, default=8765)
     parser.add_argument("--no-browser", action="store_true", help="Do not open the browser automatically.")
-    parser.add_argument("--simulate", action="store_true", help="Use the software-only lifecycle simulator; no serial access.")
+    simulation = parser.add_mutually_exclusive_group()
+    simulation.add_argument("--simulate", action="store_true", help="Use the software-only lifecycle simulator; no serial access.")
+    simulation.add_argument("--simulate-node", action="store_true", help="Use the independent Node.js software device over JSON lines; requires Node.js.")
     args = parser.parse_args()
     try:
         from .simulator import SimulatedHardwareService
-        server = create_server(args.port, hardware=SimulatedHardwareService() if args.simulate else None)
+        hardware = None
+        if args.simulate:
+            hardware = SimulatedHardwareService()
+        elif args.simulate_node:
+            from .process_transport import node_transport, NODE_DEVICE_ID
+            hardware = SimulatedHardwareService(factory=node_transport, expected_device_id=NODE_DEVICE_ID)
+        server = create_server(args.port, hardware=hardware)
     except (OSError, OverflowError) as exc:
         parser.exit(1, f"Could not start: {exc}. Try --port 8766.\n")
     url = f"http://127.0.0.1:{server.server_port}"

@@ -1681,6 +1681,11 @@ completion and correlated Stop without physical hardware. See the
 The lifecycle profile is app-local and experimental; physical ESP32 support is
 not implied.
 
+A second implementation runs in a separate Node.js process:
+`python -m apps.local_demo --simulate-node`. The [adapter starter and live
+reference checker](examples/lifecycle_adapter/README.md) show how to implement a
+software endpoint and inspect completion/Stop/lost-link exchanges.
+
 ### Next investigations
 
 - [x] validate the current serial/device path on physical ESP32 hardware

@@ -92,6 +92,16 @@ Software checks: `python -m pytest tests/test_local_demo_simulator.py -q` and
 `node --test tests/local_demo_lifecycle.test.cjs`. The HTTP tests use a controlled
 endpoint clock for boundary cases; the normal `--simulate` entry uses real time.
 
+## Use the independent JavaScript software device
+
+With Node.js 22+ installed, run `python -m apps.local_demo --simulate-node`.
+The same Connect / Send / Stop walkthrough now exchanges JSON with a separate
+Node process identifying itself as `opensmell-node-simulator-001`. No npm or
+serial dependency is required. Use only one simulation flag. The process starts
+on Connect and closes on Disconnect; no physical commands are issued.
+See the [adapter example and reference checker](../../examples/lifecycle_adapter/README.md)
+to inspect exchanges or implement a compatible software endpoint.
+
 ## Connect the ESP32
 
 The supported reference prototype is **opensmell-esp32-led-3ch-001**, running

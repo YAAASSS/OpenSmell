@@ -62,14 +62,29 @@ The browser environment could not reach the local server (connection refused),
 so no visual browser verification is claimed. No physical device was accessed.
 CI and merge evidence are recorded on `automation/control`, not inferred here.
 
+## Independent software adapter — 2026-11-06
+
+Local Explorer now offers `--simulate-node`, using a distinct Node.js endpoint
+in a separate process without importing the Python implementation. The common
+live checker is `python -m tools.verify_lifecycle_adapter --endpoint node`
+(or `--endpoint python`). It emits actual exchanges and checks completion,
+terminal-state stability, stale Stop, correlated Stop and lost-link uncertainty.
+A custom software-only command can run the same cases. See the
+[starter example](../examples/lifecycle_adapter/README.md).
+
+This is repository-maintained cross-language evidence, not third-party adoption
+or physical validation. RFC-0014 remains Draft. Subprocess failures close the
+link without retry, including timeout, EOF, malformed and oversized output.
+Normal CLI/HTTP integration is tested; no UI markup or JavaScript changed.
+Publication and exact-head CI evidence live in the control record.
+
 ## Prioritized next work
 
 | Priority | Outcome | Acceptance criterion |
 | --- | --- | --- |
-| 1 | Minimal independent lifecycle adapter example and reference cases | A second implementation passes normal completion, correlated Stop, stale-ID and lost-link cases; do not claim third-party compatibility before observation. |
-| 2 | Reproducible visual walkthrough | Exercise five-second completion, Stop and disconnect through the actual browser when an accessible local browser is available. |
-| 3 | Assess lifecycle contract promotion | Use independent implementation evidence to revise Draft RFC-0014 before any physical firmware support. |
+| 1 | Inspectable execution evidence in the UI | Export the received exchanges for one execution, preserving provenance and distinguishing rejection, acceptance, observation and unknown outcome. |
+| 2 | Restart/reconnect and error contract experiment | Two implementations agree on errors and stale executions after reconnect before promoting RFC-0014. |
+| 3 | Visual walkthrough | Exercise the normal browser flow when an accessible local browser is available. |
 
-The RFC-0007 integrity fix is merged via PR #3. HTTP-envelope duplicate keys and
-Core parsing remain scoped follow-ups, below the active product milestone unless
-a concrete critical regression is demonstrated. No daily microfix quota.
+Physical firmware compatibility remains unclaimed. Defer lifecycle SDK promotion
+until the error/reconnect contract is demonstrated across both implementations.
