@@ -1,37 +1,31 @@
 {
   "schema_version": 1,
-  "last_completed_brussels_date": "2026-11-05",
-  "last_processed_main_sha": "5f768021b8c8e7a4c7aa7fe2ad0e482d0789a94a",
-  "lease": {
-    "owner": "daily-20261106-1793941020314-2ejwb9fyj6d",
-    "expires_at": "2026-11-06T05:27:00.314Z"
-  },
-  "open_work": {
-    "branch": "automation/independent-lifecycle-20261106",
-    "commit": "93d5105feb48535c97f4efc53e44cf0815c9a91b",
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/5",
-    "next_action": "Check CI of exact head, merge when allowed; preserve live transcript handoff."
-  },
+  "last_completed_brussels_date": "2026-11-06",
+  "last_processed_main_sha": "29b76f4d556799b1d77323d99c6a1f4250203523",
+  "lease": null,
+  "open_work": null,
   "last_result": {
     "session_kind": "daily",
-    "completed_at": "2026-11-05T05:15:31.337Z",
-    "objective": "Usable simulated Local Explorer completion, correlated Stop and unknown after link loss",
-    "commit": "5f768021b8c8e7a4c7aa7fe2ad0e482d0789a94a",
-    "tested_commit": "715db7b86a8758f2c08c5b75d95f16b954a68333",
+    "completed_at": "2026-11-06T05:04:24.263Z",
+    "objective": "Independent Node software lifecycle endpoint, normal Local Explorer entry and reusable live adapter verifier",
+    "commit": "29b76f4d556799b1d77323d99c6a1f4250203523",
+    "tested_commit": "93d5105feb48535c97f4efc53e44cf0815c9a91b",
     "merged": true,
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/4",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/5",
     "checks": {
-      "python_full": 1946,
-      "python_targeted": 40,
-      "javascript_import": 8,
-      "javascript_lifecycle": 1,
-      "real_time_cli_http": [
-        "semantic completed after 5 seconds",
-        "perceptual stopped",
-        "disconnected remains unknown"
+      "python_full": 1955,
+      "new_python_tests": 9,
+      "javascript": 9,
+      "live_reference_endpoints": [
+        "python",
+        "node",
+        "custom command"
       ],
+      "reference_cases_per_endpoint": 5,
+      "transcript_exchanges_each": 20,
+      "normal_cli_http": "passed --simulate-node",
       "ci_result": "success",
-      "ci_run": "https://github.com/YAAASSS/OpenSmell/actions/runs/41972529190",
+      "ci_run": "https://github.com/YAAASSS/OpenSmell/actions/runs/42165948294",
       "ci_python_versions": [
         "3.10",
         "3.11",
@@ -43,10 +37,11 @@
       "physical_access": false
     },
     "limitations": [
-      "Cloud browser could not reach local server; no visual browser QA claimed.",
-      "App-local Draft RFC-0014; no physical or third-party lifecycle compatibility claimed."
+      "Two repository-maintained implementations; not third-party adoption or physical compatibility.",
+      "RFC-0014 remains Draft; errors/reconnect not standardized.",
+      "No new visual browser run; UI markup and JS unchanged."
     ],
-    "handoff_library_file_id": "libfile_efe0014411cc81919197c604ebf651d6"
+    "handoff_library_file_id": "libfile_8d484e7940688191b009367bfb4ba166"
   },
   "recent_sessions": [
     {
@@ -140,9 +135,48 @@
         "App-local Draft RFC-0014; no physical or third-party lifecycle compatibility claimed."
       ],
       "handoff_library_file_id": "libfile_efe0014411cc81919197c604ebf651d6"
+    },
+    {
+      "session_kind": "daily",
+      "completed_at": "2026-11-06T05:04:24.263Z",
+      "objective": "Independent Node software lifecycle endpoint, normal Local Explorer entry and reusable live adapter verifier",
+      "commit": "29b76f4d556799b1d77323d99c6a1f4250203523",
+      "tested_commit": "93d5105feb48535c97f4efc53e44cf0815c9a91b",
+      "merged": true,
+      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/5",
+      "checks": {
+        "python_full": 1955,
+        "new_python_tests": 9,
+        "javascript": 9,
+        "live_reference_endpoints": [
+          "python",
+          "node",
+          "custom command"
+        ],
+        "reference_cases_per_endpoint": 5,
+        "transcript_exchanges_each": 20,
+        "normal_cli_http": "passed --simulate-node",
+        "ci_result": "success",
+        "ci_run": "https://github.com/YAAASSS/OpenSmell/actions/runs/42165948294",
+        "ci_python_versions": [
+          "3.10",
+          "3.11",
+          "3.12",
+          "3.13"
+        ],
+        "ci_interoperability": "success",
+        "remote_tree_matches_tested": true,
+        "physical_access": false
+      },
+      "limitations": [
+        "Two repository-maintained implementations; not third-party adoption or physical compatibility.",
+        "RFC-0014 remains Draft; errors/reconnect not standardized.",
+        "No new visual browser run; UI markup and JS unchanged."
+      ],
+      "handoff_library_file_id": "libfile_8d484e7940688191b009367bfb4ba166"
     }
   ],
-  "next_objective": "Independent minimal lifecycle adapter with shared executable reference cases; use results to revise Draft RFC-0014. Visual walkthrough when local browser access is available.",
+  "next_objective": "Make one execution's actual exchanges inspectable and exportable from Local Explorer; preserve separation of plan, acceptance, observation and unknown. Then shared restart/reconnect/error cases before SDK promotion.",
   "automation": {
     "id": "6aea757cc4248191829c086d66717db1",
     "title": "OpenSmell — développement autonome quotidien",
@@ -153,7 +187,7 @@
   },
   "active_product_milestone": {
     "goal": "Reproducible externally implementable execution exchange",
-    "delivered": "Local Explorer simulated completion/Stop/unknown vertical slice",
-    "next": "Independent minimal lifecycle adapter with shared executable reference cases; use results to revise Draft RFC-0014. Visual walkthrough when local browser access is available."
+    "delivered": "Independent Node process endpoint, Local Explorer --simulate-node, reusable live reference checker and actual JSON exchange reports",
+    "next": "Make one execution's actual exchanges inspectable and exportable from Local Explorer; preserve separation of plan, acceptance, observation and unknown. Then shared restart/reconnect/error cases before SDK promotion."
   }
 }
