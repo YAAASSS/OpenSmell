@@ -71,11 +71,11 @@ class SimulatedEndpoint:
 
 
 class SimulatedHardwareService(HardwareService):
-    def __init__(self, *, clock=time.monotonic, factory=None):
+    def __init__(self, *, clock=time.monotonic, factory=None, expected_device_id=SIMULATOR_ID):
         super().__init__(factory=factory or (lambda _: SimulatedEndpoint(clock)),
                          available=lambda: True,
                          ports=lambda: [{"port": "SIMULATED", "description": "Software only; no physical output"}],
-                         clock=clock, simulated=True, expected_device_id=SIMULATOR_ID)
+                         clock=clock, simulated=True, expected_device_id=expected_device_id)
         self._lifecycle = None
 
     def connect(self, port):

@@ -53,6 +53,12 @@ jobs:
       - name: Install OpenSmell
         run: python -m pip install -e ".[dev]"
 
+      - name: Verify independent software lifecycle adapter
+        run: |
+          python -m tools.verify_lifecycle_adapter --endpoint python
+          python -m tools.verify_lifecycle_adapter --endpoint node
+          python -m pytest tests/test_lifecycle_adapter_example.py -q
+
       - name: Verify Local Explorer import handling in JavaScript
         run: node --test tests/local_demo_import.test.cjs tests/local_demo_lifecycle.test.cjs
 
