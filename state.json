@@ -6,7 +6,12 @@
     "owner": "daily-20261106-1793941020314-2ejwb9fyj6d",
     "expires_at": "2026-11-06T05:27:00.314Z"
   },
-  "open_work": null,
+  "open_work": {
+    "branch": "automation/independent-lifecycle-20261106",
+    "commit": "93d5105feb48535c97f4efc53e44cf0815c9a91b",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/5",
+    "next_action": "Check CI of exact head, merge when allowed; preserve live transcript handoff."
+  },
   "last_result": {
     "session_kind": "daily",
     "completed_at": "2026-11-05T05:15:31.337Z",
