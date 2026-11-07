@@ -33,3 +33,49 @@ test('lifecycle UI shows correlated terminal states and gates Stop by capabiliti
   context.ui.render({...state, simulated: false, lifecycle_capabilities: null});
   assert.equal($('#stop-device').hidden, true);
 });
+
+function evidenceHarness() {
+  const elements = new Map();
+  const $ = key => {
+    if (!elements.has(key)) elements.set(key, {value:'', addEventListener() {}, replaceChildren() {}});
+    return elements.get(key);
+  };
+  const downloads = [];
+  const blobs = [];
+  const context = vm.createContext({$, number:new Intl.NumberFormat('en'), field() {}, node() {},
+    setInterval() {}, setTimeout(fn) { fn(); }, Blob,
+    URL: {createObjectURL(blob) { blobs.push(blob); return 'blob:test'; }, revokeObjectURL() {}},
+    document: {querySelectorAll:() => [], createElement() { return {click() { downloads.push({name:this.download, href:this.href}); }}; }},
+    fetch: async () => ({ok:true, json:async () => ({available:true, connection:'disconnected'})}),
+  });
+  vm.runInContext(fs.readFileSync('apps/local_demo/static/hardware.js','utf8') + '\nthis.ui = hardware;',context);
+  return {context, $, downloads, blobs};
+}
+
+test('evidence download contains the correlated snapshot and stays available after disconnect', async () => {
+  const {context, $, downloads, blobs} = evidenceHarness();
+  await new Promise(resolve => setImmediate(resolve));
+  context.ui.render({available:true, connection:'disconnected', evidence_id:'report-a'});
+  assert.equal($('#download-evidence').disabled, false);
+  const report = {report_id:'report-a', execution:{state:'unknown'}, exchanges:[], omitted_events:0, source:{document:{unknown_extension:'preserved'}}};
+  context.ui.request = async path => { assert.match(path, /report_id=report-a$/); return report; };
+  await context.ui.evidence(true);
+  assert.equal(downloads[0].name,'opensmell-evidence-report-a.json');
+  assert.deepEqual(JSON.parse(await blobs[0].text()), report);
+  assert.match($('#evidence-message').textContent, /unknown/);
+  assert.equal($('#evidence-details').open, true);
+});
+
+test('late evidence cannot download or display a different execution', async () => {
+  const {context, $, downloads} = evidenceHarness();
+  await new Promise(resolve => setImmediate(resolve));
+  context.ui.render({available:true, connection:'disconnected', evidence_id:'old'});
+  let resolve;
+  context.ui.request = () => new Promise(r => {resolve=r;});
+  const pending = context.ui.evidence(true);
+  context.ui.render({available:true, connection:'disconnected', evidence_id:'new'});
+  resolve({report_id:'old', execution:{state:'completed'}, exchanges:[], omitted_events:0});
+  await pending;
+  assert.equal(downloads.length,0);
+  assert.equal($('#evidence-json').textContent,'');
+});

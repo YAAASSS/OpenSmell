@@ -5,7 +5,7 @@ import json
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 import threading
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, parse_qs
 import webbrowser
 
 from .service import FIXTURE, PROJECT_ROOT, PreviewError, preview
@@ -55,6 +55,14 @@ class Handler(BaseHTTPRequestHandler):
         if not self._local_request():
             return self._reply(403, {"error": "Local access only, via 127.0.0.1."})
         route = urlsplit(self.path).path
+        if route == "/api/hardware/evidence":
+            query = parse_qs(urlsplit(self.path).query, keep_blank_values=True)
+            if set(query) != {"report_id"} or len(query["report_id"]) != 1:
+                return self._reply(400, {"error": "One report_id is required."})
+            try:
+                return self._reply(200, self.server.hardware.evidence(query["report_id"][0]))
+            except HardwareError as exc:
+                return self._reply(exc.status, {"error": str(exc)})
         if route == "/api/hardware/status":
             return self._reply(200, self.server.hardware.status())
         if route == "/api/hardware/ports":

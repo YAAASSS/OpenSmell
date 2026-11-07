@@ -102,6 +102,44 @@ on Connect and closes on Disconnect; no physical commands are issued.
 See the [adapter example and reference checker](../../examples/lifecycle_adapter/README.md)
 to inspect exchanges or implement a compatible software endpoint.
 
+## Inspect and export one execution
+
+After an explicit Send, **Execution evidence** offers **View evidence** and
+**Download evidence JSON**. Both fetch a passive snapshot: they do not poll the
+device, reconnect, submit or repeat a command. Export after the status you want
+has appeared; the displayed snapshot is not live. Both buttons remain available
+after Disconnect. A new Send replaces the previous record, so export it first.
+Reloading the page retains the server's latest record; restarting the server does
+not. This is shared server state across browser tabs, not a durable history.
+
+The experimental `opensmell.local-execution-evidence.v1` JSON includes:
+
+- A unique report ID, snapshot time, device identity and validated capabilities,
+  with an explicit simulation flag.
+- The parsed source ResourceGraph (including provenance and unknown extensions),
+  chosen policy and bindings, and the exact application RenderingPlan submitted.
+  The document is a parsed/serialized snapshot, **not original file bytes**.
+- Request and response text observed at the transport boundary for this send,
+  including lifecycle status/Stop exchanges and transport errors when available.
+- The last client execution state and any device-correlated observation. Physical
+  protocol 0.1 acceptance remains acceptance even after its estimated window.
+  Rejection, uncertain send and unknown after disconnect are not completion.
+- `measured_olfactory_result: null`: no odor measurement is manufactured.
+
+Only the latest send is retained in memory. The exchange trace is capped at 256
+entries and 1 MiB of encoded event data; individual text fields retain at most
+65,536 characters. `omitted_events` and `text_truncated` disclose incomplete
+traces. Source/plan data are separate from that trace budget. The preview cache
+keeps its existing bounded client count and import limit. Record creation occurs
+only after freshness and capability checks, when the one-use ticket is consumed.
+
+A stale report ID receives HTTP 409 instead of another execution's data. GET
+`/api/hardware/evidence?report_id=...` uses the existing loopback access guards and
+refuses export while a command operation is pending. No client session token is
+included in the report. Imported source data may be private: review before sharing.
+This client-side record is neither tamper-proof evidence nor proof of physical
+execution or an olfactory result. It does not change Draft RFC-0014's maturity.
+
 ## Connect the ESP32
 
 The supported reference prototype is **opensmell-esp32-led-3ch-001**, running
