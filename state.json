@@ -2,7 +2,10 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-06",
   "last_processed_main_sha": "29b76f4d556799b1d77323d99c6a1f4250203523",
-  "lease": null,
+  "lease": {
+    "owner": "daily-20261107-1794027490368-os17d20utj",
+    "expires_at": "2026-11-07T05:28:10.368Z"
+  },
   "open_work": null,
   "last_result": {
     "session_kind": "daily",
