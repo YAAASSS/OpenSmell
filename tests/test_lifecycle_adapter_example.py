@@ -99,6 +99,10 @@ def test_normal_cli_node_mode_http_flow():
                 assert call('hardware/stop', {'execution_id':ids[-1]})['execution']['state'] == 'stopped'
             else:
                 assert call('hardware/disconnect', {})['execution']['state'] == 'unknown'
+            report = call('hardware/evidence?report_id=' + execution['report_id'])
+            assert report['execution']['state'] == {1:'completed', 2:'stopped', 3:'unknown'}[revision]
+            assert report['device_id'] == NODE_DEVICE_ID
+            assert report['source']['document']['resources']
         assert len(set(ids)) == 3
     finally:
         if port:

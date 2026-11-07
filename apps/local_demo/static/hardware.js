@@ -39,9 +39,16 @@ const hardware = {
     $("#stop-device").disabled = busy || state?.connection !== "connected" || state?.execution?.state !== "running";
     $("#serial-port").disabled = busy || state?.connection === "connected";
     $("#refresh-ports").disabled = busy || !state?.available;
+    $("#view-evidence").disabled = busy || !state?.evidence_id;
+    $("#download-evidence").disabled = busy || !state?.evidence_id;
   },
 
   render(state) {
+    if (this.state?.evidence_id !== state.evidence_id) {
+      $("#evidence-details").hidden = true;
+      $("#evidence-json").textContent = "";
+      $("#evidence-message").textContent = "";
+    }
     this.state = state;
     $("#hardware-heading").textContent = state.simulated ? "Software simulator · no physical output" : "ESP32 · LED prototype";
     if (state.simulated && !$("#serial-port").value) $("#serial-port").value = "SIMULATED";
@@ -81,6 +88,30 @@ const hardware = {
         execution.detail || "No response received yet.";
     }
     this.buttons();
+  },
+
+  async evidence(download = false) {
+    const reportId = this.state?.evidence_id;
+    if (!reportId || this.pending) return;
+    try {
+      const report = await this.request(`/api/hardware/evidence?report_id=${encodeURIComponent(reportId)}`);
+      if (this.state?.evidence_id !== reportId || report.report_id !== reportId) return;
+      const text = JSON.stringify(report, null, 2);
+      $("#evidence-json").textContent = text;
+      $("#evidence-details").hidden = false;
+      $("#evidence-details").open = true;
+      $("#evidence-message").textContent = `Snapshot: ${report.execution.state}. ${report.exchanges.length} exchanges; ${report.omitted_events} omitted. No measured olfactory result.`;
+      if (download) {
+        const url = URL.createObjectURL(new Blob([text + "\n"], {type: "application/json"}));
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `opensmell-evidence-${reportId}.json`;
+        link.click();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      }
+    } catch (error) {
+      $("#evidence-message").textContent = error.message;
+    }
   },
 
   async check() {
@@ -172,5 +203,7 @@ $("#connect-device").addEventListener("click", () => hardware.action("connect"))
 $("#disconnect-device").addEventListener("click", () => hardware.action("disconnect"));
 $("#send-device").addEventListener("click", () => hardware.action("send"));
 $("#stop-device").addEventListener("click", () => hardware.action("stop"));
+$("#view-evidence").addEventListener("click", () => hardware.evidence());
+$("#download-evidence").addEventListener("click", () => hardware.evidence(true));
 hardware.refresh();
 setInterval(() => hardware.refresh(), 1000);

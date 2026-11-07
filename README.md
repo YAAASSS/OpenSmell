@@ -1686,6 +1686,11 @@ A second implementation runs in a separate Node.js process:
 reference checker](examples/lifecycle_adapter/README.md) show how to implement a
 software endpoint and inspect completion/Stop/lost-link exchanges.
 
+Local Explorer also offers **View evidence** and **Download evidence JSON** for
+the latest send: source/provenance, mapping, plan, observed exchanges and last
+execution state. Export before another send or server shutdown. These are client
+records, not measured olfactory results. See the [evidence guide](apps/local_demo/README.md#inspect-and-export-one-execution).
+
 ### Next investigations
 
 - [x] validate the current serial/device path on physical ESP32 hardware

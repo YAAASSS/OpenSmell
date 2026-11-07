@@ -4,6 +4,8 @@ from contextlib import contextmanager
 from copy import deepcopy
 from dataclasses import asdict
 import importlib.util
+
+from .evidence import ExecutionEvidence
 import threading
 import time
 
@@ -46,13 +48,21 @@ def open_transport(port):
 
 class RecordedTransport:
     """Keep the last reply for a faithful error diagnostic, without retrying."""
-    def __init__(self, transport):
+    def __init__(self, transport, evidence=None):
         self.transport = transport
+        self.evidence = evidence
         self.reply = None
 
     def exchange(self, message):
         self.reply = None
-        self.reply = self.transport.exchange(message)
+        try:
+            self.reply = self.transport.exchange(message)
+        except Exception as exc:
+            if self.evidence:
+                self.evidence.record(message, error=type(exc).__name__ + ": " + str(exc))
+            raise
+        if self.evidence:
+            self.evidence.record(message, response=self.reply)
         return self.reply
 
 
@@ -84,6 +94,7 @@ class HardwareService:
         self._adapter = self._transport = self._recorded = None
         self._message = "Select a port and click Connect."
         self._execution = None
+        self._evidence = ExecutionEvidence()
         self._busy_until = 0.0
         self._closed = False
 
@@ -108,6 +119,7 @@ class HardwareService:
                 "capabilities": asdict(self._adapter.capabilities) if self._adapter else None,
                 "message": self._message if available else INSTALL_HELP,
                 "execution": deepcopy(self._execution),
+                "evidence_id": self._execution.get("report_id") if self._execution else None,
                 "remaining_seconds": max(0.0, self._busy_until - self._clock()),
                 "operation_pending": self._operation.locked(),
             }
@@ -200,7 +212,12 @@ class HardwareService:
                 # Atomic freshness check/consumption. Even a failed exchange
                 # cannot reuse this ticket and duplicate a possible command.
                 entry["used"] = True
-                self._execution = {"state": "sending", "duration": plan.duration,
+                report_id = self._evidence.begin(
+                    plan=asdict(plan), source=entry.get("source"), device_id=self._adapter.device_id,
+                    capabilities=asdict(self._adapter.capabilities), simulated=self._simulated,
+                )
+                self._recorded.evidence = self._evidence
+                self._execution = {"state": "sending", "report_id": report_id, "duration": plan.duration,
                                    "preview_id": ticket["preview_id"], "response": None}
                 self._message = "Sending the previewed plan…"
             try:
@@ -223,6 +240,16 @@ class HardwareService:
                 self._busy_until = self._clock() + plan.duration
                 self._message = "Command accepted. The device does not report completion or LED state."
         return self.status()
+
+    def evidence(self, report_id):
+        # Snapshot only: deliberately do not call status(), which can poll a simulator.
+        with self._state_lock:
+            if self._operation.locked():
+                raise HardwareError("Wait for the current operation before exporting evidence.")
+            result = self._evidence.snapshot(self._execution)
+            if result is None or report_id != result["report_id"]:
+                raise HardwareError("Evidence is unavailable or superseded by another send.", 409)
+            return result
 
     def disconnect(self):
         with self.operation(), self._state_lock:

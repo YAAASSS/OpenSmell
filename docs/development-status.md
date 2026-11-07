@@ -78,11 +78,25 @@ link without retry, including timeout, EOF, malformed and oversized output.
 Normal CLI/HTTP integration is tested; no UI markup or JavaScript changed.
 Publication and exact-head CI evidence live in the control record.
 
+## Execution evidence export — 2026-11-07
+
+Local Explorer now exposes View evidence / Download evidence JSON for the latest
+send, including after disconnect. A report correlates the parsed source and its
+provenance, mapping policy/bindings, submitted plan, transport exchanges and last
+execution state. It preserves raw response text and makes omissions explicit.
+Export is passive; a superseded ID is rejected rather than returning a new run.
+The report is an app-local experimental snapshot, not authenticated telemetry.
+
+HTTP cases cover completion, Stop, unknown, rejection, timeout, stale report IDs
+and passive reads; JS cases exercise downloaded bytes and late-response gating.
+The Node CLI/HTTP flow also exports each outcome. Visual browser QA remains
+unavailable in this environment (connection refused); no visual result is claimed.
+
 ## Prioritized next work
 
 | Priority | Outcome | Acceptance criterion |
 | --- | --- | --- |
-| 1 | Inspectable execution evidence in the UI | Export the received exchanges for one execution, preserving provenance and distinguishing rejection, acceptance, observation and unknown outcome. |
+| 1 | Restart/reconnect reference cases | Keep old execution evidence unknown after restart, reject stale commands, and demonstrate agreement in both software implementations. |
 | 2 | Restart/reconnect and error contract experiment | Two implementations agree on errors and stale executions after reconnect before promoting RFC-0014. |
 | 3 | Visual walkthrough | Exercise the normal browser flow when an accessible local browser is available. |
 

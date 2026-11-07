@@ -55,7 +55,10 @@ class PreviewStore:
             entry = self.clients.get(client)
             if entry is None or entry["revision"] != revision:
                 raise StalePreview("Preview changed during calculation. Recalculate before sending.")
-            entry.update(plan=plan, preview_id=secrets.token_urlsafe(24),
+            entry.update(source={"document": deepcopy(result["document"]),
+                                 "policy": result["policy"],
+                                 "bindings": deepcopy(result["bindings"][result["policy"]])},
+                         plan=plan, preview_id=secrets.token_urlsafe(24),
                          expires=self.clock() + self.lifetime, used=False)
             return {"client_id": client, "revision": revision, "preview_id": entry["preview_id"]}
 
