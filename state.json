@@ -2,7 +2,10 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-07",
   "last_processed_main_sha": "f3a6b313590c1b379af5de99f8405d19cf656f3f",
-  "lease": null,
+  "lease": {
+    "owner": "opensmell-20261108-reconnect-7d829f",
+    "expires_at": "2026-11-08T05:37:30Z"
+  },
   "open_work": null,
   "last_result": {
     "session_kind": "daily",
