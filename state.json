@@ -6,7 +6,12 @@
     "owner": "opensmell-20261108-reconnect-7d829f",
     "expires_at": "2026-11-08T05:37:30Z"
   },
-  "open_work": null,
+  "open_work": {
+    "branch": "automation/restart-reference-20261108",
+    "commit": "abc3823108e22e8e2704194acf4a2c6414195ae2",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/7",
+    "next_action": "Verify exact-head CI and merge restart reference cases"
+  },
   "last_result": {
     "session_kind": "daily",
     "completed_at": "2026-11-07T05:07:59.298Z",
