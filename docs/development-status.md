@@ -92,11 +92,20 @@ and passive reads; JS cases exercise downloaded bytes and late-response gating.
 The Node CLI/HTTP flow also exports each outcome. Visual browser QA remains
 unavailable in this environment (connection refused); no visual result is claimed.
 
+## Restart reference walkthrough — 2026-11-08
+
+The public adapter verifier now runs eight cases including fresh-process restart,
+old-ID rejection and preservation of unknown evidence through reconnect. Reports
+label exchanges by connection; custom software commands use the same checks.
+The normal Node CLI/HTTP path also reconnects, exports the old unknown report,
+starts a new execution, rejects stale Stop and exports the new stopped report.
+This is fresh-process isolation, not durable recovery or physical validation.
+
 ## Prioritized next work
 
 | Priority | Outcome | Acceptance criterion |
 | --- | --- | --- |
-| 1 | Restart/reconnect reference cases | Keep old execution evidence unknown after restart, reject stale commands, and demonstrate agreement in both software implementations. |
+| 1 | Consistent lifecycle error responses | Both software endpoints return inspectable, correlated rejections without losing a usable connection. |
 | 2 | Restart/reconnect and error contract experiment | Two implementations agree on errors and stale executions after reconnect before promoting RFC-0014. |
 | 3 | Visual walkthrough | Exercise the normal browser flow when an accessible local browser is available. |
 

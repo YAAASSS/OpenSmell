@@ -33,7 +33,7 @@ python -m tools.verify_lifecycle_adapter --endpoint node
 ```
 
 Both commands print a JSON report with `passed`, named `cases`, and every request
-and response in `exchanges`; failure returns exit code 1. Redirect stdout to keep
+and response in `exchanges`, labeled by client connection number; failure returns exit code 1. Redirect stdout to keep
 a report. IDs and the number of status polls vary, so reports are evidence rather
 than byte-identical golden files. The common cases are:
 
@@ -44,9 +44,14 @@ than byte-identical golden files. The common cases are:
 | stale_stop_rejected | Endpoint rejects the old ID while the new execution stays running |
 | correlated_stop | Stop yields stopped with the current ID |
 | lost_link_unknown | Closing the transport during execution makes the client report unknown |
+| reconnect_preserves_unknown_evidence | Reconnecting after the duration guard preserves the old unknown outcome and evidence |
+| restart_rejects_old_execution | A fresh endpoint rejects status and Stop for the previous process's ID |
+| restart_new_execution_isolated | New execution/report IDs, old requests rejected, new execution remains running and can be stopped |
 
 The live verifier uses a 0.1-second plan for completion and five-second plans for
 Stop and link loss; the interactive walkthrough uses five seconds for every plan.
+The full run takes about six seconds. The factory is called twice and must create
+a fresh software endpoint each time; custom commands are terminated and relaunched.
 The lost-link case closes the software transport, not a physical cable. This is a
 bounded smoke contract, not exhaustive conformance or certification. It cannot
 prove that an endpoint tells the truth about hardware or odor production.
@@ -86,4 +91,7 @@ These are two implementations maintained in this repository, one Python and one
 JavaScript in a separate process. Successful runs establish observed local
 cross-language exchange, not third-party adoption or physical compatibility.
 No SDK-standard lifecycle interface, firmware changes, network transport,
-reconnect reconciliation or durable execution log is introduced here.
+reconnect reconciliation or durable execution log is introduced here. Restart means
+a fresh software process, not recovery of an old execution. Download old evidence
+before sending again: only the latest send remains available. Closing the Explorer
+server itself discards its in-memory evidence.
