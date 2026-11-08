@@ -11,14 +11,14 @@ from tools.verify_lifecycle_adapter import verify
 def test_python_reference_cases():
     report = verify(lambda _: SimulatedEndpoint(), SIMULATOR_ID)
     assert report['passed'], report
-    assert len(report['cases']) == 5
+    assert len(report['cases']) == 8
 
 
 @pytest.mark.skipif(not shutil.which('node'), reason='Node.js example requires Node.js')
 def test_independent_node_reference_cases():
     report = verify(node_transport, NODE_DEVICE_ID)
     assert report['passed'], report
-    assert len(report['cases']) == 5
+    assert len(report['cases']) == 8
     assert any(e.get('response', {}).get('state') == 'completed' for e in report['exchanges'])
 
 
@@ -77,14 +77,14 @@ def test_normal_cli_node_mode_http_flow():
     try:
         assert 'OpenSmell' in server.stdout.readline()
         port = urlsplit(server.stdout.readline().strip()).port
-        def call(route, data=None):
+        def call(route, data=None, expected_status=200):
             connection = http.client.HTTPConnection('127.0.0.1', port, timeout=5)
             connection.request('GET' if data is None else 'POST', '/api/' + route,
                                body=None if data is None else json.dumps(data), headers={'Content-Type':'application/json'})
             response = connection.getresponse()
             result = json.loads(response.read())
             connection.close()
-            assert response.status == 200, result
+            assert response.status == expected_status, result
             return result
         assert call('hardware/connect', {'port':'SIMULATED'})['device_id'] == NODE_DEVICE_ID
         ids = []
@@ -104,6 +104,21 @@ def test_normal_cli_node_mode_http_flow():
             assert report['device_id'] == NODE_DEVICE_ID
             assert report['source']['document']['resources']
         assert len(set(ids)) == 3
+        old_report = report
+        time.sleep(5)  # Retain the app's duration guard; no inferred completion.
+        assert call('hardware/connect', {'port':'SIMULATED'})['execution']['state'] == 'unknown'
+        reconnected_report = call('hardware/evidence?report_id=' + execution['report_id'])
+        assert reconnected_report['execution'] == old_report['execution']
+        assert reconnected_report['exchanges'] == old_report['exchanges']
+        p = call('preview', {'client_id':'node-http-reference-client','revision':4,'duration':5})
+        fresh = call('hardware/send', p['preview_ticket'])['execution']
+        assert fresh['execution_id'] not in ids
+        call('hardware/stop', {'execution_id':ids[-1]}, expected_status=409)
+        assert call('hardware/status')['execution']['state'] == 'running'
+        assert call('hardware/stop', {'execution_id':fresh['execution_id']})['execution']['state'] == 'stopped'
+        fresh_report = call('hardware/evidence?report_id=' + fresh['report_id'])
+        assert ids[-1] not in json.dumps(fresh_report)
+
     finally:
         if port:
             try:
@@ -112,3 +127,21 @@ def test_normal_cli_node_mode_http_flow():
                 pass
         server.terminate()
         server.wait(timeout=5)
+
+
+def test_reference_runner_detects_ids_reused_after_restart():
+    class ReusedId(SimulatedEndpoint):
+        def __init__(self):
+            super().__init__()
+            self.counter = 0
+
+        def exchange(self, text):
+            reply = json.loads(super().exchange(text))
+            if json.loads(text)['type'] == 'render':
+                self.counter += 1
+                self.execution['execution_id'] = str(self.counter)
+                reply['execution_id'] = str(self.counter)
+            return json.dumps(reply)
+    report = verify(lambda _: ReusedId(), SIMULATOR_ID)
+    assert not report['passed']
+    assert 'Restart reused an execution ID' in report['error']

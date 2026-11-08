@@ -21,8 +21,9 @@ def verify(factory, device_id):
     class Recorded:
         def __init__(self, transport):
             self.transport = transport
+            self.connection = len(transports) + 1
         def exchange(self, message):
-            entry = {"request": json.loads(message)}
+            entry = {"connection": self.connection, "request": json.loads(message)}
             trace.append(entry)
             try:
                 response = self.transport.exchange(message)
@@ -44,6 +45,18 @@ def verify(factory, device_id):
         store.begin(payload)
         result = preview(FIXTURE.read_text(encoding="utf-8"), duration=duration)
         return hardware.send(store, store.publish(payload, result))["execution"]
+    def reject_old_id(execution_id, action):
+        try:
+            response = transports[-1].exchange(json.dumps({
+                "type": action, "profile": LIFECYCLE, "execution_id": execution_id,
+            }))
+        except ValueError:
+            # Original in-process endpoint rejection; not a wire error contract.
+            return
+        reply = json.loads(response)
+        require(isinstance(reply, dict) and reply.get("type") == "error",
+                "Endpoint accepted stale " + action)
+
     report = {"profile": LIFECYCLE, "device_id": device_id, "software_only": True,
               "passed": False, "cases": cases, "exchanges": trace}
     try:
@@ -64,24 +77,52 @@ def verify(factory, device_id):
         second = send(2, 5)
         require(second["execution_id"] != first["execution_id"], "Execution ID reused")
         # Exercise the endpoint itself, not just the service's stale-ID guard.
-        try:
-            stale_text = transports[-1].exchange(json.dumps({"type": "stop", "profile": LIFECYCLE,
-                                                            "execution_id": first["execution_id"]}))
-        except ValueError:
-            # The original in-process endpoint reports rejection by exception.
-            pass
-        else:
-            stale = json.loads(stale_text)
-            require(isinstance(stale, dict) and stale.get("type") == "error", "Endpoint accepted stale Stop")
+        reject_old_id(first["execution_id"], "stop")
         require(hardware.status()["execution"]["state"] == "running", "Stale Stop interrupted current execution")
         cases.append("stale_stop_rejected")
         stopped = hardware.stop(second["execution_id"])["execution"]
         require(stopped["state"] == "stopped" and stopped["execution_id"] == second["execution_id"], "Stop not confirmed")
         cases.append("correlated_stop")
-        send(3, 5)
+        lost = send(3, 5)
+        old_report_id = lost["report_id"]
+        old_id = lost["execution_id"]
+        reconnect_after = time.monotonic() + 5
         transports[-1].close()
         require(hardware.status()["execution"]["state"] == "unknown", "Link loss was not unknown")
         cases.append("lost_link_unknown")
+        old_evidence = hardware.evidence(old_report_id)
+        # Preserve the client's duration guard; elapsed time is not completion.
+        time.sleep(max(0, reconnect_after - time.monotonic()))
+        reconnected = hardware.connect("SIMULATED")
+        require(reconnected["execution"]["state"] == "unknown", "Reconnect resolved old uncertainty")
+        new_snapshot = hardware.evidence(old_report_id)
+        old_evidence.pop("snapshot_at")
+        new_snapshot.pop("snapshot_at")
+        require(new_snapshot == old_evidence, "Reconnect changed old evidence")
+        cases.append("reconnect_preserves_unknown_evidence")
+        # The factory must start a fresh software endpoint, not resume old state.
+        for action in ("execution_status", "stop"):
+            reject_old_id(old_id, action)
+        cases.append("restart_rejects_old_execution")
+        fresh = send(4, 5)
+        require(fresh["execution_id"] not in {first["execution_id"], second["execution_id"], old_id},
+                "Restart reused an execution ID")
+        require(fresh["report_id"] != old_report_id, "Restart reused an evidence ID")
+        for action in ("execution_status", "stop"):
+            reject_old_id(old_id, action)
+        current = hardware.status()["execution"]
+        require(current["state"] == "running" and current["execution_id"] == fresh["execution_id"],
+                "Old request affected new execution")
+        fresh_report = hardware.evidence(fresh["report_id"])
+        require(fresh_report["execution"]["execution_id"] == fresh["execution_id"],
+                "Evidence identifies the wrong execution")
+        for event in fresh_report["exchanges"]:
+            request = json.loads(event["request_text"])
+            require(request.get("execution_id") != old_id, "Old execution leaked into new evidence")
+        stopped = hardware.stop(fresh["execution_id"])["execution"]
+        require(stopped["state"] == "stopped" and stopped["execution_id"] == fresh["execution_id"],
+                "New execution could not be stopped")
+        cases.append("restart_new_execution_isolated")
         report["passed"] = True
     except Exception as exc:
         report["error"] = type(exc).__name__ + ": " + str(exc)
