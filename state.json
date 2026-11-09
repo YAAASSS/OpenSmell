@@ -1,74 +1,42 @@
 {
   "schema_version": 1,
-  "last_completed_brussels_date": "2026-11-08",
-  "last_processed_main_sha": "8d16a8a48d8b4ecaa088270c95a12c115095f661",
-  "lease": {
-    "owner": "opensmell-20261109-errors-b871d",
-    "expires_at": "2026-11-09T05:28:09.230Z"
-  },
-  "open_work": {
-    "branch": "automation/software-errors-20261109",
-    "commit": "9689e62dbaac5b2816900657b7effa8694738ab0",
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/8",
-    "next_action": "Verify exact-head CI and merge software error profile"
-  },
+  "last_completed_brussels_date": "2026-11-09",
+  "last_processed_main_sha": "4a6e1d2dc7659e9d1bd2c70b37b6bc09c9374e78",
+  "lease": null,
+  "open_work": null,
   "last_result": {
     "session_kind": "daily",
-    "completed_at": "2026-11-08T05:13:07.341Z",
-    "objective": "Executable software restart and reconnect reference cases with isolated execution evidence",
-    "commit": "8d16a8a48d8b4ecaa088270c95a12c115095f661",
-    "tested_commit": "abc3823108e22e8e2704194acf4a2c6414195ae2",
+    "completed_at": "2026-11-09T05:06:31.252Z",
+    "objective": "Inspectable software adapter rejections and continued use of the same connection",
+    "commit": "4a6e1d2dc7659e9d1bd2c70b37b6bc09c9374e78",
+    "tested_commit": "9689e62dbaac5b2816900657b7effa8694738ab0",
     "merged": true,
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/7",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/8",
     "checks": {
-      "python_full": 1962,
-      "python_targeted": 10,
+      "python_full": 1968,
       "javascript": 11,
       "live_cli_endpoints": [
         "python",
         "node",
         "custom command"
       ],
-      "reference_cases_each": 8,
-      "exchanges_each": 31,
-      "normal_cli_http_reconnect": "passed",
+      "reference_cases_each": 10,
+      "exchanges_each": 34,
+      "http_rejection_export_and_recovery": "passed",
+      "normal_cli_node_http": "passed",
       "ci_result": "success",
-      "ci_run": "https://github.com/YAAASSS/OpenSmell/actions/runs/42449693086",
+      "ci_run": "https://github.com/YAAASSS/OpenSmell/actions/runs/42565087094",
       "remote_tree_matches_tested": true,
       "physical_access": false
     },
     "limitations": [
-      "Fresh software process isolation, not remote-device reconciliation.",
-      "Evidence remains volatile and latest-send-only. No visual QA this session; UI unchanged."
+      "Draft app-local profile; Python request rejections now return JSON instead of ValueError.",
+      "No visual QA or physical validation; UI and firmware unchanged."
     ],
-    "handoff_library_file_id": "libfile_c2b75794862c819197098a6e19522c49"
+    "handoff_library_file_id": "libfile_5df182eb2d5c8191b8ebfdd33b76a649",
+    "weekly_review": "Delivered duplicate JSON rejection, simulated lifecycle/Stop/unknown, independent Node adapter, evidence export, restart isolation, and consistent inspectable refusals. No third-party or physical lifecycle compatibility claimed."
   },
   "recent_sessions": [
-    {
-      "session_kind": "manual_bootstrap",
-      "completed_at": "2026-11-04T00:02:05.958Z",
-      "objective": "Prevent duplicate-key JSON data loss; establish bounded daily autonomous maintenance",
-      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/2",
-      "merged": true,
-      "commit": "2867639b8585904b9eab2cdf8cdc432576459b33",
-      "checks": {
-        "python_targeted": 164,
-        "python_full": 1939,
-        "javascript_reader": 33,
-        "ci_tested_head": "0078ff084784b7338a84762a05b37554b7176303",
-        "ci_result": "success",
-        "ci_runs": [
-          "https://github.com/YAAASSS/OpenSmell/actions/runs/41743383759",
-          "https://github.com/YAAASSS/OpenSmell/actions/runs/41743370614"
-        ],
-        "physical_access": false
-      },
-      "limitations": [
-        "First scheduled environment execution not yet verified; environment metadata inherited with unavailable details.",
-        "Shell Git push lacks credentials; authenticated GitHub connector publishing verified.",
-        "Core/RFC-0007 and HTTP-envelope duplicate-key behavior remains a scoped follow-up."
-      ]
-    },
     {
       "session_kind": "daily",
       "completed_at": "2026-11-04 05:04:19 UTC",
@@ -243,9 +211,41 @@
         "Evidence remains volatile and latest-send-only. No visual QA this session; UI unchanged."
       ],
       "handoff_library_file_id": "libfile_c2b75794862c819197098a6e19522c49"
+    },
+    {
+      "session_kind": "daily",
+      "completed_at": "2026-11-09T05:06:31.252Z",
+      "objective": "Inspectable software adapter rejections and continued use of the same connection",
+      "commit": "4a6e1d2dc7659e9d1bd2c70b37b6bc09c9374e78",
+      "tested_commit": "9689e62dbaac5b2816900657b7effa8694738ab0",
+      "merged": true,
+      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/8",
+      "checks": {
+        "python_full": 1968,
+        "javascript": 11,
+        "live_cli_endpoints": [
+          "python",
+          "node",
+          "custom command"
+        ],
+        "reference_cases_each": 10,
+        "exchanges_each": 34,
+        "http_rejection_export_and_recovery": "passed",
+        "normal_cli_node_http": "passed",
+        "ci_result": "success",
+        "ci_run": "https://github.com/YAAASSS/OpenSmell/actions/runs/42565087094",
+        "remote_tree_matches_tested": true,
+        "physical_access": false
+      },
+      "limitations": [
+        "Draft app-local profile; Python request rejections now return JSON instead of ValueError.",
+        "No visual QA or physical validation; UI and firmware unchanged."
+      ],
+      "handoff_library_file_id": "libfile_5df182eb2d5c8191b8ebfdd33b76a649",
+      "weekly_review": "Delivered duplicate JSON rejection, simulated lifecycle/Stop/unknown, independent Node adapter, evidence export, restart isolation, and consistent inspectable refusals. No third-party or physical lifecycle compatibility claimed."
     }
   ],
-  "next_objective": "Consistent inspectable lifecycle error responses across Python and Node, retaining usable connections after valid rejections; Draft RFC-0014 remains app-local.",
+  "next_objective": "Explicit custom software command in Local Explorer: connect, execute/Stop, inspect/export the adapter's evidence via normal UI. Preserve no-shell launch, capability checks and no automatic retries.",
   "automation": {
     "id": "39cc72697e048191a1ba0d3e3e9d787c",
     "title": "OpenSmell — développement autonome quotidien",
@@ -257,7 +257,7 @@
   },
   "active_product_milestone": {
     "goal": "Reproducible externally implementable execution exchange",
-    "delivered": "Eight executable restart/reconnect reference cases, two connection transcripts, old unknown evidence preserved and new execution isolated",
-    "next": "Consistent inspectable lifecycle error responses across Python and Node, retaining usable connections after valid rejections; Draft RFC-0014 remains app-local."
+    "delivered": "Announced common software error profile, ten live cases, rejected render evidence and reusable connection",
+    "next": "Explicit custom software command in Local Explorer: connect, execute/Stop, inspect/export the adapter's evidence via normal UI. Preserve no-shell launch, capability checks and no automatic retries."
   }
 }
