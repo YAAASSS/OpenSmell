@@ -6,7 +6,12 @@
     "owner": "opensmell-20261109-errors-b871d",
     "expires_at": "2026-11-09T05:28:09.230Z"
   },
-  "open_work": null,
+  "open_work": {
+    "branch": "automation/software-errors-20261109",
+    "commit": "9689e62dbaac5b2816900657b7effa8694738ab0",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/8",
+    "next_action": "Verify exact-head CI and merge software error profile"
+  },
   "last_result": {
     "session_kind": "daily",
     "completed_at": "2026-11-08T05:13:07.341Z",
