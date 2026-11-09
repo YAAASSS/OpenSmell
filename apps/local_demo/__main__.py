@@ -183,7 +183,14 @@ def main():
     simulation = parser.add_mutually_exclusive_group()
     simulation.add_argument("--simulate", action="store_true", help="Use the software-only lifecycle simulator; no serial access.")
     simulation.add_argument("--simulate-node", action="store_true", help="Use the independent Node.js software device over JSON lines; requires Node.js.")
+    parser.add_argument("--software-device-id", help="Expected identity for a custom software-only endpoint.")
+    simulation.add_argument("--software-command", nargs=argparse.REMAINDER,
+                            help="Trusted software-only executable and arguments; put this option last. No shell; starts on Connect.")
     args = parser.parse_args()
+    if args.software_command is not None and not args.software_command:
+        parser.error("--software-command requires an executable; put it last.")
+    if (args.software_command is not None) != (args.software_device_id is not None):
+        parser.error("--software-command and --software-device-id must be supplied together.")
     try:
         from .simulator import SimulatedHardwareService
         hardware = None
@@ -192,6 +199,12 @@ def main():
         elif args.simulate_node:
             from .process_transport import node_transport, NODE_DEVICE_ID
             hardware = SimulatedHardwareService(factory=node_transport, expected_device_id=NODE_DEVICE_ID)
+        elif args.software_command is not None:
+            from .software_adapter import SoftwareAdapterService
+            try:
+                hardware = SoftwareAdapterService(args.software_command, args.software_device_id)
+            except ValueError as exc:
+                parser.error(str(exc))
         server = create_server(args.port, hardware=hardware)
     except (OSError, OverflowError) as exc:
         parser.exit(1, f"Could not start: {exc}. Try --port 8766.\n")

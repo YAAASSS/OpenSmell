@@ -1,7 +1,7 @@
 # Autonomous maintenance runbook
 
 This runbook implements the maintainer's standing mandate of 2026-11-04.
-It supports one bounded development session, not continuous background work.
+It supports bounded development sessions, not continuous background work.
 Repository: https://github.com/YAAASSS/OpenSmell.
 
 ## Scope and limits
@@ -13,10 +13,15 @@ Clean reverts of regressions introduced by this work are authorized. Do not
 request approval again for covered routine decisions. New user instructions and
 applicable platform/repository access controls take precedence.
 
-- One main objective per session; aim for 15–25 minutes of active work.
+- One main objective per session; up to 225 minutes of useful active work,
+  subject to actual platform limits. Continue useful vertical slices after a small
+  merge when budget permits; never manufacture work or wait to fill the budget.
+  Reserve the final 20–30 available minutes for CI, publication and handoff.
 - One daily task: **OpenSmell — développement autonome quotidien**, at
-  **06:00 Europe/Brussels**, including daylight-saving transitions. Start at the
-  next future slot. No catch-up, additional automatic runs or second weekly task.
+  **06:00 and 18:00 Europe/Brussels**, including daylight-saving transitions.
+  This supersedes the single daily slot under the maintainer’s 2026-11-09 request.
+  Start at the next future slot. No catch-up, additional automation or weekly task.
+  A separate manual session is allowed only on an explicit maintainer request.
 - Single agent by default; delegate only a bounded subtask with a clear total
   usage benefit. Do not repeat full audits or successful tests without cause.
 - No force-push, destructive history rewrite, tags, releases, new paid services,
@@ -40,7 +45,7 @@ the status page holds the short actionable backlog.
 
 The **`automation/control` branch contains only `state.json`**. It is a separate
 operational record, not a code branch. Never merge it into `main`. It carries
-the lease, last processed SHA, last completed Brussels date, pending work and a
+the lease, last processed SHA, last completed Brussels date/slot, pending work and a
 bounded log (keep the most recent seven sessions). Its commit history preserves
 older operational records without daily documentation-only commits on `main`.
 
@@ -62,15 +67,21 @@ this protocol before changing project files. Read-only inspection needs no lease
 1. Read the exact head SHA of `automation/control` and its `state.json`.
    If the branch/state cannot be read, fail closed for mutations; do not recreate
    an existing or uncertain lock. If a previous lease is still unexpired, stop.
-   If today's Brussels date is already completed, skip duplicate scheduled work.
+   Identify scheduled slots as `YYYY-MM-DDT06:00` or `YYYY-MM-DDT18:00` in
+   Europe/Brussels. If `last_completed_slot` or a recent session's `slot` matches,
+   skip duplicate work. Keep `session_slot` while running. A legacy completed
+   date represents the old 06:00 slot only; it must not block 18:00. Explicitly
+   requested manual work uses `manual-<UTC timestamp>` and consumes no future slot.
+   Preserve the existing history and `last_completed_brussels_date` for continuity.
 2. Generate a unique run owner. Prepare a new state preserving previous fields,
-   with that owner and an absolute UTC expiry **30 minutes from acquisition**.
+   with that owner and an absolute UTC expiry **at most 240 minutes from acquisition**.
    Create a tree containing only `state.json`, then a commit whose parent is the
    observed control head. Move the branch with an **expected-head-SHA check** and
    `force=false`. The GitHub `update_ref` tool supports `expected_sha`.
 3. A rejected lease means another session won: stop, rather than retrying with a
    newer SHA. Re-read state and verify ownership before making project changes.
-4. Do not extend the lease to expand the daily budget. Before every publication,
+4. Do not extend the lease. The initial 240-minute maximum supports the increased
+   per-session budget authorized on 2026-11-09; there is no renewal. Before every publication,
    merge or final state update, verify the owner and that the lease has not
    expired. Stop writes at expiry or ownership loss. A later run can claim an
    expired lease; an old run must never resume writes on its former lease.
@@ -79,8 +90,11 @@ this protocol before changing project files. Read-only inspection needs no lease
    lease does not replace review of changes by humans or other contributors.
 6. On completion, update state with a new child commit and the same conditional
    non-forced ref update. Clear the lease; record outcome, checks, PR/commit,
-   next action, last processed main SHA and completed Brussels date. On a crash,
-   the lease expires and the recorded pending work is recovered next day.
+   next action, last processed main SHA and completed Brussels date/slot. Record `slot` in
+   each session (keep at most seven); update `last_completed_slot` only for a
+   scheduled slot, and clear `session_slot`. Manual work does not overwrite the
+   last scheduled slot. On a crash, the lease expires and pending work is recovered
+   at the next authorized slot.
 
 Lease acquisition/release commits are coordination records, not feature progress.
 Never count them as a delivered improvement. This protocol coordinates cooperating
@@ -104,7 +118,7 @@ autonomous runs; it cannot lock out unrelated human edits, which must be preserv
 6. Publish a scoped branch/PR and verify the remote SHA and CI for that exact head.
    Merge when the checks and rules allow; otherwise leave a resumable PR. Never
    weaken checks to merge. Avoid polling loops: a pending CI run can be resumed
-   in the next daily session. Correct or revert introduced regressions first.
+   in the next scheduled session. Correct or revert introduced regressions first.
 7. Update the compact status/backlog only when substance changed, and release
    the lease with a short factual log. Do not manufacture commits for activity.
 
@@ -121,6 +135,6 @@ intervention. Respect notification controls; do not claim they suppress delivery
 unless confirmed. Supply a downloadable Work handoff when a substantive task is
 completed, using the established Markdown format.
 
-On Mondays, include a slightly fuller review in this same session using the
+On Mondays, include a slightly fuller review once (normally at 06:00) using the
 bounded log: progress, current project state, blockers and next priorities.
 Never create another schedule. Do not claim credit usage figures when unavailable.

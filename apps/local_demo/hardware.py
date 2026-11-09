@@ -81,6 +81,8 @@ def device_error_reply(reply):
 
 
 class HardwareService:
+    unconfirmed_send_state = "uncertain"
+
     def __init__(self, *, factory=open_transport, available=serial_available,
                  ports=list_ports, clock=time.monotonic, simulated=False, expected_device_id=EXPECTED_DEVICE_ID):
         self._factory, self._available, self._ports = factory, available, ports
@@ -180,8 +182,9 @@ class HardwareService:
             except Exception as exc:
                 with self._state_lock:
                     cleanup = self._close_transport()
-                    self._message = (f"Connection failed: {exc}. Check the selected port, USB cable and firmware; "
-                                     "close any serial monitor. No render command was sent." + cleanup)
+                    guidance = ("Check the software command, identity and capability replies. " if self._simulated
+                                else "Check the selected port, USB cable and firmware; close any serial monitor. ")
+                    self._message = f"Connection failed: {exc}. " + guidance + "No render command was sent." + cleanup
                 raise HardwareError(self._message, 503) from exc
         return self.status()
 
@@ -229,11 +232,11 @@ class HardwareService:
                         self._execution.update(state="rejected", response=rejection)
                         self._message = f"Device rejected the command: {rejection['code']}: {rejection['message']}. No automatic retry."
                     else:
-                        self._execution.update(state="uncertain", detail=str(exc))
+                        self._execution.update(state=self.unconfirmed_send_state, detail=str(exc))
                         self._busy_until = self._clock() + plan.duration
                         cleanup = self._close_transport()
-                        self._message = (f"Execution uncertain: the command may have reached the device. {exc}. "
-                                         "The connection was closed. Check the LEDs before reconnecting; no automatic retry." + cleanup)
+                        self._message = (f"Execution {self.unconfirmed_send_state}: the command may have reached the device. {exc}. "
+                                         "The connection was closed; no automatic retry." + cleanup)
                 raise HardwareError(self._message, 502) from exc
             with self._state_lock:
                 self._execution.update(state="accepted", response=response)
