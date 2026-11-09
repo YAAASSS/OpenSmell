@@ -11,14 +11,14 @@ from tools.verify_lifecycle_adapter import verify
 def test_python_reference_cases():
     report = verify(lambda _: SimulatedEndpoint(), SIMULATOR_ID)
     assert report['passed'], report
-    assert len(report['cases']) == 8
+    assert len(report['cases']) == 10
 
 
 @pytest.mark.skipif(not shutil.which('node'), reason='Node.js example requires Node.js')
 def test_independent_node_reference_cases():
     report = verify(node_transport, NODE_DEVICE_ID)
     assert report['passed'], report
-    assert len(report['cases']) == 8
+    assert len(report['cases']) == 10
     assert any(e.get('response', {}).get('state') == 'completed' for e in report['exchanges'])
 
 
@@ -57,7 +57,7 @@ def test_reference_runner_detects_broken_stop():
     class BrokenStop(SimulatedEndpoint):
         def exchange(self, text):
             request = json.loads(text)
-            if request['type'] == 'stop' and self.execution and request.get('execution_id') == self.execution['execution_id']:
+            if request['type'] == 'stop' and request.get('profile') == 'local-simulator-lifecycle-v1' and self.execution and request.get('execution_id') == self.execution['execution_id']:
                 request['type'] = 'execution_status'
             return super().exchange(json.dumps(request))
     report = verify(lambda _: BrokenStop(), SIMULATOR_ID)
@@ -137,7 +137,7 @@ def test_reference_runner_detects_ids_reused_after_restart():
 
         def exchange(self, text):
             reply = json.loads(super().exchange(text))
-            if json.loads(text)['type'] == 'render':
+            if json.loads(text)['type'] == 'render' and reply.get('type') == 'ok':
                 self.counter += 1
                 self.execution['execution_id'] = str(self.counter)
                 reply['execution_id'] = str(self.counter)
@@ -145,3 +145,47 @@ def test_reference_runner_detects_ids_reused_after_restart():
     report = verify(lambda _: ReusedId(), SIMULATOR_ID)
     assert not report['passed']
     assert 'Restart reused an execution ID' in report['error']
+
+
+@pytest.mark.parametrize('factory', [lambda _: SimulatedEndpoint(), node_transport], ids=['python', 'node'])
+def test_error_envelopes_and_connection_recovery(factory):
+    if factory is node_transport and not shutil.which('node'):
+        pytest.skip('Node.js required')
+    transport = factory('SIMULATED')
+    try:
+        cases = [
+            ('[]', 'invalid_request'),
+            ('{"type":"unrecognized"}', 'unsupported_request'),
+            ('{"type":"hello","protocol_version":"9"}', 'invalid_request'),
+            ('{"type":"stop","profile":"wrong","execution_id":"old"}', 'unsupported_profile'),
+            ('{"type":"stop","profile":"local-simulator-lifecycle-v1","execution_id":"old"}', 'unknown_execution'),
+        ]
+        for text, code in cases:
+            reply = json.loads(transport.exchange(text))
+            assert reply['type'] == 'error'
+            assert reply['code'] == code
+            assert reply['error_profile'] == 'local-simulator-errors-v1'
+            assert isinstance(reply['message'], str) and reply['message']
+            assert 'state' not in reply
+            if '"old"' in text:
+                assert reply['execution_id'] == 'old'
+                assert reply['request_type'] == 'stop'
+            assert json.loads(transport.exchange('{"type":"hello","protocol_version":"0.1"}'))['type'] == 'hello_response'
+    finally:
+        transport.close()
+
+
+def test_malformed_json_recovery_on_both_wire_endpoints():
+    endpoint = SimulatedEndpoint()
+    assert json.loads(endpoint.exchange('{'))['code'] == 'invalid_request'
+    assert json.loads(endpoint.exchange('{"type":"hello","protocol_version":"0.1"}'))['type'] == 'hello_response'
+    if not shutil.which('node'):
+        pytest.skip('Node.js required')
+    import subprocess
+    from apps.local_demo.process_transport import EXAMPLE
+    result = subprocess.run(['node', str(EXAMPLE)],
+        input='{\n{"type":"hello","protocol_version":"0.1"}\n',
+        text=True, capture_output=True, timeout=5, check=True)
+    replies = [json.loads(line) for line in result.stdout.splitlines()]
+    assert replies[0]['code'] == 'invalid_request'
+    assert replies[1]['type'] == 'hello_response'

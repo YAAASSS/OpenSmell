@@ -101,13 +101,22 @@ The normal Node CLI/HTTP path also reconnects, exports the old unknown report,
 starts a new execution, rejects stale Stop and exports the new stopped report.
 This is fresh-process isolation, not durable recovery or physical validation.
 
+## Inspectable software refusals — 2026-11-09
+
+Python and Node now announce the same experimental error profile and return
+coded JSON refusals with request type/execution ID correlation. The public
+checker runs ten cases, including invalid duration, busy render and wrong-profile
+Stop, then proves normal operations on the same link. Local Explorer exports a
+render refusal as rejected and permits a fresh preview/send after the endpoint
+becomes available; lost links and invalid observations remain unknown.
+
 ## Prioritized next work
 
 | Priority | Outcome | Acceptance criterion |
 | --- | --- | --- |
-| 1 | Consistent lifecycle error responses | Both software endpoints return inspectable, correlated rejections without losing a usable connection. |
-| 2 | Restart/reconnect and error contract experiment | Two implementations agree on errors and stale executions after reconnect before promoting RFC-0014. |
-| 3 | Visual walkthrough | Exercise the normal browser flow when an accessible local browser is available. |
+| 1 | Custom software adapter in Local Explorer | An explicitly selected local command supplies capabilities, runs/stops a plan, and exports its evidence through the normal UI. |
+| 2 | Visual walkthrough | Exercise the normal browser flow when an accessible local browser is available. |
+| 3 | SDK lifecycle boundary | Extract only the contract demonstrated by both implementations; preserve legacy physical protocol behavior. |
 
-Physical firmware compatibility remains unclaimed. Defer lifecycle SDK promotion
-until the error/reconnect contract is demonstrated across both implementations.
+The profile remains Draft. Physical compatibility and third-party adoption
+remain unclaimed. No durable execution recovery is implemented.
