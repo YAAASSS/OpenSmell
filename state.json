@@ -2,8 +2,18 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-09",
   "last_processed_main_sha": "4a6e1d2dc7659e9d1bd2c70b37b6bc09c9374e78",
-  "lease": null,
-  "open_work": null,
+  "lease": {
+    "owner": "manual-custom-adapter-2026-11-09T22:06:28.488Z-d538e7cbbc9668",
+    "acquired_at": "2026-11-09T22:06:28.488Z",
+    "expires_at": "2026-11-10T02:06:28.488Z"
+  },
+  "open_work": {
+    "session_slot": "manual-2026-11-09T22:06:28.488Z",
+    "objective": "Custom software adapter through Local Explorer",
+    "branch": "automation/custom-adapter-20261109-manual",
+    "base_sha": "4a6e1d2dc7659e9d1bd2c70b37b6bc09c9374e78",
+    "next_action": "Implement explicit CLI command, verify connect/run/Stop/export and incompatible endpoints"
+  },
   "last_result": {
     "session_kind": "daily",
     "completed_at": "2026-11-09T05:06:31.252Z",
@@ -253,11 +263,18 @@
     "start_local": "2026-11-04T06:00:00+01:00",
     "environment_selection": "inherited",
     "first_scheduled_execution_verified": true,
-    "replaces": "6aea757cc4248191829c086d66717db1"
+    "replaces": "6aea757cc4248191829c086d66717db1",
+    "local_slots": [
+      "06:00",
+      "18:00"
+    ],
+    "lease_minutes": 240
   },
   "active_product_milestone": {
     "goal": "Reproducible externally implementable execution exchange",
     "delivered": "Announced common software error profile, ten live cases, rejected render evidence and reusable connection",
     "next": "Explicit custom software command in Local Explorer: connect, execute/Stop, inspect/export the adapter's evidence via normal UI. Preserve no-shell launch, capability checks and no automatic retries."
-  }
+  },
+  "session_slot": "manual-2026-11-09T22:06:28.488Z",
+  "last_completed_slot": "2026-11-09T06:00"
 }
