@@ -1,74 +1,45 @@
 {
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-09",
-  "last_processed_main_sha": "4a6e1d2dc7659e9d1bd2c70b37b6bc09c9374e78",
-  "lease": {
-    "owner": "manual-custom-adapter-2026-11-09T22:06:28.488Z-d538e7cbbc9668",
-    "acquired_at": "2026-11-09T22:06:28.488Z",
-    "expires_at": "2026-11-10T02:06:28.488Z"
-  },
-  "open_work": {
-    "session_slot": "manual-2026-11-09T22:06:28.488Z",
-    "objective": "Custom software adapter through Local Explorer",
-    "branch": "automation/custom-adapter-20261109-manual",
-    "base_sha": "4a6e1d2dc7659e9d1bd2c70b37b6bc09c9374e78",
-    "next_action": "Check exact-head CI and reviews; merge PR #9, verify main, save handoff and release lease",
-    "commit": "170f7f456ed4b9fa1747e34a3f7f385754412b3c",
+  "last_processed_main_sha": "1ab273ffddec0a5a4351f675ebf8cd3dc6382df6",
+  "lease": null,
+  "open_work": null,
+  "last_result": {
+    "session_kind": "manual_requested",
+    "slot": "manual-2026-11-09T22:06:28.488Z",
+    "completed_at": "2026-11-09T22:20:05.425Z",
+    "objective": "Custom software adapter through Local Explorer: explicit connect, five-second completion, Stop, unknown after lost link and export",
+    "commit": "1ab273ffddec0a5a4351f675ebf8cd3dc6382df6",
+    "tested_commit": "170f7f456ed4b9fa1747e34a3f7f385754412b3c",
+    "merged": true,
     "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/9",
     "checks": {
       "python_full": 1984,
+      "python_targeted_existing_and_extended": 63,
+      "python_new_custom_cases": 15,
       "javascript_local_explorer": 11,
-      "normal_custom_cli_http": "passed",
-      "visual_browser": "blocked: Chromium socket creation denied"
-    }
-  },
-  "last_result": {
-    "session_kind": "daily",
-    "completed_at": "2026-11-09T05:06:31.252Z",
-    "objective": "Inspectable software adapter rejections and continued use of the same connection",
-    "commit": "4a6e1d2dc7659e9d1bd2c70b37b6bc09c9374e78",
-    "tested_commit": "9689e62dbaac5b2816900657b7effa8694738ab0",
-    "merged": true,
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/8",
-    "checks": {
-      "python_full": 1968,
-      "javascript": 11,
-      "live_cli_endpoints": [
-        "python",
-        "node",
-        "custom command"
-      ],
-      "reference_cases_each": 10,
-      "exchanges_each": 34,
-      "http_rejection_export_and_recovery": "passed",
-      "normal_cli_node_http": "passed",
+      "javascript_graph_reader": 33,
+      "normal_custom_cli_http": "passed with externally renamed Node endpoint, five-second completion, Stop, unknown/reconnect and isolated evidence",
       "ci_result": "success",
-      "ci_run": "https://github.com/YAAASSS/OpenSmell/actions/runs/42565087094",
+      "ci_run": "https://github.com/YAAASSS/OpenSmell/actions/runs/42710250999",
+      "ci_python_versions": [
+        "3.10",
+        "3.11",
+        "3.12",
+        "3.13"
+      ],
       "remote_tree_matches_tested": true,
+      "main_cli_help": "passed",
       "physical_access": false
     },
     "limitations": [
-      "Draft app-local profile; Python request rejections now return JSON instead of ValueError.",
-      "No visual QA or physical validation; UI and firmware unchanged."
+      "Chromium cannot start: socket creation denied by execution environment; no visual browser validation.",
+      "Trusted software-only command is not sandboxed or physically certified; no third-party adoption claimed.",
+      "Evidence remains latest-send-only and volatile; command arguments and handshake transcript not exported."
     ],
-    "handoff_library_file_id": "libfile_5df182eb2d5c8191b8ebfdd33b76a649",
-    "weekly_review": "Delivered duplicate JSON rejection, simulated lifecycle/Stop/unknown, independent Node adapter, evidence export, restart isolation, and consistent inspectable refusals. No third-party or physical lifecycle compatibility claimed."
+    "handoff_library_file_id": "libfile_7b77075ee78c8191a20f581bdf658fa5"
   },
   "recent_sessions": [
-    {
-      "session_kind": "daily",
-      "completed_at": "2026-11-04 05:04:19 UTC",
-      "objective": "Reject ambiguous RFC-0007 graph text before data loss",
-      "commit": "32bcd0c96eadb1a4998e4a0d1ae17925757434f5",
-      "merged": false,
-      "pull_request": null,
-      "checks": {
-        "python_targeted": 145,
-        "javascript_interop_vectors": 6,
-        "base_ci_run": 41743631285
-      },
-      "blocker": "Commit readable via REST, but GitHub rejected branch attachment and git fetch by SHA. Task branch confirmed at base. Work handoff includes the tested patch."
-    },
     {
       "session_kind": "manual_publication_recovery",
       "completed_at": "2026-11-04T12:54:27.312Z",
@@ -261,9 +232,44 @@
       ],
       "handoff_library_file_id": "libfile_5df182eb2d5c8191b8ebfdd33b76a649",
       "weekly_review": "Delivered duplicate JSON rejection, simulated lifecycle/Stop/unknown, independent Node adapter, evidence export, restart isolation, and consistent inspectable refusals. No third-party or physical lifecycle compatibility claimed."
+    },
+    {
+      "session_kind": "manual_requested",
+      "slot": "manual-2026-11-09T22:06:28.488Z",
+      "completed_at": "2026-11-09T22:20:05.425Z",
+      "objective": "Custom software adapter through Local Explorer: explicit connect, five-second completion, Stop, unknown after lost link and export",
+      "commit": "1ab273ffddec0a5a4351f675ebf8cd3dc6382df6",
+      "tested_commit": "170f7f456ed4b9fa1747e34a3f7f385754412b3c",
+      "merged": true,
+      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/9",
+      "checks": {
+        "python_full": 1984,
+        "python_targeted_existing_and_extended": 63,
+        "python_new_custom_cases": 15,
+        "javascript_local_explorer": 11,
+        "javascript_graph_reader": 33,
+        "normal_custom_cli_http": "passed with externally renamed Node endpoint, five-second completion, Stop, unknown/reconnect and isolated evidence",
+        "ci_result": "success",
+        "ci_run": "https://github.com/YAAASSS/OpenSmell/actions/runs/42710250999",
+        "ci_python_versions": [
+          "3.10",
+          "3.11",
+          "3.12",
+          "3.13"
+        ],
+        "remote_tree_matches_tested": true,
+        "main_cli_help": "passed",
+        "physical_access": false
+      },
+      "limitations": [
+        "Chromium cannot start: socket creation denied by execution environment; no visual browser validation.",
+        "Trusted software-only command is not sandboxed or physically certified; no third-party adoption claimed.",
+        "Evidence remains latest-send-only and volatile; command arguments and handshake transcript not exported."
+      ],
+      "handoff_library_file_id": "libfile_7b77075ee78c8191a20f581bdf658fa5"
     }
   ],
-  "next_objective": "Explicit custom software command in Local Explorer: connect, execute/Stop, inspect/export the adapter's evidence via normal UI. Preserve no-shell launch, capability checks and no automatic retries.",
+  "next_objective": "Bounded multi-run execution evidence history in Local Explorer: inspect/export completed, stopped and unknown runs without mixing source, plan, IDs or exchanges.",
   "automation": {
     "id": "39cc72697e048191a1ba0d3e3e9d787c",
     "title": "OpenSmell — développement autonome quotidien",
@@ -280,9 +286,9 @@
   },
   "active_product_milestone": {
     "goal": "Reproducible externally implementable execution exchange",
-    "delivered": "Announced common software error profile, ten live cases, rejected render evidence and reusable connection",
-    "next": "Explicit custom software command in Local Explorer: connect, execute/Stop, inspect/export the adapter's evidence via normal UI. Preserve no-shell launch, capability checks and no automatic retries."
+    "delivered": "User-selected software command in normal Local Explorer, identity/capability gates, completion/Stop/unknown and correlated evidence export",
+    "next": "Bounded multi-run execution evidence history in Local Explorer: inspect/export completed, stopped and unknown runs without mixing source, plan, IDs or exchanges."
   },
-  "session_slot": "manual-2026-11-09T22:06:28.488Z",
+  "session_slot": null,
   "last_completed_slot": "2026-11-09T06:00"
 }
