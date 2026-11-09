@@ -88,6 +88,48 @@ Device Protocol 0.1 and the physical firmware remain unchanged. Stop appears onl
 when the simulator has advertised lifecycle support; physical devices are not
 claimed compatible. Neither simulation nor LEDs measure an olfactory result.
 
+## Connect your own software adapter
+
+Choose a trusted **software-only** executable and its expected device ID at server
+startup. For the repository's Node reference (Node.js 22+, no npm dependencies):
+
+```sh
+python -m apps.local_demo --software-device-id opensmell-node-simulator-001 --software-command node examples/lifecycle_adapter/device.cjs
+```
+
+Put `--software-command` **last**, after `--port`, `--no-browser` or other app
+options; everything following it is a separate argument to the executable.
+Quote paths containing spaces. Do not pass a whole shell command as one string.
+The mode is mutually exclusive with `--simulate` and `--simulate-node`.
+
+The panel shows **Software adapter · experimental**, the selected executable,
+expected identity and fixed **SOFTWARE** endpoint. Opening the page or calculating
+a preview does not start the child. Click **Connect** to launch it and receive
+identity, rendering capabilities and the Draft lifecycle announcement. An
+unexpected identity, inconsistent capabilities or unsupported lifecycle fails
+closed before render. A plan outside announced limits cannot be sent.
+
+1. **Open demo**, duration **5**, **Connect**, then **Send to device**.
+   Wait for **Adapter completed** and inspect the correlated response.
+2. **Recalculate**, send again, then **Stop**. Expect **Adapter stopped**.
+3. Use **View evidence** / **Download evidence JSON** after each run. The report
+   identifies the custom software mode and expected identity, preserves the
+   received capabilities, source, plan and actual execution exchanges. Arguments
+   are omitted; handshake exchanges are not part of this last-send trace.
+4. Recalculate, send, then **Disconnect** before completion: **Execution unknown**.
+   EOF, timeout or an unusable reply also leaves the result unknown. No automatic
+   relaunch or resend occurs. Export before a new send or server shutdown.
+
+To switch commands, shut down and restart the server with the new selection.
+HTTP requests and imported graphs cannot select or replace an executable.
+The command inherits the server's working directory and permissions. It is
+launched without a shell, **not in a sandbox**; use software-only endpoints you
+trust, never a physical driver in this mode. The `simulated` flag describes the
+chosen test mode, not proof that an arbitrary executable has no physical effects.
+This path demonstrates compatibility only with the software implementation
+actually tested, not third-party adoption or physical odor reproduction.
+See the [adapter starter and ten reference cases](../../examples/lifecycle_adapter/README.md).
+
 Software checks: `python -m pytest tests/test_local_demo_simulator.py -q` and
 `node --test tests/local_demo_lifecycle.test.cjs`. The HTTP tests use a controlled
 endpoint clock for boundary cases; the normal `--simulate` entry uses real time.

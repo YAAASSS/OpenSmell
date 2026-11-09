@@ -112,10 +112,18 @@ becomes available; lost links and invalid observations remain unknown.
 
 ## Prioritized next work
 
+Custom software adapters can now be selected at CLI startup with a pinned
+device ID, connected explicitly, run/stopped and inspected/exported in the normal
+Local Explorer UI. The selected executable is never accepted from HTTP or graph
+input. Missing commands and incompatible identities/capabilities fail before
+render; broken execution exchanges remain unknown without retry. The software
+mode is not a sandbox and does not certify physical effects. The Node reference
+and a renamed external copy exercise the same user entry point.
+
 | Priority | Outcome | Acceptance criterion |
 | --- | --- | --- |
-| 1 | Custom software adapter in Local Explorer | An explicitly selected local command supplies capabilities, runs/stops a plan, and exports its evidence through the normal UI. |
-| 2 | Visual walkthrough | Exercise the normal browser flow when an accessible local browser is available. |
+| 1 | Compare execution evidence across runs | Retain and export a bounded history of completed/stopped/unknown runs without mixing their sources, IDs or exchanges. |
+| 2 | Adapter onboarding and visual walkthrough | Exercise the normal browser flow and document any remaining environment-specific limitation. |
 | 3 | SDK lifecycle boundary | Extract only the contract demonstrated by both implementations; preserve legacy physical protocol behavior. |
 
 The profile remains Draft. Physical compatibility and third-party adoption

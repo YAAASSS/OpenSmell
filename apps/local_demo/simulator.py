@@ -98,16 +98,22 @@ class SimulatedEndpoint:
 
 
 class SimulatedHardwareService(HardwareService):
+    unconfirmed_send_state = "unknown"
+    endpoint_port = "SIMULATED"
+    endpoint_description = "Software only; no physical output"
+    endpoint_label = "Simulated device"
+    endpoint_scope = "No physical output."
+
     def __init__(self, *, clock=time.monotonic, factory=None, expected_device_id=SIMULATOR_ID):
         super().__init__(factory=factory or (lambda _: SimulatedEndpoint(clock)),
                          available=lambda: True,
-                         ports=lambda: [{"port": "SIMULATED", "description": "Software only; no physical output"}],
+                         ports=lambda: [{"port": self.endpoint_port, "description": self.endpoint_description}],
                          clock=clock, simulated=True, expected_device_id=expected_device_id)
         self._lifecycle = None
 
     def connect(self, port):
-        if port != "SIMULATED":
-            raise HardwareError("Simulator mode accepts only SIMULATED.", 400)
+        if port != self.endpoint_port:
+            raise HardwareError(f"This software mode accepts only {self.endpoint_port}.", 400)
         super().connect(port)
         with self.operation(), self._state_lock:
             try:
@@ -137,7 +143,7 @@ class SimulatedHardwareService(HardwareService):
             execution.update(state=reply["state"], execution_id=execution_id, observation=reply)
             if reply["state"] != "running":
                 self._busy_until = 0
-            self._message = "Simulated device reports: " + reply["state"] + ". No physical output."
+            self._message = self.endpoint_label + " reports: " + reply["state"] + ". " + self.endpoint_scope
         except Exception as exc:
             execution.update(state="unknown", detail=str(exc))
             self._close_transport()
@@ -146,7 +152,7 @@ class SimulatedHardwareService(HardwareService):
     def _require_idle_execution(self):
         self._observe()
         if self._execution and self._execution["state"] == "running":
-            raise HardwareError("The simulator reports an active execution. Wait or use Stop.")
+            raise HardwareError("The software endpoint reports an active execution. Wait or use Stop.")
         super()._require_idle_execution()
 
     def status(self):
@@ -161,7 +167,7 @@ class SimulatedHardwareService(HardwareService):
     def stop(self, execution_id):
         with self.operation(), self._state_lock:
             if not self._adapter or not self._lifecycle:
-                raise HardwareError("No connected lifecycle-capable simulator.")
+                raise HardwareError("No connected lifecycle-capable software endpoint.")
             if not self._execution or execution_id != self._execution.get("execution_id"):
                 raise HardwareError("Stale or unknown execution identifier.")
             self._observe("stop")
@@ -173,5 +179,5 @@ class SimulatedHardwareService(HardwareService):
                 self._execution.update(state="unknown", detail="Link closed before terminal confirmation")
             self._close_transport()
             self._lifecycle = None
-            self._message = "Simulated link closed. Unconfirmed executions remain unknown."
+            self._message = "Software link closed. Unconfirmed executions remain unknown."
         return self.status()

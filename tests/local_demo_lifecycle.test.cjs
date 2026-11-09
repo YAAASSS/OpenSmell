@@ -32,6 +32,18 @@ test('lifecycle UI shows correlated terminal states and gates Stop by capabiliti
   }
   context.ui.render({...state, simulated: false, lifecycle_capabilities: null});
   assert.equal($('#stop-device').hidden, true);
+  context.ui.render({...state, software_adapter: {executable: '<custom & command>', expected_device_id: 'my-device'}});
+  assert.equal($('#hardware-heading').textContent, 'Software adapter · experimental');
+  assert.match($('#software-selection').textContent, /<custom & command>/);
+  assert.match($('#software-selection').textContent, /my-device/);
+  assert.equal($('#serial-port').value, 'SOFTWARE');
+  assert.equal($('#serial-port').disabled, true);
+  assert.equal($('#refresh-ports').disabled, true);
+  assert.equal($('#execution-heading').textContent, 'Adapter running');
+  assert.match($('#simulation-note').textContent, /Not sandboxed/);
+  await context.ui.action('connect');
+  const connect = requests.find(r => r.path.endsWith('/connect'));
+  assert.deepEqual(JSON.parse(connect.options.body), {port: 'SOFTWARE'});
 });
 
 function evidenceHarness() {

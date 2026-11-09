@@ -66,12 +66,23 @@ def test_reference_runner_detects_broken_stop():
 
 
 @pytest.mark.skipif(not shutil.which('node'), reason='Node.js example requires Node.js')
-def test_normal_cli_node_mode_http_flow():
+@pytest.mark.parametrize('custom', [False, True], ids=['builtin-node', 'custom-command'])
+def test_normal_cli_node_mode_http_flow(custom, tmp_path):
     import http.client
     import subprocess
     import time
     from urllib.parse import urlsplit
-    server = subprocess.Popen([sys.executable, '-m', 'apps.local_demo', '--simulate-node', '--no-browser', '--port', '0'],
+    device_id = NODE_DEVICE_ID
+    endpoint_port = 'SIMULATED'
+    options = ['--simulate-node']
+    if custom:
+        from apps.local_demo.process_transport import EXAMPLE
+        device_id = 'my-independent-software-adapter'
+        endpoint_port = 'SOFTWARE'
+        script = tmp_path / 'my adapter with spaces.cjs'
+        script.write_text(EXAMPLE.read_text().replace(NODE_DEVICE_ID, device_id))
+        options = ['--software-device-id', device_id, '--software-command', 'node', str(script)]
+    server = subprocess.Popen([sys.executable, '-m', 'apps.local_demo', '--no-browser', '--port', '0', *options],
                               stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True)
     port = None
     try:
@@ -86,14 +97,19 @@ def test_normal_cli_node_mode_http_flow():
             connection.close()
             assert response.status == expected_status, result
             return result
-        assert call('hardware/connect', {'port':'SIMULATED'})['device_id'] == NODE_DEVICE_ID
+        initial = call('hardware/status')
+        assert initial['connection'] == 'disconnected'
+        if custom:
+            assert initial['software_adapter']['expected_device_id'] == device_id
+            call('hardware/connect', {'port': endpoint_port, 'command': ['unexpected']}, expected_status=400)
+        assert call('hardware/connect', {'port':endpoint_port})['device_id'] == device_id
         ids = []
-        for revision, duration in [(1,0.1),(2,5),(3,5)]:
+        for revision, duration in [(1,5 if custom else 0.1),(2,5),(3,5)]:
             p = call('preview', {'client_id':'node-http-reference-client','revision':revision,'duration':duration})
             execution = call('hardware/send', p['preview_ticket'])['execution']
             ids.append(execution['execution_id'])
             if revision == 1:
-                time.sleep(0.15)
+                time.sleep(duration + 0.05)
                 assert call('hardware/status')['execution']['state'] == 'completed'
             elif revision == 2:
                 assert call('hardware/stop', {'execution_id':ids[-1]})['execution']['state'] == 'stopped'
@@ -101,12 +117,14 @@ def test_normal_cli_node_mode_http_flow():
                 assert call('hardware/disconnect', {})['execution']['state'] == 'unknown'
             report = call('hardware/evidence?report_id=' + execution['report_id'])
             assert report['execution']['state'] == {1:'completed', 2:'stopped', 3:'unknown'}[revision]
-            assert report['device_id'] == NODE_DEVICE_ID
+            assert report['device_id'] == device_id
+            if custom:
+                assert report['software_adapter']['expected_device_id'] == device_id
             assert report['source']['document']['resources']
         assert len(set(ids)) == 3
         old_report = report
         time.sleep(5)  # Retain the app's duration guard; no inferred completion.
-        assert call('hardware/connect', {'port':'SIMULATED'})['execution']['state'] == 'unknown'
+        assert call('hardware/connect', {'port':endpoint_port})['execution']['state'] == 'unknown'
         reconnected_report = call('hardware/evidence?report_id=' + execution['report_id'])
         assert reconnected_report['execution'] == old_report['execution']
         assert reconnected_report['exchanges'] == old_report['exchanges']

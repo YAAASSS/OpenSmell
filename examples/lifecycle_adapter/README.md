@@ -86,6 +86,22 @@ point this verifier at a physical driver: it actively submits render and Stop
 requests. In Python, `verify(factory, device_id)` accepts a factory returning an
 `exchange(str) -> str` / `close()` transport; it returns the same report.
 
+Then use the same executable and identity in the interactive Explorer:
+
+```sh
+python -m apps.local_demo --software-device-id opensmell-node-simulator-001 --software-command node examples/lifecycle_adapter/device.cjs
+```
+
+Replace both the ID and command when implementing your own endpoint. Put
+`--software-command` last; arguments and paths with spaces retain their normal
+CLI boundaries and are never interpreted by an application shell. **Connect**
+starts a fresh process; **Send to device**, **Stop**, and **Download evidence JSON**
+use the same guarded path as the built-in simulators. The UI labels this as a
+custom software adapter, not the built-in simulator. See the
+[complete custom adapter walkthrough](../../apps/local_demo/README.md#connect-your-own-software-adapter).
+This is a trusted local process with your permissions, not a sandbox. Do not
+put secrets in arguments or protocol messages. No HTTP endpoint can set commands.
+
 ## Scope of the evidence
 
 These are two implementations maintained in this repository, one Python and one

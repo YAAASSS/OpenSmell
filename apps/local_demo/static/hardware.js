@@ -37,8 +37,8 @@ const hardware = {
     $("#disconnect-device").disabled = busy || state?.connection !== "connected";
     $("#stop-device").hidden = !state?.lifecycle_capabilities?.stop;
     $("#stop-device").disabled = busy || state?.connection !== "connected" || state?.execution?.state !== "running";
-    $("#serial-port").disabled = busy || state?.connection === "connected";
-    $("#refresh-ports").disabled = busy || !state?.available;
+    $("#serial-port").disabled = busy || state?.connection === "connected" || state?.simulated;
+    $("#refresh-ports").disabled = busy || !state?.available || state?.simulated;
     $("#view-evidence").disabled = busy || !state?.evidence_id;
     $("#download-evidence").disabled = busy || !state?.evidence_id;
   },
@@ -50,13 +50,21 @@ const hardware = {
       $("#evidence-message").textContent = "";
     }
     this.state = state;
-    $("#hardware-heading").textContent = state.simulated ? "Software simulator · no physical output" : "ESP32 · LED prototype";
-    if (state.simulated && !$("#serial-port").value) $("#serial-port").value = "SIMULATED";
+    const custom = state.software_adapter;
+    $("#hardware-heading").textContent = custom ? "Software adapter · experimental" : state.simulated ? "Software simulator · no physical output" : "ESP32 · LED prototype";
+    if (state.simulated) $("#serial-port").value = custom ? "SOFTWARE" : "SIMULATED";
+    $("#port-label").textContent = state.simulated ? "Software endpoint" : "Serial port";
+    $("#port-help").textContent = state.simulated ? "Selected at server startup. Connect starts the software endpoint; preview never sends a command." :
+      "Select a listed port or type its name. Refresh only lists ports; it does not open them.";
+    $("#software-selection").hidden = !custom;
+    $("#software-selection").textContent = custom ? `Executable: ${custom.executable} · expected device ID: ${custom.expected_device_id}` : "";
     if (state.connection === "connected" && state.port) $("#serial-port").value = state.port;
     $("#connection-state").textContent = !state.available ? "Hardware unavailable" :
       ({disconnected: "Disconnected", connecting: "Connecting", connected: "Connected"}[state.connection]);
     $("#hardware-message").textContent = state.message;
     $("#simulation-note").hidden = !state.simulated;
+    $("#simulation-note").textContent = custom ? "User-selected software test. Run only a trusted software-only endpoint. Not sandboxed; no physical compatibility claimed." :
+      "Simulated hardware · software test only. No physical device is connected.";
     $("#device-info").hidden = !state.capabilities;
     if (state.capabilities) {
       const identity = $("#device-identity");
@@ -71,8 +79,9 @@ const hardware = {
     $("#execution-info").hidden = !execution;
     if (execution) {
       $("#execution-duration").textContent = `Submitted plan duration: ${number.format(execution.duration)} s.`;
+      const endpoint = custom ? "Adapter" : "Simulator";
       $("#execution-heading").textContent = {sending: "Sending…", accepted: "Command accepted",
-        running: "Simulator running", completed: "Simulator completed", stopped: "Simulator stopped", unknown: "Execution unknown", rejected: "Command rejected", uncertain: "Execution uncertain"}[execution.state];
+        running: `${endpoint} running`, completed: `${endpoint} completed`, stopped: `${endpoint} stopped`, unknown: "Execution unknown", rejected: "Command rejected", uncertain: "Execution uncertain"}[execution.state];
       const remaining = state.remaining_seconds;
       $("#execution-estimate").textContent = remaining > 0 ?
         `Estimated wait: ${Math.ceil(remaining)} s. Local estimate only; no device completion signal.` :
@@ -80,7 +89,7 @@ const hardware = {
         execution.state === "uncertain" ? "The command may have run. Check the LEDs before reconnecting or sending again." :
         execution.state === "rejected" ? "The device returned an error. No automatic retry." : "Waiting for a device response…";
       if (["running", "completed", "stopped"].includes(execution.state)) {
-        $("#execution-estimate").textContent = `Device-reported ${execution.state} · execution ${execution.execution_id}. Software simulation only.`;
+        $("#execution-estimate").textContent = `Device-reported ${execution.state} · execution ${execution.execution_id}. ${custom ? "Software test; no measured physical result." : "Software simulation only."}`;
       } else if (execution.state === "unknown") {
         $("#execution-estimate").textContent = "Link lost before confirmation. Outcome unknown; no automatic retry.";
       }

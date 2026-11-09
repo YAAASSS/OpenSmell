@@ -62,7 +62,8 @@
           <div class="hardware-heading"><div><p class="eyebrow">04 / OPTIONAL HARDWARE</p><h2 id="hardware-heading">ESP32 · LED prototype</h2></div><span id="connection-state" class="badge preview-badge" role="status">Disconnected</span></div>
           <p id="simulation-note" class="error" hidden>Simulated hardware · software test only. No physical device is connected.</p>
           <p id="hardware-message" class="footnote" role="status">Checking optional serial support…</p>
-          <label class="port-label" for="serial-port">Serial port</label>
+          <label id="port-label" class="port-label" for="serial-port">Serial port</label>
+          <p id="software-selection" class="footnote" hidden></p>
           <div class="port-controls"><input id="serial-port" list="serial-ports" placeholder="e.g. COM3" autocomplete="off" aria-describedby="port-help"><datalist id="serial-ports"></datalist><button id="refresh-ports" class="secondary">Refresh ports</button></div>
           <p id="port-help" class="footnote">Select a listed port or type its name. Refresh only lists ports; it does not open them.</p>
           <p id="port-message" class="footnote" role="status"></p>
