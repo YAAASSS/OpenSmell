@@ -108,3 +108,50 @@ def test_simulator_rejects_physical_ports_and_duration(api):
     request("hardware/send", result["preview_ticket"], expected=409)
     assert endpoint.execution is None
     request("hardware/stop", {}, expected=400)
+
+
+def test_device_rejection_is_exportable_and_connection_recovers(api):
+    request, _, endpoint = api
+    request('hardware/connect', {'port': 'SIMULATED'})
+    # Another software client owns the endpoint's run; the app has no local run.
+    external = json.loads(endpoint.exchange(json.dumps({
+        'type': 'render', 'protocol_version': '0.1', 'duration': 5,
+        'commands': [{'channel': 0, 'intensity': 0.5}],
+    })))
+    p = request('preview', {'client_id': 'simulated-browser', 'revision': 1, 'duration': 5})
+    request('hardware/send', p['preview_ticket'], expected=502)
+    state = request('hardware/status')
+    assert state['connection'] == 'connected'
+    assert state['execution']['state'] == 'rejected'
+    assert state['execution']['response']['code'] == 'busy'
+    evidence = request('hardware/evidence?report_id=' + state['evidence_id'])
+    assert json.loads(evidence['exchanges'][-1]['response_text'])['code'] == 'busy'
+    endpoint.exchange(json.dumps({'type': 'stop', 'profile': 'local-simulator-lifecycle-v1',
+                                 'execution_id': external['execution_id']}))
+    fresh, _ = send(request, revision=2)
+    assert fresh['execution']['state'] == 'running'
+    assert request('hardware/stop', {'execution_id': fresh['execution']['execution_id']})['execution']['state'] == 'stopped'
+
+
+@pytest.mark.parametrize('advertised', [None, 'future-errors'])
+def test_error_capability_migration(advertised):
+    class Endpoint(SimulatedEndpoint):
+        def _handle(self, request):
+            reply = super()._handle(request)
+            if request.get('type') == 'lifecycle_capabilities':
+                if advertised is None:
+                    reply.pop('errors')
+                else:
+                    reply['errors'] = advertised
+            return reply
+    hardware = SimulatedHardwareService(factory=lambda _: Endpoint())
+    try:
+        if advertised is None:
+            assert hardware.connect('SIMULATED')['connection'] == 'connected'
+        else:
+            from apps.local_demo.hardware import HardwareError
+            with pytest.raises(HardwareError, match='Unsupported lifecycle capabilities'):
+                hardware.connect('SIMULATED')
+            assert hardware.status()['connection'] == 'disconnected'
+    finally:
+        hardware.close()

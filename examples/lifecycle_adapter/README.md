@@ -43,6 +43,8 @@ than byte-identical golden files. The common cases are:
 | terminal_state_stable | Endpoint Stop after completion preserves completed |
 | stale_stop_rejected | Endpoint rejects the old ID while the new execution stays running |
 | correlated_stop | Stop yields stopped with the current ID |
+| invalid_plan_rejected | An oversized duration is rejected before a valid execution succeeds on the same link |
+| rejections_preserve_active_execution | Busy render and wrong-profile Stop are rejected without altering the current run |
 | lost_link_unknown | Closing the transport during execution makes the client report unknown |
 | reconnect_preserves_unknown_evidence | Reconnecting after the duration guard preserves the old unknown outcome and evidence |
 | restart_rejects_old_execution | A fresh endpoint rejects status and Stop for the previous process's ID |
@@ -70,9 +72,8 @@ experimental RFC-0014 lifecycle messages. Advertise a distinct identity, support
 channels and duration limits, and lifecycle support. Generate a new ID for each
 accepted execution. Keep completed/stopped stable and reject stale IDs. Use a
 monotonic clock. Never treat acceptance or elapsed client time as a completion
-reply. The Node example returns `type: error` rejections; the original Python
-in-process endpoint can raise ValueError instead. This difference is documented
-rather than claimed as a finalized wire error contract.
+reply. Both endpoints announce `errors: local-simulator-errors-v1` and return JSON
+`type: error` rejections. See the error contract below; the profile remains Draft.
 
 To run the same checks against a local **software-only** executable you trust:
 
@@ -95,3 +96,34 @@ reconnect reconciliation or durable execution log is introduced here. Restart me
 a fresh software process, not recovery of an old execution. Download old evidence
 before sending again: only the latest send remains available. Closing the Explorer
 server itself discards its in-memory evidence.
+
+## Inspect a refusal and keep working
+
+The live checker now runs ten cases and requires the advertised error profile.
+Its transcript contains actual rejected requests and replies, followed by valid
+status/Stop exchanges on the same connection. For example, an old Stop yields:
+
+```json
+{"protocol_version":"0.1","type":"error","error_profile":"local-simulator-errors-v1","code":"unknown_execution","message":"Unknown execution identifier","request_type":"stop","execution_id":"old-id"}
+```
+
+Codes are `invalid_request` (malformed input/invalid plan/protocol), `busy`
+(render during a run), `unsupported_profile`, `unknown_execution`, and
+`unsupported_request`. Messages are diagnostic text and need not match between
+languages. `request_type` echoes a string request type and `execution_id` echoes
+a supplied string ID, each only when nonempty and at most 128 characters. A
+rejection never supplies a successful execution state. These fields correlate
+sequential exchanges; they are not authentication or general request IDs.
+
+A valid refusal leaves the endpoint usable and never replaces its active run.
+Local Explorer records render refusals as **rejected**, keeps its connection,
+and allows a newly previewed send; the consumed ticket cannot be resent.
+Lifecycle observation errors still conservatively become **unknown** and close
+the client link: an error cannot prove the state of the requested execution.
+Transport failures also remain distinct and are never retried automatically.
+
+Migration: Python callers must now inspect returned JSON instead of catching
+ValueError for request rejection. Closed transports still raise OSError.
+Local Explorer accepts the original lifecycle capability reply without `errors`,
+but the strengthened checker requires this error profile; unknown advertised
+error profiles are refused. Existing physical Device Protocol 0.1 is unchanged.

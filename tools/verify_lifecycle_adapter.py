@@ -6,7 +6,7 @@ import time
 
 from apps.local_demo.preview_store import PreviewStore
 from apps.local_demo.service import FIXTURE, preview
-from apps.local_demo.simulator import LIFECYCLE, SIMULATOR_ID, SimulatedEndpoint, SimulatedHardwareService
+from apps.local_demo.simulator import LIFECYCLE, ERROR_PROFILE, SIMULATOR_ID, SimulatedEndpoint, SimulatedHardwareService
 from apps.local_demo.process_transport import NODE_DEVICE_ID, ProcessTransport, node_transport
 
 
@@ -46,21 +46,27 @@ def verify(factory, device_id):
         result = preview(FIXTURE.read_text(encoding="utf-8"), duration=duration)
         return hardware.send(store, store.publish(payload, result))["execution"]
     def reject_old_id(execution_id, action):
-        try:
-            response = transports[-1].exchange(json.dumps({
-                "type": action, "profile": LIFECYCLE, "execution_id": execution_id,
-            }))
-        except ValueError:
-            # Original in-process endpoint rejection; not a wire error contract.
-            return
-        reply = json.loads(response)
-        require(isinstance(reply, dict) and reply.get("type") == "error",
-                "Endpoint accepted stale " + action)
+        check_rejection({"type": action, "profile": LIFECYCLE, "execution_id": execution_id},
+                        "unknown_execution")
+
+    def check_rejection(request, code):
+        reply = json.loads(transports[-1].exchange(json.dumps(request)))
+        require(reply.get("type") == "error" and reply.get("code") == code
+                and reply.get("error_profile") == ERROR_PROFILE
+                and reply.get("request_type") == request["type"]
+                and reply.get("execution_id") == request.get("execution_id")
+                and isinstance(reply.get("message"), str) and reply["message"],
+                "Invalid or uncorrelated rejection: " + str(reply))
 
     report = {"profile": LIFECYCLE, "device_id": device_id, "software_only": True,
               "passed": False, "cases": cases, "exchanges": trace}
     try:
-        hardware.connect("SIMULATED")
+        connected = hardware.connect("SIMULATED")
+        require(connected["lifecycle_capabilities"].get("errors") == ERROR_PROFILE,
+                "Error profile not advertised")
+        check_rejection({"protocol_version": "0.1", "type": "render", "duration": 31,
+                         "commands": [{"channel": 0, "intensity": 0.5}]}, "invalid_request")
+        cases.append("invalid_plan_rejected")
         first = send(1, 0.1)
         deadline = time.monotonic() + 3
         while hardware.status()["execution"]["state"] == "running" and time.monotonic() < deadline:
@@ -76,6 +82,11 @@ def verify(factory, device_id):
         cases.append("terminal_state_stable")
         second = send(2, 5)
         require(second["execution_id"] != first["execution_id"], "Execution ID reused")
+        check_rejection({"protocol_version": "0.1", "type": "render", "duration": 5,
+                         "commands": [{"channel": 0, "intensity": 0.5}]}, "busy")
+        check_rejection({"type": "stop", "profile": "unsupported", "execution_id": second["execution_id"]},
+                        "unsupported_profile")
+        cases.append("rejections_preserve_active_execution")
         # Exercise the endpoint itself, not just the service's stale-ID guard.
         reject_old_id(first["execution_id"], "stop")
         require(hardware.status()["execution"]["state"] == "running", "Stale Stop interrupted current execution")

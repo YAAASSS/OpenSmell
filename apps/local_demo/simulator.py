@@ -9,12 +9,19 @@ import uuid
 
 from opensmell.experimental.device_capabilities import DeviceCapabilities, DeviceChannelCapability
 from opensmell.experimental.device_protocol import (
-    hello_response, capabilities_response, ok_response, parse_render_request,
+    hello_response, capabilities_response, ok_response, parse_render_request, error_response,
 )
 from .hardware import HardwareService, HardwareError
 
 SIMULATOR_ID = "opensmell-local-simulator-001"
 LIFECYCLE = "local-simulator-lifecycle-v1"
+ERROR_PROFILE = "local-simulator-errors-v1"
+
+
+class Rejection(ValueError):
+    def __init__(self, code, message):
+        super().__init__(message)
+        self.code = code
 
 
 class SimulatedEndpoint:
@@ -32,18 +39,38 @@ class SimulatedEndpoint:
     def exchange(self, message):
         if self.closed:
             raise OSError("Simulated link is closed")
-        request = json.loads(message)
-        kind = request["type"]
+        request = None
+        try:
+            request = json.loads(message)
+            return json.dumps(self._handle(request))
+        except (ValueError, TypeError, KeyError) as exc:
+            reply = {**error_response(getattr(exc, "code", "invalid_request"), str(exc)),
+                     "error_profile": ERROR_PROFILE}
+            if isinstance(request, dict):
+                for field in ("type", "execution_id"):
+                    value = request.get(field)
+                    if isinstance(value, str) and 0 < len(value) <= 128:
+                        reply["request_type" if field == "type" else field] = value
+            return json.dumps(reply)
+
+    def _handle(self, request):
+        if not isinstance(request, dict):
+            raise ValueError("Object required")
+        kind = request.get("type")
+        if not isinstance(kind, str) or not kind:
+            raise ValueError("Request type required")
+        if kind in ("hello", "get_capabilities", "render") and request.get("protocol_version") != "0.1":
+            raise ValueError("Unsupported protocol")
         if kind == "hello":
             reply = hello_response(SIMULATOR_ID)
         elif kind == "get_capabilities":
             reply = capabilities_response(self.capabilities)
         elif kind == "lifecycle_capabilities":
-            reply = {"profile": LIFECYCLE, "status": True, "stop": True}
+            reply = {"profile": LIFECYCLE, "status": True, "stop": True, "errors": ERROR_PROFILE}
         elif kind == "render":
             self._advance()
             if self.execution and self.execution["state"] == "running":
-                raise ValueError("An execution is already running")
+                raise Rejection("busy", "An execution is already running")
             plan = parse_render_request(request)
             self.capabilities.require_plan(plan)
             self.execution = {"execution_id": uuid.uuid4().hex, "state": "running"}
@@ -51,16 +78,16 @@ class SimulatedEndpoint:
             reply = {**ok_response(), "execution_id": self.execution["execution_id"]}
         elif kind in {"execution_status", "stop"}:
             if request.get("profile") != LIFECYCLE:
-                raise ValueError("Unsupported lifecycle profile")
+                raise Rejection("unsupported_profile", "Unsupported lifecycle profile")
             if not self.execution or request.get("execution_id") != self.execution["execution_id"]:
-                raise ValueError("Unknown execution identifier")
+                raise Rejection("unknown_execution", "Unknown execution identifier")
             self._advance()
             if kind == "stop" and self.execution["state"] == "running":
                 self.execution["state"] = "stopped"
             reply = {"profile": LIFECYCLE, **self.execution}
         else:
-            raise ValueError("Unsupported simulator request")
-        return json.dumps(reply)
+            raise Rejection("unsupported_request", "Unsupported simulator request")
+        return reply
 
     def _advance(self):
         if self.execution and self.execution["state"] == "running" and self.clock() >= self.deadline:
@@ -85,7 +112,9 @@ class SimulatedHardwareService(HardwareService):
         with self.operation(), self._state_lock:
             try:
                 reply = json.loads(self._recorded.exchange(json.dumps({"type": "lifecycle_capabilities"})))
-                if reply != {"profile": LIFECYCLE, "status": True, "stop": True}:
+                if (not isinstance(reply, dict)
+                        or any(reply.get(k) != v for k, v in {"profile": LIFECYCLE, "status": True, "stop": True}.items())
+                        or reply.get("errors", ERROR_PROFILE) != ERROR_PROFILE):
                     raise ValueError("Unsupported lifecycle capabilities")
                 self._lifecycle = reply
             except Exception as exc:
