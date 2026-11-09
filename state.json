@@ -12,7 +12,15 @@
     "objective": "Custom software adapter through Local Explorer",
     "branch": "automation/custom-adapter-20261109-manual",
     "base_sha": "4a6e1d2dc7659e9d1bd2c70b37b6bc09c9374e78",
-    "next_action": "Implement explicit CLI command, verify connect/run/Stop/export and incompatible endpoints"
+    "next_action": "Check exact-head CI and reviews; merge PR #9, verify main, save handoff and release lease",
+    "commit": "170f7f456ed4b9fa1747e34a3f7f385754412b3c",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/9",
+    "checks": {
+      "python_full": 1984,
+      "javascript_local_explorer": 11,
+      "normal_custom_cli_http": "passed",
+      "visual_browser": "blocked: Chromium socket creation denied"
+    }
   },
   "last_result": {
     "session_kind": "daily",
