@@ -2,7 +2,11 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-10",
   "last_processed_main_sha": "b01ac33bdfe0c6fc0b78f6829654f75f2c3078d5",
-  "lease": null,
+  "lease": {
+    "owner": "codex-20261110-18-offline-1794330052455",
+    "acquired_at": "2026-11-10T17:00:52.455Z",
+    "expires_at": "2026-11-10T21:00:52.455Z"
+  },
   "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
@@ -301,6 +305,6 @@
     "delivered": "Bounded multi-run execution history, individual selection/export and passive session JSON bundle in Local Explorer",
     "next": "Offline diagnostics for exported history bundles: identify missing or inconsistent observations without command execution."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-10T18:00",
   "last_completed_slot": "2026-11-10T06:00"
 }
