@@ -159,7 +159,11 @@ To compare outcomes, run `python -m apps.local_demo --simulate-node`, connect,
 send a five-second plan and wait for Completed. Recalculate and send another
 plan, then Stop. Send a third plan and Disconnect while it is running. Select
 each retained execution: the reports show completed, stopped and unknown
-respectively. Exporting an older run never sends Stop or changes the live run.
+respectively. **Download retained history JSON** exports all retained reports
+as one `opensmell.local-execution-history.v1` bundle, newest first, with retention
+limits and the eviction count. This is an atomic passive snapshot, not a replay
+file. The equivalent GET is `/api/hardware/evidence-history` (no parameters).
+Exporting an older run never sends Stop or changes the live run.
 
 The experimental `opensmell.local-execution-evidence.v1` JSON includes:
 

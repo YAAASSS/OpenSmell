@@ -141,3 +141,39 @@ def test_history_complete_stop_unknown_and_eviction(api):
     assert history['evicted_reports'] == 1
     evidence(request, first, expected=409)
     assert evidence(request, second)['execution']['state'] == 'stopped'
+
+
+def test_bundle_is_passive_isolated_and_discloses_eviction(api):
+    request, _, endpoint = api
+    assert request('hardware/evidence-history')['reports'] == []
+    request('hardware/evidence-history?ignored=yes', expected=400)
+    request('hardware/connect', {'port': 'SIMULATED'})
+    first, _ = send(request)
+    request('hardware/stop', {'execution_id': first['execution']['execution_id']})
+    second, _ = send(request, 2)
+    request('hardware/disconnect', {})
+    endpoint.exchange = lambda _: pytest.fail('Export contacted device')
+    bundle = request('hardware/evidence-history')
+    assert bundle['format'] == 'opensmell.local-execution-history.v1'
+    assert [r['execution']['state'] for r in bundle['reports']] == ['unknown', 'stopped']
+    assert bundle['retention']['persistent'] is False
+    assert bundle['retention']['evicted_reports'] == 0
+    assert len({r['report_id'] for r in bundle['reports']}) == 2
+
+
+def test_archive_byte_limit_and_copy_isolation():
+    hardware, _, _ = setup_hardware(FakeTransport([]))
+    report_id = hardware._evidence.begin(plan={'duration': 5}, source={'value': 'original'},
+                                        device_id='test', capabilities={}, simulated=True)
+    hardware._execution = {'state': 'unknown'}
+    hardware._archive_evidence()
+    hardware._evidence.begin(plan={'duration': 3}, source={}, device_id='test', capabilities={}, simulated=True)
+    report = hardware.evidence(report_id)
+    report['source']['value'] = 'modified'
+    assert hardware.evidence(report_id)['source']['value'] == 'original'
+    hardware._evidence.report['source'] = {'oversized': 'x' * (8 * 1024 * 1024)}
+    hardware._archive_evidence()
+    assert hardware._history_bytes == 0
+    assert hardware._evicted_reports == 2
+    with pytest.raises(HardwareError):
+        hardware.evidence(report_id)

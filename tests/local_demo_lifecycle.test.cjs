@@ -114,3 +114,15 @@ test('history selection exports an older report and ignores a late response afte
   await pending;
   assert.equal(downloads.length, 1);
 });
+
+
+test('history bundle downloads all returned snapshots without issuing commands', async () => {
+  const {context, $, downloads, blobs} = evidenceHarness();
+  await new Promise(resolve => setImmediate(resolve));
+  const bundle = {reports:[{report_id:'a'}, {report_id:'b'}], retention:{evicted_reports:3}};
+  context.ui.request = async path => {assert.equal(path, '/api/hardware/evidence-history'); return bundle;};
+  await context.ui.downloadHistory();
+  assert.deepEqual(JSON.parse(await blobs[0].text()), bundle);
+  assert.equal(downloads[0].name, 'opensmell-execution-history.json');
+  assert.match($('#evidence-message').textContent, /3 evicted/);
+});

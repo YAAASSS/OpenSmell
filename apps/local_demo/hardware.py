@@ -278,6 +278,20 @@ class HardwareService:
             "persistent": False,
         }
 
+    def evidence_bundle(self):
+        # One passive, coherent snapshot, including custom adapter metadata.
+        with self._state_lock:
+            if self._operation.locked():
+                raise HardwareError("Wait for the current operation before exporting evidence.")
+            history = self._history_summary()
+            return {
+                "format": "opensmell.local-execution-history.v1", "experimental": True,
+                "retention": history,
+                "reports": [self.evidence(item["report_id"]) for item in history["reports"]],
+                "limitations": ["Volatile client-side snapshots, not authenticated telemetry.",
+                                "Evicted reports are not included. No command replay or measured olfactory result."],
+            }
+
     def evidence(self, report_id):
         # Snapshot only: deliberately do not call status(), which can poll a simulator.
         with self._state_lock:

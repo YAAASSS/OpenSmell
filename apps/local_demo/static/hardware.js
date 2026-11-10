@@ -39,6 +39,7 @@ const hardware = {
     $("#stop-device").disabled = busy || state?.connection !== "connected" || state?.execution?.state !== "running";
     $("#serial-port").disabled = busy || state?.connection === "connected" || state?.simulated;
     $("#refresh-ports").disabled = busy || !state?.available || state?.simulated;
+    $("#download-history").disabled = busy || !state?.evidence_id;
     $("#view-evidence").disabled = busy || !this.selectedEvidence;
     $("#download-evidence").disabled = busy || !this.selectedEvidence;
   },
@@ -134,6 +135,22 @@ const hardware = {
     }
   },
 
+  async downloadHistory() {
+    if (this.pending) return;
+    try {
+      const report = await this.request("/api/hardware/evidence-history");
+      const url = URL.createObjectURL(new Blob([JSON.stringify(report, null, 2) + "\n"], {type: "application/json"}));
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "opensmell-execution-history.json";
+      link.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      $("#evidence-message").textContent = `Exported ${report.reports.length} retained snapshots; ${report.retention.evicted_reports} evicted. No measured olfactory result.`;
+    } catch (error) {
+      $("#evidence-message").textContent = error.message;
+    }
+  },
+
   async check() {
     const ticket = this.ticket;
     if (!ticket || this.pending) return;
@@ -225,6 +242,7 @@ $("#send-device").addEventListener("click", () => hardware.action("send"));
 $("#stop-device").addEventListener("click", () => hardware.action("stop"));
 $("#view-evidence").addEventListener("click", () => hardware.evidence());
 $("#download-evidence").addEventListener("click", () => hardware.evidence(true));
+$("#download-history").addEventListener("click", () => hardware.downloadHistory());
 $("#evidence-history").addEventListener("change", () => {
   hardware.selectedEvidence = $("#evidence-history").value;
   $("#evidence-details").hidden = true;
