@@ -2,7 +2,7 @@
 
 // All hardware mutations are explicit POSTs. Polls only read server state.
 const hardware = {
-  ticket: null, state: null, ready: false, pending: false, polling: false,
+  ticket: null, state: null, ready: false, pending: false, polling: false, selectedEvidence: null,
 
   async request(path, payload) {
     const response = await fetch(path, payload === undefined ? {} : {
@@ -39,8 +39,9 @@ const hardware = {
     $("#stop-device").disabled = busy || state?.connection !== "connected" || state?.execution?.state !== "running";
     $("#serial-port").disabled = busy || state?.connection === "connected" || state?.simulated;
     $("#refresh-ports").disabled = busy || !state?.available || state?.simulated;
-    $("#view-evidence").disabled = busy || !state?.evidence_id;
-    $("#download-evidence").disabled = busy || !state?.evidence_id;
+    $("#download-history").disabled = busy || !state?.evidence_id;
+    $("#view-evidence").disabled = busy || !this.selectedEvidence;
+    $("#download-evidence").disabled = busy || !this.selectedEvidence;
   },
 
   render(state) {
@@ -49,6 +50,17 @@ const hardware = {
       $("#evidence-json").textContent = "";
       $("#evidence-message").textContent = "";
     }
+    const reports = state.evidence_history?.reports || (state.evidence_id ? [{report_id: state.evidence_id, state: state.execution?.state}] : []);
+    if (!reports.some(r => r.report_id === this.selectedEvidence)) this.selectedEvidence = state.evidence_id || null;
+    const select = $("#evidence-history");
+    select.replaceChildren();
+    for (const report of reports) {
+      const option = node("option", `${report.started_at || ""} · ${report.state} · ${report.report_id}`);
+      option.value = report.report_id;
+      select.append(option);
+    }
+    select.value = this.selectedEvidence || "";
+    $("#evidence-retention").textContent = `${reports.length} retained; ${state.evidence_history?.evicted_reports || 0} evicted. Up to 10 reports and 8 MiB of archives, in memory only. Export before shutdown.`;
     this.state = state;
     const custom = state.software_adapter;
     $("#hardware-heading").textContent = custom ? "Software adapter · experimental" : state.simulated ? "Software simulator · no physical output" : "ESP32 · LED prototype";
@@ -100,11 +112,11 @@ const hardware = {
   },
 
   async evidence(download = false) {
-    const reportId = this.state?.evidence_id;
+    const reportId = this.selectedEvidence || this.state?.evidence_id;
     if (!reportId || this.pending) return;
     try {
       const report = await this.request(`/api/hardware/evidence?report_id=${encodeURIComponent(reportId)}`);
-      if (this.state?.evidence_id !== reportId || report.report_id !== reportId) return;
+      if ((this.selectedEvidence || this.state?.evidence_id) !== reportId || report.report_id !== reportId) return;
       const text = JSON.stringify(report, null, 2);
       $("#evidence-json").textContent = text;
       $("#evidence-details").hidden = false;
@@ -118,6 +130,22 @@ const hardware = {
         link.click();
         setTimeout(() => URL.revokeObjectURL(url), 1000);
       }
+    } catch (error) {
+      if ((this.selectedEvidence || this.state?.evidence_id) === reportId) $("#evidence-message").textContent = error.message;
+    }
+  },
+
+  async downloadHistory() {
+    if (this.pending) return;
+    try {
+      const report = await this.request("/api/hardware/evidence-history");
+      const url = URL.createObjectURL(new Blob([JSON.stringify(report, null, 2) + "\n"], {type: "application/json"}));
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "opensmell-execution-history.json";
+      link.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      $("#evidence-message").textContent = `Exported ${report.reports.length} retained snapshots; ${report.retention.evicted_reports} evicted. No measured olfactory result.`;
     } catch (error) {
       $("#evidence-message").textContent = error.message;
     }
@@ -214,5 +242,13 @@ $("#send-device").addEventListener("click", () => hardware.action("send"));
 $("#stop-device").addEventListener("click", () => hardware.action("stop"));
 $("#view-evidence").addEventListener("click", () => hardware.evidence());
 $("#download-evidence").addEventListener("click", () => hardware.evidence(true));
+$("#download-history").addEventListener("click", () => hardware.downloadHistory());
+$("#evidence-history").addEventListener("change", () => {
+  hardware.selectedEvidence = $("#evidence-history").value;
+  $("#evidence-details").hidden = true;
+  $("#evidence-json").textContent = "";
+  $("#evidence-message").textContent = "";
+  hardware.buttons();
+});
 hardware.refresh();
 setInterval(() => hardware.refresh(), 1000);

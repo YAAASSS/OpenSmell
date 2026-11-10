@@ -55,6 +55,13 @@ class Handler(BaseHTTPRequestHandler):
         if not self._local_request():
             return self._reply(403, {"error": "Local access only, via 127.0.0.1."})
         route = urlsplit(self.path).path
+        if route == "/api/hardware/evidence-history":
+            if urlsplit(self.path).query:
+                return self._reply(400, {"error": "History export accepts no query parameters."})
+            try:
+                return self._reply(200, self.server.hardware.evidence_bundle())
+            except HardwareError as exc:
+                return self._reply(exc.status, {"error": str(exc)})
         if route == "/api/hardware/evidence":
             query = parse_qs(urlsplit(self.path).query, keep_blank_values=True)
             if set(query) != {"report_id"} or len(query["report_id"]) != 1:

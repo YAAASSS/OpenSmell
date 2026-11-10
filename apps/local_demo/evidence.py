@@ -1,4 +1,4 @@
-"""Bounded last-execution evidence; snapshots never contact a device."""
+"""Bounded execution evidence; snapshots never contact a device."""
 from copy import deepcopy
 from datetime import datetime, timezone
 import json
@@ -31,7 +31,7 @@ class ExecutionEvidence:
                 "plan": deepcopy(plan), "exchanges": [], "omitted_events": 0,
                 "limitations": ["Client-side record, not independently authenticated telemetry.",
                                 "Acceptance is not completion. No measured olfactory result.",
-                                "Only the latest send is retained in memory; export before the next send or server shutdown."],
+                                "History is volatile: at most 10 reports, with 8 MiB for archived reports. Oldest reports may be evicted; export before server shutdown."],
             }
             return self.report["report_id"]
 
