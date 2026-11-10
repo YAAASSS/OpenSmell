@@ -122,9 +122,19 @@ and a renamed external copy exercise the same user entry point.
 
 | Priority | Outcome | Acceptance criterion |
 | --- | --- | --- |
-| 1 | Compare execution evidence across runs | Retain and export a bounded history of completed/stopped/unknown runs without mixing their sources, IDs or exchanges. |
+| 1 | Portable session evidence | Export the retained session as one bundle for offline comparison, with explicit omissions and no command replay. |
 | 2 | Adapter onboarding and visual walkthrough | Exercise the normal browser flow and document any remaining environment-specific limitation. |
 | 3 | SDK lifecycle boundary | Extract only the contract demonstrated by both implementations; preserve legacy physical protocol behavior. |
 
 The profile remains Draft. Physical compatibility and third-party adoption
 remain unclaimed. No durable execution recovery is implemented.
+
+
+## Retained execution history — 2026-11-10
+
+Local Explorer now retains up to ten execution reports with an additional 8 MiB
+archive budget. The normal UI selects earlier completed/stopped/unknown reports
+and exports each independently. Old records freeze at the next send; later
+reconnections and exchanges cannot rewrite them. Evictions are counted and
+missing IDs fail explicitly. History is volatile, shared across tabs and lost
+at shutdown; neither durable recovery nor physical validation is claimed.

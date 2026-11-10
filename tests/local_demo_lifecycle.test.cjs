@@ -6,12 +6,12 @@ const fs = require('node:fs');
 test('lifecycle UI shows correlated terminal states and gates Stop by capabilities', async () => {
   const elements = new Map();
   const $ = key => {
-    if (!elements.has(key)) elements.set(key, {value: '', addEventListener() {}, replaceChildren() {}});
+    if (!elements.has(key)) elements.set(key, {value: '', addEventListener() {}, replaceChildren() {}, append() {}});
     return elements.get(key);
   };
   const requests = [];
   const context = vm.createContext({$, number: new Intl.NumberFormat('en'), field() {},
-    node() {}, setInterval() {}, document: {querySelectorAll: () => []},
+    node() { return {}; }, setInterval() {}, document: {querySelectorAll: () => []},
     fetch: async (path, options) => { requests.push({path, options}); return {ok: true, json: async () => ({available: true, connection: 'disconnected'})}; },
   });
   vm.runInContext(fs.readFileSync('apps/local_demo/static/hardware.js', 'utf8') + '\nthis.ui = hardware;', context);
@@ -49,12 +49,12 @@ test('lifecycle UI shows correlated terminal states and gates Stop by capabiliti
 function evidenceHarness() {
   const elements = new Map();
   const $ = key => {
-    if (!elements.has(key)) elements.set(key, {value:'', addEventListener() {}, replaceChildren() {}});
+    if (!elements.has(key)) elements.set(key, {value:'', addEventListener() {}, replaceChildren() {}, append() {}});
     return elements.get(key);
   };
   const downloads = [];
   const blobs = [];
-  const context = vm.createContext({$, number:new Intl.NumberFormat('en'), field() {}, node() {},
+  const context = vm.createContext({$, number:new Intl.NumberFormat('en'), field() {}, node() { return {}; },
     setInterval() {}, setTimeout(fn) { fn(); }, Blob,
     URL: {createObjectURL(blob) { blobs.push(blob); return 'blob:test'; }, revokeObjectURL() {}},
     document: {querySelectorAll:() => [], createElement() { return {click() { downloads.push({name:this.download, href:this.href}); }}; }},
@@ -90,4 +90,27 @@ test('late evidence cannot download or display a different execution', async () 
   await pending;
   assert.equal(downloads.length,0);
   assert.equal($('#evidence-json').textContent,'');
+});
+
+
+test('history selection exports an older report and ignores a late response after selection changes', async () => {
+  const {context, $, downloads, blobs} = evidenceHarness();
+  await new Promise(resolve => setImmediate(resolve));
+  const state = {available:true, connection:'disconnected', evidence_id:'new', evidence_history:{reports:[{report_id:'new', state:'unknown'}, {report_id:'old', state:'completed'}], evicted_reports:2}};
+  context.ui.render(state);
+  context.ui.selectedEvidence = 'old';
+  context.ui.render(state);
+  assert.equal($('#evidence-history').value, 'old');
+  assert.match($('#evidence-retention').textContent, /2 evicted/);
+  const report = {report_id:'old', execution:{state:'completed'}, exchanges:[], omitted_events:0};
+  context.ui.request = async path => {assert.match(path, /report_id=old$/); return report;};
+  await context.ui.evidence(true);
+  assert.deepEqual(JSON.parse(await blobs[0].text()), report);
+  let resolve;
+  context.ui.request = () => new Promise(r => {resolve=r;});
+  const pending = context.ui.evidence(true);
+  context.ui.selectedEvidence = 'new';
+  resolve(report);
+  await pending;
+  assert.equal(downloads.length, 1);
 });

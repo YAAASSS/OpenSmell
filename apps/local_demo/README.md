@@ -150,9 +150,16 @@ After an explicit Send, **Execution evidence** offers **View evidence** and
 **Download evidence JSON**. Both fetch a passive snapshot: they do not poll the
 device, reconnect, submit or repeat a command. Export after the status you want
 has appeared; the displayed snapshot is not live. Both buttons remain available
-after Disconnect. A new Send replaces the previous record, so export it first.
-Reloading the page retains the server's latest record; restarting the server does
-not. This is shared server state across browser tabs, not a durable history.
+after Disconnect. Choose a run in **Retained execution**, then view or download it.
+A new Send archives the previous record without changing its source, plan, IDs or
+exchanges. Reloading the page retains the server's history; restarting the server
+does not. This is shared server state across browser tabs, not durable storage.
+
+To compare outcomes, run `python -m apps.local_demo --simulate-node`, connect,
+send a five-second plan and wait for Completed. Recalculate and send another
+plan, then Stop. Send a third plan and Disconnect while it is running. Select
+each retained execution: the reports show completed, stopped and unknown
+respectively. Exporting an older run never sends Stop or changes the live run.
 
 The experimental `opensmell.local-execution-evidence.v1` JSON includes:
 
@@ -168,14 +175,18 @@ The experimental `opensmell.local-execution-evidence.v1` JSON includes:
   Rejection, uncertain send and unknown after disconnect are not completion.
 - `measured_olfactory_result: null`: no odor measurement is manufactured.
 
-Only the latest send is retained in memory. The exchange trace is capped at 256
+At most ten reports are retained (nine archives plus the current send). Archives
+also have an 8 MiB encoded JSON budget; oldest reports are evicted first, and an
+oversized archive may evict itself. The selector reports the eviction count.
+The current report retains the existing source and trace limits. The exchange
+trace for each report is capped at 256
 entries and 1 MiB of encoded event data; individual text fields retain at most
 65,536 characters. `omitted_events` and `text_truncated` disclose incomplete
 traces. Source/plan data are separate from that trace budget. The preview cache
 keeps its existing bounded client count and import limit. Record creation occurs
 only after freshness and capability checks, when the one-use ticket is consumed.
 
-A stale report ID receives HTTP 409 instead of another execution's data. GET
+An unknown or evicted report ID receives HTTP 409 instead of another execution's data. GET
 `/api/hardware/evidence?report_id=...` uses the existing loopback access guards and
 refuses export while a command operation is pending. No client session token is
 included in the report. Imported source data may be private: review before sharing.

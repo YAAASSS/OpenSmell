@@ -4,6 +4,7 @@ from contextlib import contextmanager
 from copy import deepcopy
 from dataclasses import asdict
 import importlib.util
+import json
 
 from .evidence import ExecutionEvidence
 import threading
@@ -97,6 +98,9 @@ class HardwareService:
         self._message = "Select a port and click Connect."
         self._execution = None
         self._evidence = ExecutionEvidence()
+        self._evidence_history = []
+        self._history_bytes = 0
+        self._evicted_reports = 0
         self._busy_until = 0.0
         self._closed = False
 
@@ -124,6 +128,7 @@ class HardwareService:
                 "evidence_id": self._execution.get("report_id") if self._execution else None,
                 "remaining_seconds": max(0.0, self._busy_until - self._clock()),
                 "operation_pending": self._operation.locked(),
+                "evidence_history": self._history_summary(),
             }
 
     def ports(self):
@@ -215,6 +220,7 @@ class HardwareService:
                 # Atomic freshness check/consumption. Even a failed exchange
                 # cannot reuse this ticket and duplicate a possible command.
                 entry["used"] = True
+                self._archive_evidence()
                 report_id = self._evidence.begin(
                     plan=asdict(plan), source=entry.get("source"), device_id=self._adapter.device_id,
                     capabilities=asdict(self._adapter.capabilities), simulated=self._simulated,
@@ -244,15 +250,46 @@ class HardwareService:
                 self._message = "Command accepted. The device does not report completion or LED state."
         return self.status()
 
+    def _archive_evidence(self):
+        # Called under the state lock, before replacing the current execution.
+        report = self._evidence.snapshot(self._execution)
+        if report is None:
+            return
+        size = len(json.dumps(report, ensure_ascii=False).encode("utf-8"))
+        self._evidence_history.append((report, size))
+        self._history_bytes += size
+        # Nine archived reports plus the current report; large sources can evict
+        # earlier. The current report retains the existing import/trace limits.
+        while len(self._evidence_history) > 9 or self._history_bytes > 8 * 1024 * 1024:
+            _, removed = self._evidence_history.pop(0)
+            self._history_bytes -= removed
+            self._evicted_reports += 1
+
+    def _history_summary(self):
+        reports = [report for report, _ in self._evidence_history]
+        if self._evidence.report is not None:
+            reports.append({**self._evidence.report, "execution": self._execution})
+        return {
+            "reports": [{"report_id": r["report_id"], "started_at": r["started_at"],
+                         "device_id": r["device_id"], "state": r["execution"]["state"],
+                         "duration": r["plan"]["duration"]} for r in reversed(reports)],
+            "evicted_reports": self._evicted_reports,
+            "max_reports": 10, "max_archived_bytes": 8 * 1024 * 1024,
+            "persistent": False,
+        }
+
     def evidence(self, report_id):
         # Snapshot only: deliberately do not call status(), which can poll a simulator.
         with self._state_lock:
             if self._operation.locked():
                 raise HardwareError("Wait for the current operation before exporting evidence.")
             result = self._evidence.snapshot(self._execution)
-            if result is None or report_id != result["report_id"]:
-                raise HardwareError("Evidence is unavailable or superseded by another send.", 409)
-            return result
+            if result is not None and report_id == result["report_id"]:
+                return result
+            for archived, _ in self._evidence_history:
+                if archived["report_id"] == report_id:
+                    return deepcopy(archived)
+            raise HardwareError("Evidence is unavailable or evicted from the bounded history.", 409)
 
     def disconnect(self):
         with self.operation(), self._state_lock:

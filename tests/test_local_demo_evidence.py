@@ -53,7 +53,7 @@ def test_stopped_then_unknown_exports_never_mix_executions(api):
     assert json.loads(report['exchanges'][-1]['request_text'])['type'] == 'stop'
     second, _ = send(request, 2)
     assert second['evidence_id'] != first['evidence_id']
-    evidence(request, first, expected=409)
+    assert evidence(request, first)["execution"]["state"] == "stopped"
     unknown = request('hardware/disconnect', {})
     report = evidence(request, unknown)
     assert report['execution']['state'] == 'unknown'
@@ -109,3 +109,35 @@ def test_bounded_trace_discloses_omissions_and_truncation():
     assert len(report['exchanges']) == MAX_EVENTS
     assert report['exchanges'][0]['text_truncated'] is True
     assert report['omitted_events'] == 11
+
+
+def test_history_complete_stop_unknown_and_eviction(api):
+    request, clock, endpoint = api
+    request('hardware/connect', {'port': 'SIMULATED'})
+    first, _ = send(request)
+    clock.now += 5
+    request('hardware/status')
+    completed = evidence(request, first)
+    second, _ = send(request, 2, duration=3)
+    request('hardware/stop', {'execution_id': second['execution']['execution_id']})
+    stopped = evidence(request, second)
+    third, _ = send(request, 3, duration=4)
+    request('hardware/disconnect', {})
+    assert evidence(request, third)['execution']['state'] == 'unknown'
+    for state, original in [(first, completed), (second, stopped)]:
+        archived = evidence(request, state)
+        for key in ['execution', 'source', 'plan', 'exchanges']:
+            assert archived[key] == original[key]
+    history = request('hardware/status')['evidence_history']
+    assert [r['state'] for r in history['reports']] == ['unknown', 'stopped', 'completed']
+    clock.now += 4
+    endpoint.closed = False
+    request('hardware/connect', {'port': 'SIMULATED'})
+    for revision in range(4, 12):
+        state, _ = send(request, revision)
+        request('hardware/stop', {'execution_id': state['execution']['execution_id']})
+    history = request('hardware/status')['evidence_history']
+    assert len(history['reports']) == 10
+    assert history['evicted_reports'] == 1
+    evidence(request, first, expected=409)
+    assert evidence(request, second)['execution']['state'] == 'stopped'
