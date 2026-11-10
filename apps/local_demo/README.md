@@ -236,7 +236,129 @@ cd D:\OpenSmell
 Changing source, policy or duration invalidates the sendable preview until a
 fresh calculation succeeds. Each preview can be submitted once and expires
 after ten minutes; the bounded cache can also evict old previews after 64 client
-entries. Click **Recalculate** for …1902 tokens truncated…
+entries. Click **Recalculate** for a new explicit send. The server
+checks freshness and all capabilities again immediately before transmission.
+Unsupported plans are rejected whole, without clipping values or dropping
+commands. Empty semantic plans remain visible but cannot be sent.
+
+The server maintains one shared connection across browser tabs and serializes
+hardware operations. Simultaneous sends are rejected. A new plan cannot replace
+one during its estimated execution window; wait, observe the LEDs, then
+recalculate and send explicitly. This wait also survives Disconnect within the
+same server session. Reloading the page neither reconnects nor resends anything.
+
+## Short physical test
+
+After connecting and checking the actual capabilities:
+
+1. Choose **Semantic**, set **Plan duration** to **5**, then **Recalculate**.
+   Check CH1 = **0.60**, CH2 = **1.00**, CH0 = **No command**. Click **Send to
+   device**. Expect **Command accepted**; observe CH0 off and CH1/CH2 driven
+   for the requested duration with the reference firmware.
+2. Wait for the estimated window to end and observe the LEDs. Choose
+   **Perceptual**, keep **5** seconds, and send the new preview. Check CH0 =
+   **0.01**, CH1 = **0.86**, CH2 = **0.97**. CH0 may be hard to see at 0.01.
+3. If the received maximum duration is **30 seconds**, wait for the previous
+   window to end, enter **31**, and recalculate. Preview still works, but a
+   duration incompatibility appears and **Send to device** remains disabled.
+   Nothing should be transmitted. Restore **5** seconds to continue.
+4. Click **Disconnect** and verify **Disconnected**. To demonstrate its meaning,
+   you may also disconnect after a successful send while the LEDs are active:
+   closing the link does not request a stop.
+
+This procedure can be used to repeat the checks on your own board. The user's
+confirmed results are recorded under **Hardware validation — user confirmation**
+below. Software tests alone cannot establish physical LED behavior or electrical
+accuracy, and this is not an odor-reproduction validation.
+
+## Common connection and send errors
+
+| Message or condition | What to do |
+| --- | --- |
+| Hardware unavailable | Install `.[serial]` in the server's Python environment; restart the server. Preview remains available. |
+| No ports found | Check the USB data cable and operating-system port listing; refresh or enter the known port manually. |
+| Port busy / access denied | Close serial monitors and other programs using the selected port; check OS permissions. |
+| Connection failed / unexpected identity / invalid capabilities | Check the selected port, USB connection and existing firmware. The failed connection is closed. No render was sent by Connect. |
+| Plan incompatible / empty plan | Read the received limits; correct the source, policy or duration and recalculate. Nothing was sent. |
+| Preview outdated / expired / already submitted | Recalculate; review the new preview before a new explicit send. |
+| Command rejected | Read the device's error code/message under **View command response**. No automatic retry occurs. |
+| Execution uncertain | The command may have reached the board, but no usable response arrived. The link is closed. Observe the LEDs and wait before explicitly reconnecting; never assume nothing happened. |
+| Local server unreachable | Connection and execution state cannot be confirmed. Check the server and device before repeating any action. |
+
+There is no automatic reconnect or resend. Cable removal is detected only on
+the next serial exchange, not by the status display, which reads cached state.
+There is no LED telemetry or completion notification. Server restart loses
+in-memory execution tracking; observe the board and allow any prior command to
+finish before sending again. Keep a single server instance for the device.
+
+## Try the interface
+
+1. Click **Open demo** to load
+   `examples/multisource_beta_pinene.osmell` from the repository.
+2. Explore the 12 OdorNet annotations and 11 Keller/Vosshall measurements.
+   Their values and scales come directly from the graph.
+3. Switch between **Semantic** and **Perceptual**. Each switch asks Python
+   to recalculate both plans for comparison.
+4. Set **Plan duration** to **7.5** and click **Recalculate**. The plan duration
+   changes; command levels still depend on the data and the mapping policy.
+5. Expand **View demo rules** and **View the calculated RenderingPlan**.
+   This JSON describes the application plan, not a Device Protocol message.
+6. Open **Provenance** to inspect declared sources, records, derivation methods,
+   dilution, context and complete resources. **Graph JSON** shows the graph
+   serialized by the experimental generic API.
+7. Enter a duration of **0**. An error appears and the previous plan is hidden.
+   Correct the duration to continue without reloading the data.
+8. Import `examples/coffee.osmell`. The diagnostic explains that this Core
+   document is not a supported generic graph. **Open demo** restores the sample
+   and the default duration of 5 seconds.
+
+Verified reference values:
+
+| Channel | Semantic | Perceptual |
+| --- | --- | --- |
+| 0 | No command | 0.01 |
+| 1 | 0.60 | 0.86 |
+| 2 | 1.00 | 0.97 |
+
+These results are not hardcoded in the view. The interface displays the commands
+returned by the mappers. A command with a value of zero remains in the plan;
+an omitted channel is shown as “No command”. The reference firmware turns off
+omitted channels when applying a plan.
+
+Interface labels, accessibility text, status messages, validation diagnostics
+and launch messages are in English. Displayed numbers use English formatting.
+Scientific data, source text, identifiers, schemes, JSON keys and JSON values
+are preserved as supplied, regardless of their language. “Absent”, “Unknown”,
+“Not provided”, “Not specified (null)” and a numeric zero remain distinct.
+
+## Try the second real example
+
+Use **Import graph** to open
+[examples/multisource_diphenyl_ether.osmell](../../examples/multisource_diphenyl_ether.osmell).
+Check the shared InChIKey `USIUVYZYUHIAEV-UHFFFAOYSA-N`, the 12 OdorNet states
+(including two unknowns), and the seven available Keller/Vosshall ratings.
+**Provenance** identifies source rows, file fingerprints, participant 35 and
+dilution `1/1,000`. Missing ratings remain distinct from the recorded familiarity
+rating of zero. The graph is self-contained; source datasets and network access
+are not needed to import it.
+
+At **5 seconds**, Semantic must show **CH0 0.25, CH1 0.60, CH2 No command**;
+Perceptual must show **CH0 0.47, CH1 0.18, CH2 0.15**. **Open demo** still loads
+beta-pinene with its original expected plans. No binding or interface change
+is needed. The [example sheet](../../docs/diphenyl-ether-example.md) records the
+selected source observation, independent calculations, reproducible export,
+software/browser verification and a short manual ESP32 procedure.
+
+The user has now given an **overall positive confirmation for both policies**
+in this example's proposed 5-second ESP32 workflow. The
+[confirmation record](../../docs/diphenyl-ether-example.md#hardware-validation--user-confirmation)
+distinguishes that report from software checks and measured output levels.
+Wait for the estimated window and observe LED extinction before another explicit
+send; Disconnect still does not stop an accepted command.
+
+## Supported imports
+
+A `.osmell` copy downloaded by the JavaScript reader uses this same import
 workflow. Byte transfer preserves the complete original file; the reader's
 separate inspection report is not an importable graph. The reader understands
 a broader limited inspection profile, so its checks do not guarantee acceptance
