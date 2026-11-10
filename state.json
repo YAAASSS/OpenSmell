@@ -7,7 +7,12 @@
     "acquired_at": "2026-11-10T18:16:11.931Z",
     "expires_at": "2026-11-10T22:16:11.931Z"
   },
-  "open_work": null,
+  "open_work": {
+    "branch": "feat/standalone-developer-kit",
+    "commit": "e16c5df976860534c54ae3893ca3605c84817456",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/12",
+    "next_action": "Verify exact-head CI, merge when green, then finish handoff; do not restart Explorer work."
+  },
   "last_result": {
     "session_kind": "scheduled",
     "slot": "2026-11-10T18:00",
@@ -267,7 +272,7 @@
       "handoff_library_file_id": "libfile_fde3_f-0fb6cf1df1488191a1880b0d0b6cb9ed_44ff1f20787081919dd91de18843de02"
     }
   ],
-  "next_objective": "Inspect exported execution reports in Local Explorer without connecting or replaying commands; retain CLI as scriptable reference.",
+  "next_objective": "Reusable SDK lifecycle adapters and standalone installed client, followed by reproducible ESP32 bench preparation.",
   "automation": {
     "id": "39cc72697e048191a1ba0d3e3e9d787c",
     "title": "OpenSmell — développement autonome quotidien",
@@ -283,9 +288,9 @@
     "lease_minutes": 240
   },
   "active_product_milestone": {
-    "goal": "Reproducible externally implementable execution exchange",
-    "delivered": "Offline evidence diagnostics plus reproducible Node HTTP capture-to-diagnostics walkthrough",
-    "next": "Inspect exported execution reports in Local Explorer without connecting or replaying commands; retain CLI as scriptable reference."
+    "goal": "Installable OpenSmell developer kit spanning data, SDK, device integration and reproducible hardware bench",
+    "delivered": "PR #12 pending CI: installed validation/inspection and offline semantic/perceptual planning",
+    "next": "Reusable SDK lifecycle adapters and standalone installed client, followed by reproducible ESP32 bench preparation."
   },
   "session_slot": "manual-2026-11-10T18:16:11.931Z",
   "last_completed_slot": "2026-11-10T18:00"
