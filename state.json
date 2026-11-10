@@ -1,71 +1,42 @@
 {
   "schema_version": 1,
-  "last_completed_brussels_date": "2026-11-09",
-  "last_processed_main_sha": "1ab273ffddec0a5a4351f675ebf8cd3dc6382df6",
-  "lease": {
-    "owner": "opensmell-20261110-0600-d0cjwz4ldfa",
-    "acquired_at": "2026-11-10T05:00:19.662Z",
-    "expires_at": "2026-11-10T09:00:19.663Z"
-  },
-  "open_work": {
-    "branch": "automation/evidence-history-20261110",
-    "commit": "a3dbda0a396f5a0ceb240d0ebf916cbe135a4e54",
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/10",
-    "next_action": "Exact-head CI 42760259638 in progress; all local tests and Node CLI proof passed. Merge PR 10 then verify main and release."
-  },
+  "last_completed_brussels_date": "2026-11-10",
+  "last_processed_main_sha": "b01ac33bdfe0c6fc0b78f6829654f75f2c3078d5",
+  "lease": null,
+  "open_work": null,
   "last_result": {
-    "session_kind": "manual_requested",
-    "slot": "manual-2026-11-09T22:06:28.488Z",
-    "completed_at": "2026-11-09T22:20:05.425Z",
-    "objective": "Custom software adapter through Local Explorer: explicit connect, five-second completion, Stop, unknown after lost link and export",
-    "commit": "1ab273ffddec0a5a4351f675ebf8cd3dc6382df6",
-    "tested_commit": "170f7f456ed4b9fa1747e34a3f7f385754412b3c",
+    "session_kind": "scheduled",
+    "slot": "2026-11-10T06:00",
+    "completed_at": "2026-11-10T05:12:04.321Z",
+    "objective": "Bounded multi-run execution history, individual selection/export and passive session JSON bundle in Local Explorer",
+    "commit": "b01ac33bdfe0c6fc0b78f6829654f75f2c3078d5",
+    "tested_commit": "a3dbda0a396f5a0ceb240d0ebf916cbe135a4e54",
     "merged": true,
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/9",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/10",
     "checks": {
-      "python_full": 1984,
-      "python_targeted_existing_and_extended": 63,
-      "python_new_custom_cases": 15,
-      "javascript_local_explorer": 11,
+      "python_full": 1987,
+      "javascript_local_explorer": 13,
       "javascript_graph_reader": 33,
-      "normal_custom_cli_http": "passed with externally renamed Node endpoint, five-second completion, Stop, unknown/reconnect and isolated evidence",
+      "targeted_evidence": 9,
+      "normal_node_cli_http": "Five-second completion, Stop, unknown; isolated semantic/perceptual reports and bundle matched",
       "ci_result": "success",
-      "ci_run": "https://github.com/YAAASSS/OpenSmell/actions/runs/42710250999",
+      "ci_run": "https://github.com/YAAASSS/OpenSmell/actions/runs/42760259638",
       "ci_python_versions": [
         "3.10",
         "3.11",
         "3.12",
         "3.13"
       ],
-      "remote_tree_matches_tested": true,
-      "main_cli_help": "passed",
+      "main_tree_matches_tested": true,
       "physical_access": false
     },
     "limitations": [
-      "Chromium cannot start: socket creation denied by execution environment; no visual browser validation.",
-      "Trusted software-only command is not sandboxed or physically certified; no third-party adoption claimed.",
-      "Evidence remains latest-send-only and volatile; command arguments and handshake transcript not exported."
+      "Chromium socket creation denied: no visual browser validation.",
+      "Volatile shared history, ten reports maximum and 8 MiB archive budget; not durable recovery or measured olfactory evidence."
     ],
-    "handoff_library_file_id": "libfile_7b77075ee78c8191a20f581bdf658fa5"
+    "handoff_library_file_id": "libfile_fa0755e6c7a08191a25def53fee1a342"
   },
   "recent_sessions": [
-    {
-      "session_kind": "manual_publication_recovery",
-      "completed_at": "2026-11-04T12:54:27.312Z",
-      "objective": "Publish the tested RFC-0007 duplicate-member fix",
-      "commit": "a0c9b3bb6ffa18bb132dd103182feb555d613aeb",
-      "tested_commit": "32bcd0c96eadb1a4998e4a0d1ae17925757434f5",
-      "merged": true,
-      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/3",
-      "checks": {
-        "scheduled_python_targeted": 145,
-        "scheduled_javascript_interop_vectors": 6,
-        "ci_tested_head": "32bcd0c96eadb1a4998e4a0d1ae17925757434f5",
-        "ci_result": "success",
-        "ci_run": "https://github.com/YAAASSS/OpenSmell/actions/runs/41832869313",
-        "verified_main": "a0c9b3bb6ffa18bb132dd103182feb555d613aeb"
-      }
-    },
     {
       "session_kind": "daily",
       "completed_at": "2026-11-05T05:15:31.337Z",
@@ -276,9 +247,41 @@
         "Evidence remains latest-send-only and volatile; command arguments and handshake transcript not exported."
       ],
       "handoff_library_file_id": "libfile_7b77075ee78c8191a20f581bdf658fa5"
+    },
+    {
+      "session_kind": "scheduled",
+      "slot": "2026-11-10T06:00",
+      "completed_at": "2026-11-10T05:12:04.321Z",
+      "objective": "Bounded multi-run execution history, individual selection/export and passive session JSON bundle in Local Explorer",
+      "commit": "b01ac33bdfe0c6fc0b78f6829654f75f2c3078d5",
+      "tested_commit": "a3dbda0a396f5a0ceb240d0ebf916cbe135a4e54",
+      "merged": true,
+      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/10",
+      "checks": {
+        "python_full": 1987,
+        "javascript_local_explorer": 13,
+        "javascript_graph_reader": 33,
+        "targeted_evidence": 9,
+        "normal_node_cli_http": "Five-second completion, Stop, unknown; isolated semantic/perceptual reports and bundle matched",
+        "ci_result": "success",
+        "ci_run": "https://github.com/YAAASSS/OpenSmell/actions/runs/42760259638",
+        "ci_python_versions": [
+          "3.10",
+          "3.11",
+          "3.12",
+          "3.13"
+        ],
+        "main_tree_matches_tested": true,
+        "physical_access": false
+      },
+      "limitations": [
+        "Chromium socket creation denied: no visual browser validation.",
+        "Volatile shared history, ten reports maximum and 8 MiB archive budget; not durable recovery or measured olfactory evidence."
+      ],
+      "handoff_library_file_id": "libfile_fa0755e6c7a08191a25def53fee1a342"
     }
   ],
-  "next_objective": "Bounded multi-run execution evidence history in Local Explorer: inspect/export completed, stopped and unknown runs without mixing source, plan, IDs or exchanges.",
+  "next_objective": "Offline diagnostics for exported history bundles: identify missing or inconsistent observations without command execution.",
   "automation": {
     "id": "39cc72697e048191a1ba0d3e3e9d787c",
     "title": "OpenSmell — développement autonome quotidien",
@@ -295,9 +298,9 @@
   },
   "active_product_milestone": {
     "goal": "Reproducible externally implementable execution exchange",
-    "delivered": "User-selected software command in normal Local Explorer, identity/capability gates, completion/Stop/unknown and correlated evidence export",
-    "next": "Bounded multi-run execution evidence history in Local Explorer: inspect/export completed, stopped and unknown runs without mixing source, plan, IDs or exchanges."
+    "delivered": "Bounded multi-run execution history, individual selection/export and passive session JSON bundle in Local Explorer",
+    "next": "Offline diagnostics for exported history bundles: identify missing or inconsistent observations without command execution."
   },
-  "session_slot": "2026-11-10T06:00",
-  "last_completed_slot": "2026-11-09T06:00"
+  "session_slot": null,
+  "last_completed_slot": "2026-11-10T06:00"
 }
