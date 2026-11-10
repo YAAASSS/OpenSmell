@@ -2,7 +2,11 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-09",
   "last_processed_main_sha": "1ab273ffddec0a5a4351f675ebf8cd3dc6382df6",
-  "lease": null,
+  "lease": {
+    "owner": "opensmell-20261110-0600-d0cjwz4ldfa",
+    "acquired_at": "2026-11-10T05:00:19.662Z",
+    "expires_at": "2026-11-10T09:00:19.663Z"
+  },
   "open_work": null,
   "last_result": {
     "session_kind": "manual_requested",
@@ -289,6 +293,6 @@
     "delivered": "User-selected software command in normal Local Explorer, identity/capability gates, completion/Stop/unknown and correlated evidence export",
     "next": "Bounded multi-run execution evidence history in Local Explorer: inspect/export completed, stopped and unknown runs without mixing source, plan, IDs or exchanges."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-10T06:00",
   "last_completed_slot": "2026-11-09T06:00"
 }
