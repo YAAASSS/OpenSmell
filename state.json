@@ -7,7 +7,12 @@
     "acquired_at": "2026-11-10T05:00:19.662Z",
     "expires_at": "2026-11-10T09:00:19.663Z"
   },
-  "open_work": null,
+  "open_work": {
+    "branch": "automation/evidence-history-20261110",
+    "commit": "acdf3983a10ad0d9bd50a675c0e271f80aec706d",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/10",
+    "next_action": "Finish history bundle, normal Node CLI proof, exact-head CI and merge"
+  },
   "last_result": {
     "session_kind": "manual_requested",
     "slot": "manual-2026-11-09T22:06:28.488Z",
