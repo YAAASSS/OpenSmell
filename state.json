@@ -7,7 +7,12 @@
     "acquired_at": "2026-11-10T17:00:52.455Z",
     "expires_at": "2026-11-10T21:00:52.455Z"
   },
-  "open_work": null,
+  "open_work": {
+    "branch": "auto/20261110-offline-evidence",
+    "commit": "e762f3d509f9bc62bd1893f1caa17c0870f10191",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/11",
+    "next_action": "Verify complete source publication, run exact-head CI and merge offline diagnostics."
+  },
   "last_result": {
     "session_kind": "scheduled",
     "slot": "2026-11-10T06:00",
