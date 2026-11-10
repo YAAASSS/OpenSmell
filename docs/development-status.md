@@ -138,3 +138,17 @@ and exports each independently or all retained reports as one passive JSON bundl
 reconnections and exchanges cannot rewrite them. Evictions are counted and
 missing IDs fail explicitly. History is volatile, shared across tabs and lost
 at shutdown; neither durable recovery nor physical validation is claimed.
+
+## Offline evidence diagnostics — 2026-11-10 evening
+
+`python -m tools.diagnose_execution_evidence history.json` checks individual
+exports and history bundles without a running server or device. Text and JSON
+results distinguish internally consistent records, incomplete evidence and
+contradictory claims, with paths/codes and scriptable exit statuses. Actual HTTP
+exports cover completion, Stop and lost-link uncertainty; altered fixtures expose
+plan, identity and snapshot contradictions. No replay, authentication, full schema
+validation or physical compatibility is claimed.
+
+Next useful slice: a reproducible adapter troubleshooting walkthrough combining
+live reference checks, saved evidence and offline diagnostics, then a browser
+inspection entry if it removes a demonstrated onboarding obstacle.

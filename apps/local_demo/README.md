@@ -659,3 +659,54 @@ server disabled serial enumeration and access; it did not use the ESP32.
 No console errors were reported. The [example sheet](../../docs/diphenyl-ether-example.md)
 records source-byte reproducibility checks, the subsequent user confirmation
 and the manual LED procedure retained for repeat trials.
+
+### Diagnose exported execution evidence offline
+
+Save **Download evidence JSON** or **Download history JSON**, then from the
+repository root run (no server or adapter needs to be running):
+
+```sh
+python -m tools.diagnose_execution_evidence history.json
+python -m tools.diagnose_execution_evidence history.json --json
+```
+
+The checker accepts a single v1 evidence report or a v1 history bundle. It compares
+render duration/commands with the saved plan, correlates lifecycle request/reply
+IDs and profiles, checks the final snapshot against the last valid observation,
+and detects changed terminal states and repeated report IDs. Findings include
+JSON paths and stable diagnostic codes. Unknown extension fields are ignored;
+the original file, source graph and provenance are never rewritten.
+
+Exit codes: **0** internally consistent, **1** incomplete (including unresolved
+outcome, omitted/truncated exchanges, evicted history or acceptance only), **2**
+inconsistent or invalid input. An inconsistent device response may be correctly
+recorded as `unknown`: it produces a warning, not a fabricated terminal outcome.
+A terminal claim with no supporting exchange is an error unless the trace is
+explicitly incomplete. Resolve warnings by inspecting the original export or
+collecting a new, explicitly initiated software test; never automatically replay
+an uncertain command.
+
+This is a passive consistency diagnostic, **not** a full schema/protocol validator,
+authenticity check, adapter certification or measured olfactory result. A fabricated
+but internally consistent file can pass. It never launches exported commands,
+imports adapter code or contacts devices. Input is bounded to 32 MiB; ambiguous
+JSON keys, non-finite constants and unsupported formats are rejected. Keep the
+original export alongside the diagnostics when sharing a bug report.
+
+For a reproducible reference capture (Python environment installed and Node.js on
+PATH), run from the repository root with a **new** destination directory:
+
+```sh
+python -m tools.demo_execution_evidence evidence-demo
+python -m tools.diagnose_execution_evidence evidence-demo/completed.json
+python -m tools.diagnose_execution_evidence evidence-demo/history.json --json
+```
+
+The demo uses the repository's Node software simulator through Local Explorer's
+normal HTTP preview/check/send/status/stop/export routes. It waits for a real
+five-second completion, stops a second run, and disconnects a third. It saves all
+three reports, the history bundle and offline diagnostics, then closes the server
+and process. It refuses an existing directory. Individual completed/stopped
+reports yield exit 0 from the diagnostic command; the history yields exit 1 because
+its third outcome deliberately remains unknown. Demo success itself exits 0.
+No serial device is opened; this demonstrates repository implementations only.
