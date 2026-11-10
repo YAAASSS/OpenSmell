@@ -1,83 +1,42 @@
 {
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-10",
-  "last_processed_main_sha": "49d1967f1c3c2195788fe72f9897c3861a5d25e3",
-  "lease": {
-    "owner": "opensmell-kit-2026-11-10T18:16:11.931Z",
-    "acquired_at": "2026-11-10T18:16:11.931Z",
-    "expires_at": "2026-11-10T22:16:11.931Z"
-  },
-  "open_work": {
-    "branch": "feat/standalone-developer-kit",
-    "commit": "e16c5df976860534c54ae3893ca3605c84817456",
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/12",
-    "next_action": "Verify exact-head CI, merge when green, then finish handoff; do not restart Explorer work."
-  },
+  "last_processed_main_sha": "a8dd43b536f5760f23c6673ae188bc99b98ce9e9",
+  "lease": null,
+  "open_work": null,
   "last_result": {
-    "session_kind": "scheduled",
-    "slot": "2026-11-10T18:00",
-    "completed_at": "2026-11-10T17:13:43.187Z",
-    "objective": "Offline evidence diagnostics plus reproducible Node HTTP capture-to-diagnostics walkthrough",
-    "commit": "49d1967f1c3c2195788fe72f9897c3861a5d25e3",
-    "tested_commit": "96d072621b8faa0841b8a385b8b5eac6c42f2ef8",
+    "session_kind": "manual_requested",
+    "slot": "manual-2026-11-10T18:16:11.931Z",
+    "completed_at": "2026-11-10T18:35:13.313Z",
+    "objective": "Project-wide redirection and installed SDK/CLI with explicit offline semantic/perceptual planning",
+    "commit": "a8dd43b536f5760f23c6673ae188bc99b98ce9e9",
+    "tested_commit": "e16c5df976860534c54ae3893ca3605c84817456",
     "merged": true,
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/11",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/12",
     "checks": {
-      "python_full": 2008,
-      "python_targeted": 21,
-      "javascript": 46,
-      "normal_node_cli_http": "Five-second completion, Stop, disconnect; individual and history exports diagnosed after closing server",
+      "python_full": 2050,
+      "new_cli_sdk_cases": 42,
+      "installed_wheel": "Fresh environment outside checkout: both input formats, stdin/errors, both mappers and actual installed import location passed",
       "ci_result": "success",
-      "ci_run": "https://github.com/YAAASSS/OpenSmell/actions/runs/42862212926",
+      "ci_run": "https://github.com/YAAASSS/OpenSmell/actions/runs/42875965679",
+      "ci_python_versions": [
+        "3.10",
+        "3.11",
+        "3.12",
+        "3.13"
+      ],
+      "ci_interoperability": "success",
       "main_tree_matches_tested": true,
       "physical_access": false
     },
     "limitations": [
-      "Passive consistency checks, not exhaustive schema validation, authentication or physical certification.",
-      "No visual verification; UI unchanged."
+      "Planning uses supplied capabilities, not live device observations; no execution or odor reproduction claimed.",
+      "Draft RFC-0015 and existing experimental version; no release/PyPI publication.",
+      "Plan input requires generic ResourceGraph; whole files read into memory; supplied provenance is not authenticated."
     ],
-    "handoff_library_file_id": "libfile_fde3_f-0fb6cf1df1488191a1880b0d0b6cb9ed_44ff1f20787081919dd91de18843de02"
+    "handoff_library_file_id": "libfile_fde3_f-8403a82600388191891d850cec549ee7_44ff1f20787081919dd91de18843de02"
   },
   "recent_sessions": [
-    {
-      "session_kind": "daily",
-      "completed_at": "2026-11-06T05:04:24.263Z",
-      "objective": "Independent Node software lifecycle endpoint, normal Local Explorer entry and reusable live adapter verifier",
-      "commit": "29b76f4d556799b1d77323d99c6a1f4250203523",
-      "tested_commit": "93d5105feb48535c97f4efc53e44cf0815c9a91b",
-      "merged": true,
-      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/5",
-      "checks": {
-        "python_full": 1955,
-        "new_python_tests": 9,
-        "javascript": 9,
-        "live_reference_endpoints": [
-          "python",
-          "node",
-          "custom command"
-        ],
-        "reference_cases_per_endpoint": 5,
-        "transcript_exchanges_each": 20,
-        "normal_cli_http": "passed --simulate-node",
-        "ci_result": "success",
-        "ci_run": "https://github.com/YAAASSS/OpenSmell/actions/runs/42165948294",
-        "ci_python_versions": [
-          "3.10",
-          "3.11",
-          "3.12",
-          "3.13"
-        ],
-        "ci_interoperability": "success",
-        "remote_tree_matches_tested": true,
-        "physical_access": false
-      },
-      "limitations": [
-        "Two repository-maintained implementations; not third-party adoption or physical compatibility.",
-        "RFC-0014 remains Draft; errors/reconnect not standardized.",
-        "No new visual browser run; UI markup and JS unchanged."
-      ],
-      "handoff_library_file_id": "libfile_8d484e7940688191b009367bfb4ba166"
-    },
     {
       "session_kind": "daily",
       "completed_at": "2026-11-07T05:07:59.298Z",
@@ -270,6 +229,38 @@
         "No visual verification; UI unchanged."
       ],
       "handoff_library_file_id": "libfile_fde3_f-0fb6cf1df1488191a1880b0d0b6cb9ed_44ff1f20787081919dd91de18843de02"
+    },
+    {
+      "session_kind": "manual_requested",
+      "slot": "manual-2026-11-10T18:16:11.931Z",
+      "completed_at": "2026-11-10T18:35:13.313Z",
+      "objective": "Project-wide redirection and installed SDK/CLI with explicit offline semantic/perceptual planning",
+      "commit": "a8dd43b536f5760f23c6673ae188bc99b98ce9e9",
+      "tested_commit": "e16c5df976860534c54ae3893ca3605c84817456",
+      "merged": true,
+      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/12",
+      "checks": {
+        "python_full": 2050,
+        "new_cli_sdk_cases": 42,
+        "installed_wheel": "Fresh environment outside checkout: both input formats, stdin/errors, both mappers and actual installed import location passed",
+        "ci_result": "success",
+        "ci_run": "https://github.com/YAAASSS/OpenSmell/actions/runs/42875965679",
+        "ci_python_versions": [
+          "3.10",
+          "3.11",
+          "3.12",
+          "3.13"
+        ],
+        "ci_interoperability": "success",
+        "main_tree_matches_tested": true,
+        "physical_access": false
+      },
+      "limitations": [
+        "Planning uses supplied capabilities, not live device observations; no execution or odor reproduction claimed.",
+        "Draft RFC-0015 and existing experimental version; no release/PyPI publication.",
+        "Plan input requires generic ResourceGraph; whole files read into memory; supplied provenance is not authenticated."
+      ],
+      "handoff_library_file_id": "libfile_fde3_f-8403a82600388191891d850cec549ee7_44ff1f20787081919dd91de18843de02"
     }
   ],
   "next_objective": "Reusable SDK lifecycle adapters and standalone installed client, followed by reproducible ESP32 bench preparation.",
@@ -289,9 +280,9 @@
   },
   "active_product_milestone": {
     "goal": "Installable OpenSmell developer kit spanning data, SDK, device integration and reproducible hardware bench",
-    "delivered": "PR #12 pending CI: installed validation/inspection and offline semantic/perceptual planning",
+    "delivered": "PR #12 merged: installed validate/inspect/plan CLI and experimental plan_with_profile SDK; both offline mappings verified from installed wheel.",
     "next": "Reusable SDK lifecycle adapters and standalone installed client, followed by reproducible ESP32 bench preparation."
   },
-  "session_slot": "manual-2026-11-10T18:16:11.931Z",
+  "session_slot": null,
   "last_completed_slot": "2026-11-10T18:00"
 }
