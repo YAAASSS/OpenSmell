@@ -2,7 +2,11 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-10",
   "last_processed_main_sha": "49d1967f1c3c2195788fe72f9897c3861a5d25e3",
-  "lease": null,
+  "lease": {
+    "owner": "opensmell-kit-2026-11-10T18:16:11.931Z",
+    "acquired_at": "2026-11-10T18:16:11.931Z",
+    "expires_at": "2026-11-10T22:16:11.931Z"
+  },
   "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
@@ -283,6 +287,6 @@
     "delivered": "Offline evidence diagnostics plus reproducible Node HTTP capture-to-diagnostics walkthrough",
     "next": "Inspect exported execution reports in Local Explorer without connecting or replaying commands; retain CLI as scriptable reference."
   },
-  "session_slot": null,
+  "session_slot": "manual-2026-11-10T18:16:11.931Z",
   "last_completed_slot": "2026-11-10T18:00"
 }
