@@ -118,3 +118,21 @@ def test_terminal_state_cannot_change(api):
 def test_overflow_is_not_finite():
     with pytest.raises(ValueError):
         loads('{"number":1e9999}')
+
+
+def test_node_walkthrough_entry(tmp_path):
+    import shutil
+    if shutil.which('node') is None:
+        pytest.skip('Node required for independent software walkthrough')
+    target = tmp_path / 'capture'
+    result = subprocess.run([sys.executable, '-m', 'tools.demo_execution_evidence', str(target)],
+                            capture_output=True, text=True, timeout=25)
+    assert result.returncode == 0, result.stderr
+    assert json.loads((target / 'diagnostics.json').read_text())['verdict'] == 'incomplete'
+    for name, verdict in [('completed', 'consistent'), ('stopped', 'consistent'), ('unknown', 'incomplete')]:
+        assert diagnose(json.loads((target / (name + '.json')).read_text()))['verdict'] == verdict
+    before = (target / 'history.json').read_bytes()
+    result = subprocess.run([sys.executable, '-m', 'tools.demo_execution_evidence', str(target)],
+                            capture_output=True, text=True, timeout=5)
+    assert result.returncode == 2
+    assert (target / 'history.json').read_bytes() == before

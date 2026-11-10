@@ -692,3 +692,21 @@ but internally consistent file can pass. It never launches exported commands,
 imports adapter code or contacts devices. Input is bounded to 32 MiB; ambiguous
 JSON keys, non-finite constants and unsupported formats are rejected. Keep the
 original export alongside the diagnostics when sharing a bug report.
+
+For a reproducible reference capture (Python environment installed and Node.js on
+PATH), run from the repository root with a **new** destination directory:
+
+```sh
+python -m tools.demo_execution_evidence evidence-demo
+python -m tools.diagnose_execution_evidence evidence-demo/completed.json
+python -m tools.diagnose_execution_evidence evidence-demo/history.json --json
+```
+
+The demo uses the repository's Node software simulator through Local Explorer's
+normal HTTP preview/check/send/status/stop/export routes. It waits for a real
+five-second completion, stops a second run, and disconnects a third. It saves all
+three reports, the history bundle and offline diagnostics, then closes the server
+and process. It refuses an existing directory. Individual completed/stopped
+reports yield exit 0 from the diagnostic command; the history yields exit 1 because
+its third outcome deliberately remains unknown. Demo success itself exits 0.
+No serial device is opened; this demonstrates repository implementations only.
