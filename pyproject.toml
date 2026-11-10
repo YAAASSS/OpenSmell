@@ -35,6 +35,9 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules"
 ]
 
+[project.scripts]
+opensmell = "opensmell.cli:main"
+
 [project.optional-dependencies]
 serial = [
     "pyserial>=3.5"

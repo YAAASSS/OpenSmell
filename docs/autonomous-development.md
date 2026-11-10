@@ -106,9 +106,14 @@ autonomous runs; it cannot lock out unrelated human edits, which must be preserv
 2. Check the latest main SHA, applicable instructions, relevant diffs, open PRs
    and actual CI. Preserve any unrelated working-tree changes.
 3. Choose the highest-value bounded task with an observable acceptance criterion.
-   Priority: regressions/data loss/security; broken existing features; reproducible
-   demos; installation/onboarding; interoperability/validation; useful features;
-   docs/contribution; then exploratory ideas. Write down important trade-offs.
+   The 2026-11-10 maintainer direction prioritizes OpenSmell as a whole: installed
+   SDK/CLI, data interoperability, reusable device integration, a reproducible
+   hardware bench and adoption. Follow the milestone and exit criteria in
+   development-status.md; Explorer is a demo client, not the default product.
+   Handle demonstrated regressions/data loss/security first. Defer further
+   Explorer history/diagnostic/UI refinements unless they unlock the active
+   project milestone. Write down important trade-offs; do not substitute audits,
+   test counts or roadmap edits for a usable new capability.
 4. Implement and run targeted nominal/error/non-regression checks. Broaden checks
    only for a concrete risk or required gate. For visible UI changes, exercise the
    user flow if possible. Distinguish executed checks from inspection/history.

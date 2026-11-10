@@ -1,0 +1,44 @@
+{
+  "format": "org.opensmell.experimental.mapping-profile",
+  "version": "0.1",
+  "description": "Illustrative software planning profile. Channel choices do not reproduce an odor. Capabilities are supplied, not measured.",
+  "capabilities": {
+    "protocol_version": "0.1",
+    "type": "capabilities",
+    "device_id": "opensmell-offline-example-3ch",
+    "channels": [
+      {
+        "channel": 0,
+        "min_intensity": 0.0,
+        "max_intensity": 1.0
+      },
+      {
+        "channel": 1,
+        "min_intensity": 0.0,
+        "max_intensity": 1.0
+      },
+      {
+        "channel": 2,
+        "min_intensity": 0.0,
+        "max_intensity": 1.0
+      }
+    ],
+    "min_duration": 0.1,
+    "max_duration": 30.0
+  },
+  "mapper": "perceptual",
+  "bindings": [
+    {
+      "property": "flower",
+      "channel": 0
+    },
+    {
+      "property": "grass",
+      "channel": 1
+    },
+    {
+      "property": "wood",
+      "channel": 2
+    }
+  ]
+}

@@ -1593,6 +1593,8 @@ RFC-0010  Generic Annotation Resource
 RFC-0011  Structural Reference Discovery and Graph Navigation
 RFC-0012  Experimental Rendering and Device Interoperability Architecture
 RFC-0013  Multi-Source and Multi-Mapper Interoperability
+RFC-0014  Local Simulated Execution Lifecycle
+RFC-0015  Offline Planning Profiles and Artifacts
 ```
 
 RFCs allow experimental concepts to be investigated without prematurely
@@ -1625,6 +1627,27 @@ See the [current development status and short backlog](docs/development-status.m
 for bounded maintenance priorities and verification evidence. The
 [autonomous maintenance runbook](docs/autonomous-development.md) describes
 continuity, publication and unattended-work limits.
+
+### Current product milestone — usable developer kit
+
+The active direction covers the installed SDK/CLI, interoperable data, reusable
+adapters and a reproducible ESP32 bench. Local Explorer remains a demo client.
+See [the deliverables and exit criteria](docs/development-status.md#active-direction--developer-kit-and-concrete-prototype-2026-11-10).
+
+With the current checkout installed (`python -m pip install .`):
+
+```sh
+opensmell validate examples/geraniol.osmell examples/multisource_beta_pinene.osmell
+opensmell inspect examples/multisource_beta_pinene.osmell --json
+```
+
+The installed commands also work outside the checkout on your own files;
+`python -m opensmell` is an equivalent entry point. They report structure,
+unknown contracts, supplied provenance and unresolved known references without
+connecting a device. `opensmell plan` additionally generates semantic or perceptual
+plans from explicit mapping/capability profiles. See the complete examples in the
+[CLI installation and scripting guide](docs/cli.md).
+This feature is on development main, not a newly published PyPI release.
 
 ### OpenSmell 0.1 foundation
 
@@ -1709,7 +1732,9 @@ records, not measured olfactory results. See the [evidence guide](apps/local_dem
 - [ ] investigate normative serialization and canonicalization requirements
 - [ ] investigate mixture and renderable representations
 - [ ] investigate MPEG-V interoperability
-- [ ] add CLI tooling
+- [x] add installed CLI validation/inspection for Core and generic ResourceGraphs
+- [x] generate offline semantic/perceptual plans with explicit profiles through CLI/SDK
+- [ ] extend installed workflow with data import/Core bridging and reusable lifecycle adapters
 - [ ] publish project documentation through opensmell.org
 - [ ] define the OpenSmell 0.2 roadmap
 
