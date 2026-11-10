@@ -110,25 +110,51 @@ Stop, then proves normal operations on the same link. Local Explorer exports a
 render refusal as rejected and permits a fresh preview/send after the endpoint
 becomes available; lost links and invalid observations remain unknown.
 
-## Prioritized next work
+## Custom adapter entry point — 2026-11-09 manual
 
-Custom software adapters can now be selected at CLI startup with a pinned
-device ID, connected explicitly, run/stopped and inspected/exported in the normal
-Local Explorer UI. The selected executable is never accepted from HTTP or graph
-input. Missing commands and incompatible identities/capabilities fail before
-render; broken execution exchanges remain unknown without retry. The software
-mode is not a sandbox and does not certify physical effects. The Node reference
-and a renamed external copy exercise the same user entry point.
+Custom software adapters can be selected at CLI startup with a pinned device ID,
+connected explicitly, run/stopped and inspected/exported in Local Explorer. The
+executable is never accepted from HTTP or graph input. Missing commands and
+incompatible identities/capabilities fail before render; broken execution
+exchanges remain unknown without retry. This is not a sandbox or physical
+certification. The Node reference and a renamed external copy exercise the entry
+point. The lifecycle profile remains Draft; durable recovery is not implemented.
 
-| Priority | Outcome | Acceptance criterion |
+## Active direction — developer kit and concrete prototype (2026-11-10)
+
+The maintainer explicitly redirected work toward OpenSmell as a whole. The
+software lifecycle / evidence milestone is delivered; adding more Explorer
+inspection screens is deferred. Explorer is a demonstration client of the
+project, not its default roadmap. The next milestone is an installable developer
+kit that can consume documented data and produce an explicit device plan without
+requiring Explorer. No new stable release or physical odor capability is implied.
+
+| Order | Deliverable | Exit criterion / evidence |
 | --- | --- | --- |
-| 1 | Adapter troubleshooting from exported evidence | Validate an offline history bundle and explain missing or inconsistent execution observations without executing commands. |
-| 2 | Adapter onboarding and visual walkthrough | Exercise the normal browser flow and document any remaining environment-specific limitation. |
-| 3 | SDK lifecycle boundary | Extract only the contract demonstrated by both implementations; preserve legacy physical protocol behavior. |
+| 1 | Installed SDK and CLI workflow | Delivered: a wheel installed outside the checkout validates/inspects Core and graph files and produces semantic/perceptual dry-run plans with explicit mapping, capabilities and source provenance. Follow-up: data import/Core bridging. |
+| 2 | Reusable device integration | Move the demonstrated software lifecycle boundary into the experimental SDK; a standalone client and Python/Node endpoints exercise completion, Stop and unknown outcomes without importing apps. Preserve Device Protocol 0.1. |
+| 3 | Reproducible hardware bench | Audit the existing ESP32 build/wiring evidence, supply the missing build configuration, bill of materials and manual acceptance procedure, and compile firmware. Record actual physical results separately; no unattended flashing or diffusion. |
+| 4 | Data and adoption | Ship a complete documented import-to-plan example with source/license information and explicit scientific limits; prepare a contributor quickstart and release checklist. Third-party adoption requires observed independent use. |
 
-The profile remains Draft. Physical compatibility and third-party adoption
-remain unclaimed. No durable execution recovery is implemented.
+Complete a usable vertical slice and its exit criterion before opening an adjacent
+refinement. Reorder for actual dependencies or demonstrated regressions. Prioritize
+an Explorer change only when it directly unlocks this milestone. Keep the broader
+scientific roadmap (mixtures, namespaces, canonicalization, MPEG-V) visible but
+require a reproducible interoperability use case before changing Core.
 
+The installed CLI starts this milestone with `opensmell validate` and
+`opensmell inspect`, plus `python -m opensmell`. Validation/inspection accept Core
+0.1 and generic ResourceGraph 0.1, report unknown
+contracts and supplied provenance, support batch files/stdin, and offer JSON output
+and exit codes. `opensmell plan` and the experimental SDK `plan_with_profile` then
+produce semantic/perceptual plans from graphs and explicit mapping/capability
+profiles. Source and profile snapshots/hashes accompany CLI plans; unsupported
+channels, intensities, durations and empty mappings fail. No device command is
+sent or source file rewritten. See [the CLI guide](cli.md) and Draft RFC-0015.
+
+Next implementation: reusable lifecycle adapters in the experimental SDK, with
+an installed standalone client and Python/Node verification; keep hardware bench
+preparation visible as the following milestone rather than returning to UI polish.
 
 ## Retained execution history — 2026-11-10
 
@@ -149,6 +175,6 @@ exports cover completion, Stop and lost-link uncertainty; altered fixtures expos
 plan, identity and snapshot contradictions. No replay, authentication, full schema
 validation or physical compatibility is claimed.
 
-Next useful slice: a reproducible adapter troubleshooting walkthrough combining
-live reference checks, saved evidence and offline diagnostics, then a browser
-inspection entry if it removes a demonstrated onboarding obstacle.
+The earlier proposed browser diagnostics follow-up is deferred by the project-wide
+redirection above. The standalone graph-to-dry-run-plan workflow is delivered in
+the developer-kit slice; follow the project-wide backlog above.
