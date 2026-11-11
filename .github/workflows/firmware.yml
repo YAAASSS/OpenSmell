@@ -1,0 +1,42 @@
+name: ESP32 firmware bench
+
+on:
+  push:
+    paths:
+      - "hardware/esp32/**"
+      - "tools/build_esp32_host.py"
+      - "tools/verify_esp32_firmware.py"
+      - ".github/workflows/firmware.yml"
+  pull_request:
+    paths:
+      - "hardware/esp32/**"
+      - "tools/build_esp32_host.py"
+      - "tools/verify_esp32_firmware.py"
+      - ".github/workflows/firmware.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  compile-and-bench:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install software build tools
+        run: |
+          python -m pip install platformio==6.1.18
+          python -m pip install .
+      - name: Compile ESP32 firmware without upload
+        run: pio run --project-dir hardware/esp32 --environment esp32-led
+      - name: Obtain pinned host dependency
+        run: |
+          git clone https://github.com/bblanchon/ArduinoJson.git /tmp/ArduinoJson
+          git -C /tmp/ArduinoJson checkout f9fe8557f13d8949eafd49ebd93a2929c4e5065f
+      - name: Compile and exercise actual sketch on host
+        run: |
+          python -m tools.build_esp32_host --arduinojson /tmp/ArduinoJson --output /tmp/opensmell-firmware-host
+          python -m tools.verify_esp32_firmware /tmp/opensmell-firmware-host

@@ -245,3 +245,6 @@ examples/behavior.csv
 # The Python-generated interoperability vectors are versioned golden vectors;
 # this JavaScript file is only a temporary verification artifact.
 examples/resource_graph_interop_vectors_js.json
+
+# PlatformIO firmware build products and downloaded dependencies.
+.pio/
