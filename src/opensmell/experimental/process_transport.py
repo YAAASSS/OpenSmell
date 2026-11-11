@@ -77,4 +77,3 @@ class ProcessTransport:
                 self.process.wait(timeout=1)
         for stream in (self.process.stdin, self.process.stdout):
             stream.close()
-

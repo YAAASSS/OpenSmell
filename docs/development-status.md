@@ -189,3 +189,6 @@ check runs this proof outside the checkout; interoperability CI requires Node.
 See [the SDK guide](lifecycle-sdk.md). This completes the bounded reusable-client
 slice; further Explorer refinements remain deferred. Next: reproducible ESP32
 bench configuration, compilation and manual acceptance procedure.
+The same installed client also runs semantic/perceptual plans from the documented
+multi-source diphenyl ether graph against Python and Node, preserving source
+inspection, source/profile hashes, explicit bindings and correlated observations.

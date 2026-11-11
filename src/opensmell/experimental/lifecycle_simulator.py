@@ -94,5 +94,3 @@ class SimulatedEndpoint:
 
     def close(self):
         self.closed = True
-
-
