@@ -1,74 +1,39 @@
 {
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-11",
-  "last_processed_main_sha": "6f57c8d98d400ac1c5e7edd8dacee175654cc468",
-  "lease": {
-    "owner": "bench-20261111-t3ltyasgjyk",
-    "expires_at": "2026-11-11T20:56:30.158Z"
-  },
-  "open_work": {
-    "branch": "feat/reproducible-esp32-bench-20261111",
-    "commit": "dc5d5285518a7562d588e33dd566060d0265dab4",
-    "pull_request": 15,
-    "next_action": "Complete local ESP32 toolchain download/build; verify full tests and exact-head firmware/standard CI before merge."
-  },
+  "last_processed_main_sha": "7dba8fb23ea129ac16fdd31e10b20397a62e99eb",
+  "lease": null,
+  "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
-    "slot": "2026-11-11T06:00",
-    "completed_at": "2026-11-11T05:17:50.542Z",
-    "objective": "Installed reusable lifecycle SDK and complete graph/profile-to-plan-to-observation proof with Python/Node",
-    "commit": "6f57c8d98d400ac1c5e7edd8dacee175654cc468",
-    "tested_commit": "89ec4383ba7d8b495dc2c022cc7956fc1e2f0e0a",
+    "slot": "2026-11-11T18:00",
+    "completed_at": "2026-11-11T17:06:55.092Z",
+    "objective": "Reproducible ESP32 LED build, executable native bench of actual sketch and manual hardware acceptance kit",
+    "commit": "7dba8fb23ea129ac16fdd31e10b20397a62e99eb",
+    "tested_commit": "757d5efe6fd18e8ada8a9cfd7664d52e31ec239e",
     "merged": true,
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/13",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/15",
     "checks": {
-      "python_full": 2064,
-      "python_targeted": 28,
-      "javascript": 46,
-      "installed_wheel": "Outside checkout: CLI and lifecycle completion/Stop/unknown; semantic/perceptual data-to-execution with Python and Node passed",
+      "python_full": 2073,
+      "actual_sketch_host_checks": 44,
+      "local_esp32_compile": "success; final pinned configuration recompiled",
+      "ram_bytes": 22680,
+      "program_bytes": 287209,
+      "firmware_bin_sha256": "5dff39e2061594d7bb1c157ae1f311e4bf0605b00ebe2d5d6d2af7d0f9085659",
+      "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43064361182",
+      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43064361126",
       "ci_result": "success",
-      "ci_run": "https://github.com/YAAASSS/OpenSmell/actions/runs/42964458750",
       "main_tree_matches_tested": true,
       "physical_access": false
     },
     "limitations": [
-      "Experimental session-local client; no persistent exactly-once delivery or reconnect recovery.",
-      "Trusted subprocess is not sandboxed; source provenance not authenticated; physical compatibility not demonstrated."
+      "Fake serial/PWM/clock is not electrical timing or scent evidence; manual results remain NOT RUN.",
+      "Classic ESP32 reference build, not evidence for all board variants; no upload or flashing.",
+      "Dependency checksum failures on first mirrors were rejected and recovered through valid mirrors; no integrity bypass."
     ],
-    "handoff_library_file_id": "libfile_fde3_f-ae82bb8467fc81918391661c9ee10ce4_44ff1f20787081919dd91de18843de02"
+    "handoff_library_file_id": "libfile_fde3_f-4419248e950081919aaf962c1ece8365_44ff1f20787081919dd91de18843de02"
   },
   "recent_sessions": [
-    {
-      "session_kind": "daily",
-      "completed_at": "2026-11-08T05:13:07.341Z",
-      "objective": "Executable software restart and reconnect reference cases with isolated execution evidence",
-      "commit": "8d16a8a48d8b4ecaa088270c95a12c115095f661",
-      "tested_commit": "abc3823108e22e8e2704194acf4a2c6414195ae2",
-      "merged": true,
-      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/7",
-      "checks": {
-        "python_full": 1962,
-        "python_targeted": 10,
-        "javascript": 11,
-        "live_cli_endpoints": [
-          "python",
-          "node",
-          "custom command"
-        ],
-        "reference_cases_each": 8,
-        "exchanges_each": 31,
-        "normal_cli_http_reconnect": "passed",
-        "ci_result": "success",
-        "ci_run": "https://github.com/YAAASSS/OpenSmell/actions/runs/42449693086",
-        "remote_tree_matches_tested": true,
-        "physical_access": false
-      },
-      "limitations": [
-        "Fresh software process isolation, not remote-device reconciliation.",
-        "Evidence remains volatile and latest-send-only. No visual QA this session; UI unchanged."
-      ],
-      "handoff_library_file_id": "libfile_c2b75794862c819197098a6e19522c49"
-    },
     {
       "session_kind": "daily",
       "completed_at": "2026-11-09T05:06:31.252Z",
@@ -249,9 +214,38 @@
         "Trusted subprocess is not sandboxed; source provenance not authenticated; physical compatibility not demonstrated."
       ],
       "handoff_library_file_id": "libfile_fde3_f-ae82bb8467fc81918391661c9ee10ce4_44ff1f20787081919dd91de18843de02"
+    },
+    {
+      "session_kind": "scheduled",
+      "slot": "2026-11-11T18:00",
+      "completed_at": "2026-11-11T17:06:55.092Z",
+      "objective": "Reproducible ESP32 LED build, executable native bench of actual sketch and manual hardware acceptance kit",
+      "commit": "7dba8fb23ea129ac16fdd31e10b20397a62e99eb",
+      "tested_commit": "757d5efe6fd18e8ada8a9cfd7664d52e31ec239e",
+      "merged": true,
+      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/15",
+      "checks": {
+        "python_full": 2073,
+        "actual_sketch_host_checks": 44,
+        "local_esp32_compile": "success; final pinned configuration recompiled",
+        "ram_bytes": 22680,
+        "program_bytes": 287209,
+        "firmware_bin_sha256": "5dff39e2061594d7bb1c157ae1f311e4bf0605b00ebe2d5d6d2af7d0f9085659",
+        "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43064361182",
+        "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43064361126",
+        "ci_result": "success",
+        "main_tree_matches_tested": true,
+        "physical_access": false
+      },
+      "limitations": [
+        "Fake serial/PWM/clock is not electrical timing or scent evidence; manual results remain NOT RUN.",
+        "Classic ESP32 reference build, not evidence for all board variants; no upload or flashing.",
+        "Dependency checksum failures on first mirrors were rejected and recovered through valid mirrors; no integrity bypass."
+      ],
+      "handoff_library_file_id": "libfile_fde3_f-4419248e950081919aaf962c1ece8365_44ff1f20787081919dd91de18843de02"
     }
   ],
-  "next_objective": "Reproducible ESP32 LED bench: pinned build configuration/dependencies, compile firmware, bill of materials/wiring and manual acceptance procedure. arduino-cli absent locally; no flash or diffusion.",
+  "next_objective": "Installed data interoperability: inspect existing odor_graph_bridge, expose an explicit Core-to-graph export/import workflow with source/provenance and unknown-field preservation; verify exported graph and downstream plan from installed wheel. Do not assume all Core documents are bridgeable: existing bridge requires chemical SMILES. Hardware human acceptance remains independent and NOT RUN.",
   "automation": {
     "id": "39cc72697e048191a1ba0d3e3e9d787c",
     "title": "OpenSmell — développement autonome quotidien",
@@ -268,9 +262,9 @@
   },
   "active_product_milestone": {
     "goal": "Installable OpenSmell developer kit spanning data, SDK, device integration and reproducible hardware bench",
-    "delivered": "PR #12 installed planning and PR #13 installed lifecycle SDK, including real graph/profile-to-simulated-execution Python/Node proof.",
-    "next": "Reproducible ESP32 LED bench: pinned build configuration/dependencies, compile firmware, bill of materials/wiring and manual acceptance procedure. arduino-cli absent locally; no flash or diffusion."
+    "delivered": "PR #12 installed planning, #13 reusable lifecycle SDK, #14 bounded startup, #15 cross-compiled ESP32 reference build and actual-sketch host bench with manual wiring/results kit.",
+    "next": "Installed data interoperability: inspect existing odor_graph_bridge, expose an explicit Core-to-graph export/import workflow with source/provenance and unknown-field preservation; verify exported graph and downstream plan from installed wheel. Do not assume all Core documents are bridgeable: existing bridge requires chemical SMILES. Hardware human acceptance remains independent and NOT RUN."
   },
-  "session_slot": "2026-11-11T18:00",
-  "last_completed_slot": "2026-11-11T06:00"
+  "session_slot": null,
+  "last_completed_slot": "2026-11-11T18:00"
 }
