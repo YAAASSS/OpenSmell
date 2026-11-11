@@ -28,7 +28,7 @@ class SoftwareAdapterService(SimulatedHardwareService):
             "expected_device_id": expected_device_id,
             "software_only_basis": "User-selected test mode, not verified physical isolation.",
         }
-        super().__init__(factory=lambda _: ProcessTransport(self._command),
+        super().__init__(factory=lambda _: ProcessTransport(self._command, startup_timeout=5.0),
                          expected_device_id=expected_device_id)
         self._message = "Software adapter selected. Click Connect to launch it and verify its identity and capabilities."
 

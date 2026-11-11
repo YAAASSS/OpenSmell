@@ -24,7 +24,10 @@ def capture(destination):
     worker.start()
 
     def api(route, data=None):
-        connection = http.client.HTTPConnection('127.0.0.1', server.server_port, timeout=5)
+        # Connect negotiates three replies: up to 5s for process startup, then
+        # 2s each for capabilities/profile, plus bounded failure cleanup.
+        timeout = 12 if route == 'hardware/connect' else 5
+        connection = http.client.HTTPConnection('127.0.0.1', server.server_port, timeout=timeout)
         try:
             connection.request('GET' if data is None else 'POST', '/api/' + route,
                                body=None if data is None else json.dumps(data),

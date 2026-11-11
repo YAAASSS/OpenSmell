@@ -6,4 +6,4 @@ NODE_DEVICE_ID = "opensmell-node-simulator-001"
 EXAMPLE = Path(__file__).resolve().parents[2] / "examples/lifecycle_adapter/device.cjs"
 
 def node_transport(_port):
-    return ProcessTransport(["node", str(EXAMPLE)])
+    return ProcessTransport(["node", str(EXAMPLE)], startup_timeout=5.0)
