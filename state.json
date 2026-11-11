@@ -2,7 +2,10 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-10",
   "last_processed_main_sha": "a8dd43b536f5760f23c6673ae188bc99b98ce9e9",
-  "lease": null,
+  "lease": {
+    "owner": "sdk-20261111-0ohndc12rd",
+    "expires_at": "2026-11-11T09:06:21.811Z"
+  },
   "open_work": null,
   "last_result": {
     "session_kind": "manual_requested",
@@ -283,6 +286,6 @@
     "delivered": "PR #12 merged: installed validate/inspect/plan CLI and experimental plan_with_profile SDK; both offline mappings verified from installed wheel.",
     "next": "Reusable SDK lifecycle adapters and standalone installed client, followed by reproducible ESP32 bench preparation."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-11T06:00",
   "last_completed_slot": "2026-11-10T18:00"
 }
