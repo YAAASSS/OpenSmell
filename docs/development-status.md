@@ -178,3 +178,14 @@ validation or physical compatibility is claimed.
 The earlier proposed browser diagnostics follow-up is deferred by the project-wide
 redirection above. The standalone graph-to-dry-run-plan workflow is delivered in
 the developer-kit slice; follow the project-wide backlog above.
+
+## Installed lifecycle SDK — 2026-11-11
+
+The software lifecycle boundary is now reusable from the installed experimental
+SDK: LifecycleAdapter, ProcessTransport and SimulatedEndpoint do not import apps.
+A standalone module exercises completion, correlated Stop and unknown outcome on
+disconnect with Python and the independent Node endpoint. The installed-wheel
+check runs this proof outside the checkout; interoperability CI requires Node.
+See [the SDK guide](lifecycle-sdk.md). This completes the bounded reusable-client
+slice; further Explorer refinements remain deferred. Next: reproducible ESP32
+bench configuration, compilation and manual acceptance procedure.
