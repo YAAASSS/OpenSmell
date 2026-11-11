@@ -59,3 +59,27 @@ physical output or third-party compatibility is supplied.
 
 The former app imports for ProcessTransport and SimulatedEndpoint remain as
 compatibility bindings. The app retains its preview/evidence/UI policy.
+
+## Complete data-to-execution walkthrough
+
+The same installed entry point can map the documented multi-source fixture
+before starting the endpoint:
+
+```sh
+python -m opensmell.experimental.lifecycle_demo \
+  --graph examples/multisource_diphenyl_ether.osmell \
+  --profile examples/offline_semantic_profile.json \
+  --resource-id e6ad8ce3-dc6e-5d94-9287-57665d48fc0b \
+  --node examples/lifecycle_adapter/device.cjs
+```
+
+Use absolute paths when running outside the checkout. The perceptual variant
+uses `offline_perceptual_profile.json` and resource
+`219ef28c-9b58-52f2-93a7-0807f5897857`.
+The three runs use 0.1-second completion, five-second Stop, and 0.1-second
+disconnect plans. JSON includes source inspection/provenance, source and profile
+hashes, the supplied profile, both mapped plans and correlated observations.
+Supplied offline capability identity is descriptive; the demo independently pins
+the selected simulator identity and rechecks each plan against live capabilities.
+Channel meanings remain illustrative. The wheel verifier exercises both mappings
+against both software endpoints; no data or profile is rewritten.

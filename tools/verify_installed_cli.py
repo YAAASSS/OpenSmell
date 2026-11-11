@@ -74,6 +74,17 @@ def main() -> None:
             states = json.loads(result.stdout)["results"]
             if [states[k]["state"] for k in ("completion", "stop", "disconnect")] != ["completed", "stopped", "unknown"]:
                 raise RuntimeError("Installed lifecycle proof failed")
+        for mapper, resource in (("semantic", "e6ad8ce3-dc6e-5d94-9287-57665d48fc0b"),
+                                 ("perceptual", "219ef28c-9b58-52f2-93a7-0807f5897857")):
+            for endpoint in ([], ["--node", str(work / "device.cjs")]) if node else ([],):
+                result = run([python, "-I", "-m", "opensmell.experimental.lifecycle_demo",
+                              "--graph", "multisource_diphenyl_ether.osmell",
+                              "--profile", f"offline_{mapper}_profile.json",
+                              "--resource-id", resource, *endpoint])
+                report = json.loads(result.stdout)
+                if report["results"]["completion"]["state"] != "completed" or not report["source"]["inspection"]["sha256"]:
+                    raise RuntimeError("Installed graph-to-execution proof failed")
+        run([python, "-I", "-m", "opensmell.experimental.lifecycle_demo", "--graph", "missing"], expected=2)
         print("Installed lifecycle proof passed: Python" + (" and Node." if node else "; Node unavailable."))
         print("Installed wheel CLI passed outside the checkout: Core, graph, stdin, errors, both offline mappers and import location.")
 
