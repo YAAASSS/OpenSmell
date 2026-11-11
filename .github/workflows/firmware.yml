@@ -4,12 +4,18 @@ on:
   push:
     paths:
       - "hardware/esp32/**"
+      - "src/opensmell/**"
+      - "examples/multisource_diphenyl_ether.osmell"
+      - "examples/offline_*_profile.json"
       - "tools/build_esp32_host.py"
       - "tools/verify_esp32_firmware.py"
       - ".github/workflows/firmware.yml"
   pull_request:
     paths:
       - "hardware/esp32/**"
+      - "src/opensmell/**"
+      - "examples/multisource_diphenyl_ether.osmell"
+      - "examples/offline_*_profile.json"
       - "tools/build_esp32_host.py"
       - "tools/verify_esp32_firmware.py"
       - ".github/workflows/firmware.yml"

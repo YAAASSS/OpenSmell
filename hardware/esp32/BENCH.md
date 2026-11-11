@@ -15,7 +15,8 @@ pio run --project-dir hardware/esp32 --environment esp32-led
 
 The configuration pins Espressif32 platform 6.9.0, the generic classic ESP32
 `esp32dev` build target, Arduino framework and ArduinoJson 7.2.1. Platform 6.9.0
-selects Arduino-ESP32 2.0.17 and Xtensa 8.4.0+2021r2-patch5. See
+selects Arduino-ESP32 2.0.17 and Xtensa 8.4.0+2021r2-patch5. The framework
+package is additionally fixed to 3.20017.241212+sha.dcc1105b. See
 [platform metadata](https://github.com/platformio/platform-espressif32/blob/v6.9.0/platform.json)
 and [board target](https://docs.platformio.org/en/stable/boards/espressif32/esp32dev.html).
 This is a repeatable source build configuration, not a bit-identical binary
