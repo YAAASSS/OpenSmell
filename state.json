@@ -6,7 +6,12 @@
     "owner": "bench-20261111-t3ltyasgjyk",
     "expires_at": "2026-11-11T20:56:30.158Z"
   },
-  "open_work": null,
+  "open_work": {
+    "branch": "feat/reproducible-esp32-bench-20261111",
+    "commit": "dc5d5285518a7562d588e33dd566060d0265dab4",
+    "pull_request": 15,
+    "next_action": "Complete local ESP32 toolchain download/build; verify full tests and exact-head firmware/standard CI before merge."
+  },
   "last_result": {
     "session_kind": "scheduled",
     "slot": "2026-11-11T06:00",
