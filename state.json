@@ -8,9 +8,9 @@
   },
   "open_work": {
     "branch": "feat/installed-lifecycle-sdk-20261111",
-    "commit": "e7263ef43f95072b3939f43792250c114406871d",
+    "commit": "89ec4383ba7d8b495dc2c022cc7956fc1e2f0e0a",
     "pull_request": 13,
-    "next_action": "Verify exact-head CI and merge; installed wheel Python/Node and 2064 Python tests passed."
+    "next_action": "Merge after CI 42964458750 succeeds. Local tree c12e09c78bd518155aa769d6850d8a8c5df7fef5 matches remote; 2064 Python/46 JS; fresh installed wheel both mappings and endpoints pass."
   },
   "last_result": {
     "session_kind": "manual_requested",
