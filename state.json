@@ -2,7 +2,10 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-11",
   "last_processed_main_sha": "6f57c8d98d400ac1c5e7edd8dacee175654cc468",
-  "lease": null,
+  "lease": {
+    "owner": "bench-20261111-t3ltyasgjyk",
+    "expires_at": "2026-11-11T20:56:30.158Z"
+  },
   "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
@@ -263,6 +266,6 @@
     "delivered": "PR #12 installed planning and PR #13 installed lifecycle SDK, including real graph/profile-to-simulated-execution Python/Node proof.",
     "next": "Reproducible ESP32 LED bench: pinned build configuration/dependencies, compile firmware, bill of materials/wiring and manual acceptance procedure. arduino-cli absent locally; no flash or diffusion."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-11T18:00",
   "last_completed_slot": "2026-11-11T06:00"
 }
