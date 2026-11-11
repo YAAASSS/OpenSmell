@@ -6,7 +6,12 @@
     "owner": "sdk-20261111-0ohndc12rd",
     "expires_at": "2026-11-11T09:06:21.811Z"
   },
-  "open_work": null,
+  "open_work": {
+    "branch": "feat/installed-lifecycle-sdk-20261111",
+    "commit": "e7263ef43f95072b3939f43792250c114406871d",
+    "pull_request": 13,
+    "next_action": "Verify exact-head CI and merge; installed wheel Python/Node and 2064 Python tests passed."
+  },
   "last_result": {
     "session_kind": "manual_requested",
     "slot": "manual-2026-11-10T18:16:11.931Z",
