@@ -1925,3 +1925,12 @@ application without Local Explorer. After installing this checkout,
 `python -m opensmell.experimental.lifecycle_demo` demonstrates completion, Stop
 and lost-link uncertainty. The same installed client can verify the independent
 Node reference endpoint. No physical odor result is implied.
+
+### Reproducible prototype bench
+
+Build the classic ESP32 LED firmware with
+`pio run --project-dir hardware/esp32 --environment esp32-led`.
+The [bench guide](hardware/esp32/BENCH.md) includes the pinned toolchain,
+a native execution of the real sketch, proposed components, wiring and a manual
+results sheet. Compilation and host simulation do not establish physical odor
+output.

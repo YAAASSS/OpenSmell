@@ -296,3 +296,11 @@ protocol and serial transport.
 
 It should not be interpreted as validation of physical odor reproduction,
 odor synthesis, or a universal olfactory hardware model.
+
+## Rebuild and repeat the bench
+
+The [reproducible bench guide](BENCH.md) supplies pinned PlatformIO settings,
+a proposed LED bill of materials, explicit wiring and a manual acceptance sheet.
+Build with `pio run --project-dir hardware/esp32 --environment esp32-led` from
+the repository root. A native harness also runs the actual sketch without a
+board; its serial/clock/PWM observations are software evidence only.

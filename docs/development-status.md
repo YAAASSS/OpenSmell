@@ -132,7 +132,7 @@ requiring Explorer. No new stable release or physical odor capability is implied
 | Order | Deliverable | Exit criterion / evidence |
 | --- | --- | --- |
 | 1 | Installed SDK and CLI workflow | Delivered: a wheel installed outside the checkout validates/inspects Core and graph files and produces semantic/perceptual dry-run plans with explicit mapping, capabilities and source provenance. Follow-up: data import/Core bridging. |
-| 2 | Reusable device integration | Move the demonstrated software lifecycle boundary into the experimental SDK; a standalone client and Python/Node endpoints exercise completion, Stop and unknown outcomes without importing apps. Preserve Device Protocol 0.1. |
+| 2 | Reusable device integration | Delivered in PR #13, with bounded startup correction #14: installed SDK and standalone Python/Node graph-to-execution walkthrough. |
 | 3 | Reproducible hardware bench | Audit the existing ESP32 build/wiring evidence, supply the missing build configuration, bill of materials and manual acceptance procedure, and compile firmware. Record actual physical results separately; no unattended flashing or diffusion. |
 | 4 | Data and adoption | Ship a complete documented import-to-plan example with source/license information and explicit scientific limits; prepare a contributor quickstart and release checklist. Third-party adoption requires observed independent use. |
 
@@ -152,9 +152,8 @@ profiles. Source and profile snapshots/hashes accompany CLI plans; unsupported
 channels, intensities, durations and empty mappings fail. No device command is
 sent or source file rewritten. See [the CLI guide](cli.md) and Draft RFC-0015.
 
-Next implementation: reusable lifecycle adapters in the experimental SDK, with
-an installed standalone client and Python/Node verification; keep hardware bench
-preparation visible as the following milestone rather than returning to UI polish.
+Next implementation: complete the reproducible ESP32 LED bench below, then
+advance installed data import/Core bridging and external contributor onboarding.
 
 ## Retained execution history — 2026-11-10
 
@@ -203,3 +202,22 @@ the two-second bound for later exchanges. The transport exposes an optional
 startup_timeout; existing callers retain their timeout unless they opt in.
 The HTTP walkthrough allows the full connection handshake to finish. Tests cover
 slow startup, subsequent-response deadlines, child cleanup and no command retry.
+
+
+## Reproducible ESP32 LED bench — 2026-11-11 evening
+
+The prototype has a pinned PlatformIO build entry point and a native harness
+that includes the actual sketch. The host verifier maps the multi-source
+diphenyl ether graph using both profiles and checks 44 serial/PWM/clock
+observations, including refusals without output mutation, expiration, frame
+limits and recovery. The dedicated firmware workflow cross-compiles the ESP32
+target and runs the native bench. Compilation evidence is recorded in the PR
+and control state, rather than assumed from configuration.
+
+The [bench guide](../hardware/esp32/BENCH.md) supplies proposed components,
+GPIO wiring and deliberate manual trials; the results sheet remains NOT RUN.
+No board, flash, GPIO or scent output was accessed. Device Protocol 0.1 remains
+acceptance-only; SDK software lifecycle/Stop must not be inferred for this board.
+After successful compilation and host proof, the remaining hardware exit
+criterion is a human-recorded trial; independent development proceeds to
+documented installed data import/Core-to-graph-to-plan interoperability.
