@@ -1917,3 +1917,11 @@ opensmell.org
 ---
 
 **OpenSmell — an open interoperability layer for digital olfaction.**
+
+### Installed software adapter SDK
+
+Use the [experimental lifecycle SDK](docs/lifecycle-sdk.md) from another Python
+application without Local Explorer. After installing this checkout,
+`python -m opensmell.experimental.lifecycle_demo` demonstrates completion, Stop
+and lost-link uncertainty. The same installed client can verify the independent
+Node reference endpoint. No physical odor result is implied.
