@@ -13,14 +13,26 @@ MAX_BYTES = 65536
 
 
 class ProcessTransport:
-    def __init__(self, command, *, timeout=2.0):
+    """Use startup_timeout for the first reply, then timeout for later replies.
+
+    Omitting startup_timeout preserves the same bound for every exchange.
+    """
+
+    def __init__(self, command, *, timeout=2.0, startup_timeout=None):
         if isinstance(timeout, bool) or not isinstance(timeout, (int, float)) or not math.isfinite(timeout) or timeout <= 0:
             raise ValueError("Timeout must be positive")
+        if startup_timeout is None:
+            startup_timeout = timeout
+        if (isinstance(startup_timeout, bool) or not isinstance(startup_timeout, (int, float))
+                or not math.isfinite(startup_timeout) or startup_timeout <= 0):
+            raise ValueError("Startup timeout must be positive")
         if (not isinstance(command, (list, tuple)) or not command
                 or any(not isinstance(arg, str) or "\0" in arg for arg in command)
                 or not command[0].strip()):
             raise ValueError("Provide an executable and separate arguments")
         self.timeout = timeout
+        self.startup_timeout = startup_timeout
+        self._first_exchange = True
         self._lock = threading.Lock()
         self._closed = False
         self.process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
@@ -51,9 +63,10 @@ class ProcessTransport:
             worker = threading.Thread(target=transact, daemon=True)
             worker.start()
             try:
-                reply = result.get(timeout=self.timeout)
+                reply = result.get(timeout=self.startup_timeout if self._first_exchange else self.timeout)
                 if isinstance(reply, Exception):
                     raise reply
+                self._first_exchange = False
                 return reply
             except queue.Empty as exc:
                 self.close()

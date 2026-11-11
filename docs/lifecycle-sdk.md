@@ -36,8 +36,15 @@ with LifecycleAdapter(SimulatedEndpoint(), expected_device_id=SIMULATOR_ID) as c
 ```
 
 For another trusted software endpoint, supply
-`ProcessTransport(["executable", "argument"], timeout=2)` from
+`ProcessTransport(["executable", "argument"], timeout=2, startup_timeout=5)` from
 `opensmell.experimental.process_transport` and pin its expected identity.
+`startup_timeout` bounds the first response, including process bootstrap; later
+exchanges use `timeout`. Omitting it preserves the original timeout for every
+exchange. The Node demo and Explorer software adapters allow five seconds for
+the first response, then two seconds per exchange. Allow enough time in any
+outer HTTP/client deadline for the complete three-reply connection handshake
+and bounded failure cleanup (the evidence walkthrough uses twelve seconds).
+Timeouts close the child process without retrying the request.
 Construction performs hello/capability/profile negotiation and owns the transport,
 closing it on failure or context exit. Capabilities are checked before sending;
 an empty plan cannot be sent. A live endpoint may reject a valid plan.

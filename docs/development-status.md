@@ -192,3 +192,14 @@ bench configuration, compilation and manual acceptance procedure.
 The same installed client also runs semantic/perceptual plans from the documented
 multi-source diphenyl ether graph against Python and Node, preserving source
 inspection, source/profile hashes, explicit bindings and correlated observations.
+
+## Bounded software-process startup — 2026-11-11 manual fix
+
+Two initial SDK CI runs failed in the evidence walkthrough while awaiting Node's
+first response; subsequent green runs did not resolve that intermittent timeout.
+A deterministic 2.2-second Node bootstrap reproduces the same HTTP 503 before
+this fix. Example clients now allow five seconds for the first response and keep
+the two-second bound for later exchanges. The transport exposes an optional
+startup_timeout; existing callers retain their timeout unless they opt in.
+The HTTP walkthrough allows the full connection handshake to finish. Tests cover
+slow startup, subsequent-response deadlines, child cleanup and no command retry.

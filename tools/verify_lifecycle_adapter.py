@@ -152,7 +152,7 @@ def main():
     if args.command is not None:
         if not args.command or not args.device_id:
             parser.error("--command requires a command and --device-id")
-        factory, identity = lambda _: ProcessTransport(args.command), args.device_id
+        factory, identity = lambda _: ProcessTransport(args.command, startup_timeout=5.0), args.device_id
     elif args.endpoint == "node":
         factory, identity = node_transport, NODE_DEVICE_ID
     else:

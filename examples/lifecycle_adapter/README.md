@@ -63,8 +63,9 @@ prove that an endpoint tells the truth about hardware or odor production.
 Start from `device.cjs`, which imports no OpenSmell implementation. Use one UTF-8
 JSON request and response per line over stdin/stdout, no logs on stdout. Commands
 are sequential. Keep requests/responses within 65,536 bytes (response newline
-included). The client closes the process on malformed output, EOF or a two-second
-exchange timeout; it never retries a command. Log to stderr when running the
+included). The example clients allow five seconds for the first response,
+including process startup, then two seconds per exchange. The client closes the
+process on malformed output, EOF or timeout; it never retries a command. Log to stderr when running the
 example manually; the application discards stderr to prevent pipe backpressure.
 
 Implement hello/get_capabilities/render as Device Protocol 0.1, plus the explicitly

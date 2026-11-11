@@ -39,7 +39,7 @@ def main():
             return plan_with_profile(graph, RenderRequest(args.resource_id, duration), source["profile"])
     # Map both plans before launching the trusted endpoint.
     short_plan, long_plan = make_plan(0.1), make_plan(5)
-    transport = ProcessTransport(["node", args.node]) if args.node else SimulatedEndpoint()
+    transport = ProcessTransport(["node", args.node], startup_timeout=5.0) if args.node else SimulatedEndpoint()
     identity = "opensmell-node-simulator-001" if args.node else SIMULATOR_ID
     results = {}
     with LifecycleAdapter(transport, expected_device_id=identity) as client:
