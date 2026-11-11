@@ -1,88 +1,35 @@
 {
   "schema_version": 1,
-  "last_completed_brussels_date": "2026-11-10",
-  "last_processed_main_sha": "a8dd43b536f5760f23c6673ae188bc99b98ce9e9",
-  "lease": {
-    "owner": "sdk-20261111-0ohndc12rd",
-    "expires_at": "2026-11-11T09:06:21.811Z"
-  },
-  "open_work": {
-    "branch": "feat/installed-lifecycle-sdk-20261111",
-    "commit": "89ec4383ba7d8b495dc2c022cc7956fc1e2f0e0a",
-    "pull_request": 13,
-    "next_action": "Merge after CI 42964458750 succeeds. Local tree c12e09c78bd518155aa769d6850d8a8c5df7fef5 matches remote; 2064 Python/46 JS; fresh installed wheel both mappings and endpoints pass."
-  },
+  "last_completed_brussels_date": "2026-11-11",
+  "last_processed_main_sha": "6f57c8d98d400ac1c5e7edd8dacee175654cc468",
+  "lease": null,
+  "open_work": null,
   "last_result": {
-    "session_kind": "manual_requested",
-    "slot": "manual-2026-11-10T18:16:11.931Z",
-    "completed_at": "2026-11-10T18:35:13.313Z",
-    "objective": "Project-wide redirection and installed SDK/CLI with explicit offline semantic/perceptual planning",
-    "commit": "a8dd43b536f5760f23c6673ae188bc99b98ce9e9",
-    "tested_commit": "e16c5df976860534c54ae3893ca3605c84817456",
+    "session_kind": "scheduled",
+    "slot": "2026-11-11T06:00",
+    "completed_at": "2026-11-11T05:17:50.542Z",
+    "objective": "Installed reusable lifecycle SDK and complete graph/profile-to-plan-to-observation proof with Python/Node",
+    "commit": "6f57c8d98d400ac1c5e7edd8dacee175654cc468",
+    "tested_commit": "89ec4383ba7d8b495dc2c022cc7956fc1e2f0e0a",
     "merged": true,
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/12",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/13",
     "checks": {
-      "python_full": 2050,
-      "new_cli_sdk_cases": 42,
-      "installed_wheel": "Fresh environment outside checkout: both input formats, stdin/errors, both mappers and actual installed import location passed",
+      "python_full": 2064,
+      "python_targeted": 28,
+      "javascript": 46,
+      "installed_wheel": "Outside checkout: CLI and lifecycle completion/Stop/unknown; semantic/perceptual data-to-execution with Python and Node passed",
       "ci_result": "success",
-      "ci_run": "https://github.com/YAAASSS/OpenSmell/actions/runs/42875965679",
-      "ci_python_versions": [
-        "3.10",
-        "3.11",
-        "3.12",
-        "3.13"
-      ],
-      "ci_interoperability": "success",
+      "ci_run": "https://github.com/YAAASSS/OpenSmell/actions/runs/42964458750",
       "main_tree_matches_tested": true,
       "physical_access": false
     },
     "limitations": [
-      "Planning uses supplied capabilities, not live device observations; no execution or odor reproduction claimed.",
-      "Draft RFC-0015 and existing experimental version; no release/PyPI publication.",
-      "Plan input requires generic ResourceGraph; whole files read into memory; supplied provenance is not authenticated."
+      "Experimental session-local client; no persistent exactly-once delivery or reconnect recovery.",
+      "Trusted subprocess is not sandboxed; source provenance not authenticated; physical compatibility not demonstrated."
     ],
-    "handoff_library_file_id": "libfile_fde3_f-8403a82600388191891d850cec549ee7_44ff1f20787081919dd91de18843de02"
+    "handoff_library_file_id": "libfile_fde3_f-ae82bb8467fc81918391661c9ee10ce4_44ff1f20787081919dd91de18843de02"
   },
   "recent_sessions": [
-    {
-      "session_kind": "daily",
-      "completed_at": "2026-11-07T05:07:59.298Z",
-      "objective": "Inspect and download correlated last-execution evidence from Local Explorer",
-      "commit": "f3a6b313590c1b379af5de99f8405d19cf656f3f",
-      "tested_commit": "8040c12966d38295c27407568d24afb24b395afa",
-      "merged": true,
-      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/6",
-      "checks": {
-        "python_full": 1961,
-        "python_targeted_after_final_test_extension": 15,
-        "javascript": 11,
-        "normal_node_cli_http_exports": "completed/stopped/unknown passed",
-        "real_time_five_second_node_export": {
-          "report_id": "5e44ad08d3434a81bb341fc902fbe91b",
-          "state": "completed",
-          "after_disconnect": true,
-          "source_preserved": true,
-          "exchanges": 3
-        },
-        "ci_result": "success",
-        "ci_run": "https://github.com/YAAASSS/OpenSmell/actions/runs/42341180761",
-        "ci_python_versions": [
-          "3.10",
-          "3.11",
-          "3.12",
-          "3.13"
-        ],
-        "ci_interoperability": "success",
-        "remote_tree_matches_tested": true,
-        "physical_access": false
-      },
-      "limitations": [
-        "Native Chromium returned ERR_CONNECTION_REFUSED for local server; no visual QA claimed.",
-        "Latest-send in-memory client report, bounded trace with disclosed omissions; not authenticated telemetry or measured olfactory result."
-      ],
-      "handoff_library_file_id": "libfile_8988e00c89648191aabc8715bde738cd"
-    },
     {
       "session_kind": "daily",
       "completed_at": "2026-11-08T05:13:07.341Z",
@@ -269,9 +216,34 @@
         "Plan input requires generic ResourceGraph; whole files read into memory; supplied provenance is not authenticated."
       ],
       "handoff_library_file_id": "libfile_fde3_f-8403a82600388191891d850cec549ee7_44ff1f20787081919dd91de18843de02"
+    },
+    {
+      "session_kind": "scheduled",
+      "slot": "2026-11-11T06:00",
+      "completed_at": "2026-11-11T05:17:50.542Z",
+      "objective": "Installed reusable lifecycle SDK and complete graph/profile-to-plan-to-observation proof with Python/Node",
+      "commit": "6f57c8d98d400ac1c5e7edd8dacee175654cc468",
+      "tested_commit": "89ec4383ba7d8b495dc2c022cc7956fc1e2f0e0a",
+      "merged": true,
+      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/13",
+      "checks": {
+        "python_full": 2064,
+        "python_targeted": 28,
+        "javascript": 46,
+        "installed_wheel": "Outside checkout: CLI and lifecycle completion/Stop/unknown; semantic/perceptual data-to-execution with Python and Node passed",
+        "ci_result": "success",
+        "ci_run": "https://github.com/YAAASSS/OpenSmell/actions/runs/42964458750",
+        "main_tree_matches_tested": true,
+        "physical_access": false
+      },
+      "limitations": [
+        "Experimental session-local client; no persistent exactly-once delivery or reconnect recovery.",
+        "Trusted subprocess is not sandboxed; source provenance not authenticated; physical compatibility not demonstrated."
+      ],
+      "handoff_library_file_id": "libfile_fde3_f-ae82bb8467fc81918391661c9ee10ce4_44ff1f20787081919dd91de18843de02"
     }
   ],
-  "next_objective": "Reusable SDK lifecycle adapters and standalone installed client, followed by reproducible ESP32 bench preparation.",
+  "next_objective": "Reproducible ESP32 LED bench: pinned build configuration/dependencies, compile firmware, bill of materials/wiring and manual acceptance procedure. arduino-cli absent locally; no flash or diffusion.",
   "automation": {
     "id": "39cc72697e048191a1ba0d3e3e9d787c",
     "title": "OpenSmell — développement autonome quotidien",
@@ -288,9 +260,9 @@
   },
   "active_product_milestone": {
     "goal": "Installable OpenSmell developer kit spanning data, SDK, device integration and reproducible hardware bench",
-    "delivered": "PR #12 merged: installed validate/inspect/plan CLI and experimental plan_with_profile SDK; both offline mappings verified from installed wheel.",
-    "next": "Reusable SDK lifecycle adapters and standalone installed client, followed by reproducible ESP32 bench preparation."
+    "delivered": "PR #12 installed planning and PR #13 installed lifecycle SDK, including real graph/profile-to-simulated-execution Python/Node proof.",
+    "next": "Reproducible ESP32 LED bench: pinned build configuration/dependencies, compile firmware, bill of materials/wiring and manual acceptance procedure. arduino-cli absent locally; no flash or diffusion."
   },
-  "session_slot": "2026-11-11T06:00",
-  "last_completed_slot": "2026-11-10T18:00"
+  "session_slot": null,
+  "last_completed_slot": "2026-11-11T06:00"
 }
