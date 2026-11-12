@@ -1,0 +1,11 @@
+{
+  "name": "OdorNet — NKU-DOIE processed full_dataset.csv",
+  "kind": "dataset",
+  "url": "https://github.com/NKU-DOIE/OdorNet/blob/88d146360dfc548462a5ebd6a081ea0590f2819e/data/processed/full_dataset.csv",
+  "license": "CC-BY-4.0",
+  "attribution": "Liyuan Yang, Zhiyang Liu, Bin Shao, Feng Liu, Zhuo Ma, Chunning Zhao, Xiang wan, Weichao Wang; NKU-DOIE, Nankai University. SEA-Driven OdorNet.",
+  "repository_commit": "88d146360dfc548462a5ebd6a081ea0590f2819e",
+  "license_url": "https://github.com/NKU-DOIE/OdorNet/blob/88d146360dfc548462a5ebd6a081ea0590f2819e/LICENSE-CC-BY-4.0",
+  "input_sha256": "de06d853a3c2ebe1e97379db2b24f695feda9600fc0ab1842c2425c5d2307331",
+  "preparation": "Original published processed CSV, unmodified. One-based data record 1 used in the documented trial."
+}
