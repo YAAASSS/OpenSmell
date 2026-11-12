@@ -1596,6 +1596,7 @@ RFC-0013  Multi-Source and Multi-Mapper Interoperability
 RFC-0014  Local Simulated Execution Lifecycle
 RFC-0015  Offline Planning Profiles and Artifacts
 RFC-0016  Recoverable Core source in graph projections
+RFC-0017  Selected-record CSV import context
 ```
 
 RFCs allow experimental concepts to be investigated without prematurely
@@ -1945,3 +1946,12 @@ The [complete walkthrough](docs/core-interchange.md) validates and plans the
 exported graph, exercises software adapters, and recovers the exact original
 with `extract-core`. The experimental projection requires one supported SMILES
 representation; an embedded source snapshot preserves unknown content.
+
+
+### Start with your own data
+
+The installed `opensmell import-odornet` command imports an explicitly selected
+OdorNet-shaped CSV record with a source/license manifest. Follow the
+[complete CSV-to-plan walkthrough](docs/csv-import.md) or the
+[developer quickstart](docs/developer-quickstart.md). The bundled runnable example
+is synthetic and labeled as such; no upstream dataset is redistributed.

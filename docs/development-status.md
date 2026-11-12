@@ -241,3 +241,21 @@ See [the guide](core-interchange.md) and Draft RFC-0016. This completes the
 bounded Core import/export slice; extending the importer to every data source
 is not implied. Next: documented upstream-data import and contributor quickstart
 with an explicit supported input contract, provenance and scientific limits.
+
+
+## Installed selected-record CSV import — 2026-11-12 evening
+
+`import-odornet` and SDK `import_odornet_csv` accept an explicitly selected
+OdorNet-shaped CSV record and source/license manifest. The existing annotation
+adapter preserves present/absent/unknown; unsupported tokens and ambiguous
+headers fail. Raw selected cells, unknown columns, ordered headers, file hash,
+record index and declared source context survive in Core and its graph snapshot.
+A synthetic fixture is explicitly distinguished from real measurements.
+
+The fresh-wheel path runs import → Core validation → graph → plan →
+Python/Node lifecycle plus original Core recovery. See [the CSV contract](csv-import.md),
+Draft RFC-0017 and [developer quickstart](developer-quickstart.md). No claim is made
+that every upstream release or a full corpus was validated. This bounded slice
+does not expand automatically into batch import. Next: test one authorized,
+documented real source export and its preparation, then choose batch/multisource
+support based on that reproducible need. Human hardware results remain NOT RUN.

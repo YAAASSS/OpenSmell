@@ -175,6 +175,29 @@ def _plan_command(args: argparse.Namespace) -> int:
     return 0
 
 
+def _import_csv_command(args):
+    import csv
+    from .experimental.csv_import import import_odornet_csv
+    from .serializer import _serialize_document
+    try:
+        raw = sys.stdin.buffer.read() if args.file == "-" else Path(args.file).read_bytes()
+        source = _decode(Path(args.source).read_bytes())
+        document = import_odornet_csv(raw, row=args.row, source=source)
+        output = (_serialize_document(document) + "\n").encode("utf-8")
+        if args.output:
+            with Path(args.output).open("xb") as target:
+                target.write(output)
+        else:
+            sys.stdout.buffer.write(output)
+    except OSError as error:
+        print(json.dumps({"status": "error", "error": str(error)}), file=sys.stderr)
+        return 2
+    except (OpenSmellError, ValueError, TypeError, csv.Error, RecursionError, OverflowError) as error:
+        print(json.dumps({"status": "invalid", "error": str(error)}), file=sys.stderr)
+        return 1
+    return 0
+
+
 def _bridge_command(args):
     from .experimental.core_interchange import (
         bridge_core_bytes, extract_core_bytes, interchange_registry,
@@ -253,7 +276,14 @@ def main(argv: list[str] | None = None) -> int:
         bridge = commands.add_parser(name, help=help_text)
         bridge.add_argument("file", help="Input file; '-' reads stdin")
         bridge.add_argument("--output", help="Create a new output file; existing paths are refused")
+    importer = commands.add_parser("import-odornet", help="Import one explicit OdorNet-shaped CSV record")
+    importer.add_argument("file", help="UTF-8 CSV input; '-' reads stdin")
+    importer.add_argument("--row", type=int, required=True, help="One-based data record, excluding header")
+    importer.add_argument("--source", required=True, help="Source/license manifest JSON")
+    importer.add_argument("--output", help="Create a new Core file; existing paths are refused")
     args = parser.parse_args(argv)
+    if args.command == "import-odornet":
+        return _import_csv_command(args)
     if args.command in {"bridge-core", "extract-core"}:
         return _bridge_command(args)
     if args.command == "plan":

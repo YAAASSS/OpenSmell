@@ -65,6 +65,31 @@ def main() -> None:
             artifact = json.loads(result.stdout)
             if artifact["execution"] != "not_attempted" or sorted(c["channel"] for c in artifact["plan"]["commands"]) != channels:
                 raise RuntimeError("Installed planner did not produce expected passive plan")
+        for name in ("synthetic_odornet.csv", "synthetic_odornet_source.json"):
+            shutil.copyfile(root / "examples" / name, work / name)
+        run([executable, "import-odornet", "synthetic_odornet.csv", "--row", "1",
+             "--source", "synthetic_odornet_source.json", "--output", "csv-core.osmell"])
+        run([executable, "validate", "csv-core.osmell", "--json"])
+        csv_core = (work / "csv-core.osmell").read_bytes()
+        csv_doc = json.loads(csv_core)
+        csv_metadata = csv_doc["org.opensmell.experimental.csv-import"]
+        if csv_metadata["source"]["kind"] != "synthetic" or "sample_note" not in csv_metadata["raw_record"]:
+            raise RuntimeError("CSV source declaration or unknown column was lost")
+        run([executable, "bridge-core", "csv-core.osmell", "--output", "csv-graph.osmell"])
+        csv_graph = json.loads((work / "csv-graph.osmell").read_bytes())
+        csv_resource = csv_graph["org.opensmell.experimental.core-import"]["primary_resource_id"]
+        result = run([executable, "plan", "csv-graph.osmell", "--profile", "offline_semantic_profile.json",
+                      "--resource-id", csv_resource, "--duration", "5"])
+        if json.loads(result.stdout)["plan"]["commands"] != [{"channel": 0, "intensity": 0.25}]:
+            raise RuntimeError("CSV import did not produce expected mapped plan")
+        result = run([executable, "extract-core", "csv-graph.osmell"])
+        if result.stdout != csv_core:
+            raise RuntimeError("Imported CSV record was not recoverable through Core graph snapshot")
+        run([executable, "import-odornet", "synthetic_odornet.csv", "--row", "99",
+             "--source", "synthetic_odornet_source.json"], expected=1)
+        run([executable, "import-odornet", "synthetic_odornet.csv", "--row", "1",
+             "--source", "synthetic_odornet_source.json", "--output", "csv-core.osmell"], expected=2)
+        print("Installed CSV import: source metadata, graph, plan, recovery and refusal checks passed.")
         # Core bridge/export/recovery from the installed entry point.
         original = (work / "geraniol.osmell").read_bytes()
         run([executable, "bridge-core", "geraniol.osmell", "--output", "core-graph.osmell"])
@@ -126,6 +151,12 @@ reader.inspectBytes(fs.readFileSync('core-graph.osmell')).then(value => {
                           "--resource-id", resource_id, *endpoint])
             if json.loads(result.stdout)["results"]["completion"]["state"] != "completed":
                 raise RuntimeError("Installed Core-to-execution proof failed")
+        for endpoint in ([], ["--node", str(work / "device.cjs")]) if node else ([],):
+            result = run([python, "-I", "-m", "opensmell.experimental.lifecycle_demo",
+                          "--graph", "csv-graph.osmell", "--profile", "offline_semantic_profile.json",
+                          "--resource-id", csv_resource, *endpoint])
+            if json.loads(result.stdout)["results"]["completion"]["state"] != "completed":
+                raise RuntimeError("Installed CSV-to-execution proof failed")
         run([python, "-I", "-m", "opensmell.experimental.lifecycle_demo", "--graph", "missing"], expected=2)
         print("Installed lifecycle proof passed: Python" + (" and Node." if node else "; Node unavailable."))
         print("Installed wheel CLI passed outside the checkout: Core, graph, stdin, errors, both offline mappers and import location.")
