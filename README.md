@@ -1595,6 +1595,7 @@ RFC-0012  Experimental Rendering and Device Interoperability Architecture
 RFC-0013  Multi-Source and Multi-Mapper Interoperability
 RFC-0014  Local Simulated Execution Lifecycle
 RFC-0015  Offline Planning Profiles and Artifacts
+RFC-0016  Recoverable Core source in graph projections
 ```
 
 RFCs allow experimental concepts to be investigated without prematurely
@@ -1934,3 +1935,13 @@ The [bench guide](hardware/esp32/BENCH.md) includes the pinned toolchain,
 a native execution of the real sketch, proposed components, wiring and a manual
 results sheet. Compilation and host simulation do not establish physical odor
 output.
+
+
+### Import Core files into the developer kit
+
+After installing this checkout, use
+`opensmell bridge-core examples/geraniol.osmell --output geraniol-graph.osmell`.
+The [complete walkthrough](docs/core-interchange.md) validates and plans the
+exported graph, exercises software adapters, and recovers the exact original
+with `extract-core`. The experimental projection requires one supported SMILES
+representation; an embedded source snapshot preserves unknown content.
