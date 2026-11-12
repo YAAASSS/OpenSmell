@@ -8,9 +8,9 @@
   },
   "open_work": {
     "branch": "feat/core-graph-interchange-20261112",
-    "commit": "0a4b51d3995cb8a2827772b3155539c9472c67cc",
+    "commit": "6443037d2037af730e7f8ddd7d721f717bf3f9d5",
     "pull_request": 16,
-    "next_action": "Complete full Python suite, exact-head CI including firmware workflow; review diff, merge if green, verify main and preserve handoff."
+    "next_action": "Exact-head firmware CI 43159036161 passed; wait for standard CI 43159036223, then merge and verify main tree 735e69f8eecaf098a05e2d3592acf51e6c3bd7ec. Local 2094 Python tests and installed cross-language source recovery passed."
   },
   "last_result": {
     "session_kind": "scheduled",
