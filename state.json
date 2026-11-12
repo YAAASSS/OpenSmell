@@ -1,79 +1,39 @@
 {
   "schema_version": 1,
-  "last_completed_brussels_date": "2026-11-11",
-  "last_processed_main_sha": "7dba8fb23ea129ac16fdd31e10b20397a62e99eb",
-  "lease": {
-    "owner": "core-20261112-89n4trps9i",
-    "expires_at": "2026-11-12T08:59:28.049Z"
-  },
-  "open_work": {
-    "branch": "feat/core-graph-interchange-20261112",
-    "commit": "6443037d2037af730e7f8ddd7d721f717bf3f9d5",
-    "pull_request": 16,
-    "next_action": "Exact-head firmware CI 43159036161 passed; wait for standard CI 43159036223, then merge and verify main tree 735e69f8eecaf098a05e2d3592acf51e6c3bd7ec. Local 2094 Python tests and installed cross-language source recovery passed."
-  },
+  "last_completed_brussels_date": "2026-11-12",
+  "last_processed_main_sha": "73fd8903e007d71dfe4e4e05d3e04bd0befc76b1",
+  "lease": null,
+  "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
-    "slot": "2026-11-11T18:00",
-    "completed_at": "2026-11-11T17:06:55.092Z",
-    "objective": "Reproducible ESP32 LED build, executable native bench of actual sketch and manual hardware acceptance kit",
-    "commit": "7dba8fb23ea129ac16fdd31e10b20397a62e99eb",
-    "tested_commit": "757d5efe6fd18e8ada8a9cfd7664d52e31ec239e",
+    "slot": "2026-11-12T06:00",
+    "completed_at": "2026-11-12T05:09:00.275Z",
+    "objective": "Installed Core-to-graph-to-plan workflow, cross-language exchange and exact original-source recovery",
+    "commit": "73fd8903e007d71dfe4e4e05d3e04bd0befc76b1",
+    "tested_commit": "6443037d2037af730e7f8ddd7d721f717bf3f9d5",
     "merged": true,
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/15",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/16",
     "checks": {
-      "python_full": 2073,
-      "actual_sketch_host_checks": 44,
-      "local_esp32_compile": "success; final pinned configuration recompiled",
-      "ram_bytes": 22680,
-      "program_bytes": 287209,
-      "firmware_bin_sha256": "5dff39e2061594d7bb1c157ae1f311e4bf0605b00ebe2d5d6d2af7d0f9085659",
-      "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43064361182",
-      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43064361126",
+      "python_full": 2094,
+      "python_targeted": 63,
+      "new_core_cases": 21,
+      "javascript": 46,
+      "installed_wheel": "Outside checkout: Core import, graph validation/plan, Python/Node lifecycle, JS original-byte exchange, exact Core recovery, errors and no-overwrite passed",
+      "sdk_documented_snippet": "passed",
+      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43159036223",
+      "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43159036161",
       "ci_result": "success",
       "main_tree_matches_tested": true,
       "physical_access": false
     },
     "limitations": [
-      "Fake serial/PWM/clock is not electrical timing or scent evidence; manual results remain NOT RUN.",
-      "Classic ESP32 reference build, not evidence for all board variants; no upload or flashing.",
-      "Dependency checksum failures on first mirrors were rejected and recovered through valid mirrors; no integrity bypass."
+      "Exactly one supported chemical SMILES representation required; graph projection remains partial.",
+      "Embedded original source is complete and recoverable but not authenticated; extraction does not apply graph edits.",
+      "Base64 increases size and includes all source data; whole files are read into memory. No release or physical result claimed."
     ],
-    "handoff_library_file_id": "libfile_fde3_f-4419248e950081919aaf962c1ece8365_44ff1f20787081919dd91de18843de02"
+    "handoff_library_file_id": "libfile_fde3_f-4b49ad8bfc888191915292d462031ba3_44ff1f20787081919dd91de18843de02"
   },
   "recent_sessions": [
-    {
-      "session_kind": "daily",
-      "completed_at": "2026-11-09T05:06:31.252Z",
-      "objective": "Inspectable software adapter rejections and continued use of the same connection",
-      "commit": "4a6e1d2dc7659e9d1bd2c70b37b6bc09c9374e78",
-      "tested_commit": "9689e62dbaac5b2816900657b7effa8694738ab0",
-      "merged": true,
-      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/8",
-      "checks": {
-        "python_full": 1968,
-        "javascript": 11,
-        "live_cli_endpoints": [
-          "python",
-          "node",
-          "custom command"
-        ],
-        "reference_cases_each": 10,
-        "exchanges_each": 34,
-        "http_rejection_export_and_recovery": "passed",
-        "normal_cli_node_http": "passed",
-        "ci_result": "success",
-        "ci_run": "https://github.com/YAAASSS/OpenSmell/actions/runs/42565087094",
-        "remote_tree_matches_tested": true,
-        "physical_access": false
-      },
-      "limitations": [
-        "Draft app-local profile; Python request rejections now return JSON instead of ValueError.",
-        "No visual QA or physical validation; UI and firmware unchanged."
-      ],
-      "handoff_library_file_id": "libfile_5df182eb2d5c8191b8ebfdd33b76a649",
-      "weekly_review": "Delivered duplicate JSON rejection, simulated lifecycle/Stop/unknown, independent Node adapter, evidence export, restart isolation, and consistent inspectable refusals. No third-party or physical lifecycle compatibility claimed."
-    },
     {
       "session_kind": "manual_requested",
       "slot": "manual-2026-11-09T22:06:28.488Z",
@@ -251,9 +211,38 @@
         "Dependency checksum failures on first mirrors were rejected and recovered through valid mirrors; no integrity bypass."
       ],
       "handoff_library_file_id": "libfile_fde3_f-4419248e950081919aaf962c1ece8365_44ff1f20787081919dd91de18843de02"
+    },
+    {
+      "session_kind": "scheduled",
+      "slot": "2026-11-12T06:00",
+      "completed_at": "2026-11-12T05:09:00.275Z",
+      "objective": "Installed Core-to-graph-to-plan workflow, cross-language exchange and exact original-source recovery",
+      "commit": "73fd8903e007d71dfe4e4e05d3e04bd0befc76b1",
+      "tested_commit": "6443037d2037af730e7f8ddd7d721f717bf3f9d5",
+      "merged": true,
+      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/16",
+      "checks": {
+        "python_full": 2094,
+        "python_targeted": 63,
+        "new_core_cases": 21,
+        "javascript": 46,
+        "installed_wheel": "Outside checkout: Core import, graph validation/plan, Python/Node lifecycle, JS original-byte exchange, exact Core recovery, errors and no-overwrite passed",
+        "sdk_documented_snippet": "passed",
+        "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43159036223",
+        "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43159036161",
+        "ci_result": "success",
+        "main_tree_matches_tested": true,
+        "physical_access": false
+      },
+      "limitations": [
+        "Exactly one supported chemical SMILES representation required; graph projection remains partial.",
+        "Embedded original source is complete and recoverable but not authenticated; extraction does not apply graph edits.",
+        "Base64 increases size and includes all source data; whole files are read into memory. No release or physical result claimed."
+      ],
+      "handoff_library_file_id": "libfile_fde3_f-4b49ad8bfc888191915292d462031ba3_44ff1f20787081919dd91de18843de02"
     }
   ],
-  "next_objective": "Installed data interoperability: inspect existing odor_graph_bridge, expose an explicit Core-to-graph export/import workflow with source/provenance and unknown-field preservation; verify exported graph and downstream plan from installed wheel. Do not assume all Core documents are bridgeable: existing bridge requires chemical SMILES. Hardware human acceptance remains independent and NOT RUN.",
+  "next_objective": "Ship an installed upstream-data import workflow and external-developer quickstart with explicit supported input contract, provenance/license and scientific limits. Inspect existing OdorNet/Keller adapters before choosing one bounded usable importer; do not silently infer missing SMILES or broaden to all datasets. Hardware human observations remain independent and NOT RUN.",
   "automation": {
     "id": "39cc72697e048191a1ba0d3e3e9d787c",
     "title": "OpenSmell — développement autonome quotidien",
@@ -270,9 +259,9 @@
   },
   "active_product_milestone": {
     "goal": "Installable OpenSmell developer kit spanning data, SDK, device integration and reproducible hardware bench",
-    "delivered": "PR #12 installed planning, #13 reusable lifecycle SDK, #14 bounded startup, #15 cross-compiled ESP32 reference build and actual-sketch host bench with manual wiring/results kit.",
-    "next": "Installed data interoperability: inspect existing odor_graph_bridge, expose an explicit Core-to-graph export/import workflow with source/provenance and unknown-field preservation; verify exported graph and downstream plan from installed wheel. Do not assume all Core documents are bridgeable: existing bridge requires chemical SMILES. Hardware human acceptance remains independent and NOT RUN."
+    "delivered": "Installed validate/inspect/plan (#12), software lifecycle SDK (#13/#14), reproducible ESP32 build/bench (#15), Core graph import/exact recovery and cross-language graph-to-execution proof (#16).",
+    "next": "Ship an installed upstream-data import workflow and external-developer quickstart with explicit supported input contract, provenance/license and scientific limits. Inspect existing OdorNet/Keller adapters before choosing one bounded usable importer; do not silently infer missing SMILES or broaden to all datasets. Hardware human observations remain independent and NOT RUN."
   },
-  "session_slot": "2026-11-12T06:00",
-  "last_completed_slot": "2026-11-11T18:00"
+  "session_slot": null,
+  "last_completed_slot": "2026-11-12T06:00"
 }
