@@ -8,9 +8,9 @@
   },
   "open_work": {
     "branch": "feat/installed-csv-import-20261112",
-    "commit": "c3c2719cd9b6c7d02a3fd95c5d13d10f618d6241",
+    "commit": "e2303565070a29585f4c61052cd34c50bb1f02f2",
     "pull_request": 17,
-    "next_action": "Finish full suite; rerun installed-wheel proof in isolation after earlier Node startup timeout. Inspect exact-head CI and merge only if green. Timeout cause is unproven."
+    "next_action": "Merge after exact-head CI 43266980548 and 43266980633 pass. Public OdorNet pinned-row trial completed with expected plan and Node outcomes. Local 2122 Python,46 JS, installed proof isolated passed. Retain one earlier Node startup timeout as unresolved."
   },
   "last_result": {
     "session_kind": "scheduled",
