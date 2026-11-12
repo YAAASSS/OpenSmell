@@ -6,7 +6,12 @@
     "owner": "odornet-20261112-0eudigtiwzu",
     "expires_at": "2026-11-12T21:01:03.022Z"
   },
-  "open_work": null,
+  "open_work": {
+    "branch": "feat/installed-csv-import-20261112",
+    "commit": "c3c2719cd9b6c7d02a3fd95c5d13d10f618d6241",
+    "pull_request": 17,
+    "next_action": "Finish full suite; rerun installed-wheel proof in isolation after earlier Node startup timeout. Inspect exact-head CI and merge only if green. Timeout cause is unproven."
+  },
   "last_result": {
     "session_kind": "scheduled",
     "slot": "2026-11-12T06:00",
