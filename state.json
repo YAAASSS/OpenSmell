@@ -1,82 +1,52 @@
 {
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-12",
-  "last_processed_main_sha": "73fd8903e007d71dfe4e4e05d3e04bd0befc76b1",
-  "lease": {
-    "owner": "odornet-20261112-0eudigtiwzu",
-    "expires_at": "2026-11-12T21:01:03.022Z"
-  },
-  "open_work": {
-    "branch": "feat/installed-csv-import-20261112",
-    "commit": "e2303565070a29585f4c61052cd34c50bb1f02f2",
-    "pull_request": 17,
-    "next_action": "Merge after exact-head CI 43266980548 and 43266980633 pass. Public OdorNet pinned-row trial completed with expected plan and Node outcomes. Local 2122 Python,46 JS, installed proof isolated passed. Retain one earlier Node startup timeout as unresolved."
-  },
+  "last_processed_main_sha": "8e194062a94a61520302a6adeb30b1bd9031d476",
+  "lease": null,
+  "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
-    "slot": "2026-11-12T06:00",
-    "completed_at": "2026-11-12T05:09:00.275Z",
-    "objective": "Installed Core-to-graph-to-plan workflow, cross-language exchange and exact original-source recovery",
-    "commit": "73fd8903e007d71dfe4e4e05d3e04bd0befc76b1",
-    "tested_commit": "6443037d2037af730e7f8ddd7d721f717bf3f9d5",
+    "slot": "2026-11-12T18:00",
+    "completed_at": "2026-11-12T17:16:23.636Z",
+    "objective": "Installed declared CSV import, developer quickstart and real pinned OdorNet record-to-plan-to-Node trial",
+    "commit": "8e194062a94a61520302a6adeb30b1bd9031d476",
+    "tested_commit": "e2303565070a29585f4c61052cd34c50bb1f02f2",
     "merged": true,
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/16",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/17",
     "checks": {
-      "python_full": 2094,
-      "python_targeted": 63,
-      "new_core_cases": 21,
+      "python_full": 2122,
+      "new_import_cases": 28,
       "javascript": 46,
-      "installed_wheel": "Outside checkout: Core import, graph validation/plan, Python/Node lifecycle, JS original-byte exchange, exact Core recovery, errors and no-overwrite passed",
-      "sdk_documented_snippet": "passed",
-      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43159036223",
-      "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43159036161",
+      "installed_wheel": "Passed in isolation: CSV/Core/graph/plan/recovery, Python/Node lifecycle and no-overwrite/refusal paths",
+      "public_source": {
+        "repository": "https://github.com/NKU-DOIE/OdorNet",
+        "commit": "88d146360dfc548462a5ebd6a081ea0590f2819e",
+        "file": "data/processed/full_dataset.csv",
+        "bytes": 600964,
+        "sha256": "de06d853a3c2ebe1e97379db2b24f695feda9600fc0ab1842c2425c5d2307331",
+        "data_record": 1,
+        "expected_plan": "channel 1 at 0.6 for 5 seconds",
+        "node_outcomes": [
+          "completed",
+          "stopped",
+          "unknown"
+        ],
+        "license_declaration": "CC-BY-4.0 from upstream LICENSE; attribution retained; dataset bytes not committed"
+      },
       "ci_result": "success",
+      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43266980548",
+      "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43266980633",
       "main_tree_matches_tested": true,
       "physical_access": false
     },
     "limitations": [
-      "Exactly one supported chemical SMILES representation required; graph projection remains partial.",
-      "Embedded original source is complete and recoverable but not authenticated; extraction does not apply graph edits.",
-      "Base64 increases size and includes all source data; whole files are read into memory. No release or physical result claimed."
+      "Initial concurrent local wheel proof exceeded existing Node five-second startup bound on the pre-existing diphenyl-ether perceptual path. Link closed, no resend. Isolated proof and final CI passed; root cause remains unproven and is not claimed fixed.",
+      "Single selected record only; no corpus-wide validation or chemical correctness claim. Synthetic bundled fixture is explicitly distinguished from public data.",
+      "Source/license are declarations; raw selected values retained, full CSV quoting/bytes not embedded. Manifest input_sha256 is retained metadata, not an automatic gate."
     ],
-    "handoff_library_file_id": "libfile_fde3_f-4b49ad8bfc888191915292d462031ba3_44ff1f20787081919dd91de18843de02"
+    "handoff_library_file_id": "libfile_fde3_f-fadc64ef42888191ac65a3c6077f72e8_44ff1f20787081919dd91de18843de02"
   },
   "recent_sessions": [
-    {
-      "session_kind": "manual_requested",
-      "slot": "manual-2026-11-09T22:06:28.488Z",
-      "completed_at": "2026-11-09T22:20:05.425Z",
-      "objective": "Custom software adapter through Local Explorer: explicit connect, five-second completion, Stop, unknown after lost link and export",
-      "commit": "1ab273ffddec0a5a4351f675ebf8cd3dc6382df6",
-      "tested_commit": "170f7f456ed4b9fa1747e34a3f7f385754412b3c",
-      "merged": true,
-      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/9",
-      "checks": {
-        "python_full": 1984,
-        "python_targeted_existing_and_extended": 63,
-        "python_new_custom_cases": 15,
-        "javascript_local_explorer": 11,
-        "javascript_graph_reader": 33,
-        "normal_custom_cli_http": "passed with externally renamed Node endpoint, five-second completion, Stop, unknown/reconnect and isolated evidence",
-        "ci_result": "success",
-        "ci_run": "https://github.com/YAAASSS/OpenSmell/actions/runs/42710250999",
-        "ci_python_versions": [
-          "3.10",
-          "3.11",
-          "3.12",
-          "3.13"
-        ],
-        "remote_tree_matches_tested": true,
-        "main_cli_help": "passed",
-        "physical_access": false
-      },
-      "limitations": [
-        "Chromium cannot start: socket creation denied by execution environment; no visual browser validation.",
-        "Trusted software-only command is not sandboxed or physically certified; no third-party adoption claimed.",
-        "Evidence remains latest-send-only and volatile; command arguments and handshake transcript not exported."
-      ],
-      "handoff_library_file_id": "libfile_7b77075ee78c8191a20f581bdf658fa5"
-    },
     {
       "session_kind": "scheduled",
       "slot": "2026-11-10T06:00",
@@ -248,9 +218,51 @@
         "Base64 increases size and includes all source data; whole files are read into memory. No release or physical result claimed."
       ],
       "handoff_library_file_id": "libfile_fde3_f-4b49ad8bfc888191915292d462031ba3_44ff1f20787081919dd91de18843de02"
+    },
+    {
+      "session_kind": "scheduled",
+      "slot": "2026-11-12T18:00",
+      "completed_at": "2026-11-12T17:16:23.636Z",
+      "objective": "Installed declared CSV import, developer quickstart and real pinned OdorNet record-to-plan-to-Node trial",
+      "commit": "8e194062a94a61520302a6adeb30b1bd9031d476",
+      "tested_commit": "e2303565070a29585f4c61052cd34c50bb1f02f2",
+      "merged": true,
+      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/17",
+      "checks": {
+        "python_full": 2122,
+        "new_import_cases": 28,
+        "javascript": 46,
+        "installed_wheel": "Passed in isolation: CSV/Core/graph/plan/recovery, Python/Node lifecycle and no-overwrite/refusal paths",
+        "public_source": {
+          "repository": "https://github.com/NKU-DOIE/OdorNet",
+          "commit": "88d146360dfc548462a5ebd6a081ea0590f2819e",
+          "file": "data/processed/full_dataset.csv",
+          "bytes": 600964,
+          "sha256": "de06d853a3c2ebe1e97379db2b24f695feda9600fc0ab1842c2425c5d2307331",
+          "data_record": 1,
+          "expected_plan": "channel 1 at 0.6 for 5 seconds",
+          "node_outcomes": [
+            "completed",
+            "stopped",
+            "unknown"
+          ],
+          "license_declaration": "CC-BY-4.0 from upstream LICENSE; attribution retained; dataset bytes not committed"
+        },
+        "ci_result": "success",
+        "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43266980548",
+        "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43266980633",
+        "main_tree_matches_tested": true,
+        "physical_access": false
+      },
+      "limitations": [
+        "Initial concurrent local wheel proof exceeded existing Node five-second startup bound on the pre-existing diphenyl-ether perceptual path. Link closed, no resend. Isolated proof and final CI passed; root cause remains unproven and is not claimed fixed.",
+        "Single selected record only; no corpus-wide validation or chemical correctness claim. Synthetic bundled fixture is explicitly distinguished from public data.",
+        "Source/license are declarations; raw selected values retained, full CSV quoting/bytes not embedded. Manifest input_sha256 is retained metadata, not an automatic gate."
+      ],
+      "handoff_library_file_id": "libfile_fde3_f-fadc64ef42888191ac65a3c6077f72e8_44ff1f20787081919dd91de18843de02"
     }
   ],
-  "next_objective": "Ship an installed upstream-data import workflow and external-developer quickstart with explicit supported input contract, provenance/license and scientific limits. Inspect existing OdorNet/Keller adapters before choosing one bounded usable importer; do not silently infer missing SMILES or broaden to all datasets. Hardware human observations remain independent and NOT RUN.",
+  "next_objective": "Choose a bounded reproducible multi-record scientific workflow (e.g. explicit selected CSV rows with separate output records and a source/status manifest) rather than expanding one-off importer validation indefinitely. Exit criterion: an external developer imports multiple explicit records, distinguishes valid/rejected data and traces each plan to source without overwriting or silently coercing unknowns. Preserve one-record API. If Node startup times out again, capture first-response timing/environment and diagnose before blanket timeout changes. Hardware manual results remain NOT RUN.",
   "automation": {
     "id": "39cc72697e048191a1ba0d3e3e9d787c",
     "title": "OpenSmell — développement autonome quotidien",
@@ -267,9 +279,9 @@
   },
   "active_product_milestone": {
     "goal": "Installable OpenSmell developer kit spanning data, SDK, device integration and reproducible hardware bench",
-    "delivered": "Installed validate/inspect/plan (#12), software lifecycle SDK (#13/#14), reproducible ESP32 build/bench (#15), Core graph import/exact recovery and cross-language graph-to-execution proof (#16).",
-    "next": "Ship an installed upstream-data import workflow and external-developer quickstart with explicit supported input contract, provenance/license and scientific limits. Inspect existing OdorNet/Keller adapters before choosing one bounded usable importer; do not silently infer missing SMILES or broaden to all datasets. Hardware human observations remain independent and NOT RUN."
+    "delivered": "Installed file/planning tools, reusable software adapters, compiled ESP32 bench, Core original-source recovery, and declared CSV import with synthetic offline proof plus one pinned real public-source Node trial (#17). Developer quickstart included.",
+    "next": "Choose a bounded reproducible multi-record scientific workflow (e.g. explicit selected CSV rows with separate output records and a source/status manifest) rather than expanding one-off importer validation indefinitely. Exit criterion: an external developer imports multiple explicit records, distinguishes valid/rejected data and traces each plan to source without overwriting or silently coercing unknowns. Preserve one-record API. If Node startup times out again, capture first-response timing/environment and diagnose before blanket timeout changes. Hardware manual results remain NOT RUN."
   },
-  "session_slot": "2026-11-12T18:00",
-  "last_completed_slot": "2026-11-12T06:00"
+  "session_slot": null,
+  "last_completed_slot": "2026-11-12T18:00"
 }
