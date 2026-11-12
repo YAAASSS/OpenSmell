@@ -6,7 +6,12 @@
     "owner": "core-20261112-89n4trps9i",
     "expires_at": "2026-11-12T08:59:28.049Z"
   },
-  "open_work": null,
+  "open_work": {
+    "branch": "feat/core-graph-interchange-20261112",
+    "commit": "0a4b51d3995cb8a2827772b3155539c9472c67cc",
+    "pull_request": 16,
+    "next_action": "Complete full Python suite, exact-head CI including firmware workflow; review diff, merge if green, verify main and preserve handoff."
+  },
   "last_result": {
     "session_kind": "scheduled",
     "slot": "2026-11-11T18:00",
