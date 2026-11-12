@@ -125,3 +125,35 @@ This is experimental, repository-maintained interoperability evidence. The
 bundled synthetic fixture proves no scientific measurement, chemical identity,
 upstream corpus compatibility, physical diffusion or third-party adoption.
 See [Draft RFC-0017](../rfcs/RFC-0017.md).
+
+## Verified public-source trial (2026-11-12)
+
+A separate manual software trial used NKU-DOIE's published
+[data/processed/full_dataset.csv](https://github.com/NKU-DOIE/OdorNet/blob/88d146360dfc548462a5ebd6a081ea0590f2819e/data/processed/full_dataset.csv),
+unmodified at commit `88d146360dfc548462a5ebd6a081ea0590f2819e`.
+The upstream [license summary](https://github.com/NKU-DOIE/OdorNet/blob/88d146360dfc548462a5ebd6a081ea0590f2819e/LICENSE)
+declares processed data CC BY 4.0; attribution and the license link are retained
+in `examples/odornet_public_source.json`. Read and cite the upstream repository's
+CITATION.cff and any applicable original-source records. This source is distinct
+from the bundled synthetic fixture.
+
+```sh
+git clone https://github.com/NKU-DOIE/OdorNet.git /tmp/OdorNet
+git -C /tmp/OdorNet checkout 88d146360dfc548462a5ebd6a081ea0590f2819e
+opensmell import-odornet /tmp/OdorNet/data/processed/full_dataset.csv --row 1 \
+  --source examples/odornet_public_source.json --output public-core.osmell
+opensmell bridge-core public-core.osmell --output public-graph.osmell
+```
+
+The file was 600,964 bytes; SHA-256:
+`de06d853a3c2ebe1e97379db2b24f695feda9600fc0ab1842c2425c5d2307331`.
+The manifest's input_sha256 is recorded metadata, not an automatic import gate;
+compare the bytes/hash when reproducing this trial. Record 1 generated main
+resource `e7f0a535-9db5-5ae4-bf72-2ae687c6294d`; the existing semantic profile
+produced channel 1 at 0.6 for five seconds. The installed software lifecycle
+entry point completed its completion/Stop/disconnect assertions with Node.
+
+Only the selected row was checked, not all 8,892 released records or their
+scientific correctness. Upstream zero labels describe absence within its released
+category space; an all-zero row must not be interpreted as proof of odorlessness.
+No dataset bytes are committed here and CI uses the synthetic fixture offline.

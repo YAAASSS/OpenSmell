@@ -259,3 +259,10 @@ that every upstream release or a full corpus was validated. This bounded slice
 does not expand automatically into batch import. Next: test one authorized,
 documented real source export and its preparation, then choose batch/multisource
 support based on that reproducible need. Human hardware results remain NOT RUN.
+
+The bounded public-source trial is now documented: unmodified NKU-DOIE processed
+CSV at commit 88d146360dfc548462a5ebd6a081ea0590f2819e, selected record 1,
+source/license attribution retained, expected channel-1 plan and Node lifecycle
+passed. This completes one source-export trial, not corpus-wide validation.
+Next: choose a concrete batch/multisource use case with deterministic source
+tracking; retain the observed occasional Node startup timeout as unresolved.
