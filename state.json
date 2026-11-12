@@ -2,7 +2,10 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-12",
   "last_processed_main_sha": "73fd8903e007d71dfe4e4e05d3e04bd0befc76b1",
-  "lease": null,
+  "lease": {
+    "owner": "odornet-20261112-0eudigtiwzu",
+    "expires_at": "2026-11-12T21:01:03.022Z"
+  },
   "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
@@ -262,6 +265,6 @@
     "delivered": "Installed validate/inspect/plan (#12), software lifecycle SDK (#13/#14), reproducible ESP32 build/bench (#15), Core graph import/exact recovery and cross-language graph-to-execution proof (#16).",
     "next": "Ship an installed upstream-data import workflow and external-developer quickstart with explicit supported input contract, provenance/license and scientific limits. Inspect existing OdorNet/Keller adapters before choosing one bounded usable importer; do not silently infer missing SMILES or broaden to all datasets. Hardware human observations remain independent and NOT RUN."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-12T18:00",
   "last_completed_slot": "2026-11-12T06:00"
 }
