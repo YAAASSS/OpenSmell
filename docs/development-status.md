@@ -131,7 +131,7 @@ requiring Explorer. No new stable release or physical odor capability is implied
 
 | Order | Deliverable | Exit criterion / evidence |
 | --- | --- | --- |
-| 1 | Installed SDK and CLI workflow | Delivered: a wheel installed outside the checkout validates/inspects Core and graph files and produces semantic/perceptual dry-run plans with explicit mapping, capabilities and source provenance. Follow-up: data import/Core bridging. |
+| 1 | Installed SDK and CLI workflow | Delivered: a wheel installed outside the checkout validates/inspects Core and graph files and produces semantic/perceptual dry-run plans with explicit mapping, capabilities and source provenance. Core import/source recovery delivered in the 2026-11-12 slice below. |
 | 2 | Reusable device integration | Delivered in PR #13, with bounded startup correction #14: installed SDK and standalone Python/Node graph-to-execution walkthrough. |
 | 3 | Reproducible hardware bench | Audit the existing ESP32 build/wiring evidence, supply the missing build configuration, bill of materials and manual acceptance procedure, and compile firmware. Record actual physical results separately; no unattended flashing or diffusion. |
 | 4 | Data and adoption | Ship a complete documented import-to-plan example with source/license information and explicit scientific limits; prepare a contributor quickstart and release checklist. Third-party adoption requires observed independent use. |
@@ -152,8 +152,9 @@ profiles. Source and profile snapshots/hashes accompany CLI plans; unsupported
 channels, intensities, durations and empty mappings fail. No device command is
 sent or source file rewritten. See [the CLI guide](cli.md) and Draft RFC-0015.
 
-Next implementation: complete the reproducible ESP32 LED bench below, then
-advance installed data import/Core bridging and external contributor onboarding.
+The ESP32 software/build slice is delivered; human bench observations remain
+independent. Finish the installed Core import slice below, then advance external
+contributor onboarding and a reproducible upstream-data import example.
 
 ## Retained execution history — 2026-11-10
 
@@ -221,3 +222,22 @@ acceptance-only; SDK software lifecycle/Stop must not be inferred for this board
 After successful compilation and host proof, the remaining hardware exit
 criterion is a human-recorded trial; independent development proceeds to
 documented installed data import/Core-to-graph-to-plan interoperability.
+
+
+## Installed Core-to-graph interoperability — 2026-11-12
+
+The installed `bridge-core` command and SDK `bridge_core_bytes` produce a
+normal experimental graph using the existing exactly-one-SMILES projection.
+A complete original-byte snapshot preserves document/odor/metadata extensions
+and unknown representations, even where the typed projection is partial.
+`extract-core` / `extract_core_bytes` verify its hash/count/document and recover
+the exact original. Extraction never applies later graph edits to Core.
+Output paths are exclusively created, so existing files and inputs are refused.
+
+The fresh-wheel walkthrough validates the exported graph, plans its geraniol
+semantic mapping and executes it through Python and Node software endpoints,
+then recovers the original bytes. No app import or physical access is required.
+See [the guide](core-interchange.md) and Draft RFC-0016. This completes the
+bounded Core import/export slice; extending the importer to every data source
+is not implied. Next: documented upstream-data import and contributor quickstart
+with an explicit supported input contract, provenance and scientific limits.

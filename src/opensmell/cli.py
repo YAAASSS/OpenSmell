@@ -14,6 +14,7 @@ from pathlib import Path
 import sys
 from typing import Any
 
+from ._json import decode_bytes as _decode
 from . import __version__
 from .exceptions import OpenSmellError
 from .schemes import get_definition
@@ -29,24 +30,6 @@ from .experimental.molecule import register_molecule_resource_type
 from .experimental.reference_discovery import discover_graph_references
 from .experimental.planning import plan_with_profile
 from .experimental.rendering import RenderRequest
-
-
-def _unique_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
-    result: dict[str, Any] = {}
-    for key, value in pairs:
-        if key in result:
-            raise ValueError(f"duplicate JSON object key: {key!r}")
-        result[key] = value
-    return result
-
-
-def _reject_constant(value: str) -> None:
-    raise ValueError(f"non-standard JSON numeric constant: {value}")
-
-
-def _decode(raw: bytes) -> Any:
-    return json.loads(raw.decode("utf-8"), object_pairs_hook=_unique_object,
-                      parse_constant=_reject_constant)
 
 
 def _graph_registry():
@@ -192,6 +175,34 @@ def _plan_command(args: argparse.Namespace) -> int:
     return 0
 
 
+def _bridge_command(args):
+    from .experimental.core_interchange import (
+        bridge_core_bytes, extract_core_bytes, interchange_registry,
+    )
+    from .experimental.generic_graph import generic_graph_to_dict
+    try:
+        raw = sys.stdin.buffer.read() if args.file == "-" else Path(args.file).read_bytes()
+        if args.command == "bridge-core":
+            result = bridge_core_bytes(raw)
+            output = (json.dumps(generic_graph_to_dict(result.graph, registry=interchange_registry()),
+                                 ensure_ascii=True, allow_nan=False, indent=2) + "\n").encode("utf-8")
+        else:
+            output = extract_core_bytes(raw)
+        if args.output:
+            # Exclusive create prevents overwriting source or another deliverable.
+            with Path(args.output).open("xb") as target:
+                target.write(output)
+        else:
+            sys.stdout.buffer.write(output)
+    except OSError as error:
+        print(json.dumps({"status": "error", "error": str(error)}), file=sys.stderr)
+        return 2
+    except (OpenSmellError, ValueError, TypeError, RecursionError, OverflowError) as error:
+        print(json.dumps({"status": "invalid", "error": str(error)}), file=sys.stderr)
+        return 1
+    return 0
+
+
 def _text_result(result: dict[str, Any], *, detailed: bool) -> str:
     # Escape file-controlled text so terminal control characters are not emitted.
     def quoted(value: Any) -> str:
@@ -235,7 +246,16 @@ def main(argv: list[str] | None = None) -> int:
     planning.add_argument("--profile", required=True, help="Mapping profile JSON file")
     planning.add_argument("--resource-id", required=True, help="Explicit graph resource to map")
     planning.add_argument("--duration", type=float, required=True, help="Requested seconds")
+    for name, help_text in (
+        ("bridge-core", "Project Core 0.1 into a graph retaining the original source"),
+        ("extract-core", "Recover the original Core source embedded in an imported graph"),
+    ):
+        bridge = commands.add_parser(name, help=help_text)
+        bridge.add_argument("file", help="Input file; '-' reads stdin")
+        bridge.add_argument("--output", help="Create a new output file; existing paths are refused")
     args = parser.parse_args(argv)
+    if args.command in {"bridge-core", "extract-core"}:
+        return _bridge_command(args)
     if args.command == "plan":
         return _plan_command(args)
     if args.files.count("-") > 1:

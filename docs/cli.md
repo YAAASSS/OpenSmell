@@ -120,6 +120,7 @@ identity, perceptual equivalence, hardware compatibility, safety or reproduction
 of an odor. RFC-0007 legacy envelopes are not auto-converted. Whole files are read
 into memory; this is not streaming support or a service for unbounded inputs.
 
-Data import/Core bridging and reusable lifecycle adapters are subsequent
-developer-kit work. An inspection report is not a rendering plan; an offline
+Core import/export is available through `bridge-core` and `extract-core`; see
+[the source-preserving walkthrough](core-interchange.md). Reusable software
+lifecycle adapters are also available in the installed experimental SDK. An inspection report is not a rendering plan; an offline
 plan is not device acceptance or execution.
