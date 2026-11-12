@@ -49,6 +49,9 @@ plan = plan_with_profile(imported.graph, RenderRequest(imported.primary_resource
 Pass this plan explicitly to an experimental software LifecycleAdapter if desired.
 The installed-wheel proof exercises the recovered graph through both Python and
 Node software endpoints, including completion, Stop and unknown-on-disconnect.
+The wheel proof also inspects the graph with the independent JavaScript reader,
+returns its original graph bytes and recovers the same Core source in Python.
+This is repository-maintained cross-language evidence, not third-party adoption.
 Neither CLI conversion nor planning opens a transport.
 
 ## Boundaries and preservation

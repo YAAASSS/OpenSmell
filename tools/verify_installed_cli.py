@@ -90,6 +90,21 @@ def main() -> None:
         node = shutil.which("node")
         if node:
             shutil.copyfile(root / "examples/lifecycle_adapter/device.cjs", work / "device.cjs")
+            # Independent JS inspection returns original graph bytes, preserving the snapshot.
+            shutil.copyfile(root / "apps/graph_viewer_js/reader.js", work / "reader.cjs")
+            run([node, "-e", """
+const fs = require('node:fs');
+globalThis.crypto = require('node:crypto').webcrypto;
+const reader = require('./reader.cjs');
+reader.inspectBytes(fs.readFileSync('core-graph.osmell')).then(value => {
+  if (value.report.status === 'rejected') throw Error(JSON.stringify(value.report.diagnostics));
+  fs.writeFileSync('core-graph-js.osmell', value.copyBytes());
+}).catch(error => { console.error(error); process.exitCode = 1; });
+"""])
+            recovery = run([executable, "extract-core", "core-graph-js.osmell"])
+            if recovery.stdout != original or (work / "core-graph-js.osmell").read_bytes() != graph_raw:
+                raise RuntimeError("JS inspection/exchange changed graph or original Core bytes")
+
         for arguments in ([], ["--node", str(work / "device.cjs")]) if node else ([],):
             result = run([python, "-I", "-m", "opensmell.experimental.lifecycle_demo", *arguments])
             states = json.loads(result.stdout)["results"]
