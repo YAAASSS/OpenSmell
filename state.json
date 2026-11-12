@@ -2,7 +2,10 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-11",
   "last_processed_main_sha": "7dba8fb23ea129ac16fdd31e10b20397a62e99eb",
-  "lease": null,
+  "lease": {
+    "owner": "core-20261112-89n4trps9i",
+    "expires_at": "2026-11-12T08:59:28.049Z"
+  },
   "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
@@ -265,6 +268,6 @@
     "delivered": "PR #12 installed planning, #13 reusable lifecycle SDK, #14 bounded startup, #15 cross-compiled ESP32 reference build and actual-sketch host bench with manual wiring/results kit.",
     "next": "Installed data interoperability: inspect existing odor_graph_bridge, expose an explicit Core-to-graph export/import workflow with source/provenance and unknown-field preservation; verify exported graph and downstream plan from installed wheel. Do not assume all Core documents are bridgeable: existing bridge requires chemical SMILES. Hardware human acceptance remains independent and NOT RUN."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-12T06:00",
   "last_completed_slot": "2026-11-11T18:00"
 }
