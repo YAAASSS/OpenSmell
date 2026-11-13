@@ -266,3 +266,35 @@ source/license attribution retained, expected channel-1 plan and Node lifecycle
 passed. This completes one source-export trial, not corpus-wide validation.
 Next: choose a concrete batch/multisource use case with deterministic source
 tracking; retain the observed occasional Node startup timeout as unresolved.
+
+## Explicit multi-record data workflow — 2026-11-13
+
+The installed batch importer parses an explicit cohort once, embeds accepted
+Core documents and retains per-record refusals/raw cells plus missing-record
+results. A single JSON artifact preserves source/status context without
+overwriting existing files. Accepted documents can be extracted, validated,
+bridged and planned independently; their IDs match the single-record API.
+See [the batch workflow](csv-batch.md) and the Draft RFC-0017 addition.
+
+The bounded exit criterion is two accepted records, an invalid record and a
+missing record retained together, followed by distinct plans and installed
+Python/Node lifecycle proof for both accepted records. This is not full-corpus
+validation, chemical deduplication or batch physical execution.
+
+The public pinned-source cohort trial selected records 1/2/3/99999: three Core
+imports, one missing-record refusal; records 1/2 planned and passed Node
+completion/Stop/disconnect, while record 3 had no supported positive mapping and
+was refused at planning. First-response timings were captured without a timeout
+in this trial; earlier intermittent startup failures remain unexplained.
+The cohort import/extraction exit criterion is complete. Further importer
+polish is deferred in favor of a reusable JavaScript SDK boundary for developers
+outside the Python checkout; preserve existing format maturity and reader limits.
+
+Before merging this slice, exact-head CI reproduced the historical
+test_node_walkthrough_entry connection timeout under Python 3.10. The transport
+now retains phase/deadline/write/elapsed/child-status diagnostics and includes
+them in timeout errors; deterministic startup/later-exchange tests verify this
+without changing deadlines or retries. Python matrix jobs now explicitly select
+the same Node 22 reference used by interoperability CI and record runtime
+versions. This makes the environment and future failures inspectable, not a
+claim that the intermittent root cause was proven or repaired.

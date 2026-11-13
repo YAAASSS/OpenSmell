@@ -90,3 +90,12 @@ Supplied offline capability identity is descriptive; the demo independently pins
 the selected simulator identity and rechecks each plan against live capabilities.
 Channel meanings remain illustrative. The wheel verifier exercises both mappings
 against both software endpoints; no data or profile is rewritten.
+
+For a response failure, ProcessTransport retains a passive `last_exchange`
+snapshot: startup/exchange phase, bounded request type, configured deadline,
+elapsed time, worker-start/write timing and child exit status observed before
+cleanup. Timeouts include this diagnostic in the raised message so CLI/HTTP
+failures retain it. Request bodies and command arguments are not included.
+The existing deadlines, fail-closed behavior and no-retry policy are unchanged.
+This supplies evidence for intermittent startup failures; it does not identify
+their cause or establish a universal startup guarantee.

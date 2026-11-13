@@ -8,6 +8,7 @@ import math
 import queue
 import subprocess
 import threading
+import time
 
 MAX_BYTES = 65536
 
@@ -33,6 +34,7 @@ class ProcessTransport:
         self.timeout = timeout
         self.startup_timeout = startup_timeout
         self._first_exchange = True
+        self.last_exchange = None
         self._lock = threading.Lock()
         self._closed = False
         self.process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
@@ -42,15 +44,24 @@ class ProcessTransport:
         data = message.encode("utf-8")
         if len(data) > MAX_BYTES or b'\n' in data or b'\r' in data:
             raise ValueError("Expected one bounded JSON line")
-        json.loads(message)
+        request = json.loads(message)
         with self._lock:
             if self._closed:
                 raise OSError("Software device link is closed")
+            started = time.monotonic()
+            deadline = self.startup_timeout if self._first_exchange else self.timeout
+            timing = {"worker_started_seconds": None, "request_written_seconds": None}
+            kind = request.get("type") if isinstance(request, dict) else None
+            diagnostic = {"phase": "startup" if self._first_exchange else "exchange",
+                          "request_type": kind if isinstance(kind, str) and len(kind) <= 128 else None,
+                          "deadline_seconds": deadline}
             result = queue.Queue(maxsize=1)
             def transact():
+                timing["worker_started_seconds"] = time.monotonic() - started
                 try:
                     self.process.stdin.write(data + b'\n')
                     self.process.stdin.flush()
+                    timing["request_written_seconds"] = time.monotonic() - started
                     line = self.process.stdout.readline(MAX_BYTES + 1)
                     if not line or len(line) > MAX_BYTES or not line.endswith(b'\n'):
                         raise OSError("Missing or oversized software device response")
@@ -63,15 +74,22 @@ class ProcessTransport:
             worker = threading.Thread(target=transact, daemon=True)
             worker.start()
             try:
-                reply = result.get(timeout=self.startup_timeout if self._first_exchange else self.timeout)
+                reply = result.get(timeout=deadline)
                 if isinstance(reply, Exception):
                     raise reply
+                self.last_exchange = {**diagnostic, **timing, "elapsed_seconds": time.monotonic() - started,
+                                      "child_returncode": self.process.poll(), "outcome": "response"}
                 self._first_exchange = False
                 return reply
             except queue.Empty as exc:
+                self.last_exchange = {**diagnostic, **timing, "elapsed_seconds": time.monotonic() - started,
+                                      "child_returncode": self.process.poll(), "outcome": "timeout"}
                 self.close()
-                raise TimeoutError("Software device response timed out; link closed") from exc
+                raise TimeoutError("Software device response timed out; link closed. " +
+                                   json.dumps(self.last_exchange, sort_keys=True)) from exc
             except Exception:
+                self.last_exchange = {**diagnostic, **timing, "elapsed_seconds": time.monotonic() - started,
+                                      "child_returncode": self.process.poll(), "outcome": "error"}
                 self.close()
                 raise
             finally:

@@ -56,9 +56,14 @@ with open(sys.argv[1], 'w') as log:
         with pytest.raises(ValueError):
             transport.exchange("not JSON")
         assert json.loads(transport.exchange('{"request":1}')) == {}
+        assert transport.last_exchange["phase"] == "startup"
+        assert transport.last_exchange["outcome"] == "response"
         with pytest.raises(TimeoutError, match="link closed"):
             transport.exchange('{"request":2}')
         assert transport.process.poll() is not None
+        assert transport.last_exchange["phase"] == "exchange"
+        assert transport.last_exchange["deadline_seconds"] == 0.1
+        assert transport.last_exchange["request_written_seconds"] is not None
         with pytest.raises(OSError, match="closed"):
             transport.exchange('{"request":3}')
         assert requests.read_text().splitlines() == ['{"request":1}', '{"request":2}']
@@ -72,8 +77,12 @@ def test_startup_deadline_still_closes_and_reaps_child():
         timeout=2, startup_timeout=0.1,
     )
     try:
-        with pytest.raises(TimeoutError, match="link closed"):
+        with pytest.raises(TimeoutError, match="link closed") as error:
             transport.exchange("{}")
+        assert '"phase": "startup"' in str(error.value)
+        assert transport.last_exchange["deadline_seconds"] == 0.1
+        assert transport.last_exchange["elapsed_seconds"] >= 0.1
+        assert transport.last_exchange["child_returncode"] is None
         assert transport.process.poll() is not None
         with pytest.raises(OSError, match="closed"):
             transport.exchange("{}")

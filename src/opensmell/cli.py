@@ -198,6 +198,32 @@ def _import_csv_command(args):
     return 0
 
 
+def _batch_csv_command(args):
+    import csv
+    from .experimental.csv_import import import_odornet_csv_batch, extract_batch_record
+    code = 0
+    try:
+        raw = sys.stdin.buffer.read() if args.file == "-" else Path(args.file).read_bytes()
+        if args.command == "import-odornet-batch":
+            result = import_odornet_csv_batch(raw, rows=args.rows, source=_decode(Path(args.source).read_bytes()))
+            output = (json.dumps(result, ensure_ascii=True, allow_nan=False, indent=2) + "\n").encode()
+            code = 3 if result["counts"]["rejected"] else 0
+        else:
+            output = extract_batch_record(raw, row=args.row)
+        if args.output:
+            with Path(args.output).open("xb") as target:
+                target.write(output)
+        else:
+            sys.stdout.buffer.write(output)
+    except OSError as error:
+        print(json.dumps({"status": "error", "error": str(error)}), file=sys.stderr)
+        return 2
+    except (OpenSmellError, ValueError, TypeError, KeyError, csv.Error, RecursionError, OverflowError) as error:
+        print(json.dumps({"status": "invalid", "error": str(error)}), file=sys.stderr)
+        return 1
+    return code
+
+
 def _bridge_command(args):
     from .experimental.core_interchange import (
         bridge_core_bytes, extract_core_bytes, interchange_registry,
@@ -281,7 +307,18 @@ def main(argv: list[str] | None = None) -> int:
     importer.add_argument("--row", type=int, required=True, help="One-based data record, excluding header")
     importer.add_argument("--source", required=True, help="Source/license manifest JSON")
     importer.add_argument("--output", help="Create a new Core file; existing paths are refused")
+    batch = commands.add_parser("import-odornet-batch", help="Import explicit CSV records with per-record outcomes")
+    batch.add_argument("file", help="UTF-8 CSV; '-' reads stdin")
+    batch.add_argument("--rows", required=True, nargs="+", type=int, help="Unique one-based data records")
+    batch.add_argument("--source", required=True, help="Source manifest JSON")
+    batch.add_argument("--output", help="Create a new batch JSON file; never overwrite")
+    extract = commands.add_parser("extract-csv-record", help="Extract one accepted Core record from a CSV batch")
+    extract.add_argument("file", help="Batch JSON; '-' reads stdin")
+    extract.add_argument("--row", required=True, type=int)
+    extract.add_argument("--output", help="Create a new Core file; never overwrite")
     args = parser.parse_args(argv)
+    if args.command in {"import-odornet-batch", "extract-csv-record"}:
+        return _batch_csv_command(args)
     if args.command == "import-odornet":
         return _import_csv_command(args)
     if args.command in {"bridge-core", "extract-core"}:
