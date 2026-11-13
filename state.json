@@ -8,9 +8,9 @@
   },
   "open_work": {
     "branch": "feat/csv-cohort-import-20261113",
-    "commit": "1091b9b135b95847c95a37becb897c624b49df2f",
+    "commit": "e51c7e07cfe4040b1dd8914d22806119f2c5c4ef",
     "pull_request": 18,
-    "next_action": "Finish full suite and exact-head CI; run pinned public-source cohort trial, then merge verified head. Installed mixed synthetic batch proof passed."
+    "next_action": "Wait for exact-head standard CI 43370028285; firmware CI 43370028354 and local2148 tests/wheel proof/public cohort trial passed. Merge, verify main tree c995ef50c4a380ebd56d55a0e26c2a58549b6a87, save transmission and release lease."
   },
   "last_result": {
     "session_kind": "scheduled",
