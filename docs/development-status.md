@@ -280,3 +280,12 @@ The bounded exit criterion is two accepted records, an invalid record and a
 missing record retained together, followed by distinct plans and installed
 Python/Node lifecycle proof for both accepted records. This is not full-corpus
 validation, chemical deduplication or batch physical execution.
+
+The public pinned-source cohort trial selected records 1/2/3/99999: three Core
+imports, one missing-record refusal; records 1/2 planned and passed Node
+completion/Stop/disconnect, while record 3 had no supported positive mapping and
+was refused at planning. First-response timings were captured without a timeout
+in this trial; earlier intermittent startup failures remain unexplained.
+The cohort import/extraction exit criterion is complete. Further importer
+polish is deferred in favor of a reusable JavaScript SDK boundary for developers
+outside the Python checkout; preserve existing format maturity and reader limits.

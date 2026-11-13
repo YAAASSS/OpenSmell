@@ -83,3 +83,29 @@ This completes explicit cohort import and extraction. It does not add batch
 device execution, automatic duplicate chemical merging, source authentication
 or measured odor output. Real source trials and their limits belong in the
 verification record; synthetic fixtures never substitute for scientific data.
+
+## Pinned public-data cohort trial (2026-11-13)
+
+Using the unmodified public CSV and attribution manifest from the
+[public-source trial](csv-import.md#verified-public-source-trial-2026-11-12),
+select records 1, 2, 3 and 99999. The byte hash was checked against the manifest
+before the trial.
+
+```sh
+opensmell import-odornet-batch /tmp/OdorNet/data/processed/full_dataset.csv \
+  --rows 1 2 3 99999 --source examples/odornet_public_source.json --output public-batch.json
+```
+
+Observed: three accepted Core records and one missing-record refusal, exit 3.
+Each accepted document was extracted and bridged. Records 1 and 2 produced
+channel 1 at 0.6 for five seconds with the supplied semantic profile. Record 3
+imported successfully but had no configured positive mapping: planning refused
+it without a command. Import acceptance therefore does not imply plan support.
+
+Both supported plans exercised the SDK with the Node reference endpoint:
+completed, stopped and unknown after disconnect. First hello exchanges measured
+about 0.111 s and 0.079 s in this trial. Timing was measured around actual
+transport exchanges and runtime metadata retained for the verification record.
+These observations do not explain or resolve the previously observed occasional
+five-second startup timeout. No physical device or batch command scheduler was
+involved, and no full-corpus scientific validation is claimed.
