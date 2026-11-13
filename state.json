@@ -1,92 +1,69 @@
 {
   "schema_version": 1,
-  "last_completed_brussels_date": "2026-11-12",
-  "last_processed_main_sha": "8e194062a94a61520302a6adeb30b1bd9031d476",
-  "lease": {
-    "owner": "batch-20261113-jlg6u65tn2b",
-    "expires_at": "2026-11-13T09:00:14.945Z"
-  },
-  "open_work": {
-    "branch": "feat/csv-cohort-import-20261113",
-    "commit": "e51c7e07cfe4040b1dd8914d22806119f2c5c4ef",
-    "pull_request": 18,
-    "next_action": "Wait for exact-head standard CI 43370028285; firmware CI 43370028354 and local2148 tests/wheel proof/public cohort trial passed. Merge, verify main tree c995ef50c4a380ebd56d55a0e26c2a58549b6a87, save transmission and release lease."
-  },
+  "last_completed_brussels_date": "2026-11-13",
+  "last_processed_main_sha": "23eceb77102242c1477fd5975a81e980b637c3b5",
+  "lease": null,
+  "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
-    "slot": "2026-11-12T18:00",
-    "completed_at": "2026-11-12T17:16:23.636Z",
-    "objective": "Installed declared CSV import, developer quickstart and real pinned OdorNet record-to-plan-to-Node trial",
-    "commit": "8e194062a94a61520302a6adeb30b1bd9031d476",
-    "tested_commit": "e2303565070a29585f4c61052cd34c50bb1f02f2",
+    "slot": "2026-11-13T06:00",
+    "completed_at": "2026-11-13T05:18:04.424Z",
+    "objective": "Explicit multi-record CSV import, per-record status/source bundle, checked Core extraction and distinct downstream plans",
+    "commit": "23eceb77102242c1477fd5975a81e980b637c3b5",
+    "tested_commit": "7b9da8a9c739b77c9bc5e1453a7c1be74f768d4e",
     "merged": true,
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/17",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/18",
     "checks": {
-      "python_full": 2122,
-      "new_import_cases": 28,
+      "python_full": 2148,
+      "python_full_after_diagnostics_seconds": 103.33,
+      "targeted_importers": 54,
+      "targeted_startup_diagnostics_batch": 56,
       "javascript": 46,
-      "installed_wheel": "Passed in isolation: CSV/Core/graph/plan/recovery, Python/Node lifecycle and no-overwrite/refusal paths",
-      "public_source": {
-        "repository": "https://github.com/NKU-DOIE/OdorNet",
-        "commit": "88d146360dfc548462a5ebd6a081ea0590f2819e",
-        "file": "data/processed/full_dataset.csv",
-        "bytes": 600964,
-        "sha256": "de06d853a3c2ebe1e97379db2b24f695feda9600fc0ab1842c2425c5d2307331",
-        "data_record": 1,
-        "expected_plan": "channel 1 at 0.6 for 5 seconds",
+      "installed_wheel": "Final rebuilt wheel outside checkout passed mixed batch/extraction/plans/no-overwrite and both records with Python/Node completion/Stop/unknown.",
+      "public_cohort": {
+        "source_commit": "88d146360dfc548462a5ebd6a081ea0590f2819e",
+        "csv_sha256": "de06d853a3c2ebe1e97379db2b24f695feda9600fc0ab1842c2425c5d2307331",
+        "selected": [
+          1,
+          2,
+          3,
+          99999
+        ],
+        "accepted": 3,
+        "rejected": 1,
+        "plans": "1/2 mapped CH1=0.6; 3 accepted import but refused by mapping with no positive bindings",
         "node_outcomes": [
           "completed",
           "stopped",
           "unknown"
         ],
-        "license_declaration": "CC-BY-4.0 from upstream LICENSE; attribution retained; dataset bytes not committed"
+        "hello_seconds": [
+          0.11099689599996054,
+          0.07864641499986647
+        ]
       },
+      "initial_ci_failure": {
+        "run": "https://github.com/YAAASSS/OpenSmell/actions/runs/43370028285",
+        "python": "3.10",
+        "test": "test_node_walkthrough_entry",
+        "failed": 1,
+        "passed": 2147,
+        "cause": "Connection response timeout before render; original logs do not establish which handshake exchange or cause."
+      },
+      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43370653137",
+      "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43370653098",
       "ci_result": "success",
-      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43266980548",
-      "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43266980633",
       "main_tree_matches_tested": true,
       "physical_access": false
     },
     "limitations": [
-      "Initial concurrent local wheel proof exceeded existing Node five-second startup bound on the pre-existing diphenyl-ether perceptual path. Link closed, no resend. Isolated proof and final CI passed; root cause remains unproven and is not claimed fixed.",
-      "Single selected record only; no corpus-wide validation or chemical correctness claim. Synthetic bundled fixture is explicitly distinguished from public data.",
-      "Source/license are declarations; raw selected values retained, full CSV quoting/bytes not embedded. Manifest input_sha256 is retained metadata, not an automatic gate."
+      "Historical intermittent Node timeout reproduced once in CI. Added passive phase/deadline/worker/write/elapsed/child-status diagnostics and explicit Node22 reference/runtime version recording. Deadlines/retry policy unchanged; root cause is not proven fixed despite final green CI.",
+      "Cohort selection limited to 1000 explicit indexes; partial/rejected records stay reported. No full-corpus correctness, chemical identity merging, batch device execution or physical output claim.",
+      "Hashes/source declarations are not authenticated; input held in memory; full CSV bytes not embedded."
     ],
-    "handoff_library_file_id": "libfile_fde3_f-fadc64ef42888191ac65a3c6077f72e8_44ff1f20787081919dd91de18843de02"
+    "handoff_library_file_id": "libfile_fde3_f-107fb4d183408191b6007f8ac04f378f_44ff1f20787081919dd91de18843de02"
   },
   "recent_sessions": [
-    {
-      "session_kind": "scheduled",
-      "slot": "2026-11-10T06:00",
-      "completed_at": "2026-11-10T05:12:04.321Z",
-      "objective": "Bounded multi-run execution history, individual selection/export and passive session JSON bundle in Local Explorer",
-      "commit": "b01ac33bdfe0c6fc0b78f6829654f75f2c3078d5",
-      "tested_commit": "a3dbda0a396f5a0ceb240d0ebf916cbe135a4e54",
-      "merged": true,
-      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/10",
-      "checks": {
-        "python_full": 1987,
-        "javascript_local_explorer": 13,
-        "javascript_graph_reader": 33,
-        "targeted_evidence": 9,
-        "normal_node_cli_http": "Five-second completion, Stop, unknown; isolated semantic/perceptual reports and bundle matched",
-        "ci_result": "success",
-        "ci_run": "https://github.com/YAAASSS/OpenSmell/actions/runs/42760259638",
-        "ci_python_versions": [
-          "3.10",
-          "3.11",
-          "3.12",
-          "3.13"
-        ],
-        "main_tree_matches_tested": true,
-        "physical_access": false
-      },
-      "limitations": [
-        "Chromium socket creation denied: no visual browser validation.",
-        "Volatile shared history, ten reports maximum and 8 MiB archive budget; not durable recovery or measured olfactory evidence."
-      ],
-      "handoff_library_file_id": "libfile_fa0755e6c7a08191a25def53fee1a342"
-    },
     {
       "session_kind": "scheduled",
       "slot": "2026-11-10T18:00",
@@ -268,9 +245,68 @@
         "Source/license are declarations; raw selected values retained, full CSV quoting/bytes not embedded. Manifest input_sha256 is retained metadata, not an automatic gate."
       ],
       "handoff_library_file_id": "libfile_fde3_f-fadc64ef42888191ac65a3c6077f72e8_44ff1f20787081919dd91de18843de02"
+    },
+    {
+      "session_kind": "scheduled",
+      "slot": "2026-11-13T06:00",
+      "completed_at": "2026-11-13T05:18:04.424Z",
+      "objective": "Explicit multi-record CSV import, per-record status/source bundle, checked Core extraction and distinct downstream plans",
+      "commit": "23eceb77102242c1477fd5975a81e980b637c3b5",
+      "tested_commit": "7b9da8a9c739b77c9bc5e1453a7c1be74f768d4e",
+      "merged": true,
+      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/18",
+      "checks": {
+        "python_full": 2148,
+        "python_full_after_diagnostics_seconds": 103.33,
+        "targeted_importers": 54,
+        "targeted_startup_diagnostics_batch": 56,
+        "javascript": 46,
+        "installed_wheel": "Final rebuilt wheel outside checkout passed mixed batch/extraction/plans/no-overwrite and both records with Python/Node completion/Stop/unknown.",
+        "public_cohort": {
+          "source_commit": "88d146360dfc548462a5ebd6a081ea0590f2819e",
+          "csv_sha256": "de06d853a3c2ebe1e97379db2b24f695feda9600fc0ab1842c2425c5d2307331",
+          "selected": [
+            1,
+            2,
+            3,
+            99999
+          ],
+          "accepted": 3,
+          "rejected": 1,
+          "plans": "1/2 mapped CH1=0.6; 3 accepted import but refused by mapping with no positive bindings",
+          "node_outcomes": [
+            "completed",
+            "stopped",
+            "unknown"
+          ],
+          "hello_seconds": [
+            0.11099689599996054,
+            0.07864641499986647
+          ]
+        },
+        "initial_ci_failure": {
+          "run": "https://github.com/YAAASSS/OpenSmell/actions/runs/43370028285",
+          "python": "3.10",
+          "test": "test_node_walkthrough_entry",
+          "failed": 1,
+          "passed": 2147,
+          "cause": "Connection response timeout before render; original logs do not establish which handshake exchange or cause."
+        },
+        "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43370653137",
+        "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43370653098",
+        "ci_result": "success",
+        "main_tree_matches_tested": true,
+        "physical_access": false
+      },
+      "limitations": [
+        "Historical intermittent Node timeout reproduced once in CI. Added passive phase/deadline/worker/write/elapsed/child-status diagnostics and explicit Node22 reference/runtime version recording. Deadlines/retry policy unchanged; root cause is not proven fixed despite final green CI.",
+        "Cohort selection limited to 1000 explicit indexes; partial/rejected records stay reported. No full-corpus correctness, chemical identity merging, batch device execution or physical output claim.",
+        "Hashes/source declarations are not authenticated; input held in memory; full CSV bytes not embedded."
+      ],
+      "handoff_library_file_id": "libfile_fde3_f-107fb4d183408191b6007f8ac04f378f_44ff1f20787081919dd91de18843de02"
     }
   ],
-  "next_objective": "Choose a bounded reproducible multi-record scientific workflow (e.g. explicit selected CSV rows with separate output records and a source/status manifest) rather than expanding one-off importer validation indefinitely. Exit criterion: an external developer imports multiple explicit records, distinguishes valid/rejected data and traces each plan to source without overwriting or silently coercing unknowns. Preserve one-record API. If Node startup times out again, capture first-response timing/environment and diagnose before blanket timeout changes. Hardware manual results remain NOT RUN.",
+  "next_objective": "The explicit cohort import/extraction milestone is complete; defer further CSV refinements. Ship the first reusable JavaScript SDK slice outside apps/checkout: extract the existing independent reader into a locally packable module with documented API, consumer smoke test from a local package and original-byte exchange proof. Preserve numeric/unknown-data/size limits and experimental maturity, with no npm publication/tag/release. Keep app compatibility. If Node timeout recurs, use new last_exchange phase/write/elapsed/child-status plus recorded Node/Python versions to diagnose; do not claim cause fixed or increase bounds blindly. Human hardware observations remain NOT RUN.",
   "automation": {
     "id": "39cc72697e048191a1ba0d3e3e9d787c",
     "title": "OpenSmell — développement autonome quotidien",
@@ -287,9 +323,9 @@
   },
   "active_product_milestone": {
     "goal": "Installable OpenSmell developer kit spanning data, SDK, device integration and reproducible hardware bench",
-    "delivered": "Installed file/planning tools, reusable software adapters, compiled ESP32 bench, Core original-source recovery, and declared CSV import with synthetic offline proof plus one pinned real public-source Node trial (#17). Developer quickstart included.",
-    "next": "Choose a bounded reproducible multi-record scientific workflow (e.g. explicit selected CSV rows with separate output records and a source/status manifest) rather than expanding one-off importer validation indefinitely. Exit criterion: an external developer imports multiple explicit records, distinguishes valid/rejected data and traces each plan to source without overwriting or silently coercing unknowns. Preserve one-record API. If Node startup times out again, capture first-response timing/environment and diagnose before blanket timeout changes. Hardware manual results remain NOT RUN."
+    "delivered": "Installed Python kit, real-source CSV/cohort import and checked per-record extraction, distinct planning and Python/Node proof (#18); prototype build/bench remains delivered. New transport diagnostic supports investigating known intermittent startup/handshake timeout.",
+    "next": "The explicit cohort import/extraction milestone is complete; defer further CSV refinements. Ship the first reusable JavaScript SDK slice outside apps/checkout: extract the existing independent reader into a locally packable module with documented API, consumer smoke test from a local package and original-byte exchange proof. Preserve numeric/unknown-data/size limits and experimental maturity, with no npm publication/tag/release. Keep app compatibility. If Node timeout recurs, use new last_exchange phase/write/elapsed/child-status plus recorded Node/Python versions to diagnose; do not claim cause fixed or increase bounds blindly. Human hardware observations remain NOT RUN."
   },
-  "session_slot": "2026-11-13T06:00",
-  "last_completed_slot": "2026-11-12T18:00"
+  "session_slot": null,
+  "last_completed_slot": "2026-11-13T06:00"
 }
