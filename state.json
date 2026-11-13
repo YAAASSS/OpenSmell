@@ -2,7 +2,10 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-13",
   "last_processed_main_sha": "23eceb77102242c1477fd5975a81e980b637c3b5",
-  "lease": null,
+  "lease": {
+    "owner": "js-sdk-20261113-duoo7tqqku6",
+    "expires_at": "2026-11-13T20:58:40.982Z"
+  },
   "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
@@ -326,6 +329,6 @@
     "delivered": "Installed Python kit, real-source CSV/cohort import and checked per-record extraction, distinct planning and Python/Node proof (#18); prototype build/bench remains delivered. New transport diagnostic supports investigating known intermittent startup/handshake timeout.",
     "next": "The explicit cohort import/extraction milestone is complete; defer further CSV refinements. Ship the first reusable JavaScript SDK slice outside apps/checkout: extract the existing independent reader into a locally packable module with documented API, consumer smoke test from a local package and original-byte exchange proof. Preserve numeric/unknown-data/size limits and experimental maturity, with no npm publication/tag/release. Keep app compatibility. If Node timeout recurs, use new last_exchange phase/write/elapsed/child-status plus recorded Node/Python versions to diagnose; do not claim cause fixed or increase bounds blindly. Human hardware observations remain NOT RUN."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-13T18:00",
   "last_completed_slot": "2026-11-13T06:00"
 }
