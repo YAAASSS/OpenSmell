@@ -76,6 +76,18 @@ jobs:
           python -m build --wheel
           python -m tools.verify_installed_cli dist/*.whl --js-exchange-directory "$RUNNER_TEMP/js-sdk-exchange"
 
+      - name: Build and try the portable local developer kit
+        run: |
+          python -m tools.build_developer_kit --output dist/opensmell-developer-kit.zip
+          python -m tools.verify_developer_kit dist/opensmell-developer-kit.zip
+
+      - name: Retain the verified experimental kit
+        uses: actions/upload-artifact@v4
+        with:
+          name: opensmell-local-developer-kit
+          path: dist/opensmell-developer-kit.zip
+          retention-days: 14
+
       - name: Verify independent software lifecycle adapter
         run: |
           python -m tools.verify_lifecycle_adapter --endpoint python

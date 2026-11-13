@@ -324,3 +324,31 @@ its example data, profiles and source/license/limit declarations, and can be tri
 from a directory outside the repository with installed tools. Require a documented
 Python/Node/software-device path and a release readiness checklist; keep human
 ESP32 observations separate and NOT RUN until actually recorded.
+
+
+## Portable installed-kit trial — 2026-11-13 evening
+
+The next usable slice of the same milestone is `tools.build_developer_kit`: a
+local ZIP containing the wheel, JavaScript tarball, declared synthetic cohort,
+explicit semantic profile and trusted Node software endpoint. Extraction and
+installation need no application or source tree. `try_kit.py` checks the included
+byte manifest, imports a mixed cohort with retained refusals, bridges both accepted
+records, inspects/transfers through the installed JS package, validates/plans
+through the installed Python kit and records completion/Stop/unknown on both
+software endpoints. Original Core recovery and report no-overwrite are checked.
+Python dependencies are not bundled; source/hash context is not authentication.
+
+The bounded exit criterion is the complete extracted-kit path outside the checkout,
+including different row-1/row-3 plans, invalid/missing row outcomes and a refused
+changed kit file. CI builds, installs and tries the archive before retaining it as
+an experimental artifact. See [the guide and readiness gates](developer-kit.md).
+This is repository-maintained reproducibility, not observed third-party adoption.
+
+This closes the first portable developer-kit trial; release/tag/public registry
+publication and physical trials remain outside the run mandate. Next product
+result: an installed JavaScript lifecycle client that consumes an explicit plan
+and negotiates existing software adapter capabilities, with completion/Stop/unknown
+and refusal/duplicate-ID protections against Python and Node endpoints. Reuse the
+existing Draft RFC-0014 contract; do not invent a new physical protocol or return
+to Explorer refinements. Require a standalone Node consumer and cross-language
+proof before calling that SDK boundary delivered. Human ESP32 trials remain NOT RUN.
