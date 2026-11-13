@@ -1661,6 +1661,14 @@ plans from explicit mapping/capability profiles. See the complete examples in th
 [CLI installation and scripting guide](docs/cli.md).
 This feature is on development main, not a newly published PyPI release.
 
+A [portable local trial kit](docs/developer-kit.md) packages the Python wheel,
+JavaScript tarball, declared synthetic data, explicit profile and Node endpoint.
+`python -m tools.build_developer_kit --output dist/opensmell-developer-kit.zip`
+builds it without a tag or release. Extract and follow `START_HERE.md` to run the
+installed CSV → graph → JavaScript transfer → Python plan → software observations
+path outside this repository. Successful interoperability CI retains the same ZIP
+as an experimental artifact; Python third-party dependencies are not bundled.
+
 ### OpenSmell 0.1 foundation
 
 Completed:

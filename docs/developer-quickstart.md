@@ -12,6 +12,10 @@ opensmell --help
 This installs development main, not a newly published PyPI release.
 The installed commands also work outside the checkout on your own files.
 
+For a complete portable trial, use the [local developer kit](developer-kit.md):
+extract the verified ZIP, install its two local packages and run `python try_kit.py`.
+The synthetic cohort becomes two distinct plans and Python/Node software observations.
+
 Choose a starting point:
 
 | You have | First useful path | Proof to expect |
