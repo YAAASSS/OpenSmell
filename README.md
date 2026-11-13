@@ -1955,3 +1955,11 @@ OdorNet-shaped CSV record with a source/license manifest. Follow the
 [complete CSV-to-plan walkthrough](docs/csv-import.md) or the
 [developer quickstart](docs/developer-quickstart.md). The bundled runnable example
 is synthetic and labeled as such; no upstream dataset is redistributed.
+
+### Import an explicit data cohort
+
+Use `opensmell import-odornet-batch` to retain accepted and rejected records
+together, then `extract-csv-record` to export accepted Core documents for the
+existing graph/planning SDK. The [batch guide](docs/csv-batch.md) supplies a
+reproducible mixed-result example. Unknown data and per-record source context
+remain explicit.

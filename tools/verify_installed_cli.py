@@ -90,6 +90,30 @@ def main() -> None:
         run([executable, "import-odornet", "synthetic_odornet.csv", "--row", "1",
              "--source", "synthetic_odornet_source.json", "--output", "csv-core.osmell"], expected=2)
         print("Installed CSV import: source metadata, graph, plan, recovery and refusal checks passed.")
+        shutil.copyfile(root / "examples/synthetic_odornet_batch.csv", work / "synthetic_odornet_batch.csv")
+        run([executable, "import-odornet-batch", "synthetic_odornet_batch.csv",
+             "--rows", "1", "2", "3", "9", "--source", "synthetic_odornet_source.json",
+             "--output", "batch.json"], expected=3)
+        batch = json.loads((work / "batch.json").read_bytes())
+        if batch["counts"] != {"accepted": 2, "rejected": 2}:
+            raise RuntimeError("Batch did not distinguish imported, invalid and missing records")
+        batch_resources = {}
+        for row, channel, intensity in ((1, 0, 0.25), (3, 1, 0.6)):
+            core_file, graph_file = f"batch-{row}.osmell", f"batch-{row}-graph.osmell"
+            run([executable, "extract-csv-record", "batch.json", "--row", str(row), "--output", core_file])
+            run([executable, "validate", core_file, "--json"])
+            run([executable, "bridge-core", core_file, "--output", graph_file])
+            rid = json.loads((work / graph_file).read_bytes())["org.opensmell.experimental.core-import"]["primary_resource_id"]
+            batch_resources[row] = rid
+            result = run([executable, "plan", graph_file, "--profile", "offline_semantic_profile.json",
+                          "--resource-id", rid, "--duration", "5"])
+            if json.loads(result.stdout)["plan"]["commands"] != [{"channel": channel, "intensity": intensity}]:
+                raise RuntimeError("Extracted batch record produced the wrong plan")
+        run([executable, "extract-csv-record", "batch.json", "--row", "2"], expected=1)
+        run([executable, "extract-csv-record", "batch.json", "--row", "9"], expected=1)
+        run([executable, "extract-csv-record", "batch.json", "--row", "1",
+             "--output", "batch-1.osmell"], expected=2)
+        print("Installed CSV batch: mixed outcomes, separate records, plans and no-overwrite passed.")
         # Core bridge/export/recovery from the installed entry point.
         original = (work / "geraniol.osmell").read_bytes()
         run([executable, "bridge-core", "geraniol.osmell", "--output", "core-graph.osmell"])
@@ -157,6 +181,13 @@ reader.inspectBytes(fs.readFileSync('core-graph.osmell')).then(value => {
                           "--resource-id", csv_resource, *endpoint])
             if json.loads(result.stdout)["results"]["completion"]["state"] != "completed":
                 raise RuntimeError("Installed CSV-to-execution proof failed")
+        for row, rid in batch_resources.items():
+            for endpoint in ([], ["--node", str(work / "device.cjs")]) if node else ([],):
+                result = run([python, "-I", "-m", "opensmell.experimental.lifecycle_demo",
+                              "--graph", f"batch-{row}-graph.osmell", "--profile", "offline_semantic_profile.json",
+                              "--resource-id", rid, *endpoint])
+                if json.loads(result.stdout)["results"]["completion"]["state"] != "completed":
+                    raise RuntimeError("Installed batch-to-execution proof failed")
         run([python, "-I", "-m", "opensmell.experimental.lifecycle_demo", "--graph", "missing"], expected=2)
         print("Installed lifecycle proof passed: Python" + (" and Node." if node else "; Node unavailable."))
         print("Installed wheel CLI passed outside the checkout: Core, graph, stdin, errors, both offline mappers and import location.")

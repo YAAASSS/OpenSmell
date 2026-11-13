@@ -266,3 +266,17 @@ source/license attribution retained, expected channel-1 plan and Node lifecycle
 passed. This completes one source-export trial, not corpus-wide validation.
 Next: choose a concrete batch/multisource use case with deterministic source
 tracking; retain the observed occasional Node startup timeout as unresolved.
+
+## Explicit multi-record data workflow — 2026-11-13
+
+The installed batch importer parses an explicit cohort once, embeds accepted
+Core documents and retains per-record refusals/raw cells plus missing-record
+results. A single JSON artifact preserves source/status context without
+overwriting existing files. Accepted documents can be extracted, validated,
+bridged and planned independently; their IDs match the single-record API.
+See [the batch workflow](csv-batch.md) and the Draft RFC-0017 addition.
+
+The bounded exit criterion is two accepted records, an invalid record and a
+missing record retained together, followed by distinct plans and installed
+Python/Node lifecycle proof for both accepted records. This is not full-corpus
+validation, chemical deduplication or batch physical execution.

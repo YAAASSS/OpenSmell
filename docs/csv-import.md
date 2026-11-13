@@ -157,3 +157,7 @@ Only the selected row was checked, not all 8,892 released records or their
 scientific correctness. Upstream zero labels describe absence within its released
 category space; an all-zero row must not be interpreted as proof of odorlessness.
 No dataset bytes are committed here and CI uses the synthetic fixture offline.
+
+For an explicit cohort with per-record acceptance/refusal and separately
+extractable Core documents, use the [batch workflow](csv-batch.md). The
+single-record interface and its identity rules remain unchanged.
