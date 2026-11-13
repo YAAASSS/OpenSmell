@@ -6,7 +6,12 @@
     "owner": "batch-20261113-jlg6u65tn2b",
     "expires_at": "2026-11-13T09:00:14.945Z"
   },
-  "open_work": null,
+  "open_work": {
+    "branch": "feat/csv-cohort-import-20261113",
+    "commit": "1091b9b135b95847c95a37becb897c624b49df2f",
+    "pull_request": 18,
+    "next_action": "Finish full suite and exact-head CI; run pinned public-source cohort trial, then merge verified head. Installed mixed synthetic batch proof passed."
+  },
   "last_result": {
     "session_kind": "scheduled",
     "slot": "2026-11-12T18:00",
