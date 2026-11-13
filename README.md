@@ -69,7 +69,7 @@ Core format.
 | Experimental rendering and device architecture | Documented through RFC-0013 |
 | Device Protocol 0.1 and serial transport | Implemented experimentally |
 | Local Explorer application | English interface, offline previews and explicit ESP32 control; [guide](apps/local_demo/README.md) |
-| JavaScript Graph Reader | Independent limited inspection and original-byte transfer to Python; [guide](apps/graph_viewer_js/README.md) |
+| JavaScript graph reader SDK | Locally installable CJS/ESM API and CLI for limited inspection/intact transfer; [package guide](packages/javascript/README.md). Browser [demo](apps/graph_viewer_js/README.md) uses the same engine. |
 | Automated Python test suite | **1,931 passed for the JS/Python exchange**, including 167 targeted tests; [verification record](docs/js-python-exchange.md#verification-actually-performed) |
 | Physical hardware validation | **ESP32/3-channel LED control path validated experimentally** |
 
@@ -639,6 +639,15 @@ for both policies in the proposed 5-second workflow. Expected command levels
 are not physical measurements, and this report does not demonstrate odor reproduction.
 
 ### Independent JavaScript reader and file exchange
+
+For use in another Node.js project, pack the [experimental reader SDK](packages/javascript/README.md)
+with `npm pack ./packages/javascript --ignore-scripts` and install the local tarball.
+Import `inspectBytes` from `@opensmell/graph-reader`, or use the installed
+`opensmell-inspect-js file.osmell --copy transfer.osmell` command. CommonJS and
+ESM share the same independent limited engine; this package is not published to npm.
+It reads experimental Generic ResourceGraph 0.1, not Core or CSV batch bundles.
+The [installed exchange walkthrough](docs/javascript-sdk.md) continues into Python planning.
+
 
 From the repository root, run `node apps/graph_viewer_js/server.cjs` and open
 `http://127.0.0.1:8766` (Node.js 22 or later, no package installation). The static
@@ -1252,7 +1261,8 @@ actuation paths; it does not demonstrate faithful odor reproduction.
 OpenSmell/
 ├── .github/workflows/tests.yml
 ├── apps/local_demo/       # Local Explorer and its launch/validation guide
-├── apps/graph_viewer_js/  # Independent JavaScript reader and intact transfers
+├── packages/javascript/ # Locally packable limited reader SDK (CJS/ESM/CLI)
+├── apps/graph_viewer_js/  # Browser consumer of the JavaScript reader SDK
 ├── docs/
 │   ├── images/            # Official logos
 │   └── local-explorer-milestone.md

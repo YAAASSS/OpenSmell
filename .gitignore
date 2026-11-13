@@ -248,3 +248,7 @@ examples/resource_graph_interop_vectors_js.json
 
 # PlatformIO firmware build products and downloaded dependencies.
 .pio/
+
+# Locally packed JavaScript SDK and consumer installs.
+*.tgz
+node_modules/

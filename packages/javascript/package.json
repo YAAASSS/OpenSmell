@@ -1,0 +1,19 @@
+{
+  "name": "@opensmell/graph-reader",
+  "version": "0.1.0-experimental.0",
+  "private": true,
+  "description": "Experimental offline OpenSmell graph inspection and original-byte transfer",
+  "license": "Apache-2.0",
+  "engines": {"node": ">=22"},
+  "main": "./index.cjs",
+  "module": "./index.mjs",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {"types": "./index.d.ts", "import": "./index.mjs", "require": "./index.cjs"},
+    "./browser": "./reader.cjs",
+    "./package.json": "./package.json"
+  },
+  "bin": {"opensmell-inspect-js": "./cli.cjs"},
+  "files": ["index.cjs", "index.mjs", "index.d.ts", "reader.cjs", "cli.cjs", "README.md", "LICENSE"],
+  "repository": {"type": "git", "url": "https://github.com/YAAASSS/OpenSmell.git", "directory": "packages/javascript"}
+}

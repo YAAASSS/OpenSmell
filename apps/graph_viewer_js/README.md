@@ -2,6 +2,11 @@
 
 # JavaScript Graph Reader
 
+The demo consumes the reusable engine in [`packages/javascript`](../../packages/javascript/README.md).
+Its `/reader.js` route serves that same browser-compatible engine; the old
+repository `reader.js` import remains a CommonJS compatibility entry. For an
+installed API/CLI outside this checkout, use the [SDK walkthrough](../../docs/javascript-sdk.md).
+
 An **experimental pre-alpha** offline reader, developed within OpenSmell. It
 independently inspects a limited experimental Generic ResourceGraph profile in
 JavaScript, then downloads the **original bytes** for transfer to
