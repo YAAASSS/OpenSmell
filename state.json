@@ -8,11 +8,11 @@
   },
   "open_work": {
     "branch": "feat/developer-trial-kit-20261113",
-    "commit": "3070b7739dbd4306b8a705f6ef6139f7f4392f62",
+    "commit": "fc9be8db874f88e09dbfd8e42e1a6ad8e3adb6c0",
     "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/20",
     "objective": "Portable installed synthetic CSV-to-JS-transfer-to-Python-planning-to-software-observations kit",
-    "resume_action": "Inspect exact-head CI for #20, fix failures and merge when green/rules permit; local extracted-kit proof and two new unit tests passed. #19 already merged on main with all 2148 Python/49 JS tests and exact-head CI. Preserve artifact provenance/no-overwrite and no physical claims.",
-    "tested_tree": "a6f51d3259f79359706d565f36b1a3891748d5dc",
+    "resume_action": "Inspect new exact-head CI for #20. First CI failed because no-isolation build lacked setuptools in Python 3.13; new head declares setuptools and wheel in dev dependencies. Local two-case unit and extracted-kit trial passed before metadata fix; final clean-commit artifact build/verification underway. #19 is merged.",
+    "tested_tree": "b362afeb6d21d44060ed8e6d347063271f229e3e",
     "earlier_merged": {
       "pull_request": 19,
       "main_sha": "94af2a9926c6c62e894d745d7715fbe312fb3493",
