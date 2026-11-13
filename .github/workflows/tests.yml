@@ -26,6 +26,16 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
+      - name: Select documented Node reference runtime
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Record runtime versions
+        run: |
+          python --version
+          node --version
+
       - name: Install OpenSmell
         run: python -m pip install -e ".[dev]"
 

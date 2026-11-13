@@ -289,3 +289,12 @@ in this trial; earlier intermittent startup failures remain unexplained.
 The cohort import/extraction exit criterion is complete. Further importer
 polish is deferred in favor of a reusable JavaScript SDK boundary for developers
 outside the Python checkout; preserve existing format maturity and reader limits.
+
+Before merging this slice, exact-head CI reproduced the historical
+test_node_walkthrough_entry connection timeout under Python 3.10. The transport
+now retains phase/deadline/write/elapsed/child-status diagnostics and includes
+them in timeout errors; deterministic startup/later-exchange tests verify this
+without changing deadlines or retries. Python matrix jobs now explicitly select
+the same Node 22 reference used by interoperability CI and record runtime
+versions. This makes the environment and future failures inspectable, not a
+claim that the intermittent root cause was proven or repaired.
