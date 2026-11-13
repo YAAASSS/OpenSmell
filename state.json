@@ -6,7 +6,14 @@
     "owner": "js-sdk-20261113-duoo7tqqku6",
     "expires_at": "2026-11-13T20:58:40.982Z"
   },
-  "open_work": null,
+  "open_work": {
+    "branch": "feat/javascript-reader-sdk-20261113",
+    "commit": "d735d78bbaba02fd9e887aa566d9255951dd2b8d",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/19",
+    "objective": "Locally installed CJS/ESM JavaScript graph reader and CLI with original-byte exchange into installed Python kit",
+    "resume_action": "Inspect exact-head CI and full local Python results; fix failures, review and merge #19 if rules permit. SDK pack/install and installed-wheel exchange have passed; preserve no-overwrite and reader limits.",
+    "tested_tree": "cd492b2f9cf36107e5cefbaef4b08bb4ce1ff75f"
+  },
   "last_result": {
     "session_kind": "scheduled",
     "slot": "2026-11-13T06:00",
