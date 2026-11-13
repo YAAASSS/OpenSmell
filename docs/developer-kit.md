@@ -15,7 +15,8 @@ into a new directory. Artifact availability depends on GitHub retention/access;
 no public package registry or release is used.
 
 Alternatively, with Node.js 22+/npm and the normal Python development dependencies
-installed, build from a checkout:
+installed (`python -m pip install -e ".[dev]"` includes `setuptools` and `wheel`),
+build from a checkout:
 
 ```sh
 python -m tools.build_developer_kit --output dist/opensmell-developer-kit.zip
