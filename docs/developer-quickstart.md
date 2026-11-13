@@ -17,6 +17,7 @@ Choose a starting point:
 | You have | First useful path | Proof to expect |
 | --- | --- | --- |
 | An OpenSmell file | `opensmell validate file.osmell`, then `inspect --json` | Structural acceptance and disclosed unknown content |
+| A Node.js project and graph file | [Local JavaScript package](javascript-sdk.md) | CJS/ESM inspection and original-byte exchange into Python planning |
 | A prepared CSV record | [CSV import](csv-import.md) | Core document with explicit source and raw selected cells |
 | A Core file with one supported SMILES representation | [Core bridge](core-interchange.md) | Graph, explicit plan and exact original Core recovery |
 | A software device implementation | [Lifecycle SDK](lifecycle-sdk.md) | Correlated completion/Stop/unknown on Python or Node |

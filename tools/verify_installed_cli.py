@@ -6,20 +6,23 @@ installed locally without accessing an index. No application modules are used.
 
 from __future__ import annotations
 
+import argparse
 import json
 import os
 from pathlib import Path
 import shutil
 import subprocess
-import sys
 import tempfile
 import venv
 
 
 def main() -> None:
-    if len(sys.argv) != 2:
-        raise SystemExit("Usage: python -m tools.verify_installed_cli path/to/opensmell.whl")
-    wheel = Path(sys.argv[1]).resolve(strict=True)
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("wheel", type=Path)
+    parser.add_argument("--js-exchange-directory", type=Path,
+                        help="Original bytes exported by tools/verify_js_sdk.cjs from its installed package")
+    args = parser.parse_args()
+    wheel = args.wheel.resolve(strict=True)
     root = Path(__file__).resolve().parents[1]
     with tempfile.TemporaryDirectory(prefix="opensmell-wheel-") as directory:
         work = Path(directory)
@@ -47,6 +50,15 @@ def main() -> None:
                      "multisource_diphenyl_ether.osmell", "offline_semantic_profile.json",
                      "offline_perceptual_profile.json"):
             shutil.copyfile(root / "examples" / name, work / name)
+        if args.js_exchange_directory:
+            for exchanged, fixture in (("beta-transfer.osmell", "multisource_beta_pinene.osmell"),
+                                       ("diphenyl-transfer.osmell", "multisource_diphenyl_ether.osmell")):
+                data = (args.js_exchange_directory / exchanged).read_bytes()
+                if data != (work / fixture).read_bytes():
+                    raise RuntimeError(f"Installed JavaScript package changed {fixture}")
+                (work / fixture).write_bytes(data)
+            # All later validation/planning/lifecycle checks now consume the exchanged bytes.
+            print("Installed JavaScript package: both original-byte exchanges received intact.")
         result = run([executable, "validate", "geraniol.osmell", "multisource_beta_pinene.osmell", "--json"])
         if [item["status"] for item in json.loads(result.stdout)["results"]] != ["valid", "valid"]:
             raise RuntimeError("Installed validator did not accept both formats")
@@ -140,7 +152,7 @@ def main() -> None:
         if node:
             shutil.copyfile(root / "examples/lifecycle_adapter/device.cjs", work / "device.cjs")
             # Independent JS inspection returns original graph bytes, preserving the snapshot.
-            shutil.copyfile(root / "apps/graph_viewer_js/reader.js", work / "reader.cjs")
+            shutil.copyfile(root / "packages/javascript/reader.cjs", work / "reader.cjs")
             run([node, "-e", """
 const fs = require('node:fs');
 globalThis.crypto = require('node:crypto').webcrypto;

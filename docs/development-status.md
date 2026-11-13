@@ -133,8 +133,8 @@ requiring Explorer. No new stable release or physical odor capability is implied
 | --- | --- | --- |
 | 1 | Installed SDK and CLI workflow | Delivered: a wheel installed outside the checkout validates/inspects Core and graph files and produces semantic/perceptual dry-run plans with explicit mapping, capabilities and source provenance. Core import/source recovery delivered in the 2026-11-12 slice below. |
 | 2 | Reusable device integration | Delivered in PR #13, with bounded startup correction #14: installed SDK and standalone Python/Node graph-to-execution walkthrough. |
-| 3 | Reproducible hardware bench | Audit the existing ESP32 build/wiring evidence, supply the missing build configuration, bill of materials and manual acceptance procedure, and compile firmware. Record actual physical results separately; no unattended flashing or diffusion. |
-| 4 | Data and adoption | Ship a complete documented import-to-plan example with source/license information and explicit scientific limits; prepare a contributor quickstart and release checklist. Third-party adoption requires observed independent use. |
+| 3 | Reproducible hardware bench | Software/build slice delivered in #15: pinned ESP32 compilation, actual-sketch native bench, bill of materials/wiring and manual procedure. Human physical observations remain NOT RUN; no autonomous flashing or diffusion. |
+| 4 | Data and adoption | Selected-record/cohort import, pinned-source trial and contributor quickstart delivered in #16–18. Local JavaScript package/exchange is the current bounded adoption slice; next prepare a reproducible installed kit trial/release readiness checklist. Third-party adoption requires observed independent use. |
 
 Complete a usable vertical slice and its exit criterion before opening an adjacent
 refinement. Reorder for actual dependencies or demonstrated regressions. Prioritize
@@ -152,9 +152,10 @@ profiles. Source and profile snapshots/hashes accompany CLI plans; unsupported
 channels, intensities, durations and empty mappings fail. No device command is
 sent or source file rewritten. See [the CLI guide](cli.md) and Draft RFC-0015.
 
-The ESP32 software/build slice is delivered; human bench observations remain
-independent. Finish the installed Core import slice below, then advance external
-contributor onboarding and a reproducible upstream-data import example.
+The ESP32 software/build slice and installed Core/CSV interoperability are delivered;
+human bench observations remain independent. Finish the local JavaScript package
+slice below, then choose a reproducible developer-kit trial and release readiness
+criteria before adding adjacent reader/importer refinements.
 
 ## Retained execution history — 2026-11-10
 
@@ -298,3 +299,28 @@ without changing deadlines or retries. Python matrix jobs now explicitly select
 the same Node 22 reference used by interoperability CI and record runtime
 versions. This makes the environment and future failures inspectable, not a
 claim that the intermittent root cause was proven or repaired.
+
+
+## Locally installable JavaScript reader SDK — 2026-11-13 evening
+
+`@opensmell/graph-reader` is a private, locally packable package with no dependencies.
+CJS/ESM imports and the installed `opensmell-inspect-js` command inspect the existing
+limited Generic ResourceGraph profile and transfer the original bytes. The browser
+demo consumes the same engine; its repository import remains compatible. This is
+packaging/reuse of the existing independent implementation, not new schema coverage.
+A rejected inspection cannot be changed into a transferable result by editing its
+public report. Copy creation refuses existing outputs.
+
+The exit criterion is a fresh offline local-package install outside the checkout:
+CJS and ESM consume both real example graphs, the actual installed CLI checks
+statuses/refusals, and the resulting bytes pass the fresh installed Python wheel's
+validation, planning and software lifecycle walkthrough. CI joins these two proofs.
+See [the SDK/exchange walkthrough](javascript-sdk.md) for commands and limits.
+No npm publication, stable release, third-party adoption or physical output is claimed.
+
+This closes the bounded reusable reader slice; further reader diagnostics or UI
+polish are deferred. Next: make one portable developer-kit trial bundle that carries
+its example data, profiles and source/license/limit declarations, and can be tried
+from a directory outside the repository with installed tools. Require a documented
+Python/Node/software-device path and a release readiness checklist; keep human
+ESP32 observations separate and NOT RUN until actually recorded.
