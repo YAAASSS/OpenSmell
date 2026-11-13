@@ -2,7 +2,10 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-12",
   "last_processed_main_sha": "8e194062a94a61520302a6adeb30b1bd9031d476",
-  "lease": null,
+  "lease": {
+    "owner": "batch-20261113-jlg6u65tn2b",
+    "expires_at": "2026-11-13T09:00:14.945Z"
+  },
   "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
@@ -282,6 +285,6 @@
     "delivered": "Installed file/planning tools, reusable software adapters, compiled ESP32 bench, Core original-source recovery, and declared CSV import with synthetic offline proof plus one pinned real public-source Node trial (#17). Developer quickstart included.",
     "next": "Choose a bounded reproducible multi-record scientific workflow (e.g. explicit selected CSV rows with separate output records and a source/status manifest) rather than expanding one-off importer validation indefinitely. Exit criterion: an external developer imports multiple explicit records, distinguishes valid/rejected data and traces each plan to source without overwriting or silently coercing unknowns. Preserve one-record API. If Node startup times out again, capture first-response timing/environment and diagnose before blanket timeout changes. Hardware manual results remain NOT RUN."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-13T06:00",
   "last_completed_slot": "2026-11-12T18:00"
 }
