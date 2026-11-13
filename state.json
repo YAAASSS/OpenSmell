@@ -1,110 +1,91 @@
 {
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-13",
-  "last_processed_main_sha": "23eceb77102242c1477fd5975a81e980b637c3b5",
-  "lease": {
-    "owner": "js-sdk-20261113-duoo7tqqku6",
-    "expires_at": "2026-11-13T20:58:40.982Z"
-  },
-  "open_work": {
-    "branch": "feat/developer-trial-kit-20261113",
-    "commit": "fc9be8db874f88e09dbfd8e42e1a6ad8e3adb6c0",
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/20",
-    "objective": "Portable installed synthetic CSV-to-JS-transfer-to-Python-planning-to-software-observations kit",
-    "resume_action": "Inspect new exact-head CI for #20. First CI failed because no-isolation build lacked setuptools in Python 3.13; new head declares setuptools and wheel in dev dependencies. Local two-case unit and extracted-kit trial passed before metadata fix; final clean-commit artifact build/verification underway. #19 is merged.",
-    "tested_tree": "b362afeb6d21d44060ed8e6d347063271f229e3e",
-    "earlier_merged": {
-      "pull_request": 19,
-      "main_sha": "94af2a9926c6c62e894d745d7715fbe312fb3493",
-      "tested_commit": "d735d78bbaba02fd9e887aa566d9255951dd2b8d",
-      "ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43470100236"
-    }
-  },
+  "last_processed_main_sha": "5bc0d0b755df2f301c6079be2e3c5c4bd9713652",
+  "lease": null,
+  "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
-    "slot": "2026-11-13T06:00",
-    "completed_at": "2026-11-13T05:18:04.424Z",
-    "objective": "Explicit multi-record CSV import, per-record status/source bundle, checked Core extraction and distinct downstream plans",
-    "commit": "23eceb77102242c1477fd5975a81e980b637c3b5",
-    "tested_commit": "7b9da8a9c739b77c9bc5e1453a7c1be74f768d4e",
+    "slot": "2026-11-13T18:00",
+    "completed_at": "2026-11-13T17:26:08.790Z",
+    "objective": "Reusable locally installed JavaScript reader SDK plus portable installed synthetic CSV-to-graph-to-plan-to-software developer kit",
+    "commit": "5bc0d0b755df2f301c6079be2e3c5c4bd9713652",
+    "tested_commit": "fc9be8db874f88e09dbfd8e42e1a6ad8e3adb6c0",
     "merged": true,
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/18",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/20",
+    "additional_pull_requests": [
+      {
+        "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/19",
+        "tested_commit": "d735d78bbaba02fd9e887aa566d9255951dd2b8d",
+        "merged_commit": "94af2a9926c6c62e894d745d7715fbe312fb3493"
+      }
+    ],
     "checks": {
-      "python_full": 2148,
-      "python_full_after_diagnostics_seconds": 103.33,
-      "targeted_importers": 54,
-      "targeted_startup_diagnostics_batch": 56,
-      "javascript": 46,
-      "installed_wheel": "Final rebuilt wheel outside checkout passed mixed batch/extraction/plans/no-overwrite and both records with Python/Node completion/Stop/unknown.",
-      "public_cohort": {
-        "source_commit": "88d146360dfc548462a5ebd6a081ea0590f2819e",
-        "csv_sha256": "de06d853a3c2ebe1e97379db2b24f695feda9600fc0ab1842c2425c5d2307331",
-        "selected": [
+      "python_full_local_sdk": 2148,
+      "python_full_local_sdk_seconds": 99.04,
+      "new_kit_unit_tests": 2,
+      "python_full_final_ci": 2150,
+      "javascript_local": 49,
+      "ci_python_versions": [
+        "3.10",
+        "3.11",
+        "3.12",
+        "3.13"
+      ],
+      "ci_node": "22.23.4",
+      "local_node": "24.22.1",
+      "javascript_package": "Fresh offline npm install outside checkout: CommonJS, ESM, installed CLI, original-byte/hash/reference checks, partial/rejected/size/no-overwrite paths.",
+      "installed_wheel": "Outside checkout: actual installed-JS transferred real graphs consumed through Python validate/inspect/planning/lifecycle; Core/CSV/cohort recovery and refusal checks passed.",
+      "portable_kit": {
+        "clean_source_commit": "fc9be8db874f88e09dbfd8e42e1a6ad8e3adb6c0",
+        "source_dirty": false,
+        "archive_bytes": 133529,
+        "archive_sha256": "92629762db18ea8ba0d229c060b87f6724d1f91b5a60a6a00e1548c580926cd3",
+        "records": [
           1,
-          2,
-          3,
-          99999
+          3
         ],
-        "accepted": 3,
-        "rejected": 1,
-        "plans": "1/2 mapped CH1=0.6; 3 accepted import but refused by mapping with no positive bindings",
-        "node_outcomes": [
+        "counts": {
+          "accepted": 2,
+          "rejected": 2
+        },
+        "plans": "row1 CH0=0.25; row3 CH1=0.6, duration5",
+        "software_endpoints": [
+          "python",
+          "node"
+        ],
+        "outcomes": [
           "completed",
           "stopped",
           "unknown"
         ],
-        "hello_seconds": [
-          0.11099689599996054,
-          0.07864641499986647
-        ]
+        "original_graph_and_core_bytes_preserved": true,
+        "report_no_overwrite": true,
+        "changed_kit_data_refused": true,
+        "normal_entry": "python try_kit.py --report first-trial.json",
+        "ci_artifact_id": 14060857090
       },
-      "initial_ci_failure": {
-        "run": "https://github.com/YAAASSS/OpenSmell/actions/runs/43370028285",
-        "python": "3.10",
-        "test": "test_node_walkthrough_entry",
-        "failed": 1,
-        "passed": 2147,
-        "cause": "Connection response timeout before render; original logs do not establish which handshake exchange or cause."
+      "initial_kit_ci_failure": {
+        "run": "https://github.com/YAAASSS/OpenSmell/actions/runs/43471564749",
+        "cause": "No-isolation build backend setuptools missing in Python3.13. Fixed by explicit setuptools/wheel development dependencies; no unchanged retry."
       },
-      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43370653137",
-      "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43370653098",
+      "sdk_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43470100236",
+      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43471968796",
       "ci_result": "success",
       "main_tree_matches_tested": true,
+      "post_merge_main": "Verified exact main SHA/tree; no separate workflow run returned for merge commit.",
       "physical_access": false
     },
     "limitations": [
-      "Historical intermittent Node timeout reproduced once in CI. Added passive phase/deadline/worker/write/elapsed/child-status diagnostics and explicit Node22 reference/runtime version recording. Deadlines/retry policy unchanged; root cause is not proven fixed despite final green CI.",
-      "Cohort selection limited to 1000 explicit indexes; partial/rejected records stay reported. No full-corpus correctness, chemical identity merging, batch device execution or physical output claim.",
-      "Hashes/source declarations are not authenticated; input held in memory; full CSV bytes not embedded."
+      "No registry publication, stable release, tag, physical result or third-party adoption claim. Manual ESP32 bench remains NOT RUN.",
+      "Python third-party dependencies are not bundled; kit trial verification inherits available dev dependencies. Local npm installation has no runtime dependencies.",
+      "JS reader preserves limited Generic ResourceGraph0.1 coverage, 1MiB bound, opaque/numeric limits; type declarations are included without separate TypeScript compiler proof or new visual browser trial.",
+      "Historical intermittent Node timeout remains unresolved; no deadlines/retry policy changed."
     ],
-    "handoff_library_file_id": "libfile_fde3_f-107fb4d183408191b6007f8ac04f378f_44ff1f20787081919dd91de18843de02"
+    "handoff_library_file_id": "libfile_fde3_f-070b1f4c7e608191980f70052ff87577_44ff1f20787081919dd91de18843de02",
+    "kit_library_file_id": "libfile_fde3_f-580938e030088191a29e8e1c11c4afc5_44ff1f20787081919dd91de18843de02"
   },
   "recent_sessions": [
-    {
-      "session_kind": "scheduled",
-      "slot": "2026-11-10T18:00",
-      "completed_at": "2026-11-10T17:13:43.187Z",
-      "objective": "Offline evidence diagnostics plus reproducible Node HTTP capture-to-diagnostics walkthrough",
-      "commit": "49d1967f1c3c2195788fe72f9897c3861a5d25e3",
-      "tested_commit": "96d072621b8faa0841b8a385b8b5eac6c42f2ef8",
-      "merged": true,
-      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/11",
-      "checks": {
-        "python_full": 2008,
-        "python_targeted": 21,
-        "javascript": 46,
-        "normal_node_cli_http": "Five-second completion, Stop, disconnect; individual and history exports diagnosed after closing server",
-        "ci_result": "success",
-        "ci_run": "https://github.com/YAAASSS/OpenSmell/actions/runs/42862212926",
-        "main_tree_matches_tested": true,
-        "physical_access": false
-      },
-      "limitations": [
-        "Passive consistency checks, not exhaustive schema validation, authentication or physical certification.",
-        "No visual verification; UI unchanged."
-      ],
-      "handoff_library_file_id": "libfile_fde3_f-0fb6cf1df1488191a1880b0d0b6cb9ed_44ff1f20787081919dd91de18843de02"
-    },
     {
       "session_kind": "manual_requested",
       "slot": "manual-2026-11-10T18:16:11.931Z",
@@ -320,9 +301,90 @@
         "Hashes/source declarations are not authenticated; input held in memory; full CSV bytes not embedded."
       ],
       "handoff_library_file_id": "libfile_fde3_f-107fb4d183408191b6007f8ac04f378f_44ff1f20787081919dd91de18843de02"
+    },
+    {
+      "session_kind": "scheduled",
+      "slot": "2026-11-13T18:00",
+      "completed_at": "2026-11-13T17:26:08.790Z",
+      "objective": "Reusable locally installed JavaScript reader SDK plus portable installed synthetic CSV-to-graph-to-plan-to-software developer kit",
+      "commit": "5bc0d0b755df2f301c6079be2e3c5c4bd9713652",
+      "tested_commit": "fc9be8db874f88e09dbfd8e42e1a6ad8e3adb6c0",
+      "merged": true,
+      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/20",
+      "additional_pull_requests": [
+        {
+          "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/19",
+          "tested_commit": "d735d78bbaba02fd9e887aa566d9255951dd2b8d",
+          "merged_commit": "94af2a9926c6c62e894d745d7715fbe312fb3493"
+        }
+      ],
+      "checks": {
+        "python_full_local_sdk": 2148,
+        "python_full_local_sdk_seconds": 99.04,
+        "new_kit_unit_tests": 2,
+        "python_full_final_ci": 2150,
+        "javascript_local": 49,
+        "ci_python_versions": [
+          "3.10",
+          "3.11",
+          "3.12",
+          "3.13"
+        ],
+        "ci_node": "22.23.4",
+        "local_node": "24.22.1",
+        "javascript_package": "Fresh offline npm install outside checkout: CommonJS, ESM, installed CLI, original-byte/hash/reference checks, partial/rejected/size/no-overwrite paths.",
+        "installed_wheel": "Outside checkout: actual installed-JS transferred real graphs consumed through Python validate/inspect/planning/lifecycle; Core/CSV/cohort recovery and refusal checks passed.",
+        "portable_kit": {
+          "clean_source_commit": "fc9be8db874f88e09dbfd8e42e1a6ad8e3adb6c0",
+          "source_dirty": false,
+          "archive_bytes": 133529,
+          "archive_sha256": "92629762db18ea8ba0d229c060b87f6724d1f91b5a60a6a00e1548c580926cd3",
+          "records": [
+            1,
+            3
+          ],
+          "counts": {
+            "accepted": 2,
+            "rejected": 2
+          },
+          "plans": "row1 CH0=0.25; row3 CH1=0.6, duration5",
+          "software_endpoints": [
+            "python",
+            "node"
+          ],
+          "outcomes": [
+            "completed",
+            "stopped",
+            "unknown"
+          ],
+          "original_graph_and_core_bytes_preserved": true,
+          "report_no_overwrite": true,
+          "changed_kit_data_refused": true,
+          "normal_entry": "python try_kit.py --report first-trial.json",
+          "ci_artifact_id": 14060857090
+        },
+        "initial_kit_ci_failure": {
+          "run": "https://github.com/YAAASSS/OpenSmell/actions/runs/43471564749",
+          "cause": "No-isolation build backend setuptools missing in Python3.13. Fixed by explicit setuptools/wheel development dependencies; no unchanged retry."
+        },
+        "sdk_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43470100236",
+        "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43471968796",
+        "ci_result": "success",
+        "main_tree_matches_tested": true,
+        "post_merge_main": "Verified exact main SHA/tree; no separate workflow run returned for merge commit.",
+        "physical_access": false
+      },
+      "limitations": [
+        "No registry publication, stable release, tag, physical result or third-party adoption claim. Manual ESP32 bench remains NOT RUN.",
+        "Python third-party dependencies are not bundled; kit trial verification inherits available dev dependencies. Local npm installation has no runtime dependencies.",
+        "JS reader preserves limited Generic ResourceGraph0.1 coverage, 1MiB bound, opaque/numeric limits; type declarations are included without separate TypeScript compiler proof or new visual browser trial.",
+        "Historical intermittent Node timeout remains unresolved; no deadlines/retry policy changed."
+      ],
+      "handoff_library_file_id": "libfile_fde3_f-070b1f4c7e608191980f70052ff87577_44ff1f20787081919dd91de18843de02",
+      "kit_library_file_id": "libfile_fde3_f-580938e030088191a29e8e1c11c4afc5_44ff1f20787081919dd91de18843de02"
     }
   ],
-  "next_objective": "The explicit cohort import/extraction milestone is complete; defer further CSV refinements. Ship the first reusable JavaScript SDK slice outside apps/checkout: extract the existing independent reader into a locally packable module with documented API, consumer smoke test from a local package and original-byte exchange proof. Preserve numeric/unknown-data/size limits and experimental maturity, with no npm publication/tag/release. Keep app compatibility. If Node timeout recurs, use new last_exchange phase/write/elapsed/child-status plus recorded Node/Python versions to diagnose; do not claim cause fixed or increase bounds blindly. Human hardware observations remain NOT RUN.",
+  "next_objective": "The installed JavaScript reader and portable local developer-kit trial are complete (#19/#20). Defer further reader/importer/Explorer polish. Next ship a reusable locally installed JavaScript lifecycle client consuming an explicit plan and negotiating the existing Draft RFC-0014 software adapter profile, with capabilities/duration checks, refusal handling, session duplicate-request protection, completion/Stop/unknown. Require a standalone Node consumer outside checkout against Python and Node endpoints plus refusal/lost-link proof before declaring the boundary delivered. Reuse existing contracts; no new physical protocol, npm publication/tag/release or autonomous hardware action. Human ESP32 bench remains NOT RUN. If intermittent Node timeout recurs, inspect existing phase/write/elapsed/child-status diagnostics; do not increase deadlines blindly.",
   "automation": {
     "id": "39cc72697e048191a1ba0d3e3e9d787c",
     "title": "OpenSmell — développement autonome quotidien",
@@ -339,9 +401,9 @@
   },
   "active_product_milestone": {
     "goal": "Installable OpenSmell developer kit spanning data, SDK, device integration and reproducible hardware bench",
-    "delivered": "Installed Python kit, real-source CSV/cohort import and checked per-record extraction, distinct planning and Python/Node proof (#18); prototype build/bench remains delivered. New transport diagnostic supports investigating known intermittent startup/handshake timeout.",
-    "next": "The explicit cohort import/extraction milestone is complete; defer further CSV refinements. Ship the first reusable JavaScript SDK slice outside apps/checkout: extract the existing independent reader into a locally packable module with documented API, consumer smoke test from a local package and original-byte exchange proof. Preserve numeric/unknown-data/size limits and experimental maturity, with no npm publication/tag/release. Keep app compatibility. If Node timeout recurs, use new last_exchange phase/write/elapsed/child-status plus recorded Node/Python versions to diagnose; do not claim cause fixed or increase bounds blindly. Human hardware observations remain NOT RUN."
+    "delivered": "Installed Python kit and reusable lifecycle, pinned firmware compile/native bench, declared CSV/cohort/Core interoperability, locally installed JavaScript graph reader SDK and extracted-kit normal entry proof with both software endpoints (#19/#20).",
+    "next": "The installed JavaScript reader and portable local developer-kit trial are complete (#19/#20). Defer further reader/importer/Explorer polish. Next ship a reusable locally installed JavaScript lifecycle client consuming an explicit plan and negotiating the existing Draft RFC-0014 software adapter profile, with capabilities/duration checks, refusal handling, session duplicate-request protection, completion/Stop/unknown. Require a standalone Node consumer outside checkout against Python and Node endpoints plus refusal/lost-link proof before declaring the boundary delivered. Reuse existing contracts; no new physical protocol, npm publication/tag/release or autonomous hardware action. Human ESP32 bench remains NOT RUN. If intermittent Node timeout recurs, inspect existing phase/write/elapsed/child-status diagnostics; do not increase deadlines blindly."
   },
-  "session_slot": "2026-11-13T18:00",
-  "last_completed_slot": "2026-11-13T06:00"
+  "session_slot": null,
+  "last_completed_slot": "2026-11-13T18:00"
 }
