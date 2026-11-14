@@ -1,0 +1,1 @@
+{"name":"@opensmell/lifecycle-client","version":"0.1.0-experimental.0","private":true,"description":"Experimental explicit software execution lifecycle client","license":"Apache-2.0","engines":{"node":">=22"},"main":"./index.cjs","exports":{".":{"import":"./index.mjs","require":"./index.cjs"}},"files":["index.cjs","index.mjs","README.md","LICENSE"]}

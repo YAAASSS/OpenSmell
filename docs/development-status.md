@@ -352,3 +352,34 @@ and refusal/duplicate-ID protections against Python and Node endpoints. Reuse th
 existing Draft RFC-0014 contract; do not invent a new physical protocol or return
 to Explorer refinements. Require a standalone Node consumer and cross-language
 proof before calling that SDK boundary delivered. Human ESP32 trials remain NOT RUN.
+
+
+## Installed JavaScript explicit-plan client — 2026-11-14
+
+The private `@opensmell/lifecycle-client` package supplies CJS/ESM entries,
+a serialized capability-checking lifecycle client and bounded Node subprocess
+transport. It negotiates existing Draft RFC-0014 identities/profile, snapshots
+plans, consumes session request IDs, validates correlated observations and retains
+unknown after lost replies or close. No wire protocol or physical firmware changed.
+
+The exit criterion is a fresh local-package consumer outside the checkout using
+an installed-Python-generated diphenyl ether plan against both Python and Node
+software endpoints: completed, stopped and unknown, plus duplicate/stale/duration
+refusals. See [the executable walkthrough](javascript-lifecycle.md). Unit cases
+exercise malformed/oversized/unsolicited/EOF/timeout, concurrency and close races.
+
+Next useful slice: include this installed JavaScript client and its standalone
+consumer in the portable kit, retaining both planned records, explicit provenance
+and full software observations. Do not expand into browser transports or change
+the physical protocol. Human ESP32 bench observations remain NOT RUN.
+
+
+The same slice now includes the client tarball and standalone consumer in the
+portable kit. Each accepted record supplies the same explicit plan to Python and
+JavaScript clients, each verified against Python and Node endpoints. Full JS-client
+observations are retained beside the previous Python-client reports. Both local
+npm tarballs install together, preserving the byte manifest and reader dependency.
+This completes the kit integration exit criterion. Next: a bounded developer-facing
+plan-artifact inspection/selection workflow or a concrete external trial based on
+an observed integration need; defer reconnect/browser transport expansion. The
+independent human hardware trial remains NOT RUN.
