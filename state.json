@@ -2,7 +2,10 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-14",
   "last_processed_main_sha": "14b238ad6e209ce64033cad1d8d5190f3850e6f2",
-  "lease": null,
+  "lease": {
+    "owner": "cohort-1114-fc6eb3lm3hf",
+    "expires_at": "2026-11-14T21:04:08.832Z"
+  },
   "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
@@ -365,6 +368,6 @@
     "delivered": "Python kit, declared data/Core/cohort interoperability, firmware compilation/native bench, installed JS reader and lifecycle client, complete portable kit with both clients against both software endpoints (#21).",
     "next": "JavaScript explicit-plan SDK and portable kit integration are delivered (#21); defer further reader/lifecycle diagnostics, reconnect/browser transports and Explorer polish. Next useful developer-kit slice: accept an explicitly provided small CSV cohort, source/license declaration, row selection and mapping profile through the normal trial entry, retaining per-record refusals and source/plan/software observations. Keep the synthetic fixed trial as reproducible reference; do not claim arbitrary corpus compatibility or run hardware. Choose bounded acceptance: two caller-selected supported records with distinct plans plus unmappable/rejected records reported without silent dropping, and an installed outside-checkout Python/Node proof. Physical bench remains human NOT RUN."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-14T18:00",
   "last_completed_slot": "2026-11-14T06:00"
 }
