@@ -383,3 +383,45 @@ This completes the kit integration exit criterion. Next: a bounded developer-fac
 plan-artifact inspection/selection workflow or a concrete external trial based on
 an observed integration need; defer reconnect/browser transport expansion. The
 independent human hardware trial remains NOT RUN.
+
+
+## Caller-owned cohort trial — 2026-11-14 evening
+
+The extracted kit's normal entry accepts explicit CSV, source/license declaration,
+row selection and mapping profile. Custom mode snapshots/identifies caller bytes
+and passively imports, bridges, validates, recovers and plans each selected row.
+Import acceptance and planning success remain separate; every refusal is retained.
+Explicit `--simulate` runs only preflight-compatible plans against the fixed
+Python/Node software endpoints with both installed clients. Report reservation
+and checkpoints preserve incomplete/unknown evidence without automatic retry.
+
+Exit criterion: fresh extracted installation outside the repository, caller files
+outside the immutable kit, changed profile bindings and reordered selection;
+two distinct plans plus invalid/missing and accepted-but-unmappable rows retained,
+then both clients/endpoints verified. Existing self-test and byte preservation
+remain covered. See [caller-cohort commands and limits](caller-cohort-trial.md).
+No physical or third-party adoption observation follows from synthetic trials.
+
+This closes the selected caller-data trial slice. Next choose a documented,
+authorized public dataset cohort through this normal entry and preserve its
+preparation, source/license declaration, actual import/plan/refusal outcomes and
+software observations. Prefer a concrete scientific integration over new kit
+configuration flags; do not refine Explorer or expand transports by default.
+Manual hardware evidence remains human and NOT RUN.
+
+
+The normal-entry public-source trial also passed on the pinned NKU-DOIE CSV
+(88d146360dfc548462a5ebd6a081ea0590f2819e; 600,964 bytes;
+SHA-256 de06d853a3c2ebe1e97379db2b24f695feda9600fc0ab1842c2425c5d2307331).
+Records 1/2 verified both clients/endpoints with CH1=0.6; record 3 retained an
+accepted import but refused empty mapping, and record 99999 remained missing.
+The correct result is partial, not a forced all-green conversion. Existing
+source/license attribution is included in the kit as metadata; no corpus bytes
+are redistributed. This closes the bounded caller-data/public-source slice.
+
+Next product result: an installed offline plan-to-Device-Protocol-0.1 frame path
+and a reproducible native actual-sketch acceptance/refusal trial for the ESP32 LED
+reference. Connect the data/SDK kit to the hardware source boundary without flash,
+serial/device access or scent claims. Distinguish protocol acceptance from the
+software lifecycle and measured physical output; do not extend lifecycle claims
+to Device Protocol 0.1. Human bench observations remain NOT RUN.

@@ -19,13 +19,16 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[1]
 # Explicit allowlist; external datasets, caches and arbitrary checkout files are excluded.
 PAYLOADS = {
+    "CALLER_COHORT.md": "docs/caller-cohort-trial.md",
     "START_HERE.md": "examples/developer_kit/START_HERE.md",
+    "cohort_trial.py": "examples/developer_kit/cohort_trial.py",
     "try_kit.py": "examples/developer_kit/try_kit.py",
     "try_client.cjs": "examples/lifecycle_client/try_client.cjs",
     "software/python_device.py": "examples/lifecycle_adapter/python_device.py",
     "inspect.cjs": "examples/developer_kit/inspect.cjs",
     "LICENSE": "LICENSE",
     "data/synthetic_odornet_batch.csv": "examples/synthetic_odornet_batch.csv",
+    "data/odornet_public_source.json": "examples/odornet_public_source.json",
     "data/source.json": "examples/synthetic_odornet_source.json",
     "profiles/semantic.json": "examples/offline_semantic_profile.json",
     "software/device.cjs": "examples/lifecycle_adapter/device.cjs",
@@ -40,7 +43,7 @@ def make_archive(payloads: dict[str, bytes], source: dict) -> bytes:
                 "files": files,
                 "limits": ["Hashes are not signatures or proof of source authenticity.",
                            "Python third-party dependencies are not bundled; see START_HERE.md.",
-                           "Synthetic data and software endpoints only; not a published release."]}
+                           "Bundled CSV is synthetic; caller data is separate. Software endpoints only; not a published release."]}
     buffer = io.BytesIO()
     with zipfile.ZipFile(buffer, "w", compression=zipfile.ZIP_DEFLATED) as archive:
         for name, data in sorted({**payloads, "manifest.json": (json.dumps(manifest, indent=2) + "\n").encode()}.items()):

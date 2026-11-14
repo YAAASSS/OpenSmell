@@ -37,10 +37,25 @@ def check_manifest():
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--report", type=Path, help="Write full software observations to a new JSON file")
+    parser.add_argument("--csv", type=Path, help="Caller CSV (OdorNet-shaped, at most 8 MiB)")
+    parser.add_argument("--source", type=Path, help="Explicit source/license declaration JSON")
+    parser.add_argument("--profile", type=Path, help="Explicit mapping profile JSON")
+    parser.add_argument("--rows", type=int, nargs="+", help="1–1000 unique positive data-record indexes")
+    parser.add_argument("--simulate", action="store_true", help="Explicitly try caller plans on fixed Python/Node software endpoints")
     args = parser.parse_args()
+    custom = any(x is not None for x in (args.csv, args.source, args.profile, args.rows))
+    if custom and not all(x is not None for x in (args.csv, args.source, args.profile, args.rows)):
+        parser.error("--csv, --source, --profile and --rows are required together")
+    if args.simulate and (not custom or not args.report):
+        parser.error("--simulate requires caller inputs and a new --report path")
+    if custom and (not 1 <= len(args.rows) <= 1000 or any(x < 1 for x in args.rows) or len(set(args.rows)) != len(args.rows)):
+        parser.error("Select 1–1000 unique positive rows")
     if args.report and args.report.exists():
         parser.error("Report already exists; choose a new output path")
     manifest = check_manifest()
+    if custom:
+        from cohort_trial import execute
+        return execute(args, ROOT, manifest)
     with tempfile.TemporaryDirectory(prefix="opensmell-kit-trial-") as temporary:
         work = Path(temporary)
 
@@ -119,4 +134,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
