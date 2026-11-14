@@ -2,7 +2,10 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-13",
   "last_processed_main_sha": "5bc0d0b755df2f301c6079be2e3c5c4bd9713652",
-  "lease": null,
+  "lease": {
+    "owner": "node-client-1114-3w0icbo6o2m",
+    "expires_at": "2026-11-14T08:58:43.880Z"
+  },
   "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
@@ -404,6 +407,6 @@
     "delivered": "Installed Python kit and reusable lifecycle, pinned firmware compile/native bench, declared CSV/cohort/Core interoperability, locally installed JavaScript graph reader SDK and extracted-kit normal entry proof with both software endpoints (#19/#20).",
     "next": "The installed JavaScript reader and portable local developer-kit trial are complete (#19/#20). Defer further reader/importer/Explorer polish. Next ship a reusable locally installed JavaScript lifecycle client consuming an explicit plan and negotiating the existing Draft RFC-0014 software adapter profile, with capabilities/duration checks, refusal handling, session duplicate-request protection, completion/Stop/unknown. Require a standalone Node consumer outside checkout against Python and Node endpoints plus refusal/lost-link proof before declaring the boundary delivered. Reuse existing contracts; no new physical protocol, npm publication/tag/release or autonomous hardware action. Human ESP32 bench remains NOT RUN. If intermittent Node timeout recurs, inspect existing phase/write/elapsed/child-status diagnostics; do not increase deadlines blindly."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-14T06:00",
   "last_completed_slot": "2026-11-13T18:00"
 }
