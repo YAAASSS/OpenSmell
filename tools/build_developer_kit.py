@@ -19,7 +19,9 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[1]
 # Explicit allowlist; external datasets, caches and arbitrary checkout files are excluded.
 PAYLOADS = {
+    "CALLER_COHORT.md": "docs/caller-cohort-trial.md",
     "START_HERE.md": "examples/developer_kit/START_HERE.md",
+    "cohort_trial.py": "examples/developer_kit/cohort_trial.py",
     "try_kit.py": "examples/developer_kit/try_kit.py",
     "try_client.cjs": "examples/lifecycle_client/try_client.cjs",
     "software/python_device.py": "examples/lifecycle_adapter/python_device.py",

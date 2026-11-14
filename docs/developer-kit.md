@@ -94,3 +94,13 @@ records against Python and Node endpoints, retaining full observations in
 `javascript_client_observations`. Install both local npm tarballs together as
 shown in START_HERE.md. The byte manifest includes both client packages and the
 standalone software consumer.
+
+
+## Caller-owned data
+
+The normal `try_kit.py` entry now accepts `--csv`, `--source`, `--rows` and
+`--profile` together. Custom mode is passive unless `--simulate` is explicitly
+supplied with a new report path. Per-record import/bridge/plan/preflight refusals
+remain visible alongside usable plans; all planning finishes before simulation.
+See the [complete caller-cohort workflow](caller-cohort-trial.md), also included
+in the archive as `CALLER_COHORT.md`. The original no-options self-test is retained.

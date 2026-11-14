@@ -383,3 +383,28 @@ This completes the kit integration exit criterion. Next: a bounded developer-fac
 plan-artifact inspection/selection workflow or a concrete external trial based on
 an observed integration need; defer reconnect/browser transport expansion. The
 independent human hardware trial remains NOT RUN.
+
+
+## Caller-owned cohort trial — 2026-11-14 evening
+
+The extracted kit's normal entry accepts explicit CSV, source/license declaration,
+row selection and mapping profile. Custom mode snapshots/identifies caller bytes
+and passively imports, bridges, validates, recovers and plans each selected row.
+Import acceptance and planning success remain separate; every refusal is retained.
+Explicit `--simulate` runs only preflight-compatible plans against the fixed
+Python/Node software endpoints with both installed clients. Report reservation
+and checkpoints preserve incomplete/unknown evidence without automatic retry.
+
+Exit criterion: fresh extracted installation outside the repository, caller files
+outside the immutable kit, changed profile bindings and reordered selection;
+two distinct plans plus invalid/missing and accepted-but-unmappable rows retained,
+then both clients/endpoints verified. Existing self-test and byte preservation
+remain covered. See [caller-cohort commands and limits](caller-cohort-trial.md).
+No physical or third-party adoption observation follows from synthetic trials.
+
+This closes the selected caller-data trial slice. Next choose a documented,
+authorized public dataset cohort through this normal entry and preserve its
+preparation, source/license declaration, actual import/plan/refusal outcomes and
+software observations. Prefer a concrete scientific integration over new kit
+configuration flags; do not refine Explorer or expand transports by default.
+Manual hardware evidence remains human and NOT RUN.

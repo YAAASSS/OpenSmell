@@ -1668,6 +1668,9 @@ builds it without a tag or release. Extract and follow `START_HERE.md` to run th
 installed CSV → graph → JavaScript transfer → Python plan → software observations
 path outside this repository. Successful interoperability CI retains the same ZIP
 as an experimental artifact; Python third-party dependencies are not bundled.
+The kit also accepts [caller-owned CSV cohorts](docs/caller-cohort-trial.md),
+source declarations, selected rows and explicit profiles. Custom mode generates
+passive plans with per-record refusals; software trials require `--simulate`.
 
 ### OpenSmell 0.1 foundation
 

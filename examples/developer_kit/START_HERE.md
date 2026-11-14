@@ -74,3 +74,27 @@ records completed/stopped/unknown against both included software endpoints.
 These observations are retained as `javascript_client_observations` beside the
 Python-client observations. Both JavaScript packages are installed in one npm
 command so neither local dependency is pruned as extraneous.
+
+## Use your own selected cohort
+
+Keep included kit files unchanged. Supply a small OdorNet-shaped CSV (8 MiB max),
+source/license declaration and mapping profile (1 MiB each) from another directory:
+
+```sh
+python try_kit.py --csv /absolute/path/my.csv --source /absolute/path/source.json --rows 1 3 9 --profile /absolute/path/profile.json --report plans.json
+```
+
+Custom-input mode is passive: rows keep import/planning refusals rather than
+being silently dropped. Add `--simulate` and choose a **new** report path to try
+eligible rows with both clients against both included software endpoints. This
+requires the profile to support the 0.1s/5s demonstration durations and channels
+0–2. All planning/preflight completes first. A software failure stops later
+attempts and remains unknown without retry. Exit 3 means retained per-row refusals;
+0 means all rows planned/verified, 1 failure, 2 usage/I/O error.
+
+Reports are reserved exclusively before work and checkpointed around simulation.
+An incomplete report is not success and must not be retried automatically. It
+contains selected raw values, graph/plan snapshots and supplied declarations;
+full CSV bytes are not embedded. Hashes do not authenticate the source. The same
+CSV/source/profile options are required together; select 1–1000 unique positive
+one-based data-record indexes. The selected order is retained.
