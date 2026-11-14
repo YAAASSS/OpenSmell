@@ -6,7 +6,13 @@
     "owner": "node-client-1114-3w0icbo6o2m",
     "expires_at": "2026-11-14T08:58:43.880Z"
   },
-  "open_work": null,
+  "open_work": {
+    "branch": "feat/node-lifecycle-client-20261114",
+    "commit": "9c5820fb48e3c4222b7331bd75e69f51fdb65233",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/21",
+    "tested_tree": "b322933d30573fa3c65aacfed73a16dccf122159",
+    "resume_action": "Inspect exact-head CI and reviews, fix failures and merge if green. 63 JS tests, 2 Python builder tests, fresh installed client against Python/Node and extended extracted-kit trial passed. Preserve no physical claims and current bounds."
+  },
   "last_result": {
     "session_kind": "scheduled",
     "slot": "2026-11-13T18:00",
