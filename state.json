@@ -8,10 +8,10 @@
   },
   "open_work": {
     "branch": "feat/caller-cohort-kit-20261114",
-    "commit": "5dca139f03b62de8bc3fff151d696ea4d37f0982",
+    "commit": "8af208c2e1f813f987addaa54a77c21977f0ebcd",
     "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/23",
-    "tested_tree": "524c27c5ae1a8a73534b428df903201d20af937b",
-    "resume_action": "Inspect exact-head CI; extracted installed kit original/custom trials and 10 focused tests passed. Finish bounded public-source trial through normal custom entry if possible, update proof docs, then merge when rules permit."
+    "tested_tree": "5b1fe77836330ffcc51f63d548aa00fbbab5d94e",
+    "resume_action": "Inspect final exact-head CI and merge #23 when green/rules permit. Core custom workflow and complete extracted kit passed; actual pinned public CSV normal-entry trial passed with 2 software_verified, 1 planning_rejected, 1 missing record. Public dataset bytes remain outside repo. Finish Work handoff and release."
   },
   "last_result": {
     "session_kind": "scheduled",
