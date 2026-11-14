@@ -1940,6 +1940,12 @@ opensmell.org
 
 ### Installed software adapter SDK
 
+A locally packable [JavaScript lifecycle client](docs/javascript-lifecycle.md) now
+consumes explicit plans and observes the existing Python/Node software adapters.
+Use `npm pack ./packages/lifecycle-client --ignore-scripts` for installation in
+your own project. This remains the experimental software profile, without npm
+publication or physical-device compatibility claims.
+
 Use the [experimental lifecycle SDK](docs/lifecycle-sdk.md) from another Python
 application without Local Explorer. After installing this checkout,
 `python -m opensmell.experimental.lifecycle_demo` demonstrates completion, Stop

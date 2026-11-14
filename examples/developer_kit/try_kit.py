@@ -93,7 +93,15 @@ def main():
                 if report["physical_validation"] is not False:
                     raise ValueError("Unexpected physical claim")
                 observations[endpoint] = report
-            records.append({"row": row, "core_sha256": digest(core.read_bytes()),
+            plan_path = work / f"record-{row}-plan.json"
+            plan_path.write_text(json.dumps(plan["plan"]))
+            javascript_observations = {}
+            for endpoint, command, identity in (
+                ("node", ["node", str(ROOT / "software/device.cjs")], "opensmell-node-simulator-001"),
+                ("python", [sys.executable, "-I", "-u", str(ROOT / "software/python_device.py")], "opensmell-local-simulator-001"),
+            ):
+                javascript_observations[endpoint] = run(["node", ROOT / "try_client.cjs", json.dumps(command), identity, plan_path])
+            records.append({"javascript_client_observations": javascript_observations,"row": row, "core_sha256": digest(core.read_bytes()),
                             "graph_sha256": digest(graph.read_bytes()), "javascript": inspection,
                             "validation": validation, "plan": plan, "software_observations": observations})
         report = {"experimental": True, "physical_validation": False, "result": "passed",

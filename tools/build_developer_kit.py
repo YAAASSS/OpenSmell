@@ -21,6 +21,8 @@ ROOT = Path(__file__).resolve().parents[1]
 PAYLOADS = {
     "START_HERE.md": "examples/developer_kit/START_HERE.md",
     "try_kit.py": "examples/developer_kit/try_kit.py",
+    "try_client.cjs": "examples/lifecycle_client/try_client.cjs",
+    "software/python_device.py": "examples/lifecycle_adapter/python_device.py",
     "inspect.cjs": "examples/developer_kit/inspect.cjs",
     "LICENSE": "LICENSE",
     "data/synthetic_odornet_batch.csv": "examples/synthetic_odornet_batch.csv",
@@ -70,9 +72,14 @@ def main():
                                                    cwd=ROOT / "packages/javascript"))[0]
         if packed["name"] != "@opensmell/graph-reader" or packed["filename"] != "opensmell-graph-reader-0.1.0-experimental.0.tgz":
             raise ValueError("Unexpected JavaScript artifact; update kit install instructions when changing version")
+        lifecycle = json.loads(subprocess.check_output([npm, "pack", "--ignore-scripts", "--json", "--pack-destination", artifacts],
+                                                      cwd=ROOT / "packages/lifecycle-client"))[0]
+        if lifecycle["filename"] != "opensmell-lifecycle-client-0.1.0-experimental.0.tgz":
+            raise ValueError("Unexpected lifecycle package version")
         payloads = {name: (ROOT / source).read_bytes() for name, source in PAYLOADS.items()}
         payloads["packages/" + wheels[0].name] = wheels[0].read_bytes()
         payloads["packages/" + packed["filename"]] = (artifacts / packed["filename"]).read_bytes()
+        payloads["packages/" + lifecycle["filename"]] = (artifacts / lifecycle["filename"]).read_bytes()
         payloads["package.json"] = b'{"name":"opensmell-local-kit-trial","private":true}\n'
         try:
             revision = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()

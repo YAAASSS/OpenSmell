@@ -45,12 +45,14 @@ def main():
             return result
 
         wheel, = (kit / "packages").glob("*.whl")
-        package, = (kit / "packages").glob("*.tgz")
+        packages = sorted((kit / "packages").glob("*.tgz"))
+        if len(packages) != 2:
+            raise ValueError("Both JavaScript packages are required")
         run([python, "-m", "pip", "install", "--no-index", "--no-deps", "--ignore-installed", wheel])
         location = run([python, "-I", "-c", "import opensmell; print(opensmell.__file__)"]).stdout.strip()
         if not Path(location).is_relative_to(environment):
             raise ValueError("Python import did not resolve to the installed kit wheel")
-        run([npm, "install", "--offline", "--ignore-scripts", "--no-save", "--no-audit", "--no-fund", "--package-lock=false", package])
+        run([npm, "install", "--offline", "--ignore-scripts", "--no-save", "--no-audit", "--no-fund", "--package-lock=false", *packages])
         output = kit / "trial.json"
         result = run([python, "try_kit.py", "--report", output])
         report = json.loads(result.stdout)

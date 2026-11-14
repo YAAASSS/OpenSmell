@@ -88,6 +88,11 @@ jobs:
           path: dist/opensmell-developer-kit.zip
           retention-days: 14
 
+      - name: Verify installed JavaScript lifecycle client against Python and Node
+        run: |
+          node --test tests/lifecycle_client.test.cjs
+          node tools/verify_js_lifecycle.cjs dist/opensmell-0.1.0-py3-none-any.whl
+
       - name: Verify independent software lifecycle adapter
         run: |
           python -m tools.verify_lifecycle_adapter --endpoint python

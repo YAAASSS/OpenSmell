@@ -88,3 +88,9 @@ Python dependencies are inherited from the development environment, not download
 The next SDK capability is a standalone installed JavaScript lifecycle client
 against the existing Python/Node software adapters. Broader reader/UI polish or a
 stable release should not be inferred from this kit's successful software trial.
+
+The kit also runs the installed JavaScript lifecycle client for both accepted
+records against Python and Node endpoints, retaining full observations in
+`javascript_client_observations`. Install both local npm tarballs together as
+shown in START_HERE.md. The byte manifest includes both client packages and the
+standalone software consumer.

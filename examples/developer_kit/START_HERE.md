@@ -12,7 +12,7 @@ No external corpus, board command, flashing or odor diffusion is included.
 python -m venv .venv
 # Activate .venv using your platform's normal command.
 python -m pip install packages/opensmell-0.1.0-py3-none-any.whl
-npm install --offline --ignore-scripts --no-save --no-audit --no-fund --package-lock=false ./packages/opensmell-graph-reader-0.1.0-experimental.0.tgz
+npm install --offline --ignore-scripts --no-save --no-audit --no-fund --package-lock=false ./packages/opensmell-graph-reader-0.1.0-experimental.0.tgz ./packages/opensmell-lifecycle-client-0.1.0-experimental.0.tgz
 python try_kit.py --report first-trial.json
 ```
 
@@ -68,3 +68,9 @@ compatibility/adoption evidence. ESP32 manual bench observations remain separate
 
 The project source/code license is in `LICENSE`; the data fixture's declaration
 is in `data/source.json`. No stable SDK, npm/PyPI publication or release is implied.
+
+The installed JavaScript lifecycle client also consumes each explicit plan and
+records completed/stopped/unknown against both included software endpoints.
+These observations are retained as `javascript_client_observations` beside the
+Python-client observations. Both JavaScript packages are installed in one npm
+command so neither local dependency is pruned as extraneous.
