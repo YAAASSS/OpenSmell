@@ -6,7 +6,13 @@
     "owner": "cohort-1114-fc6eb3lm3hf",
     "expires_at": "2026-11-14T21:04:08.832Z"
   },
-  "open_work": null,
+  "open_work": {
+    "branch": "feat/caller-cohort-kit-20261114",
+    "commit": "5dca139f03b62de8bc3fff151d696ea4d37f0982",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/23",
+    "tested_tree": "524c27c5ae1a8a73534b428df903201d20af937b",
+    "resume_action": "Inspect exact-head CI; extracted installed kit original/custom trials and 10 focused tests passed. Finish bounded public-source trial through normal custom entry if possible, update proof docs, then merge when rules permit."
+  },
   "last_result": {
     "session_kind": "scheduled",
     "slot": "2026-11-14T06:00",
