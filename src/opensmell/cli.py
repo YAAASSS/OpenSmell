@@ -1,7 +1,7 @@
-"""Installed, passive command-line tools for OpenSmell files.
+"""Installed command-line tools for OpenSmell files and explicit native software replay.
 
-No application, transport or network access is used here. Protocol frames may be
-exported as data; no device command is sent.
+File/plan/frame-export commands are passive. The explicitly selected native replay
+launches trusted software over process pipes, never a serial port or physical device.
 The CLI's strict text boundary additionally rejects duplicate JSON members.
 """
 
@@ -133,6 +133,38 @@ def inspect_bytes(raw: bytes) -> dict[str, Any]:
     else:
         raise ValueError("unsupported document format; expected Core 0.1 or generic ResourceGraph 0.1")
     return {"sha256": hashlib.sha256(raw).hexdigest(), "byte_count": len(raw), **summary}
+
+
+def _replay_frame_command(args):
+    from .experimental.native_replay import replay_frame
+    try:
+        if args.file == "-":
+            raw = sys.stdin.buffer.read(24 * 1048576 + 1)
+        else:
+            with Path(args.file).open("rb") as source:
+                raw = source.read(24 * 1048576 + 1)
+        # Reserve before any selected executable can launch. A crash leaves an
+        # incomplete marker; an existing report cannot cause a duplicate replay.
+        with Path(args.output).open("x", encoding="utf-8") as output:
+            def save(report):
+                output.seek(0); output.truncate()
+                json.dump(report, output, ensure_ascii=True, allow_nan=False, indent=2)
+                output.write("\n"); output.flush()
+            save({"status": "incomplete", "acceptance": "not_established", "physical_validation": False})
+            try:
+                report = replay_frame(raw, args.native_host, on_progress=save)
+            except Exception as error:
+                save({"status": "invalid", "acceptance": "not_established", "error": str(error), "physical_validation": False})
+                raise
+            save(report)
+        print(json.dumps(report, ensure_ascii=True, allow_nan=False))
+        return 0 if report["status"] == "accepted" else 3 if report["status"] in {"rejected", "incompatible"} else 1
+    except OSError as error:
+        print(json.dumps({"status": "error", "error": str(error)}), file=sys.stderr)
+        return 2
+    except (OpenSmellError, ValueError, TypeError, KeyError, RecursionError, OverflowError) as error:
+        print(json.dumps({"status": "invalid", "error": str(error)}), file=sys.stderr)
+        return 1
 
 
 def _encode_frame_command(args):
@@ -348,7 +380,13 @@ def main(argv: list[str] | None = None) -> int:
     encoder.add_argument("--capabilities", required=True, help="Explicit target capability response JSON")
     encoder.add_argument("--max-message-bytes", type=int, default=1024, help="Message bound excluding LF; ESP32 reference default 1024")
     encoder.add_argument("--output", help="New export artifact JSON; never overwrite")
+    replay = commands.add_parser("replay-frame", help="Replay an export against an explicit trusted native software harness; no hardware")
+    replay.add_argument("file", help="Frame export artifact; '-' reads stdin")
+    replay.add_argument("--native-host", required=True, help="Explicit trusted native harness executable, not a serial port")
+    replay.add_argument("--output", required=True, help="New checkpointed native transcript; never overwrite")
     args = parser.parse_args(argv)
+    if args.command == "replay-frame":
+        return _replay_frame_command(args)
     if args.command == "encode-frame":
         return _encode_frame_command(args)
     if args.command in {"import-odornet-batch", "extract-csv-record"}:

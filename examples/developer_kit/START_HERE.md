@@ -104,3 +104,9 @@ Offline protocol export is available through the installed `opensmell encode-fra
 command. See `PROTOCOL_FRAMES.md` and the included
 `profiles/esp32-led-capabilities.json`. It generates data only, never sends to a
 board, and does not establish acceptance/execution or an odor outcome.
+
+
+Use the installed `opensmell replay-frame frame.json --native-host /absolute/path/to/host --output native-transcript.json`
+entry to try your own export with a native harness you explicitly trust. See
+`NATIVE_REPLAY.md`. The kit does not ship an executable. This launches software,
+records native acceptance/refusal and fake outputs, and never accesses a board.

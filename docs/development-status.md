@@ -448,3 +448,30 @@ portable offline acceptance transcript workflow for developer-owned frames again
 the compiled sketch, retaining observed refusal and output-state evidence while
 keeping physical trials separate; avoid new wire protocols or Explorer refinements.
 Human ESP32 observations remain NOT RUN and a LED cannot establish odor reproduction.
+
+
+## Developer-owned frame replay — 2026-11-15 evening
+
+The installed `replay-frame` entry consumes a caller export and an explicitly
+chosen trusted native harness. It validates snapshots/recomputed mapping/frame
+bytes before launch, compares observed native capabilities before render and
+retains a checkpointed transcript. Exact selected bytes, acceptance/refusal,
+negative-control output preservation and fake-clock samples are separate facts.
+Known acceptance survives a later observation failure; no failed exchange retries.
+Unknown outer fields and bounded malformed replies remain preserved as bytes.
+
+Exit criterion: fresh wheel outside checkout, both semantic/perceptual exported
+inputs through the normal installed CLI against the actual native sketch, plus
+incompatible target and corrupt-input refusals before send, transcript no-overwrite
+and simulated loss/refusal/timeout cases. See [the complete entry](native-frame-replay.md).
+The kit includes its guide but no native executable. Existing compile/native bench
+and protocol frame workflow remain intact; no physical board is accessed.
+
+This closes the first developer-owned offline firmware-source trial. Defer further
+bench diagnostics, replay flags and Explorer refinements. Next product result:
+a bounded installed import of an explicitly selected perceptual observation from
+a documented prepared scientific source, preserving scale/units/stimulus/dilution
+and source/license context separately from categorical annotations, then planning
+and offline frame proof. Inspect existing adapter/source contracts first and
+require a reproducible supported input contract; do not invent chemical joins or
+claim corpus-wide/physical equivalence. Human board observations remain NOT RUN.

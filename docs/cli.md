@@ -133,3 +133,12 @@ exports a checked, unexecuted offline-plan artifact as protocol frame data. It
 opens no transport. See [frame export](protocol-frame-export.md) for the normal
 installed path, exact-byte preservation, supplied-capability/framing bounds,
 refusals and actual-sketch native proof. It does not send or claim execution.
+
+
+## Explicit native software replay
+
+`opensmell replay-frame frame.json --native-host /absolute/path/to/trusted-host --output transcript.json`
+validates a caller-owned export, negotiates with the explicitly chosen native
+software harness and retains acceptance/refusal and fake-output observations.
+This entry launches trusted software; it opens no serial/device connection.
+See [the replay guide](native-frame-replay.md) for checkpoints, statuses and limits.

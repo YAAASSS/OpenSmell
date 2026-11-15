@@ -19,6 +19,7 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[1]
 # Explicit allowlist; external datasets, caches and arbitrary checkout files are excluded.
 PAYLOADS = {
+    "NATIVE_REPLAY.md": "docs/native-frame-replay.md",
     "PROTOCOL_FRAMES.md": "docs/protocol-frame-export.md",
     "profiles/esp32-led-capabilities.json": "hardware/esp32/led_capabilities.json",
     "CALLER_COHORT.md": "docs/caller-cohort-trial.md",
