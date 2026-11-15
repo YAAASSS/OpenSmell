@@ -1,116 +1,61 @@
 {
   "schema_version": 1,
-  "last_completed_brussels_date": "2026-11-14",
-  "last_processed_main_sha": "0610f0fdee52b89864edbcc70671b7e4fac9eede",
-  "lease": {
-    "owner": "frames-1115-ppej8we8pyq",
-    "expires_at": "2026-11-15T08:58:21.604Z"
-  },
-  "open_work": {
-    "branch": "feat/offline-protocol-frames-20261115",
-    "commit": "4873304435f8f1fbf9a8ec4c581358e80acc16e0",
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/24",
-    "tested_tree": "b3792eb371e9d409385b9125caaf4a9223b62c8c",
-    "resume_action": "Check final exact-head CI after added kit retained-plan export proof, then merge #24 if rules permit. First head Tests and ESP32 CI green; 2183 local tests passed, 25 new cases, 14 native installed-frame observations +44 native bench passed. Complete kit proof also passed; local cross-compile dependencies recovering from rejected bad mirrors without bypass. Preserve acceptance-only distinction and no hardware access."
-  },
+  "last_completed_brussels_date": "2026-11-15",
+  "last_processed_main_sha": "53824dafd8959878aca54fd8fd2f481f07ea4869",
+  "lease": null,
+  "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
-    "slot": "2026-11-14T18:00",
-    "completed_at": "2026-11-14T17:21:22.966Z",
-    "objective": "Caller-owned cohort data through the installed portable kit, passive plans, explicit Python/Node simulation and pinned public-source normal-entry proof",
-    "commit": "0610f0fdee52b89864edbcc70671b7e4fac9eede",
-    "tested_commit": "8af208c2e1f813f987addaa54a77c21977f0ebcd",
+    "slot": "2026-11-15T06:00",
+    "completed_at": "2026-11-15T05:18:29.738Z",
+    "objective": "Installed offline explicit-plan to Device Protocol0.1 frame export, exact-byte preservation and actual-sketch native acceptance/refusal proof",
+    "commit": "53824dafd8959878aca54fd8fd2f481f07ea4869",
+    "tested_commit": "4873304435f8f1fbf9a8ec4c581358e80acc16e0",
     "merged": true,
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/23",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/24",
     "checks": {
-      "python_targeted_local": 10,
-      "new_python_cases": 8,
-      "python_full_ci": 2158,
+      "python_full_local": 2183,
+      "python_full_local_seconds": 98.25,
+      "new_frame_cases": 25,
+      "python_full_final_ci": 2183,
       "ci_python_versions": [
         "3.10",
         "3.11",
         "3.12",
         "3.13"
       ],
-      "python312_ci_seconds": 86.43,
+      "python312_final_ci_seconds": 90.43,
       "ci_node": "22",
-      "extracted_installed_kit": "Original self-test plus custom files outside immutable kit; selected order 3/1/4/2/99; changed CH1=.8 and CH0=.4 profiles; two plans, unmappable accepted row and invalid/missing refusals; passive no execution and explicit both-client/both-endpoint observation; preflight duration refusal, no-overwrite and changed-data refusal passed.",
-      "public_trial": {
-        "code_commit": "5dca139f03b62de8bc3fff151d696ea4d37f0982",
-        "source_repository": "https://github.com/NKU-DOIE/OdorNet",
-        "source_commit": "88d146360dfc548462a5ebd6a081ea0590f2819e",
-        "file": "data/processed/full_dataset.csv",
-        "csv_bytes": 600964,
-        "csv_sha256": "de06d853a3c2ebe1e97379db2b24f695feda9600fc0ab1842c2425c5d2307331",
-        "license": "CC-BY-4.0 from pinned upstream license; existing attribution retained",
-        "rows": [
-          1,
-          2,
-          3,
-          99999
-        ],
-        "pipeline_counts": {
-          "software_verified": 2,
-          "planning_rejected": 1,
-          "import_rejected": 1
-        },
-        "plans": "records1/2 CH1=.6 duration5; record3 accepted import but unmappable",
-        "client_endpoint_groups": 8,
-        "observed_states": [
-          "completed",
-          "stopped",
-          "unknown"
-        ],
-        "report_sha256": "a0ebd33ac950996604d397e6d18191e65187fc8a41639fd459ea4faa2e7351d6",
-        "source_unmodified": true,
-        "full_corpus_redistributed": false,
-        "public_trial_pipeline_unchanged_in_final_doc_payload_commit": true
+      "installed_frames": "Fresh wheel outside checkout; actual installed CLI semantic/perceptual planning and frame export; exact emitted LF lines accepted by actual-sketch native harness. Target capabilities compared, fake PWM64/153/0 and120/46/38, raw31s refusal without output mutation and fake5s expiry; changed-plan/no-overwrite refusal passed.",
+      "native_frame_observations": 14,
+      "native_existing_bench_checks": 44,
+      "kit": "Fresh extracted installed kit original/custom trials passed; retained CSV plan exports from embedded snapshots after temporary graph files disappear; included guide/target file verified through installed CLI.",
+      "local_esp32_compile": {
+        "result": "success",
+        "observed_build_seconds": 468.21,
+        "includes_dependency_downloads": true,
+        "ram_bytes": 22680,
+        "program_bytes": 287209,
+        "firmware_bin_bytes": 287568,
+        "firmware_bin_sha256": "884f7f76c6cb51733c50398c3be32e0ba9d9be4fd6df9e202d231d6f03b0ebac",
+        "dependency_mirror_note": "Bad checksums for initial mirrors rejected; valid mirrors recovered, no integrity bypass."
       },
-      "initial_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43619861702",
-      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43620186488",
+      "arduinojson_commit": "f9fe8557f13d8949eafd49ebd93a2929c4e5065f",
+      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43680060148",
+      "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43680060242",
       "ci_result": "success",
       "main_tree_matches_tested": true,
-      "prior_manual_fix_preserved": "PR22 maintained Actions; verified prior exact-head Tests/ESP32 success; no workflow modifications in this lot.",
       "physical_access": false
     },
     "limitations": [
-      "OdorNet-shaped CSV only; custom workflow CSV8MiB, source/profile1MiB, 1–1000 unique selected rows; all selected metadata/plan reports held in memory.",
-      "Custom mode passive; fixed software trials require --simulate and exclusive report, 0.1s/5s compatible profile and reference channels0–2. Incomplete/software failures preserve uncertainty without automatic retry; not durable exactly-once.",
-      "Source/hash/license context is declaration/byte identity, not authentication, chemical validation, full-corpus correctness or third-party adoption.",
-      "No physical access, tag/release or registry publication. ESP32 manual bench remains NOT RUN; historical Node timeout not claimed fixed; bounds unchanged."
+      "Offline encoded frame is data only: no transport, acceptance or execution observation. Native sketch witness is fake serial/PWM/clock, not board/electrical/diffusion/odor evidence.",
+      "Input and target original bytes preserved in base64. Embedded source/profile hashes remain declared identities; mapping recomputation verifies internal consistency, not original source bytes/authenticity/freshness.",
+      "Input artifact8MiB, target1MiB, default prototype framing1024 bytes excluding LF; overriding bound does not change reference firmware framing.",
+      "Device Protocol0.1 remains acceptance-only; Draft RFC0014 software lifecycle/Stop not implied for the board. Manual hardware observations NOT RUN; no registry/tag/release/flash. Historical intermittent Node timeout not claimed fixed."
     ],
-    "handoff_library_file_id": "libfile_fde3_f-66b35c2a5a488191b296cd9d531a1b17_44ff1f20787081919dd91de18843de02"
+    "handoff_library_file_id": "libfile_fde3_f-df90b662313481919e20e092d31c5825_44ff1f20787081919dd91de18843de02"
   },
   "recent_sessions": [
-    {
-      "session_kind": "scheduled",
-      "slot": "2026-11-11T18:00",
-      "completed_at": "2026-11-11T17:06:55.092Z",
-      "objective": "Reproducible ESP32 LED build, executable native bench of actual sketch and manual hardware acceptance kit",
-      "commit": "7dba8fb23ea129ac16fdd31e10b20397a62e99eb",
-      "tested_commit": "757d5efe6fd18e8ada8a9cfd7664d52e31ec239e",
-      "merged": true,
-      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/15",
-      "checks": {
-        "python_full": 2073,
-        "actual_sketch_host_checks": 44,
-        "local_esp32_compile": "success; final pinned configuration recompiled",
-        "ram_bytes": 22680,
-        "program_bytes": 287209,
-        "firmware_bin_sha256": "5dff39e2061594d7bb1c157ae1f311e4bf0605b00ebe2d5d6d2af7d0f9085659",
-        "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43064361182",
-        "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43064361126",
-        "ci_result": "success",
-        "main_tree_matches_tested": true,
-        "physical_access": false
-      },
-      "limitations": [
-        "Fake serial/PWM/clock is not electrical timing or scent evidence; manual results remain NOT RUN.",
-        "Classic ESP32 reference build, not evidence for all board variants; no upload or flashing.",
-        "Dependency checksum failures on first mirrors were rejected and recovered through valid mirrors; no integrity bypass."
-      ],
-      "handoff_library_file_id": "libfile_fde3_f-4419248e950081919aaf962c1ece8365_44ff1f20787081919dd91de18843de02"
-    },
     {
       "session_kind": "scheduled",
       "slot": "2026-11-12T06:00",
@@ -426,9 +371,60 @@
         "No physical access, tag/release or registry publication. ESP32 manual bench remains NOT RUN; historical Node timeout not claimed fixed; bounds unchanged."
       ],
       "handoff_library_file_id": "libfile_fde3_f-66b35c2a5a488191b296cd9d531a1b17_44ff1f20787081919dd91de18843de02"
+    },
+    {
+      "session_kind": "scheduled",
+      "slot": "2026-11-15T06:00",
+      "completed_at": "2026-11-15T05:18:29.738Z",
+      "objective": "Installed offline explicit-plan to Device Protocol0.1 frame export, exact-byte preservation and actual-sketch native acceptance/refusal proof",
+      "commit": "53824dafd8959878aca54fd8fd2f481f07ea4869",
+      "tested_commit": "4873304435f8f1fbf9a8ec4c581358e80acc16e0",
+      "merged": true,
+      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/24",
+      "checks": {
+        "python_full_local": 2183,
+        "python_full_local_seconds": 98.25,
+        "new_frame_cases": 25,
+        "python_full_final_ci": 2183,
+        "ci_python_versions": [
+          "3.10",
+          "3.11",
+          "3.12",
+          "3.13"
+        ],
+        "python312_final_ci_seconds": 90.43,
+        "ci_node": "22",
+        "installed_frames": "Fresh wheel outside checkout; actual installed CLI semantic/perceptual planning and frame export; exact emitted LF lines accepted by actual-sketch native harness. Target capabilities compared, fake PWM64/153/0 and120/46/38, raw31s refusal without output mutation and fake5s expiry; changed-plan/no-overwrite refusal passed.",
+        "native_frame_observations": 14,
+        "native_existing_bench_checks": 44,
+        "kit": "Fresh extracted installed kit original/custom trials passed; retained CSV plan exports from embedded snapshots after temporary graph files disappear; included guide/target file verified through installed CLI.",
+        "local_esp32_compile": {
+          "result": "success",
+          "observed_build_seconds": 468.21,
+          "includes_dependency_downloads": true,
+          "ram_bytes": 22680,
+          "program_bytes": 287209,
+          "firmware_bin_bytes": 287568,
+          "firmware_bin_sha256": "884f7f76c6cb51733c50398c3be32e0ba9d9be4fd6df9e202d231d6f03b0ebac",
+          "dependency_mirror_note": "Bad checksums for initial mirrors rejected; valid mirrors recovered, no integrity bypass."
+        },
+        "arduinojson_commit": "f9fe8557f13d8949eafd49ebd93a2929c4e5065f",
+        "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43680060148",
+        "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43680060242",
+        "ci_result": "success",
+        "main_tree_matches_tested": true,
+        "physical_access": false
+      },
+      "limitations": [
+        "Offline encoded frame is data only: no transport, acceptance or execution observation. Native sketch witness is fake serial/PWM/clock, not board/electrical/diffusion/odor evidence.",
+        "Input and target original bytes preserved in base64. Embedded source/profile hashes remain declared identities; mapping recomputation verifies internal consistency, not original source bytes/authenticity/freshness.",
+        "Input artifact8MiB, target1MiB, default prototype framing1024 bytes excluding LF; overriding bound does not change reference firmware framing.",
+        "Device Protocol0.1 remains acceptance-only; Draft RFC0014 software lifecycle/Stop not implied for the board. Manual hardware observations NOT RUN; no registry/tag/release/flash. Historical intermittent Node timeout not claimed fixed."
+      ],
+      "handoff_library_file_id": "libfile_fde3_f-df90b662313481919e20e092d31c5825_44ff1f20787081919dd91de18843de02"
     }
   ],
-  "next_objective": "Caller-data kit and bounded public-source normal-entry proof are delivered (#23); defer further kit flags, importer/Explorer diagnostics and browser/reconnect expansion. Next product result: an installed offline explicit-plan artifact to Device Protocol0.1 frame path and reproducible native actual-ESP32-sketch acceptance/refusal trial. Connect the data/SDK kit to the hardware-source boundary without serial access, flash or physical commands. Exit criterion: normal installed entry produces a capability/duration-checked frame and source/profile/plan identity context, native actual sketch accepts supported LED plan and rejects incompatible input without output mutation; distinguish protocol acceptance from software lifecycle or measured odor. Reuse existing protocol, pinned board build and source limits. Human bench remains NOT RUN.",
+  "next_objective": "Installed offline frame export and fresh-wheel actual-sketch boundary are delivered (#24), including retained kit-plan export after source temp files disappear. Next useful slice: a normal software-only entry accepting developer-owned frame export artifacts and an explicitly selected trusted native harness, retaining target/capability identities, actual sketch acceptance/refusal and fake-output/clock observations as a reusable transcript. Require supported semantic/perceptual exported inputs, altered/incompatible input handling without silent mutation, and explicit acceptance-only/no physical claims. Reuse Device Protocol0.1 and existing host sketch; no serial access, flashing, new wire protocol or Explorer polish. Do not make a chain of fixture-only checks; the developer must be able to supply their own exported artifact. Human board/odor observations remain NOT RUN.",
   "automation": {
     "id": "39cc72697e048191a1ba0d3e3e9d787c",
     "title": "OpenSmell — développement autonome quotidien",
@@ -445,9 +441,9 @@
   },
   "active_product_milestone": {
     "goal": "Installable OpenSmell developer kit spanning data, SDK, device integration and reproducible hardware bench",
-    "delivered": "Installed Python/JavaScript clients and portable kit, caller-owned passive/simulated cohort workflow with preserved refusals and actual pinned-source trial (#23), plus earlier firmware compile/native bench.",
-    "next": "Caller-data kit and bounded public-source normal-entry proof are delivered (#23); defer further kit flags, importer/Explorer diagnostics and browser/reconnect expansion. Next product result: an installed offline explicit-plan artifact to Device Protocol0.1 frame path and reproducible native actual-ESP32-sketch acceptance/refusal trial. Connect the data/SDK kit to the hardware-source boundary without serial access, flash or physical commands. Exit criterion: normal installed entry produces a capability/duration-checked frame and source/profile/plan identity context, native actual sketch accepts supported LED plan and rejects incompatible input without output mutation; distinguish protocol acceptance from software lifecycle or measured odor. Reuse existing protocol, pinned board build and source limits. Human bench remains NOT RUN."
+    "delivered": "Python/JS installed clients, caller-data kit/public-source trial, firmware compile/native bench and installed offline plan-to-frame export verified against actual native sketch (#24).",
+    "next": "Installed offline frame export and fresh-wheel actual-sketch boundary are delivered (#24), including retained kit-plan export after source temp files disappear. Next useful slice: a normal software-only entry accepting developer-owned frame export artifacts and an explicitly selected trusted native harness, retaining target/capability identities, actual sketch acceptance/refusal and fake-output/clock observations as a reusable transcript. Require supported semantic/perceptual exported inputs, altered/incompatible input handling without silent mutation, and explicit acceptance-only/no physical claims. Reuse Device Protocol0.1 and existing host sketch; no serial access, flashing, new wire protocol or Explorer polish. Do not make a chain of fixture-only checks; the developer must be able to supply their own exported artifact. Human board/odor observations remain NOT RUN."
   },
-  "session_slot": "2026-11-15T06:00",
-  "last_completed_slot": "2026-11-14T18:00"
+  "session_slot": null,
+  "last_completed_slot": "2026-11-15T06:00"
 }
