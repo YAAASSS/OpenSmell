@@ -6,7 +6,13 @@
     "owner": "frames-1115-ppej8we8pyq",
     "expires_at": "2026-11-15T08:58:21.604Z"
   },
-  "open_work": null,
+  "open_work": {
+    "branch": "feat/offline-protocol-frames-20261115",
+    "commit": "e3818034b666af2fb3c10bd79615e27656d29c7f",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/24",
+    "tested_tree": "d0bd1d82d53e615d682964206ef28dfc5e245245",
+    "resume_action": "Check full local Python and exact-head Tests/ESP32 CI, diagnose failures then merge if rules permit. 25 new tests, fresh installed-wheel actual-sketch proof (14 observations) and existing 44-case native bench passed. Complete kit/guide proof and Work handoff, preserve acceptance-only/no physical claims."
+  },
   "last_result": {
     "session_kind": "scheduled",
     "slot": "2026-11-14T18:00",
