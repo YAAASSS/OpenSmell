@@ -8,10 +8,10 @@
   },
   "open_work": {
     "branch": "feat/offline-protocol-frames-20261115",
-    "commit": "e3818034b666af2fb3c10bd79615e27656d29c7f",
+    "commit": "4873304435f8f1fbf9a8ec4c581358e80acc16e0",
     "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/24",
-    "tested_tree": "d0bd1d82d53e615d682964206ef28dfc5e245245",
-    "resume_action": "Check full local Python and exact-head Tests/ESP32 CI, diagnose failures then merge if rules permit. 25 new tests, fresh installed-wheel actual-sketch proof (14 observations) and existing 44-case native bench passed. Complete kit/guide proof and Work handoff, preserve acceptance-only/no physical claims."
+    "tested_tree": "b3792eb371e9d409385b9125caaf4a9223b62c8c",
+    "resume_action": "Check final exact-head CI after added kit retained-plan export proof, then merge #24 if rules permit. First head Tests and ESP32 CI green; 2183 local tests passed, 25 new cases, 14 native installed-frame observations +44 native bench passed. Complete kit proof also passed; local cross-compile dependencies recovering from rejected bad mirrors without bypass. Preserve acceptance-only distinction and no hardware access."
   },
   "last_result": {
     "session_kind": "scheduled",
