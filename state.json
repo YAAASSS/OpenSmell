@@ -2,7 +2,10 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-14",
   "last_processed_main_sha": "0610f0fdee52b89864edbcc70671b7e4fac9eede",
-  "lease": null,
+  "lease": {
+    "owner": "frames-1115-ppej8we8pyq",
+    "expires_at": "2026-11-15T08:58:21.604Z"
+  },
   "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
@@ -439,6 +442,6 @@
     "delivered": "Installed Python/JavaScript clients and portable kit, caller-owned passive/simulated cohort workflow with preserved refusals and actual pinned-source trial (#23), plus earlier firmware compile/native bench.",
     "next": "Caller-data kit and bounded public-source normal-entry proof are delivered (#23); defer further kit flags, importer/Explorer diagnostics and browser/reconnect expansion. Next product result: an installed offline explicit-plan artifact to Device Protocol0.1 frame path and reproducible native actual-ESP32-sketch acceptance/refusal trial. Connect the data/SDK kit to the hardware-source boundary without serial access, flash or physical commands. Exit criterion: normal installed entry produces a capability/duration-checked frame and source/profile/plan identity context, native actual sketch accepts supported LED plan and rejects incompatible input without output mutation; distinguish protocol acceptance from software lifecycle or measured odor. Reuse existing protocol, pinned board build and source limits. Human bench remains NOT RUN."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-15T06:00",
   "last_completed_slot": "2026-11-14T18:00"
 }
