@@ -89,7 +89,13 @@ report = replay_frame(Path("frame.json").read_bytes(), "/absolute/path/opensmell
 The CLI handles exclusive output reservation and checkpoints. `validate_frame_export`
 is also available for passive validation before choosing any executable.
 
-The extended fresh-wheel verifier uses the installed normal CLI on semantic and
+The extended fresh-wheel verifier also imports a caller-selected synthetic CSV
+record, changes its profile to channel 1 at 0.8, bridges/plans/exports it through
+the installed CLI, deletes preparation files, then replays the self-contained
+export. Observed fake PWM is `[0,204,0]`, retained through negative-control refusal
+and off after fake-clock advance. This is pipeline data, not a new measurement.
+
+The verifier uses the installed normal CLI on semantic and
 perceptual exports against the actual compiled sketch, checks unchanged selected
 line bytes and fake outputs, and retains both transcripts. A valid export for a
 different target stops after negotiation; a corrupt frame is rejected before the

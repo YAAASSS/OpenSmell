@@ -78,6 +78,29 @@ def main():
             cli("replay-frame", f"{mapper}-corrupt.json", "--native-host", host,
                 "--output", f"{mapper}-invalid.json", expected=1)
             frames.append((exported["frame"]["line"], pwm))
+        # A caller-data path, not just prebuilt real graph fixtures. Change
+        # the selected profile and remove preparation files before replay.
+        caller_csv = work / "caller.csv"
+        caller_source = work / "caller-source.json"
+        caller_profile = work / "caller-profile.json"
+        caller_csv.write_bytes((root / "examples/synthetic_odornet_batch.csv").read_bytes())
+        caller_source.write_bytes((root / "examples/synthetic_odornet_source.json").read_bytes())
+        profile = json.loads((root / "examples/offline_semantic_profile.json").read_bytes())
+        profile["bindings"][1]["intensity"] = 0.8
+        caller_profile.write_text(json.dumps(profile))
+        cli("import-odornet", caller_csv, "--row", "3", "--source", caller_source, "--output", "caller-core.osmell")
+        cli("bridge-core", "caller-core.osmell", "--output", "caller-graph.osmell")
+        graph_doc = json.loads((work / "caller-graph.osmell").read_bytes())
+        resource = graph_doc["org.opensmell.experimental.core-import"]["primary_resource_id"]
+        caller_plan = cli("plan", "caller-graph.osmell", "--profile", caller_profile,
+                          "--resource-id", resource, "--duration", "5")
+        cli("encode-frame", "-", "--capabilities", "target.json", "--output", "caller-frame.json", data=caller_plan)
+        for path in (caller_csv, caller_source, caller_profile, work / "caller-core.osmell", work / "caller-graph.osmell"):
+            path.unlink()
+        caller = json.loads(cli("replay-frame", "caller-frame.json", "--native-host", host, "--output", "caller-native.json"))
+        assert caller["status"] == caller["acceptance"] == "accepted"
+        assert caller["fake_outputs"]["after"] == caller["fake_outputs"]["after_negative_control"] == [0,204,0]
+        assert caller["fake_outputs"]["after_duration"] == [0,0,0]
         lines = ['{"protocol_version":"0.1","type":"get_capabilities"}', '!pins']
         for frame, _ in frames:
             lines += [frame.rstrip('\n'), '!pins',
@@ -97,7 +120,9 @@ def main():
         print(json.dumps({"result":"passed", "installed_cli":True, "firmware":"actual sketch in native harness",
                           "mappers":["semantic","perceptual"], "observations":len(replies),
                           "acceptance":"observed_in_native_harness", "replay_transcript_observations":replay_sizes,
-                          "supplied_target_mismatch_pre_send":True, "physical_validation":False}))
+                          "supplied_target_mismatch_pre_send":True,
+                          "caller_csv_replay_after_preparation_deleted":True,
+                          "caller_replay_transcript_observations":len(caller["transcript"]), "physical_validation":False}))
 
 
 if __name__ == "__main__":
