@@ -115,3 +115,9 @@ offline plan may still be refused by this target. Native compilation/proof uses
 the source checkout and pinned build dependencies, not an executable shipped in
 the portable kit. See the repository [bench guide](https://github.com/YAAASSS/OpenSmell/blob/main/hardware/esp32/BENCH.md)
 for prerequisites and the manual observation boundary.
+
+
+For developer-owned exports, the installed `replay-frame` entry now retains a
+native observation transcript. See [native replay](https://github.com/YAAASSS/OpenSmell/blob/main/docs/native-frame-replay.md).
+Choosing `--native-host` explicitly launches trusted software only; it does not
+turn an export into a physical-device compatibility or execution claim.

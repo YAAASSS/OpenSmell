@@ -140,3 +140,10 @@ fresh wheel against this actual sketch in the native harness. It compares
 and checks refusal without fake-output mutation. It opens no serial port and
 cannot replace the manual board observations above. Device Protocol 0.1 remains
 acceptance-only; no software lifecycle or Stop claim is added to this board.
+
+
+The installed [native replay command](../../docs/native-frame-replay.md) accepts
+a developer-owned export and the compiled harness path, retaining exact selected
+frame/reply lines and fake output/clock observations. It includes a labeled
+31-second negative control and checks unchanged output on refusal. This is an
+explicit trusted-software trial, never a serial/board action or physical result.

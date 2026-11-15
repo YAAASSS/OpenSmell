@@ -1677,6 +1677,11 @@ an explicit plan artifact to Device Protocol 0.1 line data after target-capabili
 checks. A fresh-wheel proof feeds those exact bytes to the actual-sketch native
 ESP32 LED harness. No transport opens and no physical execution is inferred.
 
+The installed [native replay entry](docs/native-frame-replay.md) also accepts a
+developer-owned export and an explicitly selected trusted native harness, then
+retains request/reply and fake-output observations in a new transcript. It never
+chooses a serial device or establishes physical execution.
+
 ### OpenSmell 0.1 foundation
 
 Completed:
