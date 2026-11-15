@@ -8,10 +8,10 @@
   },
   "open_work": {
     "branch": "feat/native-frame-replay-20261115",
-    "commit": "32820b36f5a1cfab8986ba3f19f0c2725c1a0db0",
+    "commit": "be727bac4e408899430824e08309b8b58bd5aa94",
     "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/25",
-    "tested_tree": "4f3170846307177de3c8e735a3051548bb3713b4",
-    "resume_action": "Inspect full local Python and exact-head Tests/ESP32 CI, fix failures, then merge when rules allow. 18 SDK/CLI tests, installed semantic/perceptual replay against actual sketch (9 exchanges each), target mismatch/corruption refusal and local ESP32 compile passed. Complete kit proof and Work handoff. Do not claim physical output or add replay refinements by default."
+    "tested_tree": "1185cbc09161e37603533dc363c7bdadf0f61663",
+    "resume_action": "Inspect final exact-head Tests/ESP32 CI after caller CSV-derived replay proof; 2201 local Python tests, 18 new cases, original/extended installed native proof and extracted kit passed. Caller CSV row3 with changed CH1=.8 profile replays after preparation files deleted, PWM0/204/0 and negative-control preservation/off checked. Finish Work handoff and merge if green/rules permit; then defer bench refinements for perceptual-source import."
   },
   "last_result": {
     "session_kind": "scheduled",
