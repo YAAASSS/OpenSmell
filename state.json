@@ -2,7 +2,10 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-15",
   "last_processed_main_sha": "53824dafd8959878aca54fd8fd2f481f07ea4869",
-  "lease": null,
+  "lease": {
+    "owner": "native-replay-1115-4apv0irwf0x",
+    "expires_at": "2026-11-15T21:05:42.653Z"
+  },
   "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
@@ -444,6 +447,6 @@
     "delivered": "Python/JS installed clients, caller-data kit/public-source trial, firmware compile/native bench and installed offline plan-to-frame export verified against actual native sketch (#24).",
     "next": "Installed offline frame export and fresh-wheel actual-sketch boundary are delivered (#24), including retained kit-plan export after source temp files disappear. Next useful slice: a normal software-only entry accepting developer-owned frame export artifacts and an explicitly selected trusted native harness, retaining target/capability identities, actual sketch acceptance/refusal and fake-output/clock observations as a reusable transcript. Require supported semantic/perceptual exported inputs, altered/incompatible input handling without silent mutation, and explicit acceptance-only/no physical claims. Reuse Device Protocol0.1 and existing host sketch; no serial access, flashing, new wire protocol or Explorer polish. Do not make a chain of fixture-only checks; the developer must be able to supply their own exported artifact. Human board/odor observations remain NOT RUN."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-15T18:00",
   "last_completed_slot": "2026-11-15T06:00"
 }
