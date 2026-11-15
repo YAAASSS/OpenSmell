@@ -98,3 +98,9 @@ contains selected raw values, graph/plan snapshots and supplied declarations;
 full CSV bytes are not embedded. Hashes do not authenticate the source. The same
 CSV/source/profile options are required together; select 1–1000 unique positive
 one-based data-record indexes. The selected order is retained.
+
+
+Offline protocol export is available through the installed `opensmell encode-frame`
+command. See `PROTOCOL_FRAMES.md` and the included
+`profiles/esp32-led-capabilities.json`. It generates data only, never sends to a
+board, and does not establish acceptance/execution or an odor outcome.

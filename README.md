@@ -1672,6 +1672,11 @@ The kit also accepts [caller-owned CSV cohorts](docs/caller-cohort-trial.md),
 source declarations, selected rows and explicit profiles. Custom mode generates
 passive plans with per-record refusals; software trials require `--simulate`.
 
+The installed [offline frame exporter](docs/protocol-frame-export.md) converts
+an explicit plan artifact to Device Protocol 0.1 line data after target-capability
+checks. A fresh-wheel proof feeds those exact bytes to the actual-sketch native
+ESP32 LED harness. No transport opens and no physical execution is inferred.
+
 ### OpenSmell 0.1 foundation
 
 Completed:

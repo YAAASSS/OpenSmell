@@ -1,6 +1,7 @@
 """Installed, passive command-line tools for OpenSmell files.
 
-No application, transport, device command or network access is used here.
+No application, transport or network access is used here. Protocol frames may be
+exported as data; no device command is sent.
 The CLI's strict text boundary additionally rejects duplicate JSON members.
 """
 
@@ -132,6 +133,32 @@ def inspect_bytes(raw: bytes) -> dict[str, Any]:
     else:
         raise ValueError("unsupported document format; expected Core 0.1 or generic ResourceGraph 0.1")
     return {"sha256": hashlib.sha256(raw).hexdigest(), "byte_count": len(raw), **summary}
+
+
+def _encode_frame_command(args):
+    from .experimental.frame_export import encode_plan_frame
+    try:
+        if args.file == "-":
+            raw = sys.stdin.buffer.read(8 * 1048576 + 1)
+        else:
+            with Path(args.file).open("rb") as source:
+                raw = source.read(8 * 1048576 + 1)
+        with Path(args.capabilities).open("rb") as source:
+            capabilities = source.read(1048576 + 1)
+        report = encode_plan_frame(raw, capabilities, max_message_bytes=args.max_message_bytes)
+        output = (json.dumps(report, ensure_ascii=True, allow_nan=False, indent=2) + "\n").encode()
+        if args.output:
+            with Path(args.output).open("xb") as target:
+                target.write(output)
+        else:
+            sys.stdout.buffer.write(output)
+    except OSError as error:
+        print(json.dumps({"status": "error", "error": str(error)}), file=sys.stderr)
+        return 2
+    except (OpenSmellError, ValueError, TypeError, KeyError, RecursionError, OverflowError) as error:
+        print(json.dumps({"status": "invalid", "error": str(error)}), file=sys.stderr)
+        return 1
+    return 0
 
 
 def _plan_command(args: argparse.Namespace) -> int:
@@ -316,7 +343,14 @@ def main(argv: list[str] | None = None) -> int:
     extract.add_argument("file", help="Batch JSON; '-' reads stdin")
     extract.add_argument("--row", required=True, type=int)
     extract.add_argument("--output", help="Create a new Core file; never overwrite")
+    encoder = commands.add_parser("encode-frame", help="Export a checked offline plan as protocol frame data; never send")
+    encoder.add_argument("file", help="Offline-plan artifact JSON; '-' reads stdin")
+    encoder.add_argument("--capabilities", required=True, help="Explicit target capability response JSON")
+    encoder.add_argument("--max-message-bytes", type=int, default=1024, help="Message bound excluding LF; ESP32 reference default 1024")
+    encoder.add_argument("--output", help="New export artifact JSON; never overwrite")
     args = parser.parse_args(argv)
+    if args.command == "encode-frame":
+        return _encode_frame_command(args)
     if args.command in {"import-odornet-batch", "extract-csv-record"}:
         return _batch_csv_command(args)
     if args.command == "import-odornet":

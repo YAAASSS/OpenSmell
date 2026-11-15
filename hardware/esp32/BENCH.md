@@ -130,3 +130,13 @@ maintainer confirmations remain in the README; this new configuration creates no
 new physical evidence. Record failures and exact responses rather than inferring
 successful LED output from `ok`. Odor reproduction requires separate measured
 experiments and is outside this LED bench.
+
+
+## Installed plan-to-frame proof
+
+The [offline exporter](../../docs/protocol-frame-export.md) is also tested from a
+fresh wheel against this actual sketch in the native harness. It compares
+`led_capabilities.json` to the sketch response, accepts semantic/perceptual frames
+and checks refusal without fake-output mutation. It opens no serial port and
+cannot replace the manual board observations above. Device Protocol 0.1 remains
+acceptance-only; no software lifecycle or Stop claim is added to this board.
