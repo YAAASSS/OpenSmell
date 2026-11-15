@@ -124,3 +124,12 @@ Core import/export is available through `bridge-core` and `extract-core`; see
 [the source-preserving walkthrough](core-interchange.md). Reusable software
 lifecycle adapters are also available in the installed experimental SDK. An inspection report is not a rendering plan; an offline
 plan is not device acceptance or execution.
+
+
+## Offline protocol frame data
+
+`opensmell encode-frame plan.json --capabilities target.json --output frame.json`
+exports a checked, unexecuted offline-plan artifact as protocol frame data. It
+opens no transport. See [frame export](protocol-frame-export.md) for the normal
+installed path, exact-byte preservation, supplied-capability/framing bounds,
+refusals and actual-sketch native proof. It does not send or claim execution.

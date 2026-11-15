@@ -59,6 +59,15 @@ def main():
         report = json.loads(result.stdout)
         if output.read_text() != result.stdout or report["result"] != "passed" or len(report["records"]) != 2:
             raise ValueError("Trial did not retain both records and its full software observations")
+        # The self-test's temporary graph files have gone away. Export using
+        # only its embedded plan/source/profile snapshots and the included target.
+        selected = kit / "selected-plan.json"
+        selected.write_text(json.dumps(report["records"][0]["plan"]))
+        framed = json.loads(run([python, "-I", "-m", "opensmell", "encode-frame", selected,
+                                 "--capabilities", kit / "profiles/esp32-led-capabilities.json"]).stdout)
+        if (framed["transport"] != "not_opened" or framed["acceptance"] != "not_observed"
+                or json.loads(framed["frame"]["line"])["commands"] != report["records"][0]["plan"]["plan"]["commands"]):
+            raise ValueError("Kit's embedded plan could not export an unchanged offline frame")
         before = output.read_bytes()
         run([python, "try_kit.py", "--report", output], expected=2)
         if output.read_bytes() != before:

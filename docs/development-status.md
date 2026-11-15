@@ -425,3 +425,26 @@ reference. Connect the data/SDK kit to the hardware source boundary without flas
 serial/device access or scent claims. Distinguish protocol acceptance from the
 software lifecycle and measured physical output; do not extend lifecycle claims
 to Device Protocol 0.1. Human bench observations remain NOT RUN.
+
+
+## Installed offline protocol frames — 2026-11-15
+
+The SDK/installed `encode-frame` entry recomputes a supplied offline plan from its
+embedded source/profile/request, checks a separate target capability description
+and framing limit, and exports exact Device Protocol 0.1 line data. Original input
+and target bytes, including unknown extensions, are preserved in snapshots;
+source/profile identities remain declarations, not authenticated original files.
+No transport opens and acceptance/execution remain explicitly unobserved.
+
+Exit criterion: fresh wheel outside checkout, semantic/perceptual normal CLI
+plans/frames accepted by the actual sketch compiled natively, target capabilities
+matching the sketch, incompatible raw requests refused without fake-output
+mutation, and altered-plan/output-overwrite refusals. The existing native bench
+and ESP32 cross-compilation remain required. See [the complete proof](protocol-frame-export.md).
+The kit includes the guide/target file but no native executable or physical action.
+
+This closes the first data/SDK-to-firmware-source boundary. Next choose a bounded
+portable offline acceptance transcript workflow for developer-owned frames against
+the compiled sketch, retaining observed refusal and output-state evidence while
+keeping physical trials separate; avoid new wire protocols or Explorer refinements.
+Human ESP32 observations remain NOT RUN and a LED cannot establish odor reproduction.
