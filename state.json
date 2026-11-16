@@ -9,10 +9,10 @@
   },
   "open_work": {
     "branch": "feat/caller-graph-trial-20261116",
-    "commit": "2be3c9a905124ecc3ba9e3bc769a3b391d74fac0",
-    "tree": "50e4f8b6774bd3e9d00bac41765473ac1f8d891d",
+    "commit": "787f8211d813da6498237e13e6d05b7f8ecfb3d4",
+    "tree": "c873c557e98fa274b23ca2b536494568779b1e29",
     "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/27",
-    "resume": "2241 local tests passed; final kit proof and exact-head Tests CI, reviews/rules, merge/main verification and Work handoff pending."
+    "resume": "Final head787f821: graph caller trial, 8 targeted cases passed incl timeout/unmapped. Final full local/kit/CI, review/rules, merge/main verification and Work handoff pending."
   },
   "last_result": {
     "session_kind": "scheduled",
