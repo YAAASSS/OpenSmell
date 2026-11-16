@@ -69,8 +69,8 @@ def test_report_collision_and_bad_manifest_block_work(kit,tmp_path):
 
 def test_existing_resource_unmapped_by_caller_profile_retains_refusal(kit,tmp_path):
     profile=json.loads((kit/'profiles/semantic.json').read_bytes())
-    for binding in profile['bindings']:
-        binding['descriptor']='not-present-in-input'
+    for index,binding in enumerate(profile['bindings']):
+        binding['descriptor']=f'not-present-in-input-{index}'
     caller_profile=tmp_path/'caller-profile.json'
     caller_profile.write_text(json.dumps(profile))
     r=invoke(kit,tmp_path,extra=('--profile',str(caller_profile),'--simulate'))
