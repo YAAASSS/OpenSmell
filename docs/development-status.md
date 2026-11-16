@@ -133,8 +133,8 @@ requiring Explorer. No new stable release or physical odor capability is implied
 | --- | --- | --- |
 | 1 | Installed SDK and CLI workflow | Delivered: a wheel installed outside the checkout validates/inspects Core and graph files and produces semantic/perceptual dry-run plans with explicit mapping, capabilities and source provenance. Core import/source recovery delivered in the 2026-11-12 slice below. |
 | 2 | Reusable device integration | Delivered in PR #13, with bounded startup correction #14: installed SDK and standalone Python/Node graph-to-execution walkthrough. |
-| 3 | Reproducible hardware bench | Software/build slice delivered in #15: pinned ESP32 compilation, actual-sketch native bench, bill of materials/wiring and manual procedure. Human physical observations remain NOT RUN; no autonomous flashing or diffusion. |
-| 4 | Data and adoption | Selected-record/cohort import, pinned-source trial and contributor quickstart delivered in #16–18. Local JavaScript package/exchange is the current bounded adoption slice; next prepare a reproducible installed kit trial/release readiness checklist. Third-party adoption requires observed independent use. |
+| 3 | Reproducible hardware bench | Software/build slice delivered in #15, installed frame export/replay in #24–25: pinned ESP32 compilation, actual-sketch native bench, bill of materials/wiring and manual procedure. Human physical observations remain NOT RUN; no autonomous flashing or diffusion. |
+| 4 | Data and adoption | Categorical selected/cohort import and public-source trials delivered in #16–18/#23; installed Python/JS clients and portable caller-data kit in #19–21/#23. Current slice: selected prepared perceptual observation import, unchanged JS transfer and native frame proof. Next require one documented authorized external prepared-source trial before expanding formats. Third-party adoption requires observed independent use. |
 
 Complete a usable vertical slice and its exit criterion before opening an adjacent
 refinement. Reorder for actual dependencies or demonstrated regressions. Prioritize
@@ -152,10 +152,12 @@ profiles. Source and profile snapshots/hashes accompany CLI plans; unsupported
 channels, intensities, durations and empty mappings fail. No device command is
 sent or source file rewritten. See [the CLI guide](cli.md) and Draft RFC-0015.
 
-The ESP32 software/build slice and installed Core/CSV interoperability are delivered;
-human bench observations remain independent. Finish the local JavaScript package
-slice below, then choose a reproducible developer-kit trial and release readiness
-criteria before adding adjacent reader/importer refinements.
+The installed kit and first software/build hardware boundary are delivered;
+human bench observations remain independent. Complete the selected perceptual
+import's documented source/scale contract and normal-entry proof below. Avoid
+more transport/Explorer refinements or importer dialects without an observed
+integration need. Stable release preparation still requires explicit readiness
+evidence; successful repository-maintained trials do not establish outside adoption.
 
 ## Retained execution history — 2026-11-10
 
@@ -475,3 +477,34 @@ and source/license context separately from categorical annotations, then plannin
 and offline frame proof. Inspect existing adapter/source contracts first and
 require a reproducible supported input contract; do not invent chemical joins or
 claim corpus-wide/physical equivalence. Human board observations remain NOT RUN.
+
+## Installed selected perceptual observation import — 2026-11-16
+
+`opensmell import-keller` and the installed SDK accept one explicitly selected
+prepared Keller/Vosshall-shaped CSV record and an explicit source/license/
+preparation/0..100 subjective-rating declaration. They emit a graph directly:
+declared molecule, stimulus with opaque dilution, source-local target and
+observation. Blank scores remain unmeasured, measured zero survives, categorical
+source tokens remain a separate opaque result and unknown selected/source fields
+are retained. Occurrence-scoped IDs deliberately avoid chemical/person joins.
+
+Exit criterion: fresh wheel and locally packed JS reader outside the checkout,
+three selected synthetic presentations (two distinct plans, one unmeasured plan
+refusal), invalid numeric import/no-overwrite refusals, unchanged graph bytes
+through limited JS inspection, then exact frame replay against the actual native
+sketch. Both plans yield expected fake PWM; the negative control preserves it
+and the fake clock turns outputs off. Source preparation files are deleted before
+replay. See [the input contract and commands](perceptual-csv-import.md).
+
+The portable kit includes the synthetic input/declaration/profile/guide; no
+external scientific corpus or participant data is added. JS inspection remains
+partial with opaque categories; this trial does not authenticate scientific
+source/license/chemical identity, validate a corpus, establish third-party
+adoption or observe a physical output. Manual board/odor evidence remains NOT RUN.
+
+This closes the selected prepared-observation vertical slice. Next seek one
+bounded, authorized external prepared-source trial through the same installed
+entry, retaining extraction/version/attribution and actual refusals. Do not add
+another import dialect, batch flag or bench diagnostic without that concrete
+need. SDK/format expansion and stable publication stay gated by demonstrated
+interop needs/readiness; human hardware observation remains an independent gate.

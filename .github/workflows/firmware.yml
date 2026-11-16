@@ -10,6 +10,8 @@ on:
       - "tools/build_esp32_host.py"
       - "tools/verify_esp32_firmware.py"
       - "tools/verify_installed_frames.py"
+      - "tools/verify_installed_perceptual.py"
+      - "examples/synthetic_keller*"
       - ".github/workflows/firmware.yml"
   pull_request:
     paths:
@@ -20,6 +22,8 @@ on:
       - "tools/build_esp32_host.py"
       - "tools/verify_esp32_firmware.py"
       - "tools/verify_installed_frames.py"
+      - "tools/verify_installed_perceptual.py"
+      - "examples/synthetic_keller*"
       - ".github/workflows/firmware.yml"
 
 permissions:
@@ -34,6 +38,9 @@ jobs:
       - uses: actions/setup-python@v7.1.0
         with:
           python-version: "3.12"
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: "22"
       - name: Install software build tools
         run: |
           python -m pip install platformio==6.1.18
@@ -53,3 +60,13 @@ jobs:
         run: |
           python -m build --wheel
           python -m tools.verify_installed_frames dist/opensmell-0.1.0-py3-none-any.whl --host /tmp/opensmell-firmware-host
+
+      - name: Verify selected perceptual import through installed SDKs and native sketch
+        run: python -m tools.verify_installed_perceptual dist/opensmell-0.1.0-py3-none-any.whl --host /tmp/opensmell-firmware-host --evidence-directory dist/perceptual-proof
+
+      - name: Retain experimental synthetic perceptual proof
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: synthetic-perceptual-native-proof
+          path: dist/perceptual-proof
+          retention-days: 14

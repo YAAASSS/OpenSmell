@@ -19,6 +19,10 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[1]
 # Explicit allowlist; external datasets, caches and arbitrary checkout files are excluded.
 PAYLOADS = {
+    "PERCEPTUAL_IMPORT.md": "docs/perceptual-csv-import.md",
+    "data/synthetic_keller.csv": "examples/synthetic_keller.csv",
+    "data/synthetic_keller_source.json": "examples/synthetic_keller_source.json",
+    "profiles/perceptual.json": "examples/offline_perceptual_profile.json",
     "NATIVE_REPLAY.md": "docs/native-frame-replay.md",
     "PROTOCOL_FRAMES.md": "docs/protocol-frame-export.md",
     "profiles/esp32-led-capabilities.json": "hardware/esp32/led_capabilities.json",

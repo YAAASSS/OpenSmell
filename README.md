@@ -1682,6 +1682,15 @@ developer-owned export and an explicitly selected trusted native harness, then
 retains request/reply and fake-output observations in a new transcript. It never
 chooses a serial device or establishes physical execution.
 
+The installed [selected perceptual importer](docs/perceptual-csv-import.md),
+`opensmell import-keller`, consumes a declared prepared Keller/Vosshall-shaped CSV
+observation. It preserves subjective rating units/scale, missing versus zero,
+stimulus dilution, source-local subject and source/license/preparation context,
+with a separate categorical Result. The kit includes a clearly synthetic example;
+fresh installed Python/JavaScript and actual-sketch native trials connect two
+distinct observations to passive plans and fake-output transcripts. No external
+corpus or physical outcome is established by that synthetic trial.
+
 ### OpenSmell 0.1 foundation
 
 Completed:

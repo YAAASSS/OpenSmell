@@ -1,0 +1,5 @@
+CID,Odor,Odor dilution,Subject # (this study),HOW STRONG IS THE SMELL?,HOW PLEASANT IS THE SMELL?,FLOWER,GRASS,WOOD,CAN OR CAN'T SMELL,KNOW OR DON'T KNOW THE SMELL,sample_note
+1,Synthetic reference A,"1/1,000",synthetic-subject-a,50,,26,0,89,I smell something,unclassified,"Synthetic only; zero grass, blank pleasantness"
+1,Synthetic reference A,"1/10,000",synthetic-subject-a,,,80,20,,unrecognized token,,Synthetic second presentation; no averaging
+1,Synthetic reference A,"1/1,000",synthetic-subject-b,,,,,,,No ratings performed,Blank notes are never converted to zero
+1,Synthetic invalid,"1/1,000",synthetic-subject-c,,,101,0,20,,,Invalid rating retained in input and refused

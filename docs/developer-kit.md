@@ -98,6 +98,11 @@ standalone software consumer.
 
 ## Caller-owned data
 
+The kit also includes the installed [selected perceptual import](perceptual-csv-import.md)
+guide, synthetic prepared CSV/declaration and perceptual profile. Its normal
+entry is `opensmell import-keller`; this is separate from the categorical
+`try_kit.py` cohort contract. No external corpus is added to the archive.
+
 The normal `try_kit.py` entry now accepts `--csv`, `--source`, `--rows` and
 `--profile` together. Custom mode is passive unless `--simulate` is explicitly
 supplied with a new report path. Per-record import/bridge/plan/preflight refusals

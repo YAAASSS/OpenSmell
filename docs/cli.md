@@ -1,5 +1,10 @@
 # Installed OpenSmell CLI
 
+For selected prepared psychophysical observations, see
+[`import-keller` and its explicit source/scale contract](perceptual-csv-import.md).
+It emits a graph directly for perceptual planning, separately from categorical
+OdorNet/Core import. No app or table-processing dependency is required.
+
 Validate and inspect files, or produce an offline plan with explicit mapping and
 capability profiles, without starting Local Explorer, a server or a device. This is the first
 installed entry point in the broader [developer-kit milestone](development-status.md).

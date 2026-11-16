@@ -81,6 +81,9 @@ jobs:
           python -m tools.build_developer_kit --output dist/opensmell-developer-kit.zip
           python -m tools.verify_developer_kit dist/opensmell-developer-kit.zip
 
+      - name: Verify installed selected perceptual import and JavaScript transfer
+        run: python -m tools.verify_installed_perceptual dist/opensmell-0.1.0-py3-none-any.whl
+
       - name: Retain the verified experimental kit
         uses: actions/upload-artifact@v7.0.2
         with:

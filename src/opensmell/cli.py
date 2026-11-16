@@ -234,6 +234,38 @@ def _plan_command(args: argparse.Namespace) -> int:
     return 0
 
 
+def _import_perceptual_command(args):
+    import csv
+    from .experimental.perceptual_import import import_keller_csv, MAX_CSV_BYTES, MAX_SOURCE_BYTES
+    from .experimental.generic_graph import generic_graph_to_dict
+    from .experimental.core_interchange import interchange_registry
+    try:
+        if args.file == "-":
+            raw = sys.stdin.buffer.read(MAX_CSV_BYTES + 1)
+        else:
+            with Path(args.file).open("rb") as input_file:
+                raw = input_file.read(MAX_CSV_BYTES + 1)
+        with Path(args.source).open("rb") as declaration:
+            source_raw = declaration.read(MAX_SOURCE_BYTES + 1)
+        if len(source_raw) > MAX_SOURCE_BYTES:
+            raise ValueError("Source declaration exceeds 1 MiB")
+        graph = import_keller_csv(raw, row=args.row, source=_decode(source_raw))
+        output = (json.dumps(generic_graph_to_dict(graph, registry=interchange_registry()),
+                             ensure_ascii=True, allow_nan=False, indent=2) + "\n").encode()
+        if args.output:
+            with Path(args.output).open("xb") as target:
+                target.write(output)
+        else:
+            sys.stdout.buffer.write(output)
+    except OSError as error:
+        print(json.dumps({"status": "error", "error": str(error)}), file=sys.stderr)
+        return 2
+    except (OpenSmellError, ValueError, TypeError, csv.Error, RecursionError, OverflowError) as error:
+        print(json.dumps({"status": "invalid", "error": str(error)}), file=sys.stderr)
+        return 1
+    return 0
+
+
 def _import_csv_command(args):
     import csv
     from .experimental.csv_import import import_odornet_csv
@@ -366,6 +398,11 @@ def main(argv: list[str] | None = None) -> int:
     importer.add_argument("--row", type=int, required=True, help="One-based data record, excluding header")
     importer.add_argument("--source", required=True, help="Source/license manifest JSON")
     importer.add_argument("--output", help="Create a new Core file; existing paths are refused")
+    perceptual = commands.add_parser("import-keller", help="Import one prepared Keller/Vosshall-shaped CSV observation as a graph")
+    perceptual.add_argument("file", help="UTF-8 CSV; '-' reads stdin; 8 MiB maximum")
+    perceptual.add_argument("--row", type=int, required=True, help="One-based logical data record, excluding header")
+    perceptual.add_argument("--source", required=True, help="Source/license/preparation/rating-scale declaration JSON")
+    perceptual.add_argument("--output", help="New graph file; existing paths are refused")
     batch = commands.add_parser("import-odornet-batch", help="Import explicit CSV records with per-record outcomes")
     batch.add_argument("file", help="UTF-8 CSV; '-' reads stdin")
     batch.add_argument("--rows", required=True, nargs="+", type=int, help="Unique one-based data records")
@@ -385,6 +422,8 @@ def main(argv: list[str] | None = None) -> int:
     replay.add_argument("--native-host", required=True, help="Explicit trusted native harness executable, not a serial port")
     replay.add_argument("--output", required=True, help="New checkpointed native transcript; never overwrite")
     args = parser.parse_args(argv)
+    if args.command == "import-keller":
+        return _import_perceptual_command(args)
     if args.command == "replay-frame":
         return _replay_frame_command(args)
     if args.command == "encode-frame":
