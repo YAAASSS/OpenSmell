@@ -2,7 +2,11 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-16",
   "last_processed_main_sha": "275d6392541ad3da204d8c3d1c22975f15454116",
-  "lease": null,
+  "lease": {
+    "owner": "graph-trial-xyle8sl19g7",
+    "acquired_at": "2026-11-16T17:02:16.767Z",
+    "expires_at": "2026-11-16T21:02:16.768Z"
+  },
   "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
@@ -558,6 +562,6 @@
     "delivered": "Installed Python/JS caller-data kit, hardware-source export/native replay and selected perceptual import with synthetic and pinned publisher-source normal-entry trials (#26).",
     "next": "Selected perceptual import and first pinned publisher-source prepared trial are delivered (#26); close this slice. Next implement a usable extracted-kit path for a caller-supplied .osmell graph with explicit resource ID and mapping profile, irrespective of categorical/perceptual import origin. Passive by default: preserve original bytes/unknown source fields, installed JS transfer/inspection, validation and explicit plan/refusal report; only explicit --simulate may run existing fixed Python/Node software endpoints with both installed clients. Reuse existing SDK/capability/duration/duplicate-report protections, no inferred source kinds, chemical joins or device access. Exit criterion: fresh extracted kit outside checkout, two different graph origins with changed profiles, valid plans and retained invalid/unmapped refusals, then explicit software proof. No further import dialect/batch flags/bench diagnostics/Explorer refinements absent observed need; physical bench remains human NOT RUN and adoption/stable publication unobserved."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-16T18:00",
   "last_completed_slot": "2026-11-16T06:00"
 }
