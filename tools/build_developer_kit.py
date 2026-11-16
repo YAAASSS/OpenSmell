@@ -19,6 +19,8 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[1]
 # Explicit allowlist; external datasets, caches and arbitrary checkout files are excluded.
 PAYLOADS = {
+    "CALLER_GRAPH.md": "docs/caller-graph-trial.md",
+    "graph_trial.py": "examples/developer_kit/graph_trial.py",
     "PERCEPTUAL_IMPORT.md": "docs/perceptual-csv-import.md",
     "prepare_keller_reference.py": "examples/perceptual_import/prepare_reference.py",
     "data/synthetic_keller.csv": "examples/synthetic_keller.csv",

@@ -125,3 +125,11 @@ Use the installed `opensmell replay-frame frame.json --native-host /absolute/pat
 entry to try your own export with a native harness you explicitly trust. See
 `NATIVE_REPLAY.md`. The kit does not ship an executable. This launches software,
 records native acceptance/refusal and fake outputs, and never accesses a board.
+
+
+## Caller-owned graphs
+
+`python try_kit.py --graph /path/to/input.osmell --resource-id ID --profile /path/to/profile.json --report graph-trial.json`
+runs the common passive installed reader/plan path for categorical or perceptual
+graphs. Explicit `--simulate` adds fixed Python/Node software trials only.
+See `CALLER_GRAPH.md` for snapshots, refusals and limits.

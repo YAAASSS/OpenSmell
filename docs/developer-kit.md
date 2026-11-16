@@ -109,3 +109,11 @@ supplied with a new report path. Per-record import/bridge/plan/preflight refusal
 remain visible alongside usable plans; all planning finishes before simulation.
 See the [complete caller-cohort workflow](caller-cohort-trial.md), also included
 in the archive as `CALLER_COHORT.md`. The original no-options self-test is retained.
+
+
+## Caller-owned graphs
+
+`python try_kit.py --graph /path/to/input.osmell --resource-id ID --profile /path/to/profile.json --report graph-trial.json`
+runs the common passive installed reader/plan path for categorical or perceptual
+graphs. Explicit `--simulate` adds fixed Python/Node software trials only.
+See [the complete graph workflow](caller-graph-trial.md) for snapshots, refusals and limits.

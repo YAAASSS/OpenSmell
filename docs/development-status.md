@@ -521,3 +521,28 @@ more import dialects, batch flags or bench diagnostics. Its exit criterion must
 be an extracted-kit trial from the normal entry plus retained actual refusals;
 stable publication and outside adoption remain separate gates. Human hardware
 observation remains independent and NOT RUN.
+
+
+## Caller-owned graph trial — 2026-11-16 evening
+
+The extracted kit now accepts `try_kit.py --graph ... --resource-id ...
+--profile ... --report ...`. It snapshots exact graph/profile bytes, validates,
+passes graph bytes through the installed JS reader and retains a passive plan
+or phase-specific refusal. Explicit simulation alone runs both installed clients
+against both fixed Python/Node endpoints after capability/duration preflight.
+Reports are required, exclusively created and checkpointed; uncertainty is not
+retried. No source type/resource selection, chemical join or device access is inferred.
+
+Exit criterion delivered: a fresh extracted wheel/npm installation, graphs from
+categorical and perceptual import routes, changed semantic intensities/perceptual
+channel bindings, passive plans and missing-resource refusals, followed by both
+clients/endpoints and existing cohort/no-overwrite/modified-kit checks.
+See [the complete normal entry](caller-graph-trial.md). This is software-only
+repository-maintained proof, not outside adoption or stable publication.
+
+This closes the common post-import trial slice. Next choose a bounded distribution
+readiness result: an installable kit with explicit dependency acquisition/offline
+installation guidance and a reproducible clean-environment verification, or a
+concrete outside integration need if observed. Avoid further graph-trial flags,
+CSV dialects and Explorer refinements by default. SDK/format changes still need
+an interoperable use case; manual board/odor observations remain human NOT RUN.
