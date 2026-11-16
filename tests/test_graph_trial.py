@@ -65,3 +65,41 @@ def test_report_collision_and_bad_manifest_block_work(kit,tmp_path):
     r=invoke(kit,tmp_path)
     assert r.returncode!=0 and 'Kit bytes differ from manifest' in r.stderr
     assert (tmp_path/'report.json').read_text()=='original'
+
+
+def test_existing_resource_unmapped_by_caller_profile_retains_refusal(kit,tmp_path):
+    profile=json.loads((kit/'profiles/semantic.json').read_bytes())
+    for binding in profile['bindings']:
+        binding['descriptor']='not-present-in-input'
+    caller_profile=tmp_path/'caller-profile.json'
+    caller_profile.write_text(json.dumps(profile))
+    r=invoke(kit,tmp_path,extra=('--profile',str(caller_profile),'--simulate'))
+    assert r.returncode==3,r.stderr
+    report=json.loads(r.stdout)
+    assert report['error']['phase']=='planning' and report['execution']=='not_attempted'
+    assert 'no commands' in report['error']['detail']['error']
+    assert report['transfer_byte_identity'] is True
+
+
+def test_interrupted_software_step_keeps_unknown_and_never_retries(kit,tmp_path,monkeypatch):
+    import importlib.util
+    from types import SimpleNamespace
+    monkeypatch.syspath_prepend(str(kit))
+    spec=importlib.util.spec_from_file_location('graph_trial_under_test',kit/'graph_trial.py')
+    module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+    real=subprocess.run
+    calls=[]
+    def timeout_once(arguments,**kwargs):
+        if 'opensmell.experimental.lifecycle_demo' in arguments:
+            calls.append(arguments)
+            raise subprocess.TimeoutExpired(arguments,30)
+        return real(arguments,**kwargs)
+    monkeypatch.setattr(module.subprocess,'run',timeout_once)
+    args=SimpleNamespace(graph=ROOT/'examples/multisource_diphenyl_ether.osmell',
+        profile=kit/'profiles/semantic.json',report=tmp_path/'lost.json',simulate=True,
+        resource_id='e6ad8ce3-dc6e-5d94-9287-57665d48fc0b',duration=5)
+    assert module.execute(args,kit,{'source':{'test':True}})==1
+    report=json.loads(args.report.read_bytes())
+    assert len(calls)==1 and report['execution']=='unknown' and report['result']=='error'
+    assert report['plan']['status']=='planned' and report['software_observations']=={}
+    assert report['error']['phase']=='python_client_python'
