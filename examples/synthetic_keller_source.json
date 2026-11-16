@@ -1,0 +1,9 @@
+{
+  "name": "OpenSmell synthetic prepared psychophysical observations",
+  "url": "https://github.com/YAAASSS/OpenSmell/blob/main/examples/synthetic_keller.csv",
+  "license": "Apache-2.0 (synthetic example only; not a Keller/Vosshall data license)",
+  "kind": "synthetic",
+  "preparation": "Authored reference CSV using the documented prepared Keller/Vosshall column contract. No participant observations or external corpus copied; identifiers and ratings are illustrative declarations.",
+  "rating_scale": {"min": 0, "max": 100, "unit": "rating"},
+  "context": {"stimulus_name_and_CID": "Unverified illustrative identifiers", "future_field": ["retained", null]}
+}

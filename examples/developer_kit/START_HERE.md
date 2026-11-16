@@ -6,6 +6,21 @@ there. The archive contains only the declared synthetic CSV fixture, source
 manifest, illustrative profile, software endpoint, local packages and trial scripts.
 No external corpus, board command, flashing or odor diffusion is included.
 
+The archive also includes `PERCEPTUAL_IMPORT.md`, a synthetic prepared
+psychophysical CSV/declaration in `data/synthetic_keller*`, and
+`profiles/perceptual.json`. After installation, try the separate passive entry:
+
+```sh
+opensmell import-keller data/synthetic_keller.csv --row 1 \
+  --source data/synthetic_keller_source.json --output observation.osmell
+opensmell inspect observation.osmell --json
+```
+
+Follow `PERCEPTUAL_IMPORT.md` for selection, ratings, planning and software bench
+limits. In its commands, use the kit paths above and `profiles/perceptual.json`
+in place of `offline_perceptual_profile.json`. `try_kit.py` retains its categorical
+cohort contract; it does not guess the kind of scientific input.
+
 ## Install and try
 
 ```sh
