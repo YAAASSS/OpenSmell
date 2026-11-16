@@ -83,6 +83,41 @@ def main():
         if (framed["transport"] != "not_opened" or framed["acceptance"] != "not_observed"
                 or json.loads(framed["frame"]["line"])["commands"] != report["records"][0]["plan"]["plan"]["commands"]):
             raise ValueError("Kit's embedded plan could not export an unchanged offline frame")
+        # Caller graphs from both import routes use the same normal entry.
+        categorical = work / "caller-categorical.osmell"
+        categorical.write_text(json.dumps(report["records"][0]["plan"]["source"]["document"]))
+        for label, graph_path, rid, profile_path in (
+            ("semantic", categorical, report["records"][0]["plan"]["request"]["resource_id"], kit / "profiles/semantic.json"),
+            ("perceptual", perceptual, observation_id, kit / "profiles/perceptual.json"),
+        ):
+            profile_value = json.loads(profile_path.read_bytes())
+            if label == "semantic":
+                profile_value["bindings"][0]["intensity"] = .4
+            else:
+                profile_value["bindings"][0]["channel"], profile_value["bindings"][2]["channel"] = 2, 0
+            changed = work / (label + "-changed.json")
+            changed.write_text(json.dumps(profile_value))
+            invocation_graph = [python, "try_kit.py", "--graph", graph_path, "--resource-id", rid,
+                                "--profile", changed, "--report", work / (label + "-graph.json")]
+            passive_graph = json.loads(run(invocation_graph).stdout)
+            expected = {0:.4} if label == "semantic" else {0:.89,1:0,2:.26}
+            if ({c["channel"]:c["intensity"] for c in passive_graph["plan"]["plan"]["commands"]} != expected
+                    or passive_graph["execution"] != "not_attempted"):
+                raise ValueError("Caller graph/profile was not used passively")
+            invocation_graph[-1] = work / (label + "-graph-simulated.json")
+            observed = json.loads(run(invocation_graph + ["--simulate"]).stdout)
+            if observed["result"] != "software_verified" or len(observed["software_observations"]) != 4:
+                raise ValueError("Both graph origins must verify both installed clients/endpoints")
+            retained_graph = invocation_graph[-1].read_bytes()
+            run(invocation_graph + ["--simulate"], expected=2)
+            if invocation_graph[-1].read_bytes() != retained_graph:
+                raise ValueError("Graph report overwritten")
+            invocation_graph[-1] = work / (label + "-graph-refused.json")
+            bad_index = invocation_graph.index("--resource-id") + 1
+            invocation_graph[bad_index] = "not-a-resource"
+            refusal = json.loads(run(invocation_graph, expected=3).stdout)
+            if refusal["execution"] != "not_attempted" or refusal["error"]["phase"] != "planning":
+                raise ValueError("Missing graph selection must remain refused")
         before = output.read_bytes()
         run([python, "try_kit.py", "--report", output], expected=2)
         if output.read_bytes() != before:
@@ -154,6 +189,7 @@ def main():
                           "report_no_overwrite": True, "modified_data_refused": True,
                           "caller_cohort": "passive and explicit simulation; partial refusals retained",
                           "perceptual_entry": "installed CSV/JS/plan from included files; missing versus zero preserved",
+                          "caller_graphs": "both origins, changed profiles, passive plans/refusals and explicit both-client/endpoints",
                           "physical_validation": False}))
 
 

@@ -1671,6 +1671,9 @@ as an experimental artifact; Python third-party dependencies are not bundled.
 The kit also accepts [caller-owned CSV cohorts](docs/caller-cohort-trial.md),
 source declarations, selected rows and explicit profiles. Custom mode generates
 passive plans with per-record refusals; software trials require `--simulate`.
+The same kit entry also accepts [caller-owned graphs](docs/caller-graph-trial.md)
+with explicit resource/profile selection, retaining original-byte snapshots,
+limited JS inspection and plans/refusals before any optional software trial.
 
 The installed [offline frame exporter](docs/protocol-frame-export.md) converts
 an explicit plan artifact to Device Protocol 0.1 line data after target-capability

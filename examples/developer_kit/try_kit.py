@@ -8,6 +8,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 from pathlib import Path
 import subprocess
 import sys
@@ -42,7 +43,18 @@ def main():
     parser.add_argument("--profile", type=Path, help="Explicit mapping profile JSON")
     parser.add_argument("--rows", type=int, nargs="+", help="1–1000 unique positive data-record indexes")
     parser.add_argument("--simulate", action="store_true", help="Explicitly try caller plans on fixed Python/Node software endpoints")
+    parser.add_argument("--graph", type=Path, help="Caller Generic ResourceGraph; at most 1 MiB")
+    parser.add_argument("--resource-id", help="Explicit graph resource to map")
+    parser.add_argument("--duration", type=float, default=5, help="Graph planning seconds; simulation walkthrough requires 5")
     args = parser.parse_args()
+    if args.graph is not None or args.resource_id is not None:
+        if not all((args.graph, args.resource_id, args.profile, args.report)) or any(x is not None for x in (args.csv, args.source, args.rows)):
+            parser.error("Graph mode requires --graph, --resource-id, --profile, --report; CSV options are separate")
+        if not math.isfinite(args.duration) or args.duration <= 0:
+            parser.error("Graph duration must be finite and positive")
+        manifest = check_manifest()
+        from graph_trial import execute
+        return execute(args, ROOT, manifest)
     custom = any(x is not None for x in (args.csv, args.source, args.profile, args.rows))
     if custom and not all(x is not None for x in (args.csv, args.source, args.profile, args.rows)):
         parser.error("--csv, --source, --profile and --rows are required together")
