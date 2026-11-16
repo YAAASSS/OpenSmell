@@ -1,127 +1,96 @@
 {
   "schema_version": 1,
-  "last_completed_brussels_date": "2026-11-15",
-  "last_processed_main_sha": "447b25bf777139e08f0968093ffdeff67bf9debd",
-  "lease": {
-    "owner": "perceptual-20261116-ei01jpfe83",
-    "acquired_at": "2026-11-16T05:00:05.680Z",
-    "expires_at": "2026-11-16T09:00:05.680Z"
-  },
-  "open_work": {
-    "branch": "feat/selected-perceptual-import-20261116",
-    "commit": "23dde3dadc09fdc934a91d16dfeea9fea57adbc5",
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/26",
-    "tree": "712b1bc6046dd20efd987cb1f1372f5057990006",
-    "objective": "Selected installed prepared perceptual observation import, JS transfer and native frame proof",
-    "resume": "Exact final head 23dde3d: SDK/CLI and synthetic native proof plus pinned published XLSX preparation trial delivered. Check final Tests/ESP32, reviews/rules, merge, verify main; save Monday Work handoff and release lease."
-  },
+  "last_completed_brussels_date": "2026-11-16",
+  "last_processed_main_sha": "275d6392541ad3da204d8c3d1c22975f15454116",
+  "lease": null,
+  "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
-    "slot": "2026-11-15T18:00",
-    "completed_at": "2026-11-15T17:32:51.617Z",
-    "objective": "Installed developer-owned frame replay and retained native observations, including self-contained CSV-derived export proof",
-    "commit": "447b25bf777139e08f0968093ffdeff67bf9debd",
-    "tested_commit": "be727bac4e408899430824e08309b8b58bd5aa94",
+    "slot": "2026-11-16T06:00",
+    "completed_at": "2026-11-16T05:24:07.703Z",
+    "objective": "Installed selected perceptual CSV observation import and pinned scientific-source preparation through Python/JS/plan/native frame evidence",
+    "commit": "275d6392541ad3da204d8c3d1c22975f15454116",
+    "tested_commit": "23dde3dadc09fdc934a91d16dfeea9fea57adbc5",
+    "tested_tree": "712b1bc6046dd20efd987cb1f1372f5057990006",
     "merged": true,
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/25",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/26",
     "checks": {
-      "python_full_local": 2201,
-      "python_full_local_seconds": 103.06,
-      "new_native_replay_cases": 18,
-      "python_full_final_ci": 2201,
+      "python_full_local": 2235,
+      "python_full_local_seconds": 94.63,
+      "new_import_cases": 34,
+      "targeted_final": 36,
+      "javascript_local_relevant": 50,
+      "native_existing_bench": 44,
       "ci_python_versions": [
         "3.10",
         "3.11",
         "3.12",
         "3.13"
       ],
-      "python312_final_ci_seconds": 89.04,
+      "python312_final_ci": 2235,
+      "python312_final_ci_seconds": 97.82,
       "ci_node": "22",
-      "installed_native_replay": "Fresh wheel outside checkout; actual installed replay-frame on semantic/perceptual exports against actual compiled sketch, 9 transcript exchanges each, exact chosen line preserved, fake PWM64/153/0 and120/46/38; known refusal negative control without output mutation and fake-clock off.",
-      "capability_gates": "Valid export for another target stops after negotiation before selected frame; matching but non-reference bounds rejected pre-send. Altered export/snapshot/context rejected before process launch; report collision prevents duplicate replay.",
-      "failure_semantics": "Tests cover explicit refusal, EOF/malformed reply/timeout/startup exit, preserved malformed bytes, no retry, known acceptance followed by lost observation, and refused output mutation detected.",
-      "caller_csv_proof": {
-        "record": 3,
-        "source_kind": "synthetic",
-        "changed_profile_plan": "CH1=.8 duration5",
-        "preparation_files_deleted_before_replay": true,
-        "pwm": [
-          0,
-          204,
+      "installed_synthetic": "Fresh wheel/local JS outside checkout: 3 selected graphs, two distinct plans, blank-vs-zero/context preservation, invalid and overwrite refusals, partial JS inspection and byte equality. Native actual-sketch replays9 exchanges each, PWM66/0/227 and204/51/0, negative-control preservation and fake-clock off.",
+      "published_trial": {
+        "source": "Keller and Vosshall 2016 publisher supplement, DOI10.1186/s12868-016-0287-2",
+        "xlsx_bytes": 9461137,
+        "xlsx_sha256": "efcb1b07558431c869c5578abcd3fa1e4405a38cc68a8b1c1621594c673d9f62",
+        "prepared_bytes": 618,
+        "prepared_sha256": "57e9cd4b41bc69d8813726ae80442b177ae52b4e6100ac56872c546db94f991c",
+        "source_indexes": [
+          2500,
+          2501,
           0
         ],
-        "transcript_exchanges": 9,
-        "result": "accepted",
-        "negative_control_preserved_outputs": true,
-        "outputs_off_after_advance": true
+        "prepared_rows": [
+          1,
+          2,
+          3
+        ],
+        "imported": 3,
+        "planned": 1,
+        "planning_refused": 2,
+        "planned_commands": "CH0=.26, CH1=.38, CH2=.89 duration5",
+        "native_acceptance": "accepted",
+        "native_fake_pwm": [
+          66,
+          97,
+          227
+        ],
+        "native_exchanges": 9,
+        "source_files_deleted_before_replay": true,
+        "scope": "Pinned local source preparation; attribution/rights notice retained, source/header scale discrepancy recorded with R familiarity excluded. No demographics, joins/averages, source corpus redistribution or physical evidence.",
+        "transcript_sha256": "718f83823b9042b01c978d14240ef584e8ac98c065f3808f5669f24ed4cf6d2e",
+        "result_sha256": "0c6e7965e5c8c9982d16133b4ba0e1e13b5c73ab16a1412262c5f9464e5af3eb"
       },
-      "kit": "Extracted installed kit original/custom trials and retained-plan export passed; guide included without native executable.",
-      "local_esp32_compile": {
-        "result": "success",
-        "observed_build_seconds": 64.23
-      },
+      "preparation_refusals": "Wrong XLSX hash before output creation; existing directory refused without overwrite.",
+      "kit": "Rebuilt/extracted/fresh installed kit: new passive perceptual CSV/JS/plan entry using included files plus existing categorical/custom Python/Node endpoints passed. Preparation example included, external corpus excluded.",
       "ci_esp32": {
+        "result": "success",
+        "compile_seconds": 32.12,
         "ram_bytes": 22680,
-        "program_bytes": 287209
+        "program_bytes": 287209,
+        "native_synthetic_evidence_artifact": 14199423309
       },
-      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43740960547",
-      "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43740960545",
+      "kit_ci_artifact": 14199169993,
+      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43809350217",
+      "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43809350321",
       "ci_result": "success",
       "main_tree_matches_tested": true,
+      "post_merge_main_entry": "Fetched main275d639; normal installed import-keller and validate passed.",
       "physical_access": false
     },
     "limitations": [
-      "Caller explicitly selects a trusted regular native executable; file hash is an observed identity, not code authentication or sandboxing. First bench profile is 3ch0–2 intensity0–1 duration0.1–30s LED reference only.",
-      "Acceptance, trial status and fake outputs are separate; execution:not_observed and physical_validation:false. No serial/device access, hardware/odor result, lifecycle/Stop extension or third-party adoption claim.",
-      "Required report is exclusively reserved/checkpointed; interrupted files are not success and no automatic retry/recovery or durable exactly-once is supplied.",
-      "Export24MiB, source8MiB/target1MiB, reply65536 bytes; first reply5s, later2s. Source/profile hashes declared; unknown input and bounded malformed replies retained. No historical Node timeout bound changed or cause claimed fixed.",
-      "No tags/releases/registry publication. Human ESP32 bench remains NOT RUN."
+      "Prepared single-record CSV contract only; fixed declared0..100 dimensionless subjective rating. CSV8MiB/source1MiB, CSV default field bound; only selected raw cells/source JSON and input hashes retained, not original full CSV or declaration formatting.",
+      "Free-text categorical fields remain opaque with detection unknown; absence never invents numerical zero. Occurrence-scoped IDs do not assert chemical/person equivalence. Source/license/preparation remain supplied declarations.",
+      "JS inspection partial with categories opaque and absent Annotation branch; exact bytes/known references retained, no complete scheme/corpus validation.",
+      "Native actual-sketch acceptance/fake PWM/fake clock are software observations; execution:not_observed and physical_validation:false. No serial/physical action/flash/diffusion, tags/releases or registry publication. Human bench NOT RUN; independent adoption unobserved.",
+      "Historical intermittent Node timeout is not declared fixed; existing deadlines/no-retry behavior unchanged."
     ],
-    "handoff_library_file_id": "libfile_fde3_f-674c02691e2481919e46236eb6b7cccb_44ff1f20787081919dd91de18843de02"
+    "weekly_review": "Week9–15: installed CLI/profiles, reusable Python/Node and JS clients, Core/CSV provenance/cohorts and pinned OdorNet trials, extracted caller-data kit, pinned firmware build/native bench and installed frame export/replay delivered. APIs/RFCs experimental; physical bench and third-party adoption not newly observed.",
+    "handoff_library_file_id": "libfile_fde3_f-972bd0b350188191920e71f106c6ea09_44ff1f20787081919dd91de18843de02"
   },
   "recent_sessions": [
-    {
-      "session_kind": "scheduled",
-      "slot": "2026-11-12T18:00",
-      "completed_at": "2026-11-12T17:16:23.636Z",
-      "objective": "Installed declared CSV import, developer quickstart and real pinned OdorNet record-to-plan-to-Node trial",
-      "commit": "8e194062a94a61520302a6adeb30b1bd9031d476",
-      "tested_commit": "e2303565070a29585f4c61052cd34c50bb1f02f2",
-      "merged": true,
-      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/17",
-      "checks": {
-        "python_full": 2122,
-        "new_import_cases": 28,
-        "javascript": 46,
-        "installed_wheel": "Passed in isolation: CSV/Core/graph/plan/recovery, Python/Node lifecycle and no-overwrite/refusal paths",
-        "public_source": {
-          "repository": "https://github.com/NKU-DOIE/OdorNet",
-          "commit": "88d146360dfc548462a5ebd6a081ea0590f2819e",
-          "file": "data/processed/full_dataset.csv",
-          "bytes": 600964,
-          "sha256": "de06d853a3c2ebe1e97379db2b24f695feda9600fc0ab1842c2425c5d2307331",
-          "data_record": 1,
-          "expected_plan": "channel 1 at 0.6 for 5 seconds",
-          "node_outcomes": [
-            "completed",
-            "stopped",
-            "unknown"
-          ],
-          "license_declaration": "CC-BY-4.0 from upstream LICENSE; attribution retained; dataset bytes not committed"
-        },
-        "ci_result": "success",
-        "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43266980548",
-        "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43266980633",
-        "main_tree_matches_tested": true,
-        "physical_access": false
-      },
-      "limitations": [
-        "Initial concurrent local wheel proof exceeded existing Node five-second startup bound on the pre-existing diphenyl-ether perceptual path. Link closed, no resend. Isolated proof and final CI passed; root cause remains unproven and is not claimed fixed.",
-        "Single selected record only; no corpus-wide validation or chemical correctness claim. Synthetic bundled fixture is explicitly distinguished from public data.",
-        "Source/license are declarations; raw selected values retained, full CSV quoting/bytes not embedded. Manifest input_sha256 is retained metadata, not an automatic gate."
-      ],
-      "handoff_library_file_id": "libfile_fde3_f-fadc64ef42888191ac65a3c6077f72e8_44ff1f20787081919dd91de18843de02"
-    },
     {
       "session_kind": "scheduled",
       "slot": "2026-11-13T06:00",
@@ -481,9 +450,95 @@
         "No tags/releases/registry publication. Human ESP32 bench remains NOT RUN."
       ],
       "handoff_library_file_id": "libfile_fde3_f-674c02691e2481919e46236eb6b7cccb_44ff1f20787081919dd91de18843de02"
+    },
+    {
+      "session_kind": "scheduled",
+      "slot": "2026-11-16T06:00",
+      "completed_at": "2026-11-16T05:24:07.703Z",
+      "objective": "Installed selected perceptual CSV observation import and pinned scientific-source preparation through Python/JS/plan/native frame evidence",
+      "commit": "275d6392541ad3da204d8c3d1c22975f15454116",
+      "tested_commit": "23dde3dadc09fdc934a91d16dfeea9fea57adbc5",
+      "tested_tree": "712b1bc6046dd20efd987cb1f1372f5057990006",
+      "merged": true,
+      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/26",
+      "checks": {
+        "python_full_local": 2235,
+        "python_full_local_seconds": 94.63,
+        "new_import_cases": 34,
+        "targeted_final": 36,
+        "javascript_local_relevant": 50,
+        "native_existing_bench": 44,
+        "ci_python_versions": [
+          "3.10",
+          "3.11",
+          "3.12",
+          "3.13"
+        ],
+        "python312_final_ci": 2235,
+        "python312_final_ci_seconds": 97.82,
+        "ci_node": "22",
+        "installed_synthetic": "Fresh wheel/local JS outside checkout: 3 selected graphs, two distinct plans, blank-vs-zero/context preservation, invalid and overwrite refusals, partial JS inspection and byte equality. Native actual-sketch replays9 exchanges each, PWM66/0/227 and204/51/0, negative-control preservation and fake-clock off.",
+        "published_trial": {
+          "source": "Keller and Vosshall 2016 publisher supplement, DOI10.1186/s12868-016-0287-2",
+          "xlsx_bytes": 9461137,
+          "xlsx_sha256": "efcb1b07558431c869c5578abcd3fa1e4405a38cc68a8b1c1621594c673d9f62",
+          "prepared_bytes": 618,
+          "prepared_sha256": "57e9cd4b41bc69d8813726ae80442b177ae52b4e6100ac56872c546db94f991c",
+          "source_indexes": [
+            2500,
+            2501,
+            0
+          ],
+          "prepared_rows": [
+            1,
+            2,
+            3
+          ],
+          "imported": 3,
+          "planned": 1,
+          "planning_refused": 2,
+          "planned_commands": "CH0=.26, CH1=.38, CH2=.89 duration5",
+          "native_acceptance": "accepted",
+          "native_fake_pwm": [
+            66,
+            97,
+            227
+          ],
+          "native_exchanges": 9,
+          "source_files_deleted_before_replay": true,
+          "scope": "Pinned local source preparation; attribution/rights notice retained, source/header scale discrepancy recorded with R familiarity excluded. No demographics, joins/averages, source corpus redistribution or physical evidence.",
+          "transcript_sha256": "718f83823b9042b01c978d14240ef584e8ac98c065f3808f5669f24ed4cf6d2e",
+          "result_sha256": "0c6e7965e5c8c9982d16133b4ba0e1e13b5c73ab16a1412262c5f9464e5af3eb"
+        },
+        "preparation_refusals": "Wrong XLSX hash before output creation; existing directory refused without overwrite.",
+        "kit": "Rebuilt/extracted/fresh installed kit: new passive perceptual CSV/JS/plan entry using included files plus existing categorical/custom Python/Node endpoints passed. Preparation example included, external corpus excluded.",
+        "ci_esp32": {
+          "result": "success",
+          "compile_seconds": 32.12,
+          "ram_bytes": 22680,
+          "program_bytes": 287209,
+          "native_synthetic_evidence_artifact": 14199423309
+        },
+        "kit_ci_artifact": 14199169993,
+        "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43809350217",
+        "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43809350321",
+        "ci_result": "success",
+        "main_tree_matches_tested": true,
+        "post_merge_main_entry": "Fetched main275d639; normal installed import-keller and validate passed.",
+        "physical_access": false
+      },
+      "limitations": [
+        "Prepared single-record CSV contract only; fixed declared0..100 dimensionless subjective rating. CSV8MiB/source1MiB, CSV default field bound; only selected raw cells/source JSON and input hashes retained, not original full CSV or declaration formatting.",
+        "Free-text categorical fields remain opaque with detection unknown; absence never invents numerical zero. Occurrence-scoped IDs do not assert chemical/person equivalence. Source/license/preparation remain supplied declarations.",
+        "JS inspection partial with categories opaque and absent Annotation branch; exact bytes/known references retained, no complete scheme/corpus validation.",
+        "Native actual-sketch acceptance/fake PWM/fake clock are software observations; execution:not_observed and physical_validation:false. No serial/physical action/flash/diffusion, tags/releases or registry publication. Human bench NOT RUN; independent adoption unobserved.",
+        "Historical intermittent Node timeout is not declared fixed; existing deadlines/no-retry behavior unchanged."
+      ],
+      "weekly_review": "Week9–15: installed CLI/profiles, reusable Python/Node and JS clients, Core/CSV provenance/cohorts and pinned OdorNet trials, extracted caller-data kit, pinned firmware build/native bench and installed frame export/replay delivered. APIs/RFCs experimental; physical bench and third-party adoption not newly observed.",
+      "handoff_library_file_id": "libfile_fde3_f-972bd0b350188191920e71f106c6ea09_44ff1f20787081919dd91de18843de02"
     }
   ],
-  "next_objective": "Developer-owned native replay and CSV-derived self-contained input proof are delivered (#25). Close this bounded bench slice; defer further replay diagnostics/flags, reconnect/browser transports and Explorer refinements. Next product result: a first installed selected-perceptual-observation import from one explicitly declared/documented prepared scientific source, preserving units/scale/stimulus/dilution and source/license context separately from categorical annotations. Inspect existing adapters and actual source contracts first; choose a bounded reproducible supported input contract, then prove graph/perceptual plan and offline frame/native replay via normal installed entries. Use a clearly synthetic reference if an authorized source is unavailable; do not invent chemical joins, collapse categorical and measured values or claim corpus-wide/physical equivalence. Keep SDK/format, data, hardware and adoption roadmap short; manual hardware observation remains human NOT RUN.",
+  "next_objective": "Selected perceptual import and first pinned publisher-source prepared trial are delivered (#26); close this slice. Next implement a usable extracted-kit path for a caller-supplied .osmell graph with explicit resource ID and mapping profile, irrespective of categorical/perceptual import origin. Passive by default: preserve original bytes/unknown source fields, installed JS transfer/inspection, validation and explicit plan/refusal report; only explicit --simulate may run existing fixed Python/Node software endpoints with both installed clients. Reuse existing SDK/capability/duration/duplicate-report protections, no inferred source kinds, chemical joins or device access. Exit criterion: fresh extracted kit outside checkout, two different graph origins with changed profiles, valid plans and retained invalid/unmapped refusals, then explicit software proof. No further import dialect/batch flags/bench diagnostics/Explorer refinements absent observed need; physical bench remains human NOT RUN and adoption/stable publication unobserved.",
   "automation": {
     "id": "39cc72697e048191a1ba0d3e3e9d787c",
     "title": "OpenSmell — développement autonome quotidien",
@@ -500,9 +555,9 @@
   },
   "active_product_milestone": {
     "goal": "Installable OpenSmell developer kit spanning data, SDK, device integration and reproducible hardware bench",
-    "delivered": "Installed Python/JS clients and caller-data kit, source-bound frame export and developer-owned native replay transcripts (#25), prior pinned ESP32 compile/native bench and public-source trial.",
-    "next": "Developer-owned native replay and CSV-derived self-contained input proof are delivered (#25). Close this bounded bench slice; defer further replay diagnostics/flags, reconnect/browser transports and Explorer refinements. Next product result: a first installed selected-perceptual-observation import from one explicitly declared/documented prepared scientific source, preserving units/scale/stimulus/dilution and source/license context separately from categorical annotations. Inspect existing adapters and actual source contracts first; choose a bounded reproducible supported input contract, then prove graph/perceptual plan and offline frame/native replay via normal installed entries. Use a clearly synthetic reference if an authorized source is unavailable; do not invent chemical joins, collapse categorical and measured values or claim corpus-wide/physical equivalence. Keep SDK/format, data, hardware and adoption roadmap short; manual hardware observation remains human NOT RUN."
+    "delivered": "Installed Python/JS caller-data kit, hardware-source export/native replay and selected perceptual import with synthetic and pinned publisher-source normal-entry trials (#26).",
+    "next": "Selected perceptual import and first pinned publisher-source prepared trial are delivered (#26); close this slice. Next implement a usable extracted-kit path for a caller-supplied .osmell graph with explicit resource ID and mapping profile, irrespective of categorical/perceptual import origin. Passive by default: preserve original bytes/unknown source fields, installed JS transfer/inspection, validation and explicit plan/refusal report; only explicit --simulate may run existing fixed Python/Node software endpoints with both installed clients. Reuse existing SDK/capability/duration/duplicate-report protections, no inferred source kinds, chemical joins or device access. Exit criterion: fresh extracted kit outside checkout, two different graph origins with changed profiles, valid plans and retained invalid/unmapped refusals, then explicit software proof. No further import dialect/batch flags/bench diagnostics/Explorer refinements absent observed need; physical bench remains human NOT RUN and adoption/stable publication unobserved."
   },
-  "session_slot": "2026-11-16T06:00",
-  "last_completed_slot": "2026-11-15T18:00"
+  "session_slot": null,
+  "last_completed_slot": "2026-11-16T06:00"
 }
