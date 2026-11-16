@@ -7,7 +7,14 @@
     "acquired_at": "2026-11-16T05:00:05.680Z",
     "expires_at": "2026-11-16T09:00:05.680Z"
   },
-  "open_work": null,
+  "open_work": {
+    "branch": "feat/selected-perceptual-import-20261116",
+    "commit": "2e7f37a596292104040d8a7689bb24ddc7f7ea3f",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/26",
+    "tree": "6f1e1ecd59d10a9590324852ee375e739c5fc9d3",
+    "objective": "Selected installed prepared perceptual observation import, JS transfer and native frame proof",
+    "resume": "Check exact-head Tests/ESP32 CI, finish portable-kit and authorized prepared-source trial where accessible; fix failures, review and merge then verify main."
+  },
   "last_result": {
     "session_kind": "scheduled",
     "slot": "2026-11-15T18:00",
