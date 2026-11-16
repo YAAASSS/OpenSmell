@@ -20,6 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 # Explicit allowlist; external datasets, caches and arbitrary checkout files are excluded.
 PAYLOADS = {
     "PERCEPTUAL_IMPORT.md": "docs/perceptual-csv-import.md",
+    "prepare_keller_reference.py": "examples/perceptual_import/prepare_reference.py",
     "data/synthetic_keller.csv": "examples/synthetic_keller.csv",
     "data/synthetic_keller_source.json": "examples/synthetic_keller_source.json",
     "profiles/perceptual.json": "examples/offline_perceptual_profile.json",

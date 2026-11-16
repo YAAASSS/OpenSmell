@@ -121,3 +121,65 @@ rating context, unchanged JavaScript transfer, distinct perceptual plans and nat
 frame proof. This does **not** validate an external corpus or demonstrate independent
 adoption. Defer more importer dialects/batch flags until a concrete source trial
 requires them. Manual ESP32/odor observations remain separate and NOT RUN.
+
+## Pinned published-source trial
+
+The same installed entry was also exercised on a selected preparation of the
+publisher's supplement to [Keller and Vosshall (2016)](https://doi.org/10.1186/s12868-016-0287-2).
+See the publisher's source/rights notice, including its data waiver, before reuse;
+the generated declaration retains attribution and distinguishes data from article
+licensing. The workbook and prepared scientific rows are not bundled in this repo
+or the kit. Download **Additional file 1** from that article explicitly.
+
+| Observed identity | Value |
+| --- | --- |
+| Supplement | `12868_2016_287_MOESM1_ESM.xlsx` |
+| Downloaded bytes | 9,461,137 |
+| Workbook SHA-256 | `efcb1b07558431c869c5578abcd3fa1e4405a38cc68a8b1c1621594c673d9f62` |
+| Prepared CSV bytes | 618 |
+| Prepared CSV SHA-256 | `57e9cd4b41bc69d8813726ae80442b177ae52b4e6100ac56872c546db94f991c` |
+
+`examples/perceptual_import/prepare_reference.py` (kit:
+`prepare_keller_reference.py`) is a narrow standard-library preparation example.
+It requires that exact workbook hash, reads the pinned sheet/XML layout, strips
+header padding, selects zero-based source observations **2500, 2501, 0**, and
+writes a new CSV/declaration directory. It neither downloads nor evaluates formulas.
+Only source columns C,D,E,F,M,N,P,Q,S:AL are projected; demographic columns are
+excluded. Numeric XML text and absent cells remain numeric text and blank.
+
+**Scale limitation:** workbook header row 2 labels familiarity (column R) as
+1..100, whereas the article describes 0..100 sliders. The reference preparation
+omits R and records this discrepancy; it does not resolve it by silent conversion.
+This does not change the existing research adapters or claim all source scales
+are interchangeable.
+
+```sh
+python examples/perceptual_import/prepare_reference.py /path/to/12868_2016_287_MOESM1_ESM.xlsx \
+  --output-directory public-prepared
+opensmell import-keller public-prepared/observations.csv --row 1 \
+  --source public-prepared/source.json --output published-observation.osmell
+# Follow the same inspect / explicit resource-ID / plan / encode-frame entries above.
+python -m tools.verify_installed_perceptual dist/opensmell-0.1.0-py3-none-any.whl \
+  --published-preparation public-prepared --host /tmp/opensmell-firmware-host \
+  --evidence-directory public-proof
+```
+
+Actual result on 2026-11-16 through fresh installed Python/JS packages:
+
+| Prepared record | Source zero-based observation / worksheet row | Observed outcome |
+| --- | --- | --- |
+| 1 | 2500 / 2504 | Imported; CH0=.26, CH1=.38, CH2=.89; exact native frame accepted; fake PWM `[66,97,227]` |
+| 2 | 2501 / 2505 | Imported; no numeric ratings; plan refused |
+| 3 | 0 / 4 | Imported; three numeric ratings, none bound by the flower/grass/wood profile; plan refused |
+
+The native transcript has nine exchanges, includes the unmodified selected line,
+preserves outputs after the known-refused 31-second control and observes fake-clock
+expiry to `[0,0,0]`. All three graphs survive unchanged JS transfer with correctly
+partial inspection. Temporary preparation inputs disappear before replay.
+`public-proof` retains graphs, reader reports, the usable plan/frame, transcript,
+source context and refusal reports. Directory/report collisions refuse overwrite.
+The verifier checks this exact selected preparation; it is not a corpus validator.
+
+This closes the first bounded external prepared-source trial. Its correct result
+includes two planning refusals; no inferred zeros, fabricated mappings, physical
+result or independent adoption is added to make every record renderable.

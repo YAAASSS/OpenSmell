@@ -134,7 +134,7 @@ requiring Explorer. No new stable release or physical odor capability is implied
 | 1 | Installed SDK and CLI workflow | Delivered: a wheel installed outside the checkout validates/inspects Core and graph files and produces semantic/perceptual dry-run plans with explicit mapping, capabilities and source provenance. Core import/source recovery delivered in the 2026-11-12 slice below. |
 | 2 | Reusable device integration | Delivered in PR #13, with bounded startup correction #14: installed SDK and standalone Python/Node graph-to-execution walkthrough. |
 | 3 | Reproducible hardware bench | Software/build slice delivered in #15, installed frame export/replay in #24–25: pinned ESP32 compilation, actual-sketch native bench, bill of materials/wiring and manual procedure. Human physical observations remain NOT RUN; no autonomous flashing or diffusion. |
-| 4 | Data and adoption | Categorical selected/cohort import and public-source trials delivered in #16–18/#23; installed Python/JS clients and portable caller-data kit in #19–21/#23. Current slice: selected prepared perceptual observation import, unchanged JS transfer and native frame proof. Next require one documented authorized external prepared-source trial before expanding formats. Third-party adoption requires observed independent use. |
+| 4 | Data and adoption | Categorical selected/cohort import and public-source trials delivered in #16–18/#23; installed Python/JS clients and portable caller-data kit in #19–21/#23. Selected prepared perceptual import now has synthetic and pinned publisher-source trials through installed Python/JS/native entries. Next: a bounded external-consumer onboarding/readiness path; require an observed integration need before more import dialects. Third-party adoption requires observed independent use. |
 
 Complete a usable vertical slice and its exit criterion before opening an adjacent
 refinement. Reorder for actual dependencies or demonstrated regressions. Prioritize
@@ -502,9 +502,22 @@ partial with opaque categories; this trial does not authenticate scientific
 source/license/chemical identity, validate a corpus, establish third-party
 adoption or observe a physical output. Manual board/odor evidence remains NOT RUN.
 
-This closes the selected prepared-observation vertical slice. Next seek one
-bounded, authorized external prepared-source trial through the same installed
-entry, retaining extraction/version/attribution and actual refusals. Do not add
-another import dialect, batch flag or bench diagnostic without that concrete
-need. SDK/format expansion and stable publication stay gated by demonstrated
-interop needs/readiness; human hardware observation remains an independent gate.
+The same entry also passed a bounded published-source trial: the explicitly
+downloaded Keller/Vosshall supplement (9,461,137 bytes, SHA-256
+efcb1b07558431c869c5578abcd3fa1e4405a38cc68a8b1c1621594c673d9f62)
+prepared observations 2500/2501/0 without demographic columns. The installed
+row-1 plan produced native fake PWM66/97/227; the other rows retained legitimate
+unmeasured/unmapped planning refusals. A standard-library, pinned-hash preparation
+example is included; external data bytes are not. Familiarity is explicitly
+omitted from this preparation because workbook/article scale labels differ.
+Attribution, preparation and limits are in the [source trial](perceptual-csv-import.md#pinned-published-source-trial).
+
+This closes both the selected prepared-observation slice and its first bounded
+external-source trial. Next: a developer-facing kit onboarding/readiness path
+that connects the existing categorical/perceptual choices, installed SDK entries
+and software/native evidence without guessing source kinds or requesting device
+access. Prefer a complete documented trial using caller-selected artifacts over
+more import dialects, batch flags or bench diagnostics. Its exit criterion must
+be an extracted-kit trial from the normal entry plus retained actual refusals;
+stable publication and outside adoption remain separate gates. Human hardware
+observation remains independent and NOT RUN.

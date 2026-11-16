@@ -54,6 +54,21 @@ def main():
         if not Path(location).is_relative_to(environment):
             raise ValueError("Python import did not resolve to the installed kit wheel")
         run([npm, "install", "--offline", "--ignore-scripts", "--no-save", "--no-audit", "--no-fund", "--package-lock=false", *packages])
+        # Exercise the documented passive perceptual entry using only included
+        # payloads and installed packages, not checkout paths or an app importer.
+        perceptual = kit / "selected-observation.osmell"
+        run([python, "-I", "-m", "opensmell", "import-keller", "data/synthetic_keller.csv", "--row", "1",
+             "--source", "data/synthetic_keller_source.json", "--output", perceptual])
+        reading = json.loads(run(["node", "inspect.cjs", perceptual, "selected-transferred.osmell"]).stdout)
+        if reading["status"] != "partial" or (kit / "selected-transferred.osmell").read_bytes() != perceptual.read_bytes():
+            raise ValueError("Kit perceptual graph did not retain bytes through the limited JS reader")
+        selected_graph = json.loads(perceptual.read_bytes())
+        observation_id = selected_graph["org.opensmell.experimental.perceptual-csv-import"]["primary_resource_id"]
+        perceptual_plan = json.loads(run([python, "-I", "-m", "opensmell", "plan", "selected-transferred.osmell",
+                                         "--resource-id", observation_id, "--profile", "profiles/perceptual.json",
+                                         "--duration", "5"]).stdout)
+        if {c["channel"]: c["intensity"] for c in perceptual_plan["plan"]["commands"]} != {0: .26, 1: 0, 2: .89}:
+            raise ValueError("Kit perceptual entry lost measured zero or used the wrong profile")
         output = kit / "trial.json"
         result = run([python, "try_kit.py", "--report", output])
         report = json.loads(result.stdout)
@@ -138,6 +153,7 @@ def main():
                           "endpoints": ["python", "node"], "original_bytes_preserved": True,
                           "report_no_overwrite": True, "modified_data_refused": True,
                           "caller_cohort": "passive and explicit simulation; partial refusals retained",
+                          "perceptual_entry": "installed CSV/JS/plan from included files; missing versus zero preserved",
                           "physical_validation": False}))
 
 
