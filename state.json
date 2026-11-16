@@ -2,7 +2,11 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-15",
   "last_processed_main_sha": "447b25bf777139e08f0968093ffdeff67bf9debd",
-  "lease": null,
+  "lease": {
+    "owner": "perceptual-20261116-ei01jpfe83",
+    "acquired_at": "2026-11-16T05:00:05.680Z",
+    "expires_at": "2026-11-16T09:00:05.680Z"
+  },
   "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
@@ -492,6 +496,6 @@
     "delivered": "Installed Python/JS clients and caller-data kit, source-bound frame export and developer-owned native replay transcripts (#25), prior pinned ESP32 compile/native bench and public-source trial.",
     "next": "Developer-owned native replay and CSV-derived self-contained input proof are delivered (#25). Close this bounded bench slice; defer further replay diagnostics/flags, reconnect/browser transports and Explorer refinements. Next product result: a first installed selected-perceptual-observation import from one explicitly declared/documented prepared scientific source, preserving units/scale/stimulus/dilution and source/license context separately from categorical annotations. Inspect existing adapters and actual source contracts first; choose a bounded reproducible supported input contract, then prove graph/perceptual plan and offline frame/native replay via normal installed entries. Use a clearly synthetic reference if an authorized source is unavailable; do not invent chemical joins, collapse categorical and measured values or claim corpus-wide/physical equivalence. Keep SDK/format, data, hardware and adoption roadmap short; manual hardware observation remains human NOT RUN."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-16T06:00",
   "last_completed_slot": "2026-11-15T18:00"
 }
