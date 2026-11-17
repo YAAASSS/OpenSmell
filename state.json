@@ -2,7 +2,11 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-17",
   "last_processed_main_sha": "7afe02c2d4999536b912337e1b892a9a8efdfaac",
-  "lease": null,
+  "lease": {
+    "owner": "analysis-0j00c78nu1ah",
+    "acquired_at": "2026-11-17T17:00:07.296Z",
+    "expires_at": "2026-11-17T21:00:07.297Z"
+  },
   "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
@@ -477,6 +481,6 @@
     "delivered": "Installed data/SDK/device-source kit now has a clean pinned offline Linux/CPython3.12 distribution and complete no-network software trials (#28).",
     "next": "Clean/offline kit target delivered (#28); close this bounded distribution slice. Next chosen product result: reusable installed-SDK observation-table export plus a runnable external Pandas scientific analysis example. Preserve per-observation/resource identities, stimulus/dilution, numeric value/scale/unit and source context; categorical annotations must stay separate from measured values, missing must not become zero. No implicit chemical/person joins, averaging or normalization. Inspect actual existing typed observation/source contracts first. Exit: fresh wheel outside checkout, synthetic and documented prepared scientific input where authorized, table/output consumed by real Pandas with explicit dtypes, original data/unknown contracts preserved or clearly reported as uninterpreted, reproducible nominal and refusal/coverage proof. Keep Pandas optional; do not expand default runtime dependencies/packaging flags without concrete need. Prioritize useful scientific interoperability over more trial flags/platform matrices/Explorer polish. Human hardware/olfactory observations and independent adoption remain distinct unobserved gates."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-17T18:00",
   "last_completed_slot": "2026-11-17T06:00"
 }
