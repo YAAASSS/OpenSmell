@@ -1667,7 +1667,10 @@ JavaScript tarball, declared synthetic data, explicit profile and Node endpoint.
 builds it without a tag or release. Extract and follow `START_HERE.md` to run the
 installed CSV → graph → JavaScript transfer → Python plan → software observations
 path outside this repository. Successful interoperability CI retains the same ZIP
-as an experimental artifact; Python third-party dependencies are not bundled.
+as an experimental artifact; the default kit does not bundle Python third-party dependencies.
+An optional [clean offline target](docs/offline-kit.md) includes pinned wheels,
+source/license context and an installer for CPython3.12/Linux x86_64, verified
+without inherited Python packages or an external network interface.
 The kit also accepts [caller-owned CSV cohorts](docs/caller-cohort-trial.md),
 source declarations, selected rows and explicit profiles. Custom mode generates
 passive plans with per-record refusals; software trials require `--simulate`.

@@ -21,6 +21,15 @@ limits. In its commands, use the kit paths above and `profiles/perceptual.json`
 in place of `offline_perceptual_profile.json`. `try_kit.py` retains its categorical
 cohort contract; it does not guess the kind of scientific input.
 
+## Optional offline target
+
+If this archive includes `install_offline.py` and `offline-requirements.txt`,
+follow `OFFLINE_INSTALL.md`: CPython3.12/Linux x86_64/glibc>=2.28 only. Run
+`python install_offline.py --venv .venv` instead of the pip command below,
+then activate that venv and install the two local npm packages offline.
+Python/venv and Node/npm must already be installed. The ordinary kit below has
+no bundled Python dependency closure.
+
 ## Install and try
 
 ```sh
