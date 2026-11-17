@@ -1,109 +1,68 @@
 {
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-17",
-  "last_processed_main_sha": "7afe02c2d4999536b912337e1b892a9a8efdfaac",
-  "lease": {
-    "owner": "analysis-0j00c78nu1ah",
-    "acquired_at": "2026-11-17T17:00:07.296Z",
-    "expires_at": "2026-11-17T21:00:07.297Z"
-  },
-  "open_work": {
-    "branch": "feat/observation-tables-20261117",
-    "commit": "538662a7690ebec7c170f7eb9648a96e4157837f",
-    "tree": "8499aa9d686973c2527046061e3046ff0f83dd30",
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/29",
-    "resume": "22 targeted cases and installed synthetic/real prepared Pandas proofs pass. Check full local/CI exact head, kit nonregression and review; merge, verify main, save Work handoff/release."
-  },
+  "last_processed_main_sha": "b7bec46d05560f1e15bead2f5c8a3350a42ef5b1",
+  "lease": null,
+  "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
-    "slot": "2026-11-17T06:00",
-    "completed_at": "2026-11-17T05:15:08.077Z",
-    "objective": "Optional clean offline developer-kit target with explicit pinned dependency acquisition and no-network complete trials",
-    "commit": "7afe02c2d4999536b912337e1b892a9a8efdfaac",
-    "tested_commit": "f25618f75f1d2e1c10efe8a5b918d78cb35af88b",
-    "tested_tree": "9db612f33052c465efd214ca7cfc3a64eb6c5ec0",
+    "slot": "2026-11-17T18:00",
+    "completed_at": "2026-11-17T17:16:38.833Z",
+    "objective": "Installed observation-table export with loss-preserved context and optional real Pandas scientific interoperability",
+    "commit": "b7bec46d05560f1e15bead2f5c8a3350a42ef5b1",
+    "tested_commit": "538662a7690ebec7c170f7eb9648a96e4157837f",
+    "tested_tree": "8499aa9d686973c2527046061e3046ff0f83dd30",
     "merged": true,
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/28",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/29",
     "checks": {
-      "python_full_local": 2253,
-      "python_full_local_seconds": 96.38,
-      "new_dependency_cases": 10,
-      "post_merge_targeted": 12,
-      "python312_final_ci": 2253,
-      "python312_final_ci_seconds": 95.93,
+      "python_full_local": 2275,
+      "python_full_local_seconds": 99.83,
+      "new_projection_cases": 22,
+      "python312_final_ci": 2275,
+      "python312_final_ci_seconds": 98.91,
       "ci_python_versions": [
         "3.10",
         "3.11",
         "3.12",
         "3.13"
       ],
-      "ci_node": "22",
-      "offline_target": {
-        "implementation": "CPython",
-        "python": "3.12",
-        "system": "Linux",
-        "machine": "x86_64",
-        "minimum_glibc": "2.28"
+      "local_pandas": "3.1.1",
+      "installed_analysis": "Fresh wheel import checked outside checkout; real Pandas consumer with explicit Float64/Int64/string dtypes; synthetic3records ->4/2/0 measurement rows and separate categorical payloads, original byte comparison; real multisource graph7measurements with absent units preserved.",
+      "published_source": {
+        "prepared_csv_sha256": "57e9cd4b41bc69d8813726ae80442b177ae52b4e6100ac56872c546db94f991c",
+        "original_xlsx_sha256": "efcb1b07558431c869c5578abcd3fa1e4405a38cc68a8b1c1621594c673d9f62",
+        "source_indexes": [
+          2500,
+          2501,
+          0
+        ],
+        "measurement_rows": [
+          8,
+          0,
+          3
+        ],
+        "first_values": "flower26 grass38 wood89; source rating scale/unit and opaque dilution retained",
+        "scope": "Same documented publisher-source preparation with familiarity excluded for prior scale ambiguity; no new corpus bytes redistributed."
       },
-      "acquisition": "Six exact binary runtime wheels acquired explicitly from public PyPI; byte hashes compared to release JSON metadata. Source/download URLs, requires metadata and actual license texts retained; five MIT, typing-extensions PSF-2.0.",
-      "installation": "New venv system_site_packages=False; target/kit/inventory gates before creation; isolated pip --no-index --no-cache-dir --require-hashes local binary wheels only, pip check; disabled user site/local import verified.",
-      "no_network_proof": "Full fresh extracted kit proof under unshare --user --map-root-user --net locally, and sudo unshare --net in Ubuntu24.04 CI. Acquisition/build before isolation. No inherited Python dependencies; host Python/venv/Node/npm preinstalled.",
-      "normal_entries": "Categorical/perceptual imports and caller graphs, changed profiles, passive plans/refusals, both installed clients against both Python/Node endpoints all passed; original route preserved.",
-      "guards": "Existing environment refuses replacement. Altered dependency refuses before new environment creation; missing/extra/duplicate/path/metadata/target/pin mismatches rejected. Report collisions and changed-kit guards preserved.",
-      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44022064142",
+      "refusals": "Unknown contracts/resources and invalid measurements report partial with exact context/source retained. Missing/nil units distinct; no normalization/imputation/join/mean. Strict invalid graph/JSON refused; new output collision refused. SDK exact2**53+1 retained; Pandas Float64 lossy conversion refused before output creation.",
+      "kits": "Normal and clean/offline Linux target CI remain green; example/guide included, Pandas not added to SDK default dependencies or offline closure.",
+      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44133740845",
+      "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44133741358",
       "ci_result": "success",
-      "offline_ci_artifact": 14301078587,
-      "offline_artifact_digest": "sha256:b6a32786001c8df3a07583e39faaf567eead9f0ecc4448c8b5114e819eaa58a2",
-      "normal_kit_artifact": 14301571060,
+      "normal_kit_artifact": 14350108848,
+      "offline_kit_artifact": 14349704804,
       "main_tree_matches_tested": true,
+      "post_merge_main": "Fetched main;22 targeted cases pass.",
       "physical_access": false
     },
     "limitations": [
-      "First offline target only CPython3.12/Linux x86_64/glibc>=2.28; observed local Linux and Ubuntu24.04 CI, not universal platform compatibility. Python with venv/ensurepip and Node22+/npm are host prerequisites, not bundled installers.",
-      "Explicit connected preparation required; builder does not silently acquire missing dependencies. Failed partial output directories/environments remain for inspection with no automatic retry/overwrite. Hashes identify bytes, not signatures or security audits.",
-      "Original unbundled kit still uses its documented dependency route. No protocol/firmware changes or physical board/serial/flash/diffusion, tags/releases or registry uploads. Outside adoption remains unobserved; human bench NOT RUN.",
-      "Historical intermittent Node timeout not claimed fixed; existing deadlines/no-retry unchanged."
+      "Experimental Generic ResourceGraph0.1 projection with 8MiB strict input boundary. Source bytes and full parsed context retained; rows cover known perceptual0.1 only, category payloads remain opaque, partial coverage is not complete scientific validation.",
+      "Pandas is an optional real external consumer, not independent third-party adoption. Its Float64 conversion is explicit and refused when exact SDK integers would round; original JSON snapshot/context remains authoritative. No default dependency/optional offline Pandas package claim.",
+      "No physical serial/device access, flash/diffusion/odor result, tags/releases or registry publication. Existing firmware/build bench is unchanged and green; human board/odor observations remain NOT RUN. Historical Node timeout not claimed fixed."
     ],
-    "handoff_library_file_id": "libfile_fde3_f-b5762e8316cc8191bf87e3bd2579ad9f_44ff1f20787081919dd91de18843de02"
+    "handoff_library_file_id": "libfile_fde3_f-29f7afef0adc81919d098945808aad52_44ff1f20787081919dd91de18843de02"
   },
   "recent_sessions": [
-    {
-      "session_kind": "scheduled",
-      "slot": "2026-11-14T06:00",
-      "completed_at": "2026-11-14T05:09:22.479Z",
-      "objective": "Installed JavaScript explicit-plan lifecycle SDK and complete portable kit integration with Python/Node endpoints",
-      "commit": "14b238ad6e209ce64033cad1d8d5190f3850e6f2",
-      "tested_commit": "9c5820fb48e3c4222b7331bd75e69f51fdb65233",
-      "merged": true,
-      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/21",
-      "checks": {
-        "javascript_local": 63,
-        "new_client_cases": 14,
-        "python_targeted_local": 2,
-        "python_full_ci": 2150,
-        "ci_python_versions": [
-          "3.10",
-          "3.11",
-          "3.12",
-          "3.13"
-        ],
-        "ci_node": "22",
-        "python312_ci_seconds": 90.54,
-        "installed_client": "Fresh offline local CJS/ESM package + installed Python wheel outside checkout; explicit diphenyl ether semantic plan generated by CLI and consumed against Python and independent Node endpoints; completion/Stop/unknown, duplicate/stale/duration guards passed.",
-        "portable_kit": "Both accepted records, both clients against both endpoints (8 lifecycle walkthroughs), distinct plans, original graph/Core preservation, two retained refusals, report no-overwrite and changed-data refusal passed locally and in CI.",
-        "ci_result": "success",
-        "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43559826561",
-        "main_tree_matches_tested": true,
-        "physical_access": false
-      },
-      "limitations": [
-        "Private local Node22+ package only; no public registry/tag/release, stable API, browser/serial transport, authentication or durable exactly-once guarantee.",
-        "Source/profile provenance remains caller-owned; explicit plan input, not implicit mapping or preview freshness handling.",
-        "Software-only observations; human ESP32 bench remains NOT RUN. Historical intermittent Node timeout not claimed fixed; existing 5s startup/2s exchange bounds retained.",
-        "Python dependencies inherited for isolated installation proof, not a complete offline third-party distribution."
-      ],
-      "handoff_library_file_id": "libfile_fde3_f-518a09c15990819186a6cedb82beb7ef_44ff1f20787081919dd91de18843de02"
-    },
     {
       "session_kind": "scheduled",
       "slot": "2026-11-14T18:00",
@@ -465,9 +424,67 @@
         "Historical intermittent Node timeout not claimed fixed; existing deadlines/no-retry unchanged."
       ],
       "handoff_library_file_id": "libfile_fde3_f-b5762e8316cc8191bf87e3bd2579ad9f_44ff1f20787081919dd91de18843de02"
+    },
+    {
+      "session_kind": "scheduled",
+      "slot": "2026-11-17T18:00",
+      "completed_at": "2026-11-17T17:16:38.833Z",
+      "objective": "Installed observation-table export with loss-preserved context and optional real Pandas scientific interoperability",
+      "commit": "b7bec46d05560f1e15bead2f5c8a3350a42ef5b1",
+      "tested_commit": "538662a7690ebec7c170f7eb9648a96e4157837f",
+      "tested_tree": "8499aa9d686973c2527046061e3046ff0f83dd30",
+      "merged": true,
+      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/29",
+      "checks": {
+        "python_full_local": 2275,
+        "python_full_local_seconds": 99.83,
+        "new_projection_cases": 22,
+        "python312_final_ci": 2275,
+        "python312_final_ci_seconds": 98.91,
+        "ci_python_versions": [
+          "3.10",
+          "3.11",
+          "3.12",
+          "3.13"
+        ],
+        "local_pandas": "3.1.1",
+        "installed_analysis": "Fresh wheel import checked outside checkout; real Pandas consumer with explicit Float64/Int64/string dtypes; synthetic3records ->4/2/0 measurement rows and separate categorical payloads, original byte comparison; real multisource graph7measurements with absent units preserved.",
+        "published_source": {
+          "prepared_csv_sha256": "57e9cd4b41bc69d8813726ae80442b177ae52b4e6100ac56872c546db94f991c",
+          "original_xlsx_sha256": "efcb1b07558431c869c5578abcd3fa1e4405a38cc68a8b1c1621594c673d9f62",
+          "source_indexes": [
+            2500,
+            2501,
+            0
+          ],
+          "measurement_rows": [
+            8,
+            0,
+            3
+          ],
+          "first_values": "flower26 grass38 wood89; source rating scale/unit and opaque dilution retained",
+          "scope": "Same documented publisher-source preparation with familiarity excluded for prior scale ambiguity; no new corpus bytes redistributed."
+        },
+        "refusals": "Unknown contracts/resources and invalid measurements report partial with exact context/source retained. Missing/nil units distinct; no normalization/imputation/join/mean. Strict invalid graph/JSON refused; new output collision refused. SDK exact2**53+1 retained; Pandas Float64 lossy conversion refused before output creation.",
+        "kits": "Normal and clean/offline Linux target CI remain green; example/guide included, Pandas not added to SDK default dependencies or offline closure.",
+        "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44133740845",
+        "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44133741358",
+        "ci_result": "success",
+        "normal_kit_artifact": 14350108848,
+        "offline_kit_artifact": 14349704804,
+        "main_tree_matches_tested": true,
+        "post_merge_main": "Fetched main;22 targeted cases pass.",
+        "physical_access": false
+      },
+      "limitations": [
+        "Experimental Generic ResourceGraph0.1 projection with 8MiB strict input boundary. Source bytes and full parsed context retained; rows cover known perceptual0.1 only, category payloads remain opaque, partial coverage is not complete scientific validation.",
+        "Pandas is an optional real external consumer, not independent third-party adoption. Its Float64 conversion is explicit and refused when exact SDK integers would round; original JSON snapshot/context remains authoritative. No default dependency/optional offline Pandas package claim.",
+        "No physical serial/device access, flash/diffusion/odor result, tags/releases or registry publication. Existing firmware/build bench is unchanged and green; human board/odor observations remain NOT RUN. Historical Node timeout not claimed fixed."
+      ],
+      "handoff_library_file_id": "libfile_fde3_f-29f7afef0adc81919d098945808aad52_44ff1f20787081919dd91de18843de02"
     }
   ],
-  "next_objective": "Clean/offline kit target delivered (#28); close this bounded distribution slice. Next chosen product result: reusable installed-SDK observation-table export plus a runnable external Pandas scientific analysis example. Preserve per-observation/resource identities, stimulus/dilution, numeric value/scale/unit and source context; categorical annotations must stay separate from measured values, missing must not become zero. No implicit chemical/person joins, averaging or normalization. Inspect actual existing typed observation/source contracts first. Exit: fresh wheel outside checkout, synthetic and documented prepared scientific input where authorized, table/output consumed by real Pandas with explicit dtypes, original data/unknown contracts preserved or clearly reported as uninterpreted, reproducible nominal and refusal/coverage proof. Keep Pandas optional; do not expand default runtime dependencies/packaging flags without concrete need. Prioritize useful scientific interoperability over more trial flags/platform matrices/Explorer polish. Human hardware/olfactory observations and independent adoption remain distinct unobserved gates.",
+  "next_objective": "Observation tables and first real optional Pandas consumer delivered (#29); close this analysis slice, no further analysis flags/packaging matrices/Explorer diagnostics by default. Next chosen product axis: bridge the installed SDK execution lifecycle to a compilable experimental firmware-source endpoint, because the current reference Device Protocol0.1 firmware accepts frames but does not implement the SDK's correlated completion/Stop lifecycle. First inspect actual DraftRFC0014, installed client negotiations and current sketch/native harness; reuse existing contracts only if coherent, preserve old0.1 profile and introduce an explicitly opt-in bounded LED/native firmware experiment, no silent capability upgrade. Aim for a first usable vertical slice: installed SDK -> actual newly compiled native sketch -> accepted start/status/completed/Stop plus duplicate/duration refusals with retained correlated software/fake-output evidence; cross-compile for ESP32 and prepare manual bench procedure, never flash or access physical hardware. Keep ids/duration/uncertainty/no-retry/capability guards; acceptance, software observation and physical/olfactory result separate. If contract/source constraints make this too broad, document the decision and deliver its first bounded usable software slice rather than new diagnostics or speculative diffusion claims. No new wire protocol merely for novelty; human bench and independent adoption stay distinct.",
   "automation": {
     "id": "39cc72697e048191a1ba0d3e3e9d787c",
     "title": "OpenSmell — développement autonome quotidien",
@@ -484,9 +501,9 @@
   },
   "active_product_milestone": {
     "goal": "Installable OpenSmell developer kit spanning data, SDK, device integration and reproducible hardware bench",
-    "delivered": "Installed data/SDK/device-source kit now has a clean pinned offline Linux/CPython3.12 distribution and complete no-network software trials (#28).",
-    "next": "Clean/offline kit target delivered (#28); close this bounded distribution slice. Next chosen product result: reusable installed-SDK observation-table export plus a runnable external Pandas scientific analysis example. Preserve per-observation/resource identities, stimulus/dilution, numeric value/scale/unit and source context; categorical annotations must stay separate from measured values, missing must not become zero. No implicit chemical/person joins, averaging or normalization. Inspect actual existing typed observation/source contracts first. Exit: fresh wheel outside checkout, synthetic and documented prepared scientific input where authorized, table/output consumed by real Pandas with explicit dtypes, original data/unknown contracts preserved or clearly reported as uninterpreted, reproducible nominal and refusal/coverage proof. Keep Pandas optional; do not expand default runtime dependencies/packaging flags without concrete need. Prioritize useful scientific interoperability over more trial flags/platform matrices/Explorer polish. Human hardware/olfactory observations and independent adoption remain distinct unobserved gates."
+    "delivered": "Installable clean/offline kit plus installed observation-table export and project-maintained scientific Pandas consumption, exact source/context and partial/refusal evidence (#29).",
+    "next": "Observation tables and first real optional Pandas consumer delivered (#29); close this analysis slice, no further analysis flags/packaging matrices/Explorer diagnostics by default. Next chosen product axis: bridge the installed SDK execution lifecycle to a compilable experimental firmware-source endpoint, because the current reference Device Protocol0.1 firmware accepts frames but does not implement the SDK's correlated completion/Stop lifecycle. First inspect actual DraftRFC0014, installed client negotiations and current sketch/native harness; reuse existing contracts only if coherent, preserve old0.1 profile and introduce an explicitly opt-in bounded LED/native firmware experiment, no silent capability upgrade. Aim for a first usable vertical slice: installed SDK -> actual newly compiled native sketch -> accepted start/status/completed/Stop plus duplicate/duration refusals with retained correlated software/fake-output evidence; cross-compile for ESP32 and prepare manual bench procedure, never flash or access physical hardware. Keep ids/duration/uncertainty/no-retry/capability guards; acceptance, software observation and physical/olfactory result separate. If contract/source constraints make this too broad, document the decision and deliver its first bounded usable software slice rather than new diagnostics or speculative diffusion claims. No new wire protocol merely for novelty; human bench and independent adoption stay distinct."
   },
-  "session_slot": "2026-11-17T18:00",
-  "last_completed_slot": "2026-11-17T06:00"
+  "session_slot": null,
+  "last_completed_slot": "2026-11-17T18:00"
 }
