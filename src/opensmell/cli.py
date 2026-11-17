@@ -234,6 +234,30 @@ def _plan_command(args: argparse.Namespace) -> int:
     return 0
 
 
+def _observation_table_command(args):
+    from .experimental.observation_table import observation_table, MAX_BYTES
+    try:
+        if args.file == "-":
+            raw = sys.stdin.buffer.read(MAX_BYTES + 1)
+        else:
+            with Path(args.file).open("rb") as source:
+                raw = source.read(MAX_BYTES + 1)
+        report = observation_table(raw)
+        encoded = (json.dumps(report, ensure_ascii=True, allow_nan=False, indent=2) + "\n").encode()
+        if args.output:
+            with Path(args.output).open("xb") as output:
+                output.write(encoded)
+        else:
+            sys.stdout.buffer.write(encoded)
+        return 3 if report["status"] == "partial" else 0
+    except OSError as error:
+        print(json.dumps({"status":"error", "error":str(error)}), file=sys.stderr)
+        return 2
+    except (OpenSmellError, ValueError, TypeError, RecursionError, OverflowError) as error:
+        print(json.dumps({"status":"invalid", "error":str(error)}), file=sys.stderr)
+        return 1
+
+
 def _import_perceptual_command(args):
     import csv
     from .experimental.perceptual_import import import_keller_csv, MAX_CSV_BYTES, MAX_SOURCE_BYTES
@@ -421,7 +445,12 @@ def main(argv: list[str] | None = None) -> int:
     replay.add_argument("file", help="Frame export artifact; '-' reads stdin")
     replay.add_argument("--native-host", required=True, help="Explicit trusted native harness executable, not a serial port")
     replay.add_argument("--output", required=True, help="New checkpointed native transcript; never overwrite")
+    table = commands.add_parser("observation-table", help="Project graph measurements for analysis, preserving source/context; never execute")
+    table.add_argument("file", help="Generic ResourceGraph; '-' reads stdin; 8 MiB maximum")
+    table.add_argument("--output", help="New JSON analysis artifact; never overwrite")
     args = parser.parse_args(argv)
+    if args.command == "observation-table":
+        return _observation_table_command(args)
     if args.command == "import-keller":
         return _import_perceptual_command(args)
     if args.command == "replay-frame":

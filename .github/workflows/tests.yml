@@ -76,6 +76,9 @@ jobs:
           python -m build --wheel
           python -m tools.verify_installed_cli dist/*.whl --js-exchange-directory "$RUNNER_TEMP/js-sdk-exchange"
 
+      - name: Verify installed observation export with optional Pandas consumer
+        run: python -m tools.verify_installed_analysis dist/opensmell-0.1.0-py3-none-any.whl
+
       - name: Build and try the portable local developer kit
         run: |
           python -m tools.build_developer_kit --output dist/opensmell-developer-kit.zip
