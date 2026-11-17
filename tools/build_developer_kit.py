@@ -19,6 +19,7 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[1]
 # Explicit allowlist; external datasets, caches and arbitrary checkout files are excluded.
 PAYLOADS = {
+    "OFFLINE_INSTALL.md": "docs/offline-kit.md",
     "CALLER_GRAPH.md": "docs/caller-graph-trial.md",
     "graph_trial.py": "examples/developer_kit/graph_trial.py",
     "PERCEPTUAL_IMPORT.md": "docs/perceptual-csv-import.md",
@@ -45,7 +46,7 @@ PAYLOADS = {
 }
 
 
-def make_archive(payloads: dict[str, bytes], source: dict) -> bytes:
+def make_archive(payloads: dict[str, bytes], source: dict, offline_target=None) -> bytes:
     files = {name: {"byte_length": len(data), "sha256": hashlib.sha256(data).hexdigest()}
              for name, data in sorted(payloads.items())}
     manifest = {"format": "org.opensmell.experimental.developer-kit", "version": "0.1",
@@ -54,6 +55,9 @@ def make_archive(payloads: dict[str, bytes], source: dict) -> bytes:
                 "limits": ["Hashes are not signatures or proof of source authenticity.",
                            "Python third-party dependencies are not bundled; see START_HERE.md.",
                            "Bundled CSV is synthetic; caller data is separate. Software endpoints only; not a published release."]}
+    if offline_target:
+        manifest['offline_target'] = offline_target
+        manifest['limits'][1] = 'Pinned Python wheels bundled for the declared offline target; Python/venv and Node/npm must already be installed.'
     buffer = io.BytesIO()
     with zipfile.ZipFile(buffer, "w", compression=zipfile.ZIP_DEFLATED) as archive:
         for name, data in sorted({**payloads, "manifest.json": (json.dumps(manifest, indent=2) + "\n").encode()}.items()):
@@ -68,7 +72,14 @@ def make_archive(payloads: dict[str, bytes], source: dict) -> bytes:
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, required=True, help="New ZIP file; existing outputs are refused")
+    parser.add_argument('--wheelhouse',type=Path,help='Explicit prepared pinned dependency directory; adds offline target, no automatic download')
     args = parser.parse_args()
+    offline_payloads = {}
+    target = None
+    if args.wheelhouse:
+        from .offline_dependencies import load_wheelhouse, TARGET
+        offline_payloads = load_wheelhouse(args.wheelhouse)
+        target = TARGET
     if args.output.exists():
         parser.error("Output already exists")
     npm = shutil.which("npm")
@@ -93,6 +104,14 @@ def main():
         payloads["packages/" + wheels[0].name] = wheels[0].read_bytes()
         payloads["packages/" + packed["filename"]] = (artifacts / packed["filename"]).read_bytes()
         payloads["packages/" + lifecycle["filename"]] = (artifacts / lifecycle["filename"]).read_bytes()
+        if target:
+            payloads.update(offline_payloads)
+            payloads['offline_dependencies.py'] = (ROOT/'tools/offline_dependencies.py').read_bytes()
+            payloads['install_offline.py'] = (ROOT/'examples/developer_kit/install_offline.py').read_bytes()
+            inventory = json.loads(payloads['wheelhouse/inventory.json'])
+            requirements = [f"opensmell==0.1.0 --hash=sha256:{hashlib.sha256(wheels[0].read_bytes()).hexdigest()}"]
+            requirements += [f"{e['metadata']['name']}=={e['metadata']['version']} --hash=sha256:{e['sha256']}" for e in inventory['wheels']]
+            payloads['offline-requirements.txt'] = ('\n'.join(requirements)+'\n').encode()
         payloads["package.json"] = b'{"name":"opensmell-local-kit-trial","private":true}\n'
         try:
             revision = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
@@ -101,7 +120,7 @@ def main():
             revision, dirty = None, None
         data = make_archive(payloads, {"repository": "https://github.com/YAAASSS/OpenSmell",
                                        "checkout_commit": revision, "checkout_dirty": dirty,
-                                       "artifact_relation": "Built locally from this checkout; hashes identify included artifacts, not a signed build."})
+                                       "artifact_relation": "Built locally from this checkout; hashes identify included artifacts, not a signed build."}, offline_target=target)
         args.output.parent.mkdir(parents=True, exist_ok=True)
         with args.output.open("xb") as output:
             output.write(data)

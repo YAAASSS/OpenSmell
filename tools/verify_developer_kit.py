@@ -20,6 +20,7 @@ import zipfile
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("archive", type=Path)
+    parser.add_argument('--offline',action='store_true',help='Require bundled dependencies; clean venv and offline install')
     args = parser.parse_args()
     with tempfile.TemporaryDirectory(prefix="opensmell-extracted-kit-") as temporary:
         work = Path(temporary)
@@ -32,7 +33,8 @@ def main():
             archive.extractall(kit)
         env = {k: v for k, v in os.environ.items() if k not in {"PYTHONPATH", "PYTHONHOME"}}
         environment = work / "venv"
-        venv.EnvBuilder(with_pip=True, system_site_packages=True).create(environment)
+        if not args.offline:
+            venv.EnvBuilder(with_pip=True, system_site_packages=True).create(environment)
         python = environment / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
         npm = shutil.which("npm")
         if not npm:
@@ -49,7 +51,16 @@ def main():
         packages = sorted((kit / "packages").glob("*.tgz"))
         if len(packages) != 2:
             raise ValueError("Both JavaScript packages are required")
-        run([python, "-m", "pip", "install", "--no-index", "--no-deps", "--ignore-installed", wheel])
+        if args.offline:
+            run([__import__('sys').executable, kit/'install_offline.py', '--venv', environment])
+            run([__import__('sys').executable, kit/'install_offline.py', '--venv', environment], expected=1)
+            if 'include-system-site-packages = false' not in (environment/'pyvenv.cfg').read_text().lower():
+                raise ValueError('Offline environment permits inherited site packages')
+            clean = json.loads(run([python, '-I', '-c', 'import sys,site,json,importlib.metadata as m; print(json.dumps({"isolated":sys.prefix!=sys.base_prefix,"user_site":site.ENABLE_USER_SITE,"jsonschema":m.distribution("jsonschema").locate_file("").as_posix()}))']).stdout)
+            if not clean['isolated'] or clean['user_site'] or not Path(clean['jsonschema']).is_relative_to(environment):
+                raise ValueError('Offline installation inherited external packages')
+        else:
+            run([python, "-m", "pip", "install", "--no-index", "--no-deps", "--ignore-installed", wheel])
         location = run([python, "-I", "-c", "import opensmell; print(opensmell.__file__)"]).stdout.strip()
         if not Path(location).is_relative_to(environment):
             raise ValueError("Python import did not resolve to the installed kit wheel")
@@ -177,6 +188,15 @@ def main():
         preflight = json.loads(run(invocation + ["--simulate", "--report", work / "preflight.json"], expected=3).stdout)
         if preflight["execution"] != "not_attempted" or preflight["counts"].get("simulation_preflight_rejected") != 2:
             raise ValueError("Incompatible simulation duration was not refused before execution")
+        if args.offline:
+            dependency = next((kit/'wheelhouse').glob('*.whl'))
+            original = dependency.read_bytes()
+            dependency.write_bytes(original+b'altered')
+            refused_environment = work/'must-not-exist'
+            run([__import__('sys').executable, kit/'install_offline.py', '--venv', refused_environment], expected=1)
+            if refused_environment.exists():
+                raise ValueError('Altered dependency created an environment before refusal')
+            dependency.write_bytes(original)
         # A damaged kit must fail at the manifest gate, before running any endpoint.
         source = kit / "data/synthetic_odornet_batch.csv"
         source.write_bytes(source.read_bytes() + b"\n")
@@ -190,7 +210,7 @@ def main():
                           "caller_cohort": "passive and explicit simulation; partial refusals retained",
                           "perceptual_entry": "installed CSV/JS/plan from included files; missing versus zero preserved",
                           "caller_graphs": "both origins, changed profiles, passive plans/refusals and explicit both-client/endpoints",
-                          "physical_validation": False}))
+                          "offline_installation": args.offline, "physical_validation": False}))
 
 
 if __name__ == "__main__":

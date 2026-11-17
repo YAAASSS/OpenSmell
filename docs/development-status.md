@@ -546,3 +546,27 @@ installation guidance and a reproducible clean-environment verification, or a
 concrete outside integration need if observed. Avoid further graph-trial flags,
 CSV dialects and Explorer refinements by default. SDK/format changes still need
 an interoperable use case; manual board/odor observations remain human NOT RUN.
+
+
+## Clean offline developer-kit target — 2026-11-17
+
+An explicit acquisition step prepares pinned runtime wheels with PyPI release
+hash comparison, dependency metadata and license texts. The optional builder
+`--wheelhouse` target packages them and hash-pinned installation requirements.
+The extracted installer verifies target/manifest/inventory, creates a new clean
+venv and installs strictly from local wheels with no index/cache fallback.
+First target: CPython3.12/Linux x86_64/glibc>=2.28; Python/venv and Node/npm remain
+host prerequisites. Original kit mode is preserved.
+
+Exit criterion: clean extracted installation without inherited packages, normal
+categorical/perceptual import and caller-graph plans/refusals, both clients and
+both software endpoints, plus byte/target/overwrite refusal gates. Run the full
+verifier inside an isolated network namespace after explicit connected preparation.
+See [offline installation and limits](offline-kit.md). This is repository-maintained
+software reproducibility, not outside adoption or a stable release.
+
+Close this first distribution target after its proof. Next prioritize one concrete
+external integration example consuming the installed SDK and documented scientific
+data, with an explicit request/plan and independently inspectable output, rather
+than more packaging flags or platform expansion without demand. Human bench/odor
+observations remain NOT RUN; public release and outside adoption stay separate gates.

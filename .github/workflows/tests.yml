@@ -164,3 +164,29 @@ jobs:
 
       - name: Verify Device Protocol 0.1 portable conformance in JavaScript
         run: node tools/verify_device_protocol_conformance.js
+
+  offline-kit:
+    name: Clean offline kit / Linux x86_64 CPython 3.12
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-python@v7.1.0
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: "22"
+      - name: Prepare build tools and explicitly acquire pinned dependencies
+        run: |
+          python -m pip install ".[dev]"
+          python -m tools.offline_dependencies --output "$RUNNER_TEMP/offline-dependencies"
+      - name: Build optional offline target without publishing
+        run: python -m tools.build_developer_kit --wheelhouse "$RUNNER_TEMP/offline-dependencies" --output dist/opensmell-offline-linux-cp312.zip
+      - name: Verify clean installation and full trials with no network namespace interfaces
+        run: sudo --preserve-env=PATH unshare --net "$(command -v python)" -m tools.verify_developer_kit dist/opensmell-offline-linux-cp312.zip --offline
+      - name: Retain the verified experimental offline target
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: opensmell-offline-linux-cp312
+          path: dist/opensmell-offline-linux-cp312.zip
+          retention-days: 14
