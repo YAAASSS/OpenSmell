@@ -2,7 +2,11 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-16",
   "last_processed_main_sha": "36be1fad1c8b6be213818786fad40858d9f124cf",
-  "lease": null,
+  "lease": {
+    "owner": "offline-rh9q78w035p",
+    "acquired_at": "2026-11-17T05:03:57.167Z",
+    "expires_at": "2026-11-17T09:03:57.168Z"
+  },
   "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
@@ -495,6 +499,6 @@
     "delivered": "Installed caller-data kit now connects categorical/perceptual graphs to one explicit passive/software trial with preserved bytes and refusals (#27), building on publisher-source and native firmware-source evidence.",
     "next": "Common caller graph entry delivered (#27); close this slice, no further trial flags/Explorer diagnostics. Next product capability: a kit that installs and runs in a genuinely clean environment without inherited Python dependencies, with explicit dependency acquisition/identities and a reproducible offline installation trial on a declared first target (e.g. Linux x86_64/Python3.12). Prefer a bounded optional dependency wheelhouse/distribution path with license/source context, not a release/tag or registry upload. Exit: fresh venv without system_site_packages, --no-index installation using prepared artifacts only, then normal extracted-kit categorical/perceptual graph trials and actual refusals; source/platform/runtime bounds explicit, original kit route preserved. Re-evaluate for observed outside integration need; no claims of universal platform compatibility, stable publication, third-party adoption or physical observations. Human bench remains NOT RUN."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-17T06:00",
   "last_completed_slot": "2026-11-16T18:00"
 }
