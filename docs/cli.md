@@ -1,5 +1,8 @@
 # Installed OpenSmell CLI
 
+For passive scientific tables, see [`observation-table`](observation-analysis.md)
+and its optional installed-SDK Pandas consumer.
+
 For selected prepared psychophysical observations, see
 [`import-keller` and its explicit source/scale contract](perceptual-csv-import.md).
 It emits a graph directly for perceptual planning, separately from categorical

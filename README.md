@@ -1701,6 +1701,11 @@ one usable plan and two retained planning refusals. Its extraction, attribution
 and unresolved familiarity-scale limitation are documented in that guide;
 external dataset bytes are not bundled.
 
+The installed [observation-table export](docs/observation-analysis.md) also
+projects perceptual measurements for optional Pandas analysis, retaining exact
+source/context, scales/units, separate categorical payloads and explicit partial
+coverage. No imputation, normalization or device action occurs.
+
 ### OpenSmell 0.1 foundation
 
 Completed:

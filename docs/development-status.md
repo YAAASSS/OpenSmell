@@ -131,10 +131,10 @@ requiring Explorer. No new stable release or physical odor capability is implied
 
 | Order | Deliverable | Exit criterion / evidence |
 | --- | --- | --- |
-| 1 | Installed SDK and CLI workflow | Delivered: a wheel installed outside the checkout validates/inspects Core and graph files and produces semantic/perceptual dry-run plans with explicit mapping, capabilities and source provenance. Core import/source recovery delivered in the 2026-11-12 slice below. |
+| 1 | Installed SDK and CLI workflow | Delivered: a wheel installed outside the checkout validates/inspects Core and graph files and produces semantic/perceptual dry-run plans with explicit mapping, capabilities and source provenance. Core import/source recovery delivered; observation-table export now adds passive scientific analysis with preserved source/context. |
 | 2 | Reusable device integration | Delivered in PR #13, with bounded startup correction #14: installed SDK and standalone Python/Node graph-to-execution walkthrough. |
 | 3 | Reproducible hardware bench | Software/build slice delivered in #15, installed frame export/replay in #24–25: pinned ESP32 compilation, actual-sketch native bench, bill of materials/wiring and manual procedure. Human physical observations remain NOT RUN; no autonomous flashing or diffusion. |
-| 4 | Data and adoption | Categorical selected/cohort import and public-source trials delivered in #16–18/#23; installed Python/JS clients and portable caller-data kit in #19–21/#23. Selected prepared perceptual import now has synthetic and pinned publisher-source trials through installed Python/JS/native entries. Next: a bounded external-consumer onboarding/readiness path; require an observed integration need before more import dialects. Third-party adoption requires observed independent use. |
+| 4 | Data and adoption | Categorical selected/cohort import and public-source trials delivered in #16–18/#23; installed Python/JS clients and portable caller-data kit in #19–21/#23. Selected prepared perceptual import now has synthetic and pinned publisher-source trials through installed Python/JS/native entries. Caller-graph and clean offline kit are delivered (#27–28). Current slice: reusable observation tables and optional Pandas interoperability; require an observed need before more dialects/packaging flags. Third-party adoption requires observed independent use. |
 
 Complete a usable vertical slice and its exit criterion before opening an adjacent
 refinement. Reorder for actual dependencies or demonstrated regressions. Prioritize
@@ -570,3 +570,28 @@ external integration example consuming the installed SDK and documented scientif
 data, with an explicit request/plan and independently inspectable output, rather
 than more packaging flags or platform expansion without demand. Human bench/odor
 observations remain NOT RUN; public release and outside adoption stay separate gates.
+
+
+## Installed observation tables and Pandas interoperability — 2026-11-17 evening
+
+The installed `observation-table` entry and SDK API project known perceptual0.1
+measurements into rows with identity, scale/unit and source paths. Exact input
+bytes and complete graph context preserve provenance/conditions/unknown content;
+categories remain separate opaque payloads. Coverage reports unsupported/invalid
+measurements, results/resources and unresolved context without inventing values.
+Zero-row observations survive. No joins, means, imputation or normalization.
+
+Exit criterion: fresh wheel outside checkout, actual optional Pandas consumption
+with explicit dtypes, synthetic4/2/0-row observations and real multisource7-row
+fixture; pinned prepared publisher records8/0/3 rows also tried. Exact-byte,
+unknown/partial, overwrite and lossy numeric-conversion refusals stay observable.
+See [the complete installed entry](observation-analysis.md). Pandas stays optional,
+not in default runtime/offline wheelhouse; no third-party adoption or physical
+result is inferred from this project-maintained external-library proof.
+
+Close this first analysis interoperability slice. Next choose a concrete data
+interchange integration from an observed scientific use case, or advance the
+reproducible hardware integration boundary without claiming unobserved diffusion.
+Do not expand analysis flags, packaging targets or Explorer diagnostics by default.
+The usable developer-kit milestone remains experimental; independent adoption,
+manual board/odor observations and stable publication remain distinct gates.
