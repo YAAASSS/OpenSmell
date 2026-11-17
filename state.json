@@ -7,7 +7,13 @@
     "acquired_at": "2026-11-17T05:03:57.167Z",
     "expires_at": "2026-11-17T09:03:57.168Z"
   },
-  "open_work": null,
+  "open_work": {
+    "branch": "feat/offline-kit-20261117",
+    "commit": "f25618f75f1d2e1c10efe8a5b918d78cb35af88b",
+    "tree": "9db612f33052c465efd214ca7cfc3a64eb6c5ec0",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/28",
+    "resume": "Offline clean kit proof passed in network namespace; check full local/CI and final refusal additions, review and merge exact head, verify main, save Work handoff/release."
+  },
   "last_result": {
     "session_kind": "scheduled",
     "slot": "2026-11-16T18:00",
