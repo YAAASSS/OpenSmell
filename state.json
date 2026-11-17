@@ -7,7 +7,13 @@
     "acquired_at": "2026-11-17T17:00:07.296Z",
     "expires_at": "2026-11-17T21:00:07.297Z"
   },
-  "open_work": null,
+  "open_work": {
+    "branch": "feat/observation-tables-20261117",
+    "commit": "538662a7690ebec7c170f7eb9648a96e4157837f",
+    "tree": "8499aa9d686973c2527046061e3046ff0f83dd30",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/29",
+    "resume": "22 targeted cases and installed synthetic/real prepared Pandas proofs pass. Check full local/CI exact head, kit nonregression and review; merge, verify main, save Work handoff/release."
+  },
   "last_result": {
     "session_kind": "scheduled",
     "slot": "2026-11-17T06:00",
