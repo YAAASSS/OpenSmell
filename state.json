@@ -2,7 +2,11 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-18",
   "last_processed_main_sha": "199a0d139039756903a023266e7c258f6faf2bf6",
-  "lease": null,
+  "lease": {
+    "owner": "serial-bench-d2t4owmvcdu",
+    "acquired_at": "2026-11-18T17:05:37.265Z",
+    "expires_at": "2026-11-18T21:05:37.265Z"
+  },
   "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
@@ -522,6 +526,6 @@
     "delivered": "Installed CLI/imports/plans and Python/Node SDKs, clean offline kit, scientific observation-table/Pandas integration; now opt-in actual firmware lifecycle and installed adapter-author lifecycle-trial entry with native and interlanguage proof (#30/#31).",
     "next": "Close delivered native firmware bridge and installed adapter-author CLI slices (#30/#31); no more lifecycle flags, Explorer or native diagnostics by default. Next inspect the existing installed SerialDeviceTransport and LifecycleAdapter boundary. Prefer a reproducible human-operated LED serial bench entry/example using explicit port, device identity and plan, proved by the installed SDK over a POSIX pseudo-terminal connected to the actual native sketch (software only). Reuse existing APIs if coherent; do not invent another wire protocol or recreate already-delivered work. Exit: normal installed path over virtual serial observes completion/Stop/unknown with stale/duration/capability/no-retry guards, source/binary/wiring/manual instructions retained. Never open a physical serial port, flash or command hardware in an autonomous run; human new-firmware LED bench remains NOT RUN. If this is already supported and adequately executable, choose one bounded external scientific consumer integration rather than further refinements. Keep whole developer-kit milestone and independent adoption/stable publication gates."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-18T18:00",
   "last_completed_slot": "2026-11-18T06:00"
 }
