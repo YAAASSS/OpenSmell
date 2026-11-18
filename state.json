@@ -7,7 +7,13 @@
     "acquired_at": "2026-11-18T17:05:37.265Z",
     "expires_at": "2026-11-18T21:05:37.265Z"
   },
-  "open_work": null,
+  "open_work": {
+    "branch": "feat/serial-bench-20261118",
+    "commit": "b9de361b78cc0f31e2af5bf2bf0e5ec7f2a4b23e",
+    "tested_tree": "13df48eff812ca3b450a509850764f7fbecd5577",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/32",
+    "resume": "Check local full suite and installed serial proof; final exact-head CI, reviews/rules, merge and verify main; save Work and release lease. Virtual serial only, physical bench NOT RUN."
+  },
   "last_result": {
     "session_kind": "scheduled",
     "slot": "2026-11-18T06:00",
