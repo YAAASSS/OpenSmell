@@ -7,7 +7,13 @@
     "acquired_at": "2026-11-18T05:05:41.337Z",
     "expires_at": "2026-11-18T09:05:41.337Z"
   },
-  "open_work": null,
+  "open_work": {
+    "branch": "feat/firmware-lifecycle-20261118",
+    "commit": "353f138347e0d95a1ea8372a05e01ac1406efd73",
+    "tested_tree": "141ccd04e5aa3167510430b97aa932011c3b638c",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/30",
+    "resume": "Check exact-head CI and local ESP32 compilation/Python suite; fix regressions, merge after rules/reviews permit; verify main and retain native/installed proof. No physical access."
+  },
   "last_result": {
     "session_kind": "scheduled",
     "slot": "2026-11-17T18:00",
