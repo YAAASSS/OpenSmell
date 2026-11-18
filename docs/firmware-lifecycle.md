@@ -43,6 +43,11 @@ observations, not authenticated device telemetry.
 
 ## Use the Python consumer independently
 
+The installed [`opensmell lifecycle-trial`](lifecycle-trial.md) command also
+accepts the native executable and an explicit offline plan directly, with no
+consumer file to copy. The standalone example below remains useful for SDK
+application authors.
+
 Install the locally built wheel in your chosen environment. Copy
 [`try_native.py`](../examples/firmware_lifecycle/try_native.py), the `.osmell`
 fixture and the explicit mapping profile to a separate directory. The executable

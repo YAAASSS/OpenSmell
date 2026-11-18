@@ -21,6 +21,13 @@ transport executes trusted commands without a shell, but is **not a sandbox**.
 
 ## Use in another application
 
+For a complete adapter-author trial without editing a client, use the installed
+[`opensmell lifecycle-trial`](lifecycle-trial.md) entry with an explicit offline
+plan, trusted software command, expected identity and required new report path.
+It retains completion, Stop and deliberate closed-link uncertainty, including
+refusals. The native firmware experiment and Python/Node references use the same
+entry; this remains software-only experimental evidence.
+
 ```python
 from opensmell.experimental.lifecycle_adapter import LifecycleAdapter
 from opensmell.experimental.lifecycle_simulator import SimulatedEndpoint, SIMULATOR_ID

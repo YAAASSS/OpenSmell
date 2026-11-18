@@ -46,6 +46,14 @@ for an offline installation, prepare your own dependency wheelhouse first.
 The JavaScript package has no dependencies and installs from the local tarball.
 CI tests with Python dependencies already available in the test environment.
 
+The installed CLI also provides `opensmell lifecycle-trial` for an explicit
+five-second offline-plan artifact, trusted software command, expected identity
+and new checkpointed report. Follow `LIFECYCLE_TRIAL.md` for the complete
+adapter-author entry; use this kit's `software/device.cjs` or
+`software/python_device.py` for the reference endpoints. The native sketch is
+built separately and is not included as an executable in this kit. Source data
+never chooses an endpoint or sends a command by itself.
+
 Expected result: `result: "passed"`, two accepted CSV records, two explicit
 refusals (invalid label and absent record), byte-identical JavaScript graph
 transfer, original Core recovery, and different five-second passive plans:

@@ -86,8 +86,18 @@ def main():
                 assert [node_result[key]["state"] for key in ("completed", "stopped", "unknown")] == ["completed", "stopped", "unknown"]
                 (evidence / f"node-{mapper}.json").write_text(json.dumps(node_result, indent=2) + "\n")
                 (evidence / f"plan-{mapper}.json").write_text(json.dumps(plan_report, indent=2) + "\n")
+                (work / "offline-plan.json").write_text(json.dumps(plan_report))
+                executable = work / "venv" / ("Scripts/opensmell.exe" if os.name == "nt" else "bin/opensmell")
+                trial = json.loads(run([executable, "lifecycle-trial", "offline-plan.json",
+                                       "--software-command-json", json.dumps([str(host), "--realtime"]),
+                                       "--expected-device-id", "opensmell-esp32-lifecycle-led-001",
+                                       "--output", work / f"trial-{mapper}.json"]))
+                assert trial["status"] == "passed" and trial["duplicate_request_refused_before_io"]
+                assert [trial["results"][k]["state"] for k in ("completion", "stop", "disconnect")] == ["completed", "stopped", "unknown"]
+                (evidence / f"trial-{mapper}.json").write_text(json.dumps(trial, indent=2) + "\n")
                 summary["cases"].append({"mapper": mapper, "clients": ["python", "node"],
-                                          "states": ["completed", "stopped", "unknown"], "report_collision_refused": True})
+                                          "states": ["completed", "stopped", "unknown"], "report_collision_refused": True,
+                                          "installed_lifecycle_trial_cli": "passed"})
                 checkpoint()
             summary["result"] = "passed"
     except BaseException as error:
