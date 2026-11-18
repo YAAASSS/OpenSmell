@@ -113,6 +113,13 @@ hardware/esp32/opensmell_device_protocol_0_1/
 
 It requires the ArduinoJson library.
 
+An explicitly selected [`esp32-led-lifecycle` experiment](../../docs/firmware-lifecycle.md)
+adds Draft RFC-0014 status/Stop to this source with a distinct device identity.
+Its native actual-sketch bench works with both installed SDK clients. The default
+`esp32-led` build and the legacy behavior described below remain unchanged.
+The experimental board procedure is NOT RUN; software observations do not extend
+the historical human LED confirmations to this new firmware.
+
 The firmware implements the experimental OpenSmell Device Protocol 0.1
 messages required by the prototype:
 

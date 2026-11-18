@@ -14,7 +14,11 @@ const int CHANNEL_PINS[CHANNEL_COUNT] = {
 };
 
 const char* PROTOCOL_VERSION = "0.1";
+#ifdef OPENSMELL_EXPERIMENTAL_LIFECYCLE
+const char* DEVICE_ID = "opensmell-esp32-lifecycle-led-001";
+#else
 const char* DEVICE_ID = "opensmell-esp32-led-3ch-001";
+#endif
 
 const float MIN_INTENSITY = 0.0;
 const float MAX_INTENSITY = 1.0;
@@ -427,9 +431,18 @@ void handleRender(
 // Protocol message handling
 // --------------------------------------------------
 
+#ifdef OPENSMELL_EXPERIMENTAL_LIFECYCLE
+#include "../lifecycle_experiment.h"
+#endif
+
 void handleMessage(
   const char* line
 ) {
+
+#ifdef OPENSMELL_EXPERIMENTAL_LIFECYCLE
+  handleLifecycleMessage(line);
+  return;
+#endif
 
   JsonDocument request;
 
@@ -611,6 +624,9 @@ void receiveSerialMessages() {
     Serial.available() > 0
   ) {
 
+#ifdef OPENSMELL_EXPERIMENTAL_LIFECYCLE
+    lifeAdvance();  // Bounded expiry even while receiving/discarding a long frame.
+#endif
     char incoming =
         (char)Serial.read();
 
@@ -674,6 +690,9 @@ void setup() {
   stopRendering();
 
 
+#ifdef OPENSMELL_EXPERIMENTAL_LIFECYCLE
+  lifeInitialize();
+#endif
   Serial.begin(
     115200
   );
@@ -690,6 +709,9 @@ void setup() {
 
 
 void loop() {
+#ifdef OPENSMELL_EXPERIMENTAL_LIFECYCLE
+  lifeAdvance();
+#endif
 
   // Stop rendering automatically without
   // blocking serial communication.

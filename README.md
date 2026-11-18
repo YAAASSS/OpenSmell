@@ -1706,6 +1706,13 @@ projects perceptual measurements for optional Pandas analysis, retaining exact
 source/context, scales/units, separate categorical payloads and explicit partial
 coverage. No imputation, normalization or device action occurs.
 
+The opt-in [firmware lifecycle experiment](docs/firmware-lifecycle.md) connects
+both installed clients to the actual compiled LED sketch: correlated completion,
+Stop and lost-link uncertainty, with fake-output/refusal/restart evidence. Its
+separate ESP32 build target preserves the default acceptance-only firmware.
+Native software observations and cross-compilation do not establish physical
+LED/actuator compatibility; the new manual board bench remains NOT RUN.
+
 ### OpenSmell 0.1 foundation
 
 Completed:
@@ -1758,8 +1765,9 @@ Completed:
 Run `python -m apps.local_demo --simulate` to try a five-second plan, device-reported
 completion and correlated Stop without physical hardware. See the
 [Local Explorer walkthrough](apps/local_demo/README.md#try-execution-and-stop-without-hardware).
-The lifecycle profile is app-local and experimental; physical ESP32 support is
-not implied.
+The lifecycle profile is experimental (available in the installed SDK); physical
+ESP32 support is not implied. The separately selected firmware-source experiment
+above is software-tested and does not change the default Device Protocol0.1.
 
 A second implementation runs in a separate Node.js process:
 `python -m apps.local_demo --simulate-node`. The [adapter starter and live

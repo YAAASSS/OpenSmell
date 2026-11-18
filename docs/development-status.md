@@ -5,6 +5,33 @@ The broader roadmap remains in the [README](../README.md#roadmap).
 Operational checkpoints and the short session log live in `state.json` on the
 `automation/control` branch; follow its pending PR before starting new work.
 
+## Current result and exit criteria — 2026-11-18
+
+Active milestone: a usable experimental developer kit spanning data, installed
+SDKs, adapters and a reproducible hardware boundary. The opt-in firmware-source
+lifecycle slice now connects both installed clients to the actual native sketch;
+see [the runnable entry and explicit limits](firmware-lifecycle.md). Default
+Device Protocol0.1 remains acceptance-only. This closes the software bridge when
+both board targets compile, both clients observe completion/Stop/unknown for both
+mapping paths, and native output/duration/refusal/restart gates pass. Manual
+board observations for this new target remain NOT RUN.
+
+| Axis | Delivered usable entry | Next evidence / exit criterion |
+|---|---|---|
+| SDK / format | Installed CLI, explicit plans, Python/JS lifecycle clients | Keep Draft maturity; change contracts only for a demonstrated interoperability need |
+| Data / interoperability | Declared categorical/perceptual imports, caller graphs, optional Pandas tables | A concrete external integration need; no more import/analysis flags by default |
+| Hardware | Pinned LED builds, native frame replay, opt-in lifecycle source and installed-client proof | Human-led manual new-target bench with actual wiring/hash/exchanges and independent LED observations; no autonomous flash or commands |
+| Adoption | Extracted caller-data kit and clean offline Linux target | First independently repeated developer trial or bounded interoperability example with a real consumer; no release/adoption claim without evidence |
+
+After the software bridge, do not refine native diagnostics or Explorer by
+default. Prepare one complete SDK adapter-author entry that takes a caller's
+explicit endpoint/identity and plan through the same capability/lifecycle
+contract, with a passive retained report and refusal/uncertainty boundaries. Its
+exit criterion is a reproducible installed Python/Node consumer trial against
+the actual native sketch as well as the two existing reference endpoints; choose
+this only if it reduces the current copy-and-edit integration work. The human
+bench is a separate pending observation, not a software release blocker.
+
 ## Initial audit — 2026-11-04
 
 - Starting `main`: `52d4504f2b99d0557cbfacf7b81f6fc7dd22f4ca`.
