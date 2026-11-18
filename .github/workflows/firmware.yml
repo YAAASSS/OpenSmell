@@ -11,6 +11,11 @@ on:
       - "tools/verify_esp32_firmware.py"
       - "tools/verify_installed_frames.py"
       - "tools/verify_installed_perceptual.py"
+      - "tools/verify_firmware_lifecycle.py"
+      - "tools/verify_installed_firmware_lifecycle.py"
+      - "examples/firmware_lifecycle/**"
+      - "examples/lifecycle_client/**"
+      - "packages/lifecycle-client/**"
       - "examples/synthetic_keller*"
       - ".github/workflows/firmware.yml"
   pull_request:
@@ -23,6 +28,11 @@ on:
       - "tools/verify_esp32_firmware.py"
       - "tools/verify_installed_frames.py"
       - "tools/verify_installed_perceptual.py"
+      - "tools/verify_firmware_lifecycle.py"
+      - "tools/verify_installed_firmware_lifecycle.py"
+      - "examples/firmware_lifecycle/**"
+      - "examples/lifecycle_client/**"
+      - "packages/lifecycle-client/**"
       - "examples/synthetic_keller*"
       - ".github/workflows/firmware.yml"
 
@@ -46,7 +56,7 @@ jobs:
           python -m pip install platformio==6.1.18
           python -m pip install . "build>=1.2"
       - name: Compile ESP32 firmware without upload
-        run: pio run --project-dir hardware/esp32 --environment esp32-led
+        run: pio run --project-dir hardware/esp32 --environment esp32-led --environment esp32-led-lifecycle
       - name: Obtain pinned host dependency
         run: |
           git clone https://github.com/bblanchon/ArduinoJson.git /tmp/ArduinoJson
@@ -60,6 +70,21 @@ jobs:
         run: |
           python -m build --wheel
           python -m tools.verify_installed_frames dist/opensmell-0.1.0-py3-none-any.whl --host /tmp/opensmell-firmware-host
+
+      - name: Exercise opt-in lifecycle sketch and both installed clients
+        run: |
+          python -m tools.build_esp32_host --lifecycle --arduinojson /tmp/ArduinoJson --output /tmp/opensmell-lifecycle-host
+          mkdir -p dist/lifecycle-proof
+          python -m tools.verify_firmware_lifecycle /tmp/opensmell-lifecycle-host --output dist/lifecycle-proof/native.json
+          python -m tools.verify_installed_firmware_lifecycle dist/opensmell-0.1.0-py3-none-any.whl --host /tmp/opensmell-lifecycle-host --evidence-directory dist/lifecycle-proof/installed
+
+      - name: Retain experimental native lifecycle evidence
+        if: always()
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: experimental-led-lifecycle-native-proof
+          path: dist/lifecycle-proof
+          retention-days: 14
 
       - name: Verify selected perceptual import through installed SDKs and native sketch
         run: python -m tools.verify_installed_perceptual dist/opensmell-0.1.0-py3-none-any.whl --host /tmp/opensmell-firmware-host --evidence-directory dist/perceptual-proof

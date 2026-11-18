@@ -4,16 +4,28 @@
 #include "../opensmell_device_protocol_0_1/opensmell_device_protocol_0_1.ino"
 #include <iostream>
 #include <string>
+#include <chrono>
 
 FakeSerial Serial;
 unsigned long hostMillis = 0;
 int hostPins[64] = {};
 
-int main() {
+int main(int argc, char** argv) {
+  bool realtime = false;
+#ifdef OPENSMELL_EXPERIMENTAL_LIFECYCLE
+  if (argc == 2 && std::string(argv[1]) == "--realtime") realtime = true;
+  else if (argc != 1) return 2;
+#else
+  (void)argv;
+  if (argc != 1) return 2;
+#endif
+  auto started = std::chrono::steady_clock::now();
   setup();
   std::string line;
   while (std::getline(std::cin, line)) {
+    if (realtime) hostMillis = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now()-started).count();
     if (line.rfind("!advance ", 0) == 0) {
+      if (realtime) return 2;
       hostMillis += std::stoul(line.substr(9));
       loop();
       std::cout << "{\"host\":\"advanced\"}\n";
