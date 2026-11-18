@@ -21,8 +21,8 @@
     "base": "3e682a9cd9203c05e88d647e7680d234cb420f7b",
     "objective": "Installable lifecycle-trial command for explicit caller plan/software endpoint/identity with checkpointed report, no retries; same normal entry against native sketch and Python/Node references",
     "resume": "Check exact-head CI and local full suite. Merge #31 after rules/reviews permit; verify main. #30 is already merged and software-tested. Save one combined Work handoff and release current lease; no physical access.",
-    "commit": "17fce8c3c7730c53e1f7b19c5c3b14301f5c36f2",
-    "tested_tree": "fa5e9d994b00c3348009b94e4d8d3b0e49f65bb7",
+    "commit": "09784fb3b1bdaf692849167c63eee5fe00c9e10d",
+    "tested_tree": "5a7bb00b90931a43464c71f7b1e7771a3607213c",
     "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/31"
   },
   "last_result": {
