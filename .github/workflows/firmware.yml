@@ -11,6 +11,8 @@ on:
       - "tools/verify_esp32_firmware.py"
       - "tools/verify_installed_frames.py"
       - "tools/verify_installed_perceptual.py"
+      - "tools/serial_pty_bench.py"
+      - "tools/verify_installed_serial_bench.py"
       - "tools/verify_firmware_lifecycle.py"
       - "tools/verify_installed_firmware_lifecycle.py"
       - "examples/firmware_lifecycle/**"
@@ -28,6 +30,8 @@ on:
       - "tools/verify_esp32_firmware.py"
       - "tools/verify_installed_frames.py"
       - "tools/verify_installed_perceptual.py"
+      - "tools/serial_pty_bench.py"
+      - "tools/verify_installed_serial_bench.py"
       - "tools/verify_firmware_lifecycle.py"
       - "tools/verify_installed_firmware_lifecycle.py"
       - "examples/firmware_lifecycle/**"
@@ -54,7 +58,7 @@ jobs:
       - name: Install software build tools
         run: |
           python -m pip install platformio==6.1.18
-          python -m pip install . "build>=1.2"
+          python -m pip install ".[serial]" "build>=1.2"
       - name: Compile ESP32 firmware without upload
         run: pio run --project-dir hardware/esp32 --environment esp32-led --environment esp32-led-lifecycle
       - name: Obtain pinned host dependency
@@ -77,6 +81,9 @@ jobs:
           mkdir -p dist/lifecycle-proof
           python -m tools.verify_firmware_lifecycle /tmp/opensmell-lifecycle-host --output dist/lifecycle-proof/native.json
           python -m tools.verify_installed_firmware_lifecycle dist/opensmell-0.1.0-py3-none-any.whl --host /tmp/opensmell-lifecycle-host --evidence-directory dist/lifecycle-proof/installed
+
+      - name: Verify installed serial bench over owned pseudo-terminals
+        run: python -m tools.verify_installed_serial_bench dist/opensmell-0.1.0-py3-none-any.whl --host /tmp/opensmell-lifecycle-host --evidence-directory dist/lifecycle-proof/serial
 
       - name: Retain experimental native lifecycle evidence
         if: always()
