@@ -8,11 +8,19 @@
     "expires_at": "2026-11-18T09:05:41.337Z"
   },
   "open_work": {
-    "branch": "feat/firmware-lifecycle-20261118",
-    "commit": "353f138347e0d95a1ea8372a05e01ac1406efd73",
-    "tested_tree": "141ccd04e5aa3167510430b97aa932011c3b638c",
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/30",
-    "resume": "Check exact-head CI and local ESP32 compilation/Python suite; fix regressions, merge after rules/reviews permit; verify main and retain native/installed proof. No physical access."
+    "delivered": [
+      {
+        "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/30",
+        "commit": "3e682a9cd9203c05e88d647e7680d234cb420f7b",
+        "tested_commit": "353f138347e0d95a1ea8372a05e01ac1406efd73",
+        "tree": "141ccd04e5aa3167510430b97aa932011c3b638c",
+        "checks": "Exact-head standard and firmware CI successful; post-merge native57 and installed consumer passed"
+      }
+    ],
+    "branch": "feat/installed-adapter-trial-20261118",
+    "base": "3e682a9cd9203c05e88d647e7680d234cb420f7b",
+    "objective": "Installable lifecycle-trial command for explicit caller plan/software endpoint/identity with checkpointed report, no retries; same normal entry against native sketch and Python/Node references",
+    "resume": "Implement and prove installed CLI trial, publish early and check exact-head CI, merge; preserve first delivery evidence. No physical access."
   },
   "last_result": {
     "session_kind": "scheduled",
