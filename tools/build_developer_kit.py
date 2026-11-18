@@ -19,6 +19,7 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[1]
 # Explicit allowlist; external datasets, caches and arbitrary checkout files are excluded.
 PAYLOADS = {
+    "LIFECYCLE_TRIAL.md": "docs/lifecycle-trial.md",
     "OBSERVATION_ANALYSIS.md": "docs/observation-analysis.md",
     "analyze_observations.py": "examples/pandas_analysis/analyze.py",
     "OFFLINE_INSTALL.md": "docs/offline-kit.md",

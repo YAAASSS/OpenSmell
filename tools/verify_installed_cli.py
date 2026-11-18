@@ -201,6 +201,29 @@ reader.inspectBytes(fs.readFileSync('core-graph.osmell')).then(value => {
                 if json.loads(result.stdout)["results"]["completion"]["state"] != "completed":
                     raise RuntimeError("Installed batch-to-execution proof failed")
         run([python, "-I", "-m", "opensmell.experimental.lifecycle_demo", "--graph", "missing"], expected=2)
+        shutil.copyfile(root / "examples/lifecycle_adapter/python_device.py", work / "python_device.py")
+        endpoints = [([str(python), "-I", "-u", str(work / "python_device.py")], "opensmell-local-simulator-001")]
+        if node:
+            endpoints.append(([node, str(work / "device.cjs")], "opensmell-node-simulator-001"))
+        for mapper, resource in (("semantic", "e6ad8ce3-dc6e-5d94-9287-57665d48fc0b"),
+                                 ("perceptual", "219ef28c-9b58-52f2-93a7-0807f5897857")):
+            artifact = run([executable, "plan", "multisource_diphenyl_ether.osmell", "--profile",
+                            f"offline_{mapper}_profile.json", "--resource-id", resource, "--duration", "5"]).stdout
+            (work / "trial-plan.json").write_bytes(artifact)
+            for index, (command, identity) in enumerate(endpoints):
+                output = work / f"trial-{mapper}-{index}.json"
+                args = [executable, "lifecycle-trial", "trial-plan.json", "--software-command-json", json.dumps(command),
+                        "--expected-device-id", identity, "--output", output]
+                report = json.loads(run(args).stdout)
+                assert report["status"] == "passed" and report["duplicate_request_refused_before_io"]
+                assert [report["results"][k]["state"] for k in ("completion", "stop", "disconnect")] == ["completed", "stopped", "unknown"]
+                before = output.read_bytes()
+                run(args, expected=2)
+                assert output.read_bytes() == before
+                refused = json.loads(run([*args[:-1], work / f"wrong-{mapper}-{index}.json", "--expected-device-id", "wrong-identity"], expected=3).stdout)
+                assert refused["status"] == "incompatible" and refused["acceptance"] == "not_attempted"
+                assert not any(json.loads(e["request_line"])["type"] == "render" for e in refused["transcript"])
+        print("Installed lifecycle-trial CLI passed: both mapping paths, explicit Python/Node adapters, refusal and report-collision guards.")
         print("Installed lifecycle proof passed: Python" + (" and Node." if node else "; Node unavailable."))
         print("Installed wheel CLI passed outside the checkout: Core, graph, stdin, errors, both offline mappers and import location.")
 

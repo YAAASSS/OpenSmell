@@ -32,6 +32,18 @@ the actual native sketch as well as the two existing reference endpoints; choose
 this only if it reduces the current copy-and-edit integration work. The human
 bench is a separate pending observation, not a software release blocker.
 
+The same session also delivers that adapter-author entry:
+[`opensmell lifecycle-trial`](lifecycle-trial.md) consumes an explicit offline
+plan/command/identity from the installed wheel. Exact input, derived short plan,
+original Stop/closure plans, exchanges, preflight/refusal and uncertainty are
+retained in an exclusively created checkpointed report. The normal installed
+entry is verified outside the checkout with both mapping paths against the
+native sketch and Python/Node references. This closes the copy-and-edit onboarding
+slice; no further lifecycle flags or native diagnostics by default. Next seek a
+bounded independent developer trial or a concrete scientific consumer integration
+using the existing kit; the human-led new-firmware LED bench stays NOT RUN and
+separate. Stable release and independent adoption require their own evidence.
+
 ## Initial audit — 2026-11-04
 
 - Starting `main`: `52d4504f2b99d0557cbfacf7b81f6fc7dd22f4ca`.

@@ -1713,6 +1713,12 @@ separate ESP32 build target preserves the default acceptance-only firmware.
 Native software observations and cross-compilation do not establish physical
 LED/actuator compatibility; the new manual board bench remains NOT RUN.
 
+The installed [adapter-author trial](docs/lifecycle-trial.md),
+`opensmell lifecycle-trial`, accepts an explicit offline plan, trusted software
+command and expected identity, and checkpoints the complete completion/Stop/
+uncertainty walkthrough. The same normal entry works with the native sketch and
+both reference endpoints outside the checkout; no client editing is needed.
+
 ### OpenSmell 0.1 foundation
 
 Completed:

@@ -167,6 +167,33 @@ def _replay_frame_command(args):
         return 1
 
 
+def _lifecycle_trial_command(args):
+    from .experimental.lifecycle_trial import lifecycle_trial, MAX_BYTES
+    try:
+        if args.file == "-":
+            raw = sys.stdin.buffer.read(MAX_BYTES + 1)
+        else:
+            with Path(args.file).open("rb") as source:
+                raw = source.read(MAX_BYTES + 1)
+        command = _decode(args.software_command_json.encode())
+        with Path(args.output).open("x", encoding="utf-8") as output:
+            def save(report):
+                output.seek(0); output.truncate()
+                json.dump(report, output, allow_nan=False, indent=2)
+                output.write("\n"); output.flush()
+            save({"status": "incomplete", "acceptance": "not_attempted", "physical_validation": False})
+            report = lifecycle_trial(raw, command, expected_device_id=args.expected_device_id, on_progress=save)
+            save(report)
+        print(json.dumps(report, allow_nan=False))
+        return 0 if report["status"] == "passed" else 3 if report["status"] in {"rejected", "incompatible"} else 1
+    except OSError as error:
+        print(json.dumps({"status": "error", "error": str(error)}), file=sys.stderr)
+        return 2
+    except (OpenSmellError, ValueError, TypeError, KeyError, RecursionError, OverflowError) as error:
+        print(json.dumps({"status": "invalid", "error": str(error)}), file=sys.stderr)
+        return 1
+
+
 def _encode_frame_command(args):
     from .experimental.frame_export import encode_plan_frame
     try:
@@ -397,7 +424,7 @@ def _text_result(result: dict[str, Any], *, detailed: bool) -> str:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         prog="opensmell",
-        description="Validate, inspect and plan with OpenSmell files without connecting a device.",
+        description="Inspect, import and plan offline; explicitly selected software trials are opt-in.",
     )
     parser.add_argument("--version", action="version", version=f"OpenSmell {__version__}")
     commands = parser.add_subparsers(dest="command", required=True)
@@ -445,10 +472,17 @@ def main(argv: list[str] | None = None) -> int:
     replay.add_argument("file", help="Frame export artifact; '-' reads stdin")
     replay.add_argument("--native-host", required=True, help="Explicit trusted native harness executable, not a serial port")
     replay.add_argument("--output", required=True, help="New checkpointed native transcript; never overwrite")
+    trial = commands.add_parser("lifecycle-trial", help="Try an explicit trusted software adapter with an offline plan; no hardware")
+    trial.add_argument("file", help="Explicit 5-second offline-plan artifact; '-' reads stdin; 8MiB maximum")
+    trial.add_argument("--software-command-json", required=True, help="Trusted software executable/argument JSON array; no shell; report retains arguments")
+    trial.add_argument("--expected-device-id", required=True, help="Explicit endpoint identity; never inferred from source")
+    trial.add_argument("--output", required=True, help="New checkpointed trial report; never overwrite")
     table = commands.add_parser("observation-table", help="Project graph measurements for analysis, preserving source/context; never execute")
     table.add_argument("file", help="Generic ResourceGraph; '-' reads stdin; 8 MiB maximum")
     table.add_argument("--output", help="New JSON analysis artifact; never overwrite")
     args = parser.parse_args(argv)
+    if args.command == "lifecycle-trial":
+        return _lifecycle_trial_command(args)
     if args.command == "observation-table":
         return _observation_table_command(args)
     if args.command == "import-keller":
