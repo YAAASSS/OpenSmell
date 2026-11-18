@@ -2,7 +2,11 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-17",
   "last_processed_main_sha": "b7bec46d05560f1e15bead2f5c8a3350a42ef5b1",
-  "lease": null,
+  "lease": {
+    "owner": "firmware-life-2u2lvbwu5gm",
+    "acquired_at": "2026-11-18T05:05:41.337Z",
+    "expires_at": "2026-11-18T09:05:41.337Z"
+  },
   "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
@@ -504,6 +508,6 @@
     "delivered": "Installable clean/offline kit plus installed observation-table export and project-maintained scientific Pandas consumption, exact source/context and partial/refusal evidence (#29).",
     "next": "Observation tables and first real optional Pandas consumer delivered (#29); close this analysis slice, no further analysis flags/packaging matrices/Explorer diagnostics by default. Next chosen product axis: bridge the installed SDK execution lifecycle to a compilable experimental firmware-source endpoint, because the current reference Device Protocol0.1 firmware accepts frames but does not implement the SDK's correlated completion/Stop lifecycle. First inspect actual DraftRFC0014, installed client negotiations and current sketch/native harness; reuse existing contracts only if coherent, preserve old0.1 profile and introduce an explicitly opt-in bounded LED/native firmware experiment, no silent capability upgrade. Aim for a first usable vertical slice: installed SDK -> actual newly compiled native sketch -> accepted start/status/completed/Stop plus duplicate/duration refusals with retained correlated software/fake-output evidence; cross-compile for ESP32 and prepare manual bench procedure, never flash or access physical hardware. Keep ids/duration/uncertainty/no-retry/capability guards; acceptance, software observation and physical/olfactory result separate. If contract/source constraints make this too broad, document the decision and deliver its first bounded usable software slice rather than new diagnostics or speculative diffusion claims. No new wire protocol merely for novelty; human bench and independent adoption stay distinct."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-18T06:00",
   "last_completed_slot": "2026-11-17T18:00"
 }
