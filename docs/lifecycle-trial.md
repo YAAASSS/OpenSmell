@@ -12,7 +12,7 @@ Install the current locally built wheel with its runtime dependencies. Create a
 five-second plan from your explicitly selected graph/resource/profile, or retain
 an existing unexecuted `opensmell plan` artifact. Example with the documented
 multisource fixture and the separate opt-in native sketch from
-[the firmware guide](firmware-lifecycle.md):
+[the firmware guide](https://github.com/YAAASSS/OpenSmell/blob/main/docs/firmware-lifecycle.md):
 
 ```sh
 opensmell plan multisource_diphenyl_ether.osmell \
@@ -48,17 +48,17 @@ Before launch, it strictly parses the bounded offline-plan0.1 artifact and
 recomputes the selected commands from the embedded graph/profile/request. An
 altered actionable plan is refused; exact input bytes retain unknown context.
 Original source/profile hashes are supplied declarations, not reauthenticated
-original files. Input is limited to8MiB; the selected frame must fit1024 bytes
+original files. Input is limited to 8 MiB; the selected frame must fit 1024 bytes
 excluding LF. The original plan must explicitly request five seconds.
 
-After hello, capability and Draft-profile negotiation, both0.1-second and
+After hello, capability and Draft-profile negotiation, both 0.1-second and
 five-second plans must fit the live declared channel/intensity/duration bounds
 before the first render. The original offline capability identity is descriptive;
 the separately supplied expected endpoint identity is checked on connection.
 
 The trial sends three plans with the same commands:
 
-1. A declared0.1-second derivative, then status polls until a received correlated
+1. A declared 0.1-second derivative, then status polls until a received correlated
    `completed` response. Waiting alone is never completion. The observation window
    is three seconds, with bounded exchanges; it is not a hard process deadline.
 2. The original five-second plan, then an explicit correlated Stop and a received
@@ -87,7 +87,7 @@ outcomes, including deliberate final uncertainty. `incompatible` means identity,
 profile or live-capability preflight refused before rendering; `rejected` is an
 explicit render refusal; `unknown` retains an uncertain outcome; `failed` means a
 different known behavior. Exit codes:0 passed,3 incompatible/rejected,1 other
-trial/validation failure,2 file/access/output collision. No result establishes
+trial/validation failure, 2 input/report file access or output collision. No result establishes
 physical output, odor reproduction or independent third-party adoption.
 
 Python applications can call
