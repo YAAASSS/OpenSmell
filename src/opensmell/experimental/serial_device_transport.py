@@ -258,6 +258,9 @@ class SerialDeviceTransport:
                 "serial device did not return a response"
             )
 
+        if not response.endswith(b"\n"):
+            raise RuntimeError("serial device returned an incomplete response line")
+
         response = response.rstrip(
             b"\r\n"
         )

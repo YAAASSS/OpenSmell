@@ -126,3 +126,7 @@ observations. Close a link during a bounded run and independently observe expiry
 do not infer extinction from the host's `unknown`. No odor claim follows from
 these LED observations. Physical access and flashing require a separate human
 session; this software walkthrough performs neither.
+
+The installed [manual serial bench](serial-lifecycle-bench.md) reuses the SDK
+transport and the opt-in identity. Its automated proof uses owned pseudo-terminals
+only; physical board/USB/reset behavior remains NOT RUN.

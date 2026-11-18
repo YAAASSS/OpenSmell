@@ -201,7 +201,6 @@ def test_exchange_supports_utf8() -> None:
     [
         b"OK\n",
         b"OK\r\n",
-        b"OK",
     ],
 )
 def test_exchange_accepts_common_response_line_endings(
@@ -755,3 +754,9 @@ def test_serial_instance_is_exposed() -> None:
     target, fake = transport()
 
     assert target.serial_instance is fake
+
+@pytest.mark.parametrize("reply", [b"OK", b'{"state":"completed"}', b"OK\r"])
+def test_partial_response_cannot_be_an_observation(reply):
+    target, _ = transport(responses=[reply])
+    with pytest.raises(RuntimeError, match="incomplete response line"):
+        target.exchange("HELLO")

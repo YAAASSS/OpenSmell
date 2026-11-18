@@ -44,6 +44,22 @@ bounded independent developer trial or a concrete scientific consumer integratio
 using the existing kit; the human-led new-firmware LED bench stays NOT RUN and
 separate. Stable release and independent adoption require their own evidence.
 
+## Installed serial bench — 2026-11-18 evening
+
+The [installed manual serial entry](serial-lifecycle-bench.md) connects an explicit
+offline plan/port/identity/action to the existing SDK transport and lifecycle.
+A fresh-wheel Linux/POSIX pseudo-terminal proof links real PySerial bytes to the
+actual compiled sketch for both mappings, completion/Stop and uncertainty, with
+wrong-identity/changed-plan/report-collision refusals. A demonstrated incomplete
+line could previously masquerade as completion; missing LF now fails closed.
+
+Exit criterion: this normal installed entry and retained virtual-wire proof,
+with no physical port access. Close the serial-onboarding slice after CI; no
+further bench flags/diagnostic refinements by default. Human observations remain
+NOT RUN. Next choose one concrete external scientific consumer integration of
+the existing data/SDK, or act on observed developer feedback. Independent adoption
+and stable publication remain distinct evidence gates.
+
 ## Initial audit — 2026-11-04
 
 - Starting `main`: `52d4504f2b99d0557cbfacf7b81f6fc7dd22f4ca`.
