@@ -73,77 +73,10 @@
     "handoff_library_file_id": "libfile_fde3_f-98bf74c618ac8191bd853f6689d0de5e_44ff1f20787081919dd91de18843de02",
     "work_started_at_approx": "2026-11-18T05:02:00Z",
     "elapsed_minutes_approx": 34,
-    "platform_blocker": null
+    "platform_blocker": null,
+    "coordination_note": "Immediate correction of this run's own completion-log field using the exact released ref; no project writes, duplicate session or lease extension."
   },
   "recent_sessions": [
-    {
-      "session_kind": "scheduled",
-      "slot": "2026-11-14T18:00",
-      "completed_at": "2026-11-14T17:21:22.966Z",
-      "objective": "Caller-owned cohort data through the installed portable kit, passive plans, explicit Python/Node simulation and pinned public-source normal-entry proof",
-      "commit": "0610f0fdee52b89864edbcc70671b7e4fac9eede",
-      "tested_commit": "8af208c2e1f813f987addaa54a77c21977f0ebcd",
-      "merged": true,
-      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/23",
-      "checks": {
-        "python_targeted_local": 10,
-        "new_python_cases": 8,
-        "python_full_ci": 2158,
-        "ci_python_versions": [
-          "3.10",
-          "3.11",
-          "3.12",
-          "3.13"
-        ],
-        "python312_ci_seconds": 86.43,
-        "ci_node": "22",
-        "extracted_installed_kit": "Original self-test plus custom files outside immutable kit; selected order 3/1/4/2/99; changed CH1=.8 and CH0=.4 profiles; two plans, unmappable accepted row and invalid/missing refusals; passive no execution and explicit both-client/both-endpoint observation; preflight duration refusal, no-overwrite and changed-data refusal passed.",
-        "public_trial": {
-          "code_commit": "5dca139f03b62de8bc3fff151d696ea4d37f0982",
-          "source_repository": "https://github.com/NKU-DOIE/OdorNet",
-          "source_commit": "88d146360dfc548462a5ebd6a081ea0590f2819e",
-          "file": "data/processed/full_dataset.csv",
-          "csv_bytes": 600964,
-          "csv_sha256": "de06d853a3c2ebe1e97379db2b24f695feda9600fc0ab1842c2425c5d2307331",
-          "license": "CC-BY-4.0 from pinned upstream license; existing attribution retained",
-          "rows": [
-            1,
-            2,
-            3,
-            99999
-          ],
-          "pipeline_counts": {
-            "software_verified": 2,
-            "planning_rejected": 1,
-            "import_rejected": 1
-          },
-          "plans": "records1/2 CH1=.6 duration5; record3 accepted import but unmappable",
-          "client_endpoint_groups": 8,
-          "observed_states": [
-            "completed",
-            "stopped",
-            "unknown"
-          ],
-          "report_sha256": "a0ebd33ac950996604d397e6d18191e65187fc8a41639fd459ea4faa2e7351d6",
-          "source_unmodified": true,
-          "full_corpus_redistributed": false,
-          "public_trial_pipeline_unchanged_in_final_doc_payload_commit": true
-        },
-        "initial_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43619861702",
-        "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43620186488",
-        "ci_result": "success",
-        "main_tree_matches_tested": true,
-        "prior_manual_fix_preserved": "PR22 maintained Actions; verified prior exact-head Tests/ESP32 success; no workflow modifications in this lot.",
-        "physical_access": false
-      },
-      "limitations": [
-        "OdorNet-shaped CSV only; custom workflow CSV8MiB, source/profile1MiB, 1–1000 unique selected rows; all selected metadata/plan reports held in memory.",
-        "Custom mode passive; fixed software trials require --simulate and exclusive report, 0.1s/5s compatible profile and reference channels0–2. Incomplete/software failures preserve uncertainty without automatic retry; not durable exactly-once.",
-        "Source/hash/license context is declaration/byte identity, not authentication, chemical validation, full-corpus correctness or third-party adoption.",
-        "No physical access, tag/release or registry publication. ESP32 manual bench remains NOT RUN; historical Node timeout not claimed fixed; bounds unchanged."
-      ],
-      "handoff_library_file_id": "libfile_fde3_f-66b35c2a5a488191b296cd9d531a1b17_44ff1f20787081919dd91de18843de02"
-    },
     {
       "session_kind": "scheduled",
       "slot": "2026-11-15T06:00",
@@ -495,31 +428,7 @@
         "No physical serial/device access, flash/diffusion/odor result, tags/releases or registry publication. Existing firmware/build bench is unchanged and green; human board/odor observations remain NOT RUN. Historical Node timeout not claimed fixed."
       ],
       "handoff_library_file_id": "libfile_fde3_f-29f7afef0adc81919d098945808aad52_44ff1f20787081919dd91de18843de02"
-    }
-  ],
-  "next_objective": "Close delivered native firmware bridge and installed adapter-author CLI slices (#30/#31); no more lifecycle flags, Explorer or native diagnostics by default. Next inspect the existing installed SerialDeviceTransport and LifecycleAdapter boundary. Prefer a reproducible human-operated LED serial bench entry/example using explicit port, device identity and plan, proved by the installed SDK over a POSIX pseudo-terminal connected to the actual native sketch (software only). Reuse existing APIs if coherent; do not invent another wire protocol or recreate already-delivered work. Exit: normal installed path over virtual serial observes completion/Stop/unknown with stale/duration/capability/no-retry guards, source/binary/wiring/manual instructions retained. Never open a physical serial port, flash or command hardware in an autonomous run; human new-firmware LED bench remains NOT RUN. If this is already supported and adequately executable, choose one bounded external scientific consumer integration rather than further refinements. Keep whole developer-kit milestone and independent adoption/stable publication gates.",
-  "automation": {
-    "id": "39cc72697e048191a1ba0d3e3e9d787c",
-    "title": "OpenSmell — développement autonome quotidien",
-    "timezone": "Europe/Brussels",
-    "start_local": "2026-11-04T06:00:00+01:00",
-    "environment_selection": "inherited",
-    "first_scheduled_execution_verified": true,
-    "replaces": "6aea757cc4248191829c086d66717db1",
-    "local_slots": [
-      "06:00",
-      "18:00"
-    ],
-    "lease_minutes": 240
-  },
-  "active_product_milestone": {
-    "goal": "Installable OpenSmell developer kit spanning data, SDK, device integration and reproducible hardware bench",
-    "delivered": "Installed CLI/imports/plans and Python/Node SDKs, clean offline kit, scientific observation-table/Pandas integration; now opt-in actual firmware lifecycle and installed adapter-author lifecycle-trial entry with native and interlanguage proof (#30/#31).",
-    "next": "Close delivered native firmware bridge and installed adapter-author CLI slices (#30/#31); no more lifecycle flags, Explorer or native diagnostics by default. Next inspect the existing installed SerialDeviceTransport and LifecycleAdapter boundary. Prefer a reproducible human-operated LED serial bench entry/example using explicit port, device identity and plan, proved by the installed SDK over a POSIX pseudo-terminal connected to the actual native sketch (software only). Reuse existing APIs if coherent; do not invent another wire protocol or recreate already-delivered work. Exit: normal installed path over virtual serial observes completion/Stop/unknown with stale/duration/capability/no-retry guards, source/binary/wiring/manual instructions retained. Never open a physical serial port, flash or command hardware in an autonomous run; human new-firmware LED bench remains NOT RUN. If this is already supported and adequately executable, choose one bounded external scientific consumer integration rather than further refinements. Keep whole developer-kit milestone and independent adoption/stable publication gates."
-  },
-  "session_slot": null,
-  "last_completed_slot": "2026-11-18T06:00",
-  "sessions": [
+    },
     {
       "session_kind": "scheduled",
       "slot": "2026-11-18T06:00",
@@ -589,7 +498,30 @@
       "handoff_library_file_id": "libfile_fde3_f-98bf74c618ac8191bd853f6689d0de5e_44ff1f20787081919dd91de18843de02",
       "work_started_at_approx": "2026-11-18T05:02:00Z",
       "elapsed_minutes_approx": 34,
-      "platform_blocker": null
+      "platform_blocker": null,
+      "coordination_note": "Immediate correction of this run's own completion-log field using the exact released ref; no project writes, duplicate session or lease extension."
     }
-  ]
+  ],
+  "next_objective": "Close delivered native firmware bridge and installed adapter-author CLI slices (#30/#31); no more lifecycle flags, Explorer or native diagnostics by default. Next inspect the existing installed SerialDeviceTransport and LifecycleAdapter boundary. Prefer a reproducible human-operated LED serial bench entry/example using explicit port, device identity and plan, proved by the installed SDK over a POSIX pseudo-terminal connected to the actual native sketch (software only). Reuse existing APIs if coherent; do not invent another wire protocol or recreate already-delivered work. Exit: normal installed path over virtual serial observes completion/Stop/unknown with stale/duration/capability/no-retry guards, source/binary/wiring/manual instructions retained. Never open a physical serial port, flash or command hardware in an autonomous run; human new-firmware LED bench remains NOT RUN. If this is already supported and adequately executable, choose one bounded external scientific consumer integration rather than further refinements. Keep whole developer-kit milestone and independent adoption/stable publication gates.",
+  "automation": {
+    "id": "39cc72697e048191a1ba0d3e3e9d787c",
+    "title": "OpenSmell — développement autonome quotidien",
+    "timezone": "Europe/Brussels",
+    "start_local": "2026-11-04T06:00:00+01:00",
+    "environment_selection": "inherited",
+    "first_scheduled_execution_verified": true,
+    "replaces": "6aea757cc4248191829c086d66717db1",
+    "local_slots": [
+      "06:00",
+      "18:00"
+    ],
+    "lease_minutes": 240
+  },
+  "active_product_milestone": {
+    "goal": "Installable OpenSmell developer kit spanning data, SDK, device integration and reproducible hardware bench",
+    "delivered": "Installed CLI/imports/plans and Python/Node SDKs, clean offline kit, scientific observation-table/Pandas integration; now opt-in actual firmware lifecycle and installed adapter-author lifecycle-trial entry with native and interlanguage proof (#30/#31).",
+    "next": "Close delivered native firmware bridge and installed adapter-author CLI slices (#30/#31); no more lifecycle flags, Explorer or native diagnostics by default. Next inspect the existing installed SerialDeviceTransport and LifecycleAdapter boundary. Prefer a reproducible human-operated LED serial bench entry/example using explicit port, device identity and plan, proved by the installed SDK over a POSIX pseudo-terminal connected to the actual native sketch (software only). Reuse existing APIs if coherent; do not invent another wire protocol or recreate already-delivered work. Exit: normal installed path over virtual serial observes completion/Stop/unknown with stale/duration/capability/no-retry guards, source/binary/wiring/manual instructions retained. Never open a physical serial port, flash or command hardware in an autonomous run; human new-firmware LED bench remains NOT RUN. If this is already supported and adequately executable, choose one bounded external scientific consumer integration rather than further refinements. Keep whole developer-kit milestone and independent adoption/stable publication gates."
+  },
+  "session_slot": null,
+  "last_completed_slot": "2026-11-18T06:00"
 }
