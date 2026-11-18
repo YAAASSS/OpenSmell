@@ -1,51 +1,30 @@
 {
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-18",
-  "last_processed_main_sha": "199a0d139039756903a023266e7c258f6faf2bf6",
-  "lease": {
-    "owner": "serial-bench-d2t4owmvcdu",
-    "acquired_at": "2026-11-18T17:05:37.265Z",
-    "expires_at": "2026-11-18T21:05:37.265Z"
-  },
-  "open_work": {
-    "branch": "feat/serial-bench-20261118",
-    "commit": "b9de361b78cc0f31e2af5bf2bf0e5ec7f2a4b23e",
-    "tested_tree": "13df48eff812ca3b450a509850764f7fbecd5577",
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/32",
-    "resume": "Check local full suite and installed serial proof; final exact-head CI, reviews/rules, merge and verify main; save Work and release lease. Virtual serial only, physical bench NOT RUN."
-  },
+  "last_processed_main_sha": "fc8541ae33a450df1c562c4f72199272eb7adb99",
+  "lease": null,
+  "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
-    "slot": "2026-11-18T06:00",
-    "completed_at": "2026-11-18T05:36:29.000Z",
-    "objective": "Installed SDK -> opt-in actual firmware lifecycle -> normal installed adapter-author CLI, with retained software/fake-output proof",
-    "commit": "199a0d139039756903a023266e7c258f6faf2bf6",
-    "tested_commit": "09784fb3b1bdaf692849167c63eee5fe00c9e10d",
-    "tested_tree": "5a7bb00b90931a43464c71f7b1e7771a3607213c",
+    "slot": "2026-11-18T18:00",
+    "completed_at": "2026-11-18T17:15:46.711Z",
+    "objective": "Installed human-operated serial lifecycle bench, real PySerial/owned POSIX pseudo-terminal/actual native sketch interoperability; demonstrated incomplete-line false-completion regression fixed",
+    "commit": "fc8541ae33a450df1c562c4f72199272eb7adb99",
+    "tested_commit": "b9de361b78cc0f31e2af5bf2bf0e5ec7f2a4b23e",
+    "tested_tree": "13df48eff812ca3b450a509850764f7fbecd5577",
     "merged": true,
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/31",
-    "deliveries": [
-      {
-        "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/30",
-        "commit": "3e682a9cd9203c05e88d647e7680d234cb420f7b",
-        "tested_commit": "353f138347e0d95a1ea8372a05e01ac1406efd73",
-        "tested_tree": "141ccd04e5aa3167510430b97aa932011c3b638c"
-      },
-      {
-        "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/31",
-        "commit": "199a0d139039756903a023266e7c258f6faf2bf6",
-        "tested_commit": "09784fb3b1bdaf692849167c63eee5fe00c9e10d",
-        "tested_tree": "5a7bb00b90931a43464c71f7b1e7771a3607213c"
-      }
-    ],
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/32",
     "checks": {
-      "python_full_local": 2290,
-      "python_full_local_seconds": 100.39,
-      "new_behavior_cases": 15,
-      "post_merge_targeted": 15,
-      "post_merge_targeted_seconds": 5.21,
-      "python312_final_ci": 2290,
-      "python312_final_ci_seconds": 100.81,
+      "python_full_local": 2292,
+      "python_full_local_seconds": 104.35,
+      "framing_regression_cases": 3,
+      "installed_serial_cases": 12,
+      "route": "Fresh wheel outside checkout -> PySerial3.5 -> owned POSIX PTY -> actual compiled native sketch; semantic/perceptual completion, Stop, lost reply, incomplete LF, wrong identity, changed plan and existing output suppression",
+      "regression": "Pre-fix PTY experiment accepted missing-LF JSON after timeout as completed (exit0). Now incomplete reply becomes unknown after1render, with no retry or implicit Stop.",
+      "refusals": "Wrong identity0renders; changed plan0requests; output collision no port reopening or requests. Exact input plan/context retained; original source/profile authenticity not inferred.",
+      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44355732674",
+      "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44355732416",
+      "ci_result": "success",
       "ci_python_versions": [
         "3.10",
         "3.11",
@@ -53,91 +32,25 @@
         "3.13"
       ],
       "ci_node": "22",
-      "local_node": "24.22.1",
-      "legacy_native": 44,
-      "lifecycle_native_exchanges": 57,
-      "native_scope": "Actual compiled sketch, fake serial/PWM/clock; bounded invalid/busy/stale/refusal checks, correlated completion/Stop, terminal stability, latest ID and fresh-boot isolation, uint32 clock rollover",
-      "installed_proof": "Fresh wheel/local npm outside checkout: both clients x semantic/perceptual plans -> actual native sketch -> completed/stopped/unknown. Normal installed lifecycle-trial CLI: both mapping paths x Python/Node reference endpoints plus native sketch; wrong identity and report collision refuse before render/launch. Source exact artifact bytes/unknown context preserved; actionable plans recomputed from embedded snapshots; both trial durations preflight before first render.",
-      "failure_guards": "15 tests: lost/malformed/wrong-ID/non-completing endpoint stops after one render, no subsequent sends or retry; refused render retains rejection; invalid/changed plan/command/graph and live identity/duration preflight preserved.",
-      "esp32_compile": "Both esp32-led (default legacy) and explicitly selected esp32-led-lifecycle compiled locally and in final CI without upload. Pinned dependencies and integrity checks retained.",
-      "kit": "Rebuilt archive includes installed adapter guide with portable firmware URL; manifest hash checked. Normal and clean offline target CI passed.",
-      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44244693954",
-      "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44244694063",
-      "ci_result": "success",
-      "lifecycle_ci_artifact": 14401216650,
-      "lifecycle_ci_artifact_digest": "sha256:1006126c98b1df12c069089e3b5d695f6c34272f51c0dc6ead96659309cd3281",
-      "prior_firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44243094571",
-      "prior_standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44243094413",
+      "esp32": "Both legacy and opt-in lifecycle targets compile in CI; firmware source unchanged.",
+      "artifact": 14452265942,
+      "artifact_digest": "sha256:c533f60ad153f9401e3202e17e89da5e045fa1bf998891f6b678124d0318b300",
+      "local_proof_sha256": "ea7264e87559b977f3017339a9b4af80bed341e13ac659555795e927a8335415",
       "main_tree_matches_tested": true,
-      "post_merge_main": "Fetched final main; normal installed lifecycle-trial against actual native sketch passed completed/stopped/unknown; 15 targeted tests passed.",
-      "post_merge_report_sha256": "ba47c909359cd1b33ea89e743ab05d6c7e16f556fb7e606e8f65f894a8e8f021",
+      "post_merge": "Fetched main,64 serial transport tests pass; rebuilt/reinstalled wheel passes12 real-PySerial PTY cases again.",
       "physical_access": false
     },
     "limitations": [
-      "Opt-in firmware-source LED experiment only; default Device Protocol0.1 remains acceptance-only, RFC0014 Draft. Physical board/idle MCU timing/entropy/electrical or odor observations NOT RUN; no flash/serial/GPIO/registry/tags/releases.",
-      "Boot random namespace/counter is probabilistic latest-run isolation, not authentication/durable reconciliation. request_id suppression is client-local; no wire exactly-once guarantee or automatic retry/reconnect.",
-      "Native realtime samples time on input, fake clock/pins do not prove autonomous physical expiry. CLI explicitly requires5s offline plan and derives0.1s completion before original5s Stop/closure;1024-byte frame and8MiB artifact bounds. Selected processes trusted, not sandboxed.",
-      "Exact input plan artifact preserved; embedded graph/profile snapshots and their hashes remain supplied declarations, not reauthenticated original source bytes. Command arguments/data appear in report; malformed response bytes are not exposed by ProcessTransport. Existing timeout/no-retry policy preserved, historical Node timeout not claimed fixed.",
-      "Installed proof inherits available Python dependencies; separate clean offline CI covers its declared Linux target. Repository-maintained interoperability is not independent adoption."
+      "No physical serial/GPIO/flash/diffusion/odor observation or registry/tag/release; new-target human LED bench remains NOT RUN. Closing serial is not Stop.",
+      "POSIX/Linux software framing proof only; no USB-driver/reset/MCU-idle/wiring or physical compatibility claim. Reports retain decoded complete replies, not refused partial bytes; reception-size limit remains historical.",
+      "SDK/Draft experimental; source/profile hashes remain declarations, exact plan artifact retained. Installed proof inherits runtime dependencies; optional explicit local PySerial wheel was used locally. Independent adoption unobserved."
     ],
-    "handoff_library_file_id": "libfile_fde3_f-98bf74c618ac8191bd853f6689d0de5e_44ff1f20787081919dd91de18843de02",
-    "work_started_at_approx": "2026-11-18T05:02:00Z",
-    "elapsed_minutes_approx": 34,
-    "platform_blocker": null,
-    "coordination_note": "Immediate correction of this run's own completion-log field using the exact released ref; no project writes, duplicate session or lease extension."
+    "handoff_library_file_id": "libfile_fde3_f-659614061e188191bd78452afb20261b_44ff1f20787081919dd91de18843de02",
+    "started_at_approx": "2026-11-18T17:04:00Z",
+    "elapsed_minutes_approx": 11,
+    "platform_blocker": null
   },
   "recent_sessions": [
-    {
-      "session_kind": "scheduled",
-      "slot": "2026-11-15T06:00",
-      "completed_at": "2026-11-15T05:18:29.738Z",
-      "objective": "Installed offline explicit-plan to Device Protocol0.1 frame export, exact-byte preservation and actual-sketch native acceptance/refusal proof",
-      "commit": "53824dafd8959878aca54fd8fd2f481f07ea4869",
-      "tested_commit": "4873304435f8f1fbf9a8ec4c581358e80acc16e0",
-      "merged": true,
-      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/24",
-      "checks": {
-        "python_full_local": 2183,
-        "python_full_local_seconds": 98.25,
-        "new_frame_cases": 25,
-        "python_full_final_ci": 2183,
-        "ci_python_versions": [
-          "3.10",
-          "3.11",
-          "3.12",
-          "3.13"
-        ],
-        "python312_final_ci_seconds": 90.43,
-        "ci_node": "22",
-        "installed_frames": "Fresh wheel outside checkout; actual installed CLI semantic/perceptual planning and frame export; exact emitted LF lines accepted by actual-sketch native harness. Target capabilities compared, fake PWM64/153/0 and120/46/38, raw31s refusal without output mutation and fake5s expiry; changed-plan/no-overwrite refusal passed.",
-        "native_frame_observations": 14,
-        "native_existing_bench_checks": 44,
-        "kit": "Fresh extracted installed kit original/custom trials passed; retained CSV plan exports from embedded snapshots after temporary graph files disappear; included guide/target file verified through installed CLI.",
-        "local_esp32_compile": {
-          "result": "success",
-          "observed_build_seconds": 468.21,
-          "includes_dependency_downloads": true,
-          "ram_bytes": 22680,
-          "program_bytes": 287209,
-          "firmware_bin_bytes": 287568,
-          "firmware_bin_sha256": "884f7f76c6cb51733c50398c3be32e0ba9d9be4fd6df9e202d231d6f03b0ebac",
-          "dependency_mirror_note": "Bad checksums for initial mirrors rejected; valid mirrors recovered, no integrity bypass."
-        },
-        "arduinojson_commit": "f9fe8557f13d8949eafd49ebd93a2929c4e5065f",
-        "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43680060148",
-        "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43680060242",
-        "ci_result": "success",
-        "main_tree_matches_tested": true,
-        "physical_access": false
-      },
-      "limitations": [
-        "Offline encoded frame is data only: no transport, acceptance or execution observation. Native sketch witness is fake serial/PWM/clock, not board/electrical/diffusion/odor evidence.",
-        "Input and target original bytes preserved in base64. Embedded source/profile hashes remain declared identities; mapping recomputation verifies internal consistency, not original source bytes/authenticity/freshness.",
-        "Input artifact8MiB, target1MiB, default prototype framing1024 bytes excluding LF; overriding bound does not change reference firmware framing.",
-        "Device Protocol0.1 remains acceptance-only; Draft RFC0014 software lifecycle/Stop not implied for the board. Manual hardware observations NOT RUN; no registry/tag/release/flash. Historical intermittent Node timeout not claimed fixed."
-      ],
-      "handoff_library_file_id": "libfile_fde3_f-df90b662313481919e20e092d31c5825_44ff1f20787081919dd91de18843de02"
-    },
     {
       "session_kind": "scheduled",
       "slot": "2026-11-15T18:00",
@@ -510,9 +423,55 @@
       "elapsed_minutes_approx": 34,
       "platform_blocker": null,
       "coordination_note": "Immediate correction of this run's own completion-log field using the exact released ref; no project writes, duplicate session or lease extension."
+    },
+    {
+      "session_kind": "scheduled",
+      "slot": "2026-11-18T18:00",
+      "completed_at": "2026-11-18T17:15:46.711Z",
+      "objective": "Installed human-operated serial lifecycle bench, real PySerial/owned POSIX pseudo-terminal/actual native sketch interoperability; demonstrated incomplete-line false-completion regression fixed",
+      "commit": "fc8541ae33a450df1c562c4f72199272eb7adb99",
+      "tested_commit": "b9de361b78cc0f31e2af5bf2bf0e5ec7f2a4b23e",
+      "tested_tree": "13df48eff812ca3b450a509850764f7fbecd5577",
+      "merged": true,
+      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/32",
+      "checks": {
+        "python_full_local": 2292,
+        "python_full_local_seconds": 104.35,
+        "framing_regression_cases": 3,
+        "installed_serial_cases": 12,
+        "route": "Fresh wheel outside checkout -> PySerial3.5 -> owned POSIX PTY -> actual compiled native sketch; semantic/perceptual completion, Stop, lost reply, incomplete LF, wrong identity, changed plan and existing output suppression",
+        "regression": "Pre-fix PTY experiment accepted missing-LF JSON after timeout as completed (exit0). Now incomplete reply becomes unknown after1render, with no retry or implicit Stop.",
+        "refusals": "Wrong identity0renders; changed plan0requests; output collision no port reopening or requests. Exact input plan/context retained; original source/profile authenticity not inferred.",
+        "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44355732674",
+        "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44355732416",
+        "ci_result": "success",
+        "ci_python_versions": [
+          "3.10",
+          "3.11",
+          "3.12",
+          "3.13"
+        ],
+        "ci_node": "22",
+        "esp32": "Both legacy and opt-in lifecycle targets compile in CI; firmware source unchanged.",
+        "artifact": 14452265942,
+        "artifact_digest": "sha256:c533f60ad153f9401e3202e17e89da5e045fa1bf998891f6b678124d0318b300",
+        "local_proof_sha256": "ea7264e87559b977f3017339a9b4af80bed341e13ac659555795e927a8335415",
+        "main_tree_matches_tested": true,
+        "post_merge": "Fetched main,64 serial transport tests pass; rebuilt/reinstalled wheel passes12 real-PySerial PTY cases again.",
+        "physical_access": false
+      },
+      "limitations": [
+        "No physical serial/GPIO/flash/diffusion/odor observation or registry/tag/release; new-target human LED bench remains NOT RUN. Closing serial is not Stop.",
+        "POSIX/Linux software framing proof only; no USB-driver/reset/MCU-idle/wiring or physical compatibility claim. Reports retain decoded complete replies, not refused partial bytes; reception-size limit remains historical.",
+        "SDK/Draft experimental; source/profile hashes remain declarations, exact plan artifact retained. Installed proof inherits runtime dependencies; optional explicit local PySerial wheel was used locally. Independent adoption unobserved."
+      ],
+      "handoff_library_file_id": "libfile_fde3_f-659614061e188191bd78452afb20261b_44ff1f20787081919dd91de18843de02",
+      "started_at_approx": "2026-11-18T17:04:00Z",
+      "elapsed_minutes_approx": 11,
+      "platform_blocker": null
     }
   ],
-  "next_objective": "Close delivered native firmware bridge and installed adapter-author CLI slices (#30/#31); no more lifecycle flags, Explorer or native diagnostics by default. Next inspect the existing installed SerialDeviceTransport and LifecycleAdapter boundary. Prefer a reproducible human-operated LED serial bench entry/example using explicit port, device identity and plan, proved by the installed SDK over a POSIX pseudo-terminal connected to the actual native sketch (software only). Reuse existing APIs if coherent; do not invent another wire protocol or recreate already-delivered work. Exit: normal installed path over virtual serial observes completion/Stop/unknown with stale/duration/capability/no-retry guards, source/binary/wiring/manual instructions retained. Never open a physical serial port, flash or command hardware in an autonomous run; human new-firmware LED bench remains NOT RUN. If this is already supported and adequately executable, choose one bounded external scientific consumer integration rather than further refinements. Keep whole developer-kit milestone and independent adoption/stable publication gates.",
+  "next_objective": "Close installed serial bench slice (#32); do not continue native/serial diagnostics or flags by default. Whole developer-kit goal remains active, human new-firmware physical bench NOT RUN. Next inspect existing SDK reference_discovery/graph contracts and deliver one bounded scientific consumer integration: project known resource/reference relationships into a standard NetworkX/GraphML workflow readable by the actual external library, with exact input/context preserved separately and unresolved/unknown relationships explicitly disclosed. No invented chemical joins/equivalence or normalization. Prefer a normal installed SDK entry plus an outside-checkout consumer proof on real multisource and unknown/unresolved fixtures; avoid a new API if an executable example using existing APIs suffices. Confirm usefulness/dependencies before coding; if an observed concrete external need supersedes this candidate, revise priority explicitly. No physical action, release or adoption claim.",
   "automation": {
     "id": "39cc72697e048191a1ba0d3e3e9d787c",
     "title": "OpenSmell — développement autonome quotidien",
@@ -529,9 +488,9 @@
   },
   "active_product_milestone": {
     "goal": "Installable OpenSmell developer kit spanning data, SDK, device integration and reproducible hardware bench",
-    "delivered": "Installed CLI/imports/plans and Python/Node SDKs, clean offline kit, scientific observation-table/Pandas integration; now opt-in actual firmware lifecycle and installed adapter-author lifecycle-trial entry with native and interlanguage proof (#30/#31).",
-    "next": "Close delivered native firmware bridge and installed adapter-author CLI slices (#30/#31); no more lifecycle flags, Explorer or native diagnostics by default. Next inspect the existing installed SerialDeviceTransport and LifecycleAdapter boundary. Prefer a reproducible human-operated LED serial bench entry/example using explicit port, device identity and plan, proved by the installed SDK over a POSIX pseudo-terminal connected to the actual native sketch (software only). Reuse existing APIs if coherent; do not invent another wire protocol or recreate already-delivered work. Exit: normal installed path over virtual serial observes completion/Stop/unknown with stale/duration/capability/no-retry guards, source/binary/wiring/manual instructions retained. Never open a physical serial port, flash or command hardware in an autonomous run; human new-firmware LED bench remains NOT RUN. If this is already supported and adequately executable, choose one bounded external scientific consumer integration rather than further refinements. Keep whole developer-kit milestone and independent adoption/stable publication gates."
+    "delivered": "Installable experimental data/SDK/developer kit; opt-in firmware and adapter CLI; now installed human-operated serial bench with actual PySerial/PTy/native interoperability and demonstrated incomplete-line regression correction (#32).",
+    "next": "Close installed serial bench slice (#32); do not continue native/serial diagnostics or flags by default. Whole developer-kit goal remains active, human new-firmware physical bench NOT RUN. Next inspect existing SDK reference_discovery/graph contracts and deliver one bounded scientific consumer integration: project known resource/reference relationships into a standard NetworkX/GraphML workflow readable by the actual external library, with exact input/context preserved separately and unresolved/unknown relationships explicitly disclosed. No invented chemical joins/equivalence or normalization. Prefer a normal installed SDK entry plus an outside-checkout consumer proof on real multisource and unknown/unresolved fixtures; avoid a new API if an executable example using existing APIs suffices. Confirm usefulness/dependencies before coding; if an observed concrete external need supersedes this candidate, revise priority explicitly. No physical action, release or adoption claim."
   },
-  "session_slot": "2026-11-18T18:00",
-  "last_completed_slot": "2026-11-18T06:00"
+  "session_slot": null,
+  "last_completed_slot": "2026-11-18T18:00"
 }
