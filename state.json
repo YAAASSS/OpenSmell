@@ -1,39 +1,27 @@
 {
   "schema_version": 1,
-  "last_completed_brussels_date": "2026-11-18",
-  "last_processed_main_sha": "fc8541ae33a450df1c562c4f72199272eb7adb99",
-  "lease": {
-    "owner": "graphml-0wo7comjpaqe",
-    "acquired_at": "2026-11-19T05:01:19.236Z",
-    "expires_at": "2026-11-19T09:01:19.236Z"
-  },
-  "open_work": {
-    "branch": "feat/graphml-20261119",
-    "commit": "353e52167e03c6b104d40167f0f5b0b778d8a483",
-    "tested_tree": "bd6f048e08f1f7de8024bb67f0b8b552eb092295",
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/33",
-    "resume": "Check local full tests and exact-head CI, fix if needed, merge after rules/reviews; verify main and save Work, release lease. No hardware action."
-  },
+  "last_completed_brussels_date": "2026-11-19",
+  "last_processed_main_sha": "d88c800aebd0a5d8e05c788424f1d411a93b31e1",
+  "lease": null,
+  "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
-    "slot": "2026-11-18T18:00",
-    "completed_at": "2026-11-18T17:15:46.711Z",
-    "objective": "Installed human-operated serial lifecycle bench, real PySerial/owned POSIX pseudo-terminal/actual native sketch interoperability; demonstrated incomplete-line false-completion regression fixed",
-    "commit": "fc8541ae33a450df1c562c4f72199272eb7adb99",
-    "tested_commit": "b9de361b78cc0f31e2af5bf2bf0e5ec7f2a4b23e",
-    "tested_tree": "13df48eff812ca3b450a509850764f7fbecd5577",
+    "slot": "2026-11-19T06:00",
+    "completed_at": "2026-11-19T05:13:00.148Z",
+    "objective": "Installed structural-reference GraphML export with exact source/partial coverage and independent NetworkX scientific consumer",
+    "commit": "d88c800aebd0a5d8e05c788424f1d411a93b31e1",
+    "tested_commit": "353e52167e03c6b104d40167f0f5b0b778d8a483",
+    "tested_tree": "bd6f048e08f1f7de8024bb67f0b8b552eb092295",
     "merged": true,
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/32",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/33",
     "checks": {
-      "python_full_local": 2292,
-      "python_full_local_seconds": 104.35,
-      "framing_regression_cases": 3,
-      "installed_serial_cases": 12,
-      "route": "Fresh wheel outside checkout -> PySerial3.5 -> owned POSIX PTY -> actual compiled native sketch; semantic/perceptual completion, Stop, lost reply, incomplete LF, wrong identity, changed plan and existing output suppression",
-      "regression": "Pre-fix PTY experiment accepted missing-LF JSON after timeout as completed (exit0). Now incomplete reply becomes unknown after1render, with no retry or implicit Stop.",
-      "refusals": "Wrong identity0renders; changed plan0requests; output collision no port reopening or requests. Exact input plan/context retained; original source/profile authenticity not inferred.",
-      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44355732674",
-      "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44355732416",
+      "python_full_local": 2302,
+      "python_full_local_seconds": 121.18,
+      "new_cases": 10,
+      "installed_consumer": "Fresh wheel outside checkout -> installed reference-graph CLI -> stdlib GraphML/source/manifest bundle -> independent NetworkX3.4.2 consumer without OpenSmell imports. Both real multisource graphs5nodes/4edges; partial opaque/unresolved variant7nodes/4edges; exact source preservation, no overwrite and modified-bundle refusal.",
+      "structural_guards": "Parallel reference occurrences, self references, XML/Unicode/control-sensitive opaque IDs, unknown resources and large integers preserved. Only registered discovery used; unresolved placeholders explicit, no heuristics/roles/chemical joins inferred. Invalid input creates no bundle; CLI stdin tested.",
+      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44462910715",
+      "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44462910861",
       "ci_result": "success",
       "ci_python_versions": [
         "3.10",
@@ -42,89 +30,28 @@
         "3.13"
       ],
       "ci_node": "22",
-      "esp32": "Both legacy and opt-in lifecycle targets compile in CI; firmware source unchanged.",
-      "artifact": 14452265942,
-      "artifact_digest": "sha256:c533f60ad153f9401e3202e17e89da5e045fa1bf998891f6b678124d0318b300",
-      "local_proof_sha256": "ea7264e87559b977f3017339a9b4af80bed341e13ac659555795e927a8335415",
+      "proof_artifact": 14500513634,
+      "proof_artifact_digest": "sha256:ed724009d34baa7c0ad900f92d802f425adc647be3fb67a6bdbac2665333986c",
+      "normal_kit_artifact": 14500523728,
+      "offline_kit_artifact": 14500558563,
+      "local_result_sha256": "758a1bfacf85f915994944560a06ef4d0c37b2057bb0335ffa599dcd102c7106",
+      "kit": "Guide and independent consumer included; actual standard/clean offline CI pass. NetworkX only development/optional consumer dependency, no SDK runtime/offline closure addition.",
       "main_tree_matches_tested": true,
-      "post_merge": "Fetched main,64 serial transport tests pass; rebuilt/reinstalled wheel passes12 real-PySerial PTY cases again.",
+      "post_merge": "Fetched main;10 targeted cases pass1.30s; rebuilt/reinstalled wheel repeats3 external-reader cases outside checkout.",
       "physical_access": false
     },
     "limitations": [
-      "No physical serial/GPIO/flash/diffusion/odor observation or registry/tag/release; new-target human LED bench remains NOT RUN. Closing serial is not Stop.",
-      "POSIX/Linux software framing proof only; no USB-driver/reset/MCU-idle/wiring or physical compatibility claim. Reports retain decoded complete replies, not refused partial bytes; reception-size limit remains historical.",
-      "SDK/Draft experimental; source/profile hashes remain declarations, exact plan artifact retained. Installed proof inherits runtime dependencies; optional explicit local PySerial wheel was used locally. Independent adoption unobserved."
+      "Always partial structural projection. Registered class does not imply complete scientific scheme validation; unknown payloads remain opaque, no heuristic references or cross-file chemical equivalence.",
+      "GraphML edits do not modify source.osmell and no reverse reconstruction is supplied. Source bytes exact; hashes identify declarations/bytes without authentication. Known edge role/path not provided by discovery and not invented.",
+      "NetworkX3.4.2 pinned proof; fresh SDK install inherits test runtime dependencies or explicit local NetworkX wheel, not a new offline closure claim. Project-maintained external-library integration is not third-party adoption.",
+      "No physical access, GPIO/serial/flash/diffusion, new wire protocol/RFC maturity, tag/release/registry upload or odor result. Human new-target board bench NOT RUN."
     ],
-    "handoff_library_file_id": "libfile_fde3_f-659614061e188191bd78452afb20261b_44ff1f20787081919dd91de18843de02",
-    "started_at_approx": "2026-11-18T17:04:00Z",
-    "elapsed_minutes_approx": 11,
+    "handoff_library_file_id": "libfile_fde3_f-5c178105889081919547341e7aae7a70_44ff1f20787081919dd91de18843de02",
+    "started_at_approx": "2026-11-19T05:00:00Z",
+    "elapsed_minutes_approx": 13,
     "platform_blocker": null
   },
   "recent_sessions": [
-    {
-      "session_kind": "scheduled",
-      "slot": "2026-11-15T18:00",
-      "completed_at": "2026-11-15T17:32:51.617Z",
-      "objective": "Installed developer-owned frame replay and retained native observations, including self-contained CSV-derived export proof",
-      "commit": "447b25bf777139e08f0968093ffdeff67bf9debd",
-      "tested_commit": "be727bac4e408899430824e08309b8b58bd5aa94",
-      "merged": true,
-      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/25",
-      "checks": {
-        "python_full_local": 2201,
-        "python_full_local_seconds": 103.06,
-        "new_native_replay_cases": 18,
-        "python_full_final_ci": 2201,
-        "ci_python_versions": [
-          "3.10",
-          "3.11",
-          "3.12",
-          "3.13"
-        ],
-        "python312_final_ci_seconds": 89.04,
-        "ci_node": "22",
-        "installed_native_replay": "Fresh wheel outside checkout; actual installed replay-frame on semantic/perceptual exports against actual compiled sketch, 9 transcript exchanges each, exact chosen line preserved, fake PWM64/153/0 and120/46/38; known refusal negative control without output mutation and fake-clock off.",
-        "capability_gates": "Valid export for another target stops after negotiation before selected frame; matching but non-reference bounds rejected pre-send. Altered export/snapshot/context rejected before process launch; report collision prevents duplicate replay.",
-        "failure_semantics": "Tests cover explicit refusal, EOF/malformed reply/timeout/startup exit, preserved malformed bytes, no retry, known acceptance followed by lost observation, and refused output mutation detected.",
-        "caller_csv_proof": {
-          "record": 3,
-          "source_kind": "synthetic",
-          "changed_profile_plan": "CH1=.8 duration5",
-          "preparation_files_deleted_before_replay": true,
-          "pwm": [
-            0,
-            204,
-            0
-          ],
-          "transcript_exchanges": 9,
-          "result": "accepted",
-          "negative_control_preserved_outputs": true,
-          "outputs_off_after_advance": true
-        },
-        "kit": "Extracted installed kit original/custom trials and retained-plan export passed; guide included without native executable.",
-        "local_esp32_compile": {
-          "result": "success",
-          "observed_build_seconds": 64.23
-        },
-        "ci_esp32": {
-          "ram_bytes": 22680,
-          "program_bytes": 287209
-        },
-        "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43740960547",
-        "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43740960545",
-        "ci_result": "success",
-        "main_tree_matches_tested": true,
-        "physical_access": false
-      },
-      "limitations": [
-        "Caller explicitly selects a trusted regular native executable; file hash is an observed identity, not code authentication or sandboxing. First bench profile is 3ch0–2 intensity0–1 duration0.1–30s LED reference only.",
-        "Acceptance, trial status and fake outputs are separate; execution:not_observed and physical_validation:false. No serial/device access, hardware/odor result, lifecycle/Stop extension or third-party adoption claim.",
-        "Required report is exclusively reserved/checkpointed; interrupted files are not success and no automatic retry/recovery or durable exactly-once is supplied.",
-        "Export24MiB, source8MiB/target1MiB, reply65536 bytes; first reply5s, later2s. Source/profile hashes declared; unknown input and bounded malformed replies retained. No historical Node timeout bound changed or cause claimed fixed.",
-        "No tags/releases/registry publication. Human ESP32 bench remains NOT RUN."
-      ],
-      "handoff_library_file_id": "libfile_fde3_f-674c02691e2481919e46236eb6b7cccb_44ff1f20787081919dd91de18843de02"
-    },
     {
       "session_kind": "scheduled",
       "slot": "2026-11-16T06:00",
@@ -479,9 +406,56 @@
       "started_at_approx": "2026-11-18T17:04:00Z",
       "elapsed_minutes_approx": 11,
       "platform_blocker": null
+    },
+    {
+      "session_kind": "scheduled",
+      "slot": "2026-11-19T06:00",
+      "completed_at": "2026-11-19T05:13:00.148Z",
+      "objective": "Installed structural-reference GraphML export with exact source/partial coverage and independent NetworkX scientific consumer",
+      "commit": "d88c800aebd0a5d8e05c788424f1d411a93b31e1",
+      "tested_commit": "353e52167e03c6b104d40167f0f5b0b778d8a483",
+      "tested_tree": "bd6f048e08f1f7de8024bb67f0b8b552eb092295",
+      "merged": true,
+      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/33",
+      "checks": {
+        "python_full_local": 2302,
+        "python_full_local_seconds": 121.18,
+        "new_cases": 10,
+        "installed_consumer": "Fresh wheel outside checkout -> installed reference-graph CLI -> stdlib GraphML/source/manifest bundle -> independent NetworkX3.4.2 consumer without OpenSmell imports. Both real multisource graphs5nodes/4edges; partial opaque/unresolved variant7nodes/4edges; exact source preservation, no overwrite and modified-bundle refusal.",
+        "structural_guards": "Parallel reference occurrences, self references, XML/Unicode/control-sensitive opaque IDs, unknown resources and large integers preserved. Only registered discovery used; unresolved placeholders explicit, no heuristics/roles/chemical joins inferred. Invalid input creates no bundle; CLI stdin tested.",
+        "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44462910715",
+        "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44462910861",
+        "ci_result": "success",
+        "ci_python_versions": [
+          "3.10",
+          "3.11",
+          "3.12",
+          "3.13"
+        ],
+        "ci_node": "22",
+        "proof_artifact": 14500513634,
+        "proof_artifact_digest": "sha256:ed724009d34baa7c0ad900f92d802f425adc647be3fb67a6bdbac2665333986c",
+        "normal_kit_artifact": 14500523728,
+        "offline_kit_artifact": 14500558563,
+        "local_result_sha256": "758a1bfacf85f915994944560a06ef4d0c37b2057bb0335ffa599dcd102c7106",
+        "kit": "Guide and independent consumer included; actual standard/clean offline CI pass. NetworkX only development/optional consumer dependency, no SDK runtime/offline closure addition.",
+        "main_tree_matches_tested": true,
+        "post_merge": "Fetched main;10 targeted cases pass1.30s; rebuilt/reinstalled wheel repeats3 external-reader cases outside checkout.",
+        "physical_access": false
+      },
+      "limitations": [
+        "Always partial structural projection. Registered class does not imply complete scientific scheme validation; unknown payloads remain opaque, no heuristic references or cross-file chemical equivalence.",
+        "GraphML edits do not modify source.osmell and no reverse reconstruction is supplied. Source bytes exact; hashes identify declarations/bytes without authentication. Known edge role/path not provided by discovery and not invented.",
+        "NetworkX3.4.2 pinned proof; fresh SDK install inherits test runtime dependencies or explicit local NetworkX wheel, not a new offline closure claim. Project-maintained external-library integration is not third-party adoption.",
+        "No physical access, GPIO/serial/flash/diffusion, new wire protocol/RFC maturity, tag/release/registry upload or odor result. Human new-target board bench NOT RUN."
+      ],
+      "handoff_library_file_id": "libfile_fde3_f-5c178105889081919547341e7aae7a70_44ff1f20787081919dd91de18843de02",
+      "started_at_approx": "2026-11-19T05:00:00Z",
+      "elapsed_minutes_approx": 13,
+      "platform_blocker": null
     }
   ],
-  "next_objective": "Close installed serial bench slice (#32); do not continue native/serial diagnostics or flags by default. Whole developer-kit goal remains active, human new-firmware physical bench NOT RUN. Next inspect existing SDK reference_discovery/graph contracts and deliver one bounded scientific consumer integration: project known resource/reference relationships into a standard NetworkX/GraphML workflow readable by the actual external library, with exact input/context preserved separately and unresolved/unknown relationships explicitly disclosed. No invented chemical joins/equivalence or normalization. Prefer a normal installed SDK entry plus an outside-checkout consumer proof on real multisource and unknown/unresolved fixtures; avoid a new API if an executable example using existing APIs suffices. Confirm usefulness/dependencies before coding; if an observed concrete external need supersedes this candidate, revise priority explicitly. No physical action, release or adoption claim.",
+  "next_objective": "Close first GraphML/NetworkX interoperability slice (#33); do not add more graph export dialects/flags/diagnostics by default. Developer-kit whole milestone remains active, human new-firmware bench NOT RUN. Next inspect known Molecule/SMILES contracts and existing scientific examples; prefer one complete optional RDKit consumer integration from explicitly declared source structures, retaining selected resource IDs, source/provenance/context and honest unsupported/invalid-structure refusals. Aim for an outside-checkout installed SDK workflow with real external-library consumption and an independently inspectable molecular result (without requiring RDKit in SDK default/offline closure). Do not infer chemical identity joins or olfactory outcomes, silently canonicalize/drop unknown representations, or promote RFC maturity. Verify the existing API and practical use before coding; a standalone executable example using current SDK may suffice. If an observed outside integration need supersedes this candidate, revise priority explicitly rather than expand a finished sub-tool. No physical or autonomous hardware action, tag/release/registry publishing.",
   "automation": {
     "id": "39cc72697e048191a1ba0d3e3e9d787c",
     "title": "OpenSmell — développement autonome quotidien",
@@ -498,9 +472,9 @@
   },
   "active_product_milestone": {
     "goal": "Installable OpenSmell developer kit spanning data, SDK, device integration and reproducible hardware bench",
-    "delivered": "Installable experimental data/SDK/developer kit; opt-in firmware and adapter CLI; now installed human-operated serial bench with actual PySerial/PTy/native interoperability and demonstrated incomplete-line regression correction (#32).",
-    "next": "Close installed serial bench slice (#32); do not continue native/serial diagnostics or flags by default. Whole developer-kit goal remains active, human new-firmware physical bench NOT RUN. Next inspect existing SDK reference_discovery/graph contracts and deliver one bounded scientific consumer integration: project known resource/reference relationships into a standard NetworkX/GraphML workflow readable by the actual external library, with exact input/context preserved separately and unresolved/unknown relationships explicitly disclosed. No invented chemical joins/equivalence or normalization. Prefer a normal installed SDK entry plus an outside-checkout consumer proof on real multisource and unknown/unresolved fixtures; avoid a new API if an executable example using existing APIs suffices. Confirm usefulness/dependencies before coding; if an observed concrete external need supersedes this candidate, revise priority explicitly. No physical action, release or adoption claim."
+    "delivered": "Installed data/planning/SDK/adapter/serial kit plus passive structural GraphML export and actual independent NetworkX consumer with exact source/partial coverage (#33).",
+    "next": "Close first GraphML/NetworkX interoperability slice (#33); do not add more graph export dialects/flags/diagnostics by default. Developer-kit whole milestone remains active, human new-firmware bench NOT RUN. Next inspect known Molecule/SMILES contracts and existing scientific examples; prefer one complete optional RDKit consumer integration from explicitly declared source structures, retaining selected resource IDs, source/provenance/context and honest unsupported/invalid-structure refusals. Aim for an outside-checkout installed SDK workflow with real external-library consumption and an independently inspectable molecular result (without requiring RDKit in SDK default/offline closure). Do not infer chemical identity joins or olfactory outcomes, silently canonicalize/drop unknown representations, or promote RFC maturity. Verify the existing API and practical use before coding; a standalone executable example using current SDK may suffice. If an observed outside integration need supersedes this candidate, revise priority explicitly rather than expand a finished sub-tool. No physical or autonomous hardware action, tag/release/registry publishing."
   },
-  "session_slot": "2026-11-19T06:00",
-  "last_completed_slot": "2026-11-18T18:00"
+  "session_slot": null,
+  "last_completed_slot": "2026-11-19T06:00"
 }
