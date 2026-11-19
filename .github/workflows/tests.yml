@@ -76,6 +76,17 @@ jobs:
           python -m build --wheel
           python -m tools.verify_installed_cli dist/*.whl --js-exchange-directory "$RUNNER_TEMP/js-sdk-exchange"
 
+      - name: Verify installed GraphML with independent NetworkX consumer
+        run: python -m tools.verify_installed_reference_graph dist/opensmell-0.1.0-py3-none-any.whl --evidence-directory dist/reference-graph-proof
+
+      - name: Retain experimental graph interoperability proof
+        if: always()
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: reference-graph-networkx-proof
+          path: dist/reference-graph-proof
+          retention-days: 14
+
       - name: Verify installed observation export with optional Pandas consumer
         run: python -m tools.verify_installed_analysis dist/opensmell-0.1.0-py3-none-any.whl
 

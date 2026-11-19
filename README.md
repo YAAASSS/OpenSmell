@@ -1719,6 +1719,11 @@ command and expected identity, and checkpoints the complete completion/Stop/
 uncertainty walkthrough. The same normal entry works with the native sketch and
 both reference endpoints outside the checkout; no client editing is needed.
 
+The installed [reference-graph export](docs/reference-graph.md) opens known
+structural relationships in NetworkX via GraphML, preserving exact source bytes,
+parallel references, missing targets and opaque resources. It is passive and
+partial; graph reachability is not chemical equivalence or odor evidence.
+
 ### OpenSmell 0.1 foundation
 
 Completed:

@@ -150,3 +150,11 @@ records native acceptance/refusal and fake outputs, and never accesses a board.
 runs the common passive installed reader/plan path for categorical or perceptual
 graphs. Explicit `--simulate` adds fixed Python/Node software trials only.
 See `CALLER_GRAPH.md` for snapshots, refusals and limits.
+
+## Optional structural graph analysis
+
+`opensmell reference-graph caller.osmell --output-directory new-bundle` exports
+known references with exact source and explicit partial coverage. Follow
+`REFERENCE_GRAPH.md` and the included `inspect_reference_graph.py` to read it
+with optional NetworkX3.4.2. This analysis dependency is not in the default SDK
+or offline kit closure. No device command or chemical equivalence is inferred.

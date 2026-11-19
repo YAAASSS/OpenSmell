@@ -60,6 +60,23 @@ NOT RUN. Next choose one concrete external scientific consumer integration of
 the existing data/SDK, or act on observed developer feedback. Independent adoption
 and stable publication remain distinct evidence gates.
 
+## Installed structural graph interoperability — 2026-11-19
+
+The [GraphML entry](reference-graph.md) exports a Generic ResourceGraph into an
+exclusive bundle with exact input, structural directed multigraph and coverage.
+Known references reuse existing SDK discovery; unresolved targets are explicit
+placeholders, unknown payloads remain opaque. No roles/paths or chemical matches
+are invented. The independent NetworkX consumer supports structural dependency
+queries without importing OpenSmell or altering the source.
+
+Exit criterion: installed CLI outside checkout, real external reader on both
+multisource fixtures and partial/parallel references, exact input preservation,
+no-overwrite and altered-bundle refusal. Close this first graph interoperability
+slice when proof/CI pass. Avoid new export formats or graph diagnostics by default;
+next prefer a complete scientific data-to-plan example or observed outside
+integration need, while human board observations remain NOT RUN. SDK/format,
+data, hardware and adoption axes in the roadmap above retain separate evidence.
+
 ## Initial audit — 2026-11-04
 
 - Starting `main`: `52d4504f2b99d0557cbfacf7b81f6fc7dd22f4ca`.
