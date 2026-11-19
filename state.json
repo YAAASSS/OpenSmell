@@ -2,7 +2,11 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-18",
   "last_processed_main_sha": "fc8541ae33a450df1c562c4f72199272eb7adb99",
-  "lease": null,
+  "lease": {
+    "owner": "graphml-0wo7comjpaqe",
+    "acquired_at": "2026-11-19T05:01:19.236Z",
+    "expires_at": "2026-11-19T09:01:19.236Z"
+  },
   "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
@@ -491,6 +495,6 @@
     "delivered": "Installable experimental data/SDK/developer kit; opt-in firmware and adapter CLI; now installed human-operated serial bench with actual PySerial/PTy/native interoperability and demonstrated incomplete-line regression correction (#32).",
     "next": "Close installed serial bench slice (#32); do not continue native/serial diagnostics or flags by default. Whole developer-kit goal remains active, human new-firmware physical bench NOT RUN. Next inspect existing SDK reference_discovery/graph contracts and deliver one bounded scientific consumer integration: project known resource/reference relationships into a standard NetworkX/GraphML workflow readable by the actual external library, with exact input/context preserved separately and unresolved/unknown relationships explicitly disclosed. No invented chemical joins/equivalence or normalization. Prefer a normal installed SDK entry plus an outside-checkout consumer proof on real multisource and unknown/unresolved fixtures; avoid a new API if an executable example using existing APIs suffices. Confirm usefulness/dependencies before coding; if an observed concrete external need supersedes this candidate, revise priority explicitly. No physical action, release or adoption claim."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-19T06:00",
   "last_completed_slot": "2026-11-18T18:00"
 }
