@@ -19,6 +19,8 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[1]
 # Explicit allowlist; external datasets, caches and arbitrary checkout files are excluded.
 PAYLOADS = {
+    "REFERENCE_GRAPH.md": "docs/reference-graph.md",
+    "inspect_reference_graph.py": "examples/networkx_graph/inspect_bundle.py",
     "LIFECYCLE_TRIAL.md": "docs/lifecycle-trial.md",
     "OBSERVATION_ANALYSIS.md": "docs/observation-analysis.md",
     "analyze_observations.py": "examples/pandas_analysis/analyze.py",

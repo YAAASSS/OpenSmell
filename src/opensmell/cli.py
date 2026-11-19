@@ -135,6 +135,23 @@ def inspect_bytes(raw: bytes) -> dict[str, Any]:
     return {"sha256": hashlib.sha256(raw).hexdigest(), "byte_count": len(raw), **summary}
 
 
+def _reference_graph_command(args):
+    from .experimental.reference_graph import export_reference_graph, MAX_BYTES
+    try:
+        if args.file == "-":
+            raw = sys.stdin.buffer.read(MAX_BYTES + 1)
+        else:
+            with Path(args.file).open("rb") as source:
+                raw = source.read(MAX_BYTES + 1)
+        result = export_reference_graph(raw, args.output_directory)
+        print(json.dumps(result, allow_nan=False))
+        return 0
+    except OSError as error:
+        print(json.dumps({"status":"error", "error":str(error)})); return 2
+    except (OpenSmellError, ValueError, TypeError, KeyError, RecursionError, OverflowError) as error:
+        print(json.dumps({"status":"invalid", "error":str(error)})); return 1
+
+
 def _replay_frame_command(args):
     from .experimental.native_replay import replay_frame
     try:
@@ -480,7 +497,12 @@ def main(argv: list[str] | None = None) -> int:
     table = commands.add_parser("observation-table", help="Project graph measurements for analysis, preserving source/context; never execute")
     table.add_argument("file", help="Generic ResourceGraph; '-' reads stdin; 8 MiB maximum")
     table.add_argument("--output", help="New JSON analysis artifact; never overwrite")
+    reference = commands.add_parser("reference-graph", help="Export known structural references as GraphML with exact source; no device action")
+    reference.add_argument("file", help="Generic ResourceGraph file or stdin (-); 8 MiB maximum")
+    reference.add_argument("--output-directory", required=True, help="New bundle directory; never overwrite")
     args = parser.parse_args(argv)
+    if args.command == "reference-graph":
+        return _reference_graph_command(args)
     if args.command == "lifecycle-trial":
         return _lifecycle_trial_command(args)
     if args.command == "observation-table":
