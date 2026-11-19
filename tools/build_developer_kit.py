@@ -19,6 +19,8 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[1]
 # Explicit allowlist; external datasets, caches and arbitrary checkout files are excluded.
 PAYLOADS = {
+    "SCIENTIFIC_PLAN_TRIAL.md": "docs/scientific-plan-trial.md",
+    "science_to_plan.py": "examples/rdkit_molecule/science_to_plan.py",
     "RDKIT_MOLECULE.md": "docs/rdkit-molecule.md",
     "analyze_molecule.py": "examples/rdkit_molecule/analyze.py",
     "read_molecule_sdf.py": "examples/rdkit_molecule/read_sdf.py",

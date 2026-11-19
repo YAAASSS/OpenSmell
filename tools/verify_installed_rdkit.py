@@ -34,7 +34,7 @@ def main():
             assert Path(location).is_relative_to(sdk)
             summary['sdk_installed_outside_checkout']=True
             summary['dependency_scope']='Fresh local SDK wheel target selected first in isolated Python path; RDKit/dependencies inherited from explicit test runtime, not clean offline closure'
-            for name in ('analyze','read_sdf'):shutil.copyfile(root/f'examples/rdkit_molecule/{name}.py',work/f'{name}.py')
+            for name in ('analyze','read_sdf','science_to_plan'):shutil.copyfile(root/f'examples/rdkit_molecule/{name}.py',work/f'{name}.py')
             def analyze(source,rid,output,expected=0):
                 return json.loads(run([sys.executable,'-I','-c',
                     'import sys,runpy;sys.path.insert(0,sys.argv.pop(1));runpy.run_path(sys.argv.pop(1),run_name="__main__")',
@@ -78,6 +78,31 @@ def main():
                 assert refusal['status']=='refused' and not out.exists()
                 refusals.append({'name':label,'result':refusal})
             (evidence/'refusals.json').write_text(json.dumps(refusals,indent=2)+'\n')
+            original=(root/'examples/multisource_diphenyl_ether.osmell').read_bytes()
+            source.write_bytes(original);molecule='e6ad8ce3-dc6e-5d94-9287-57665d48fc0b';observation='219ef28c-9b58-52f2-93a7-0807f5897857'
+            trials=[]
+            for mapper,resource in [('semantic',molecule),('perceptual',observation)]:
+                profile=work/'profile.json';profile_raw=(root/f'examples/offline_{mapper}_profile.json').read_bytes();profile.write_bytes(profile_raw)
+                output=evidence/('experiment-'+mapper)
+                command=[sys.executable,'-I','-c',
+                    'import sys,runpy;sys.path.insert(0,sys.argv.pop(1));runpy.run_path(sys.argv.pop(1),run_name="__main__")',
+                    sdk,work/'science_to_plan.py',source,'--molecule-id',molecule,'--observation-id',observation,
+                    '--resource-id',resource,'--profile',profile,'--duration','5','--output-directory',output]
+                trial=json.loads(run(command));assert trial['status']=='prepared' and trial['execution']=='not_attempted'
+                assert (output/'source.osmell').read_bytes()==original and (output/'profile.json').read_bytes()==profile_raw
+                # Use the installed normal frame-export entry, independently of example artifact construction.
+                exported=work/('frame-'+mapper+'.json');caps=work/'caps.json';caps.write_text(json.dumps(json.loads(profile_raw)['capabilities']))
+                bootstrap='import sys,runpy;sys.path.insert(0,sys.argv.pop(1));runpy.run_module("opensmell",run_name="__main__")'
+                run([sys.executable,'-I','-c',bootstrap,sdk,'encode-frame',output/'plan.json','--capabilities',caps,'--output',exported])
+                frame=json.loads(exported.read_bytes())
+                assert frame['status']=='encoded'
+                before={p.name:p.read_bytes() for p in output.iterdir()};run(command,2)
+                assert before=={p.name:p.read_bytes() for p in output.iterdir()}
+                mismatch=command.copy();mismatch[mismatch.index('--molecule-id')+1]='unrelated';mismatch[-1]=evidence/('mismatch-'+mapper)
+                refused=json.loads(run(mismatch,1));assert refused['status']=='refused' and not mismatch[-1].exists()
+                trials.append({'mapper':mapper,'mapping_resource_id':resource,'commands':trial['plan']['commands'],
+                               'frame_encoded':True,'mismatched_link_refused':True,'source_profile_exact':True,'overwrite_refused':True})
+            summary['linked_scientific_plan_trials']=trials
             summary.update(status='passed',refusals=len(refusals),rdkit_version=report['rdkit_version'])
     except BaseException as error:
         summary.update(status='error',error=str(error));save();raise

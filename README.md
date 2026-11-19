@@ -1730,6 +1730,11 @@ original graph, and produces a re-readable SDF with separate computed results.
 Chemical parsing and canonicalization remain RDKit interpretations, not odor
 predictions or a promotion of the opaque Molecule contract.
 
+The [linked scientific trial](docs/scientific-plan-trial.md) additionally verifies
+the explicit observation/stimulus/molecule link and retains a separate passive
+SDK plan with exact source/profile snapshots. Chemical calculations never choose
+channels; mismatched links are refused before export.
+
 ### OpenSmell 0.1 foundation
 
 Completed:

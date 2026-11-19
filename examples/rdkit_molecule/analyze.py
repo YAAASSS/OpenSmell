@@ -72,6 +72,11 @@ def export_analysis(raw,resource_id,directory):
     output=Path(directory)
     if output.exists():raise FileExistsError('Output directory already exists')
     sdf,report=analyze_graph(raw,resource_id)
+    return _write_analysis_bundle(raw,sdf,report,output)
+
+
+def _write_analysis_bundle(raw,sdf,report,output):
+    output=Path(output)
     output.mkdir(parents=True,exist_ok=False)
     (output/'report.json').write_text('{"status":"incomplete","physical_validation":false}\n')
     files={'source.osmell':raw,'molecule.sdf':sdf}

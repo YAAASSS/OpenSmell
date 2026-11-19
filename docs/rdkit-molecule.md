@@ -111,3 +111,7 @@ RDKit; its optional chemistry tests skip where the dependency is absent.
 This is project-maintained interoperability with an external library, not outside
 adoption. No device command, physical sample, odor measurement, image/media, flash,
 tag, release or registry publication is part of this workflow.
+
+For the complete explicit observation/link/profile workflow, use the
+[scientific plan trial](https://github.com/YAAASSS/OpenSmell/blob/main/docs/scientific-plan-trial.md).
+It preserves molecular computation separately from SDK mapping and never sends.
