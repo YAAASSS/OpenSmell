@@ -2,7 +2,11 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-19",
   "last_processed_main_sha": "d88c800aebd0a5d8e05c788424f1d411a93b31e1",
-  "lease": null,
+  "lease": {
+    "owner": "rdkit-dvy6qm1u99n",
+    "acquired_at": "2026-11-19T17:01:24.567Z",
+    "expires_at": "2026-11-19T21:01:24.568Z"
+  },
   "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
@@ -475,6 +479,6 @@
     "delivered": "Installed data/planning/SDK/adapter/serial kit plus passive structural GraphML export and actual independent NetworkX consumer with exact source/partial coverage (#33).",
     "next": "Close first GraphML/NetworkX interoperability slice (#33); do not add more graph export dialects/flags/diagnostics by default. Developer-kit whole milestone remains active, human new-firmware bench NOT RUN. Next inspect known Molecule/SMILES contracts and existing scientific examples; prefer one complete optional RDKit consumer integration from explicitly declared source structures, retaining selected resource IDs, source/provenance/context and honest unsupported/invalid-structure refusals. Aim for an outside-checkout installed SDK workflow with real external-library consumption and an independently inspectable molecular result (without requiring RDKit in SDK default/offline closure). Do not infer chemical identity joins or olfactory outcomes, silently canonicalize/drop unknown representations, or promote RFC maturity. Verify the existing API and practical use before coding; a standalone executable example using current SDK may suffice. If an observed outside integration need supersedes this candidate, revise priority explicitly rather than expand a finished sub-tool. No physical or autonomous hardware action, tag/release/registry publishing."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-19T18:00",
   "last_completed_slot": "2026-11-19T06:00"
 }
