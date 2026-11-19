@@ -7,7 +7,13 @@
     "acquired_at": "2026-11-19T17:01:24.567Z",
     "expires_at": "2026-11-19T21:01:24.568Z"
   },
-  "open_work": null,
+  "open_work": {
+    "branch": "feat/rdkit-20261119",
+    "commit": "872aa78064581a7a00096da3eba8d7ae0a8043c8",
+    "tested_tree": "fc2cf37810c82fa3bc05560ba75e9d18562ddbe3",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/34",
+    "resume": "Check local full tests and exact-head CI including optional RDKit job. Fix failures if needed, merge after rules/reviews, verify main; save Work and release lease. No physical action."
+  },
   "last_result": {
     "session_kind": "scheduled",
     "slot": "2026-11-19T06:00",
