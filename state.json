@@ -1,162 +1,79 @@
 {
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-19",
-  "last_processed_main_sha": "d88c800aebd0a5d8e05c788424f1d411a93b31e1",
-  "lease": {
-    "owner": "rdkit-dvy6qm1u99n",
-    "acquired_at": "2026-11-19T17:01:24.567Z",
-    "expires_at": "2026-11-19T21:01:24.568Z"
-  },
-  "open_work": {
-    "delivered": [
+  "last_processed_main_sha": "82d3e9b2eb75ff05ce19231de584910b6a680401",
+  "lease": null,
+  "open_work": null,
+  "last_result": {
+    "session_kind": "scheduled",
+    "slot": "2026-11-19T18:00",
+    "completed_at": "2026-11-19T17:23:51.763Z",
+    "objective": "Optional RDKit molecular consumer and complete explicitly linked molecular/observation scientific-to-passive-plan workflow",
+    "commit": "82d3e9b2eb75ff05ce19231de584910b6a680401",
+    "tested_commit": "68d36d3023f1c65ebbf819f76c9174ce923b117a",
+    "tested_tree": "1841faa24226c2af52bdbbb3fb08ab683d38e545",
+    "merged": true,
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/35",
+    "deliveries": [
       {
         "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/34",
         "commit": "8ff259492366d6fd922c1020c5b26380492c496f",
         "tested_commit": "872aa78064581a7a00096da3eba8d7ae0a8043c8",
-        "tree": "fc2cf37810c82fa3bc05560ba75e9d18562ddbe3"
+        "tested_tree": "fc2cf37810c82fa3bc05560ba75e9d18562ddbe3"
+      },
+      {
+        "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/35",
+        "commit": "82d3e9b2eb75ff05ce19231de584910b6a680401",
+        "tested_commit": "68d36d3023f1c65ebbf819f76c9174ce923b117a",
+        "tested_tree": "1841faa24226c2af52bdbbb3fb08ab683d38e545"
       }
     ],
-    "branch": "feat/scientific-plan-trial-20261119",
-    "base": "8ff259492366d6fd922c1020c5b26380492c496f",
-    "resume": "Check final full suite and exact-head CI including17optional scientific tests and linked installed paths. Merge after reviews/rules; verify main, save combined Work, release. PR34 delivered; no physical actions.",
-    "commit": "68d36d3023f1c65ebbf819f76c9174ce923b117a",
-    "tested_tree": "1841faa24226c2af52bdbbb3fb08ab683d38e545",
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/35"
-  },
-  "last_result": {
-    "session_kind": "scheduled",
-    "slot": "2026-11-19T06:00",
-    "completed_at": "2026-11-19T05:13:00.148Z",
-    "objective": "Installed structural-reference GraphML export with exact source/partial coverage and independent NetworkX scientific consumer",
-    "commit": "d88c800aebd0a5d8e05c788424f1d411a93b31e1",
-    "tested_commit": "353e52167e03c6b104d40167f0f5b0b778d8a483",
-    "tested_tree": "bd6f048e08f1f7de8024bb67f0b8b552eb092295",
-    "merged": true,
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/33",
     "checks": {
-      "python_full_local": 2302,
-      "python_full_local_seconds": 121.18,
-      "new_cases": 10,
-      "installed_consumer": "Fresh wheel outside checkout -> installed reference-graph CLI -> stdlib GraphML/source/manifest bundle -> independent NetworkX3.4.2 consumer without OpenSmell imports. Both real multisource graphs5nodes/4edges; partial opaque/unresolved variant7nodes/4edges; exact source preservation, no overwrite and modified-bundle refusal.",
-      "structural_guards": "Parallel reference occurrences, self references, XML/Unicode/control-sensitive opaque IDs, unknown resources and large integers preserved. Only registered discovery used; unresolved placeholders explicit, no heuristics/roles/chemical joins inferred. Invalid input creates no bundle; CLI stdin tested.",
-      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44462910715",
-      "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44462910861",
+      "python_full_local": 2319,
+      "python_full_local_seconds": 119.15,
+      "first_slice_full_local": 2313,
+      "first_slice_seconds": 118.6,
+      "scientific_targeted": 17,
+      "rdkit_version": "2025.09.6",
+      "optional_scientific_ci_python": "3.12",
+      "molecular_proof": "Fresh SDK wheel target outside checkout, import location checked, isolated Python puts target first; copied consumer selects Molecule0.1 explicitly. Actual beta-pineneC10H16 with2specified stereo centers and diphenyl etherC12H10O, plus declared synthetic explicit-H/isotope/unknown-context variant. Exact source, policy/original SMILES retained; actual RDKit-only SDF reader and same-library canonical-isomeric re-read equality.",
+      "chemical_refusals": 7,
+      "successful_molecular_cases": 3,
+      "linked_plan_cases": 2,
+      "linked_proof": "Explicit observation->Stimulus->molecule references checked; mapping resource explicitly selected from linked pair. SemanticCH0=.25/CH1=.6 and perceptualCH2=.15/CH1=.18/CH0=.47 SDK order retained. Exact source/profile bytes, standard offline-plan artifact and experiment completion marker; installed normal encode-frame consumes artifacts without sending. Bad link/unmapped/missing data refuses before output; collisions preserved.",
+      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44575548261",
+      "first_slice_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44573863560",
       "ci_result": "success",
-      "ci_python_versions": [
+      "base_ci_python_versions": [
         "3.10",
         "3.11",
         "3.12",
         "3.13"
       ],
-      "ci_node": "22",
-      "proof_artifact": 14500513634,
-      "proof_artifact_digest": "sha256:ed724009d34baa7c0ad900f92d802f425adc647be3fb67a6bdbac2665333986c",
-      "normal_kit_artifact": 14500523728,
-      "offline_kit_artifact": 14500558563,
-      "local_result_sha256": "758a1bfacf85f915994944560a06ef4d0c37b2057bb0335ffa599dcd102c7106",
-      "kit": "Guide and independent consumer included; actual standard/clean offline CI pass. NetworkX only development/optional consumer dependency, no SDK runtime/offline closure addition.",
+      "ci_optional_scope": "RDKit-dependent cases skip where optional library absent; dedicated Python3.12 RDKit job runs17tests and full installed scientific proof.",
+      "proof_artifact": 14556242369,
+      "proof_artifact_digest": "sha256:6c390f9a15a2ec9c9bad924a308a1c020b2007340af74e8d37a091d859b2f3cd",
+      "first_proof_artifact": 14553859676,
+      "normal_kit_artifact": 14557270869,
+      "offline_kit_artifact": 14555104562,
+      "local_result_sha256": "2cc75bf882e50e4d439c53cfae887ed10dc2da2a48b2e84d6657af979967d561",
       "main_tree_matches_tested": true,
-      "post_merge": "Fetched main;10 targeted cases pass1.30s; rebuilt/reinstalled wheel repeats3 external-reader cases outside checkout.",
+      "post_merge": "Fetched main,17focused tests pass0.66s; rebuilt SDK wheel target repeats3molecular/7refusal/2linked passive-plan paths with normal frame export.",
       "physical_access": false
     },
     "limitations": [
-      "Always partial structural projection. Registered class does not imply complete scientific scheme validation; unknown payloads remain opaque, no heuristic references or cross-file chemical equivalence.",
-      "GraphML edits do not modify source.osmell and no reverse reconstruction is supplied. Source bytes exact; hashes identify declarations/bytes without authentication. Known edge role/path not provided by discovery and not invented.",
-      "NetworkX3.4.2 pinned proof; fresh SDK install inherits test runtime dependencies or explicit local NetworkX wheel, not a new offline closure claim. Project-maintained external-library integration is not third-party adoption.",
-      "No physical access, GPIO/serial/flash/diffusion, new wire protocol/RFC maturity, tag/release/registry upload or odor result. Human new-target board bench NOT RUN."
+      "SDK Molecule0.1 remains opaque; RDKit parsing/sanitization/canonicalization/descriptors are separate version-dependent computations, not chemical authentication, source replacement or olfactory inference.",
+      "Plain SMILES only: no names/CX/control truncation, no identifier lookup/chemical joins/tautomer/salt standardization or measured geometry. Same-library SDF canonical-isomeric equality is a serialization check; exact source preserves unknown context/representations.",
+      "Explicit source graph links, provenance/profile capabilities remain supplied declarations; no chemical descriptor chooses intensities. Plans/frames remain passive execution:not_attempted; no transport/hardware/serial/GPIO/flash/diffusion, images/media, tags/releases or registry upload.",
+      "RDKit/dependencies belong to optional scientific runtime, not SDK default/offline closure. Fresh SDK target/import verified but no new clean scientific environment claim. Repository-run external-library proof is not independent third-party adoption. Human new-firmware bench remains NOT RUN.",
+      "Test fixtures corrected null-vs-omitted SMILES and assumed sorted mapper order; final code preserves SDK contract/order and all guards."
     ],
-    "handoff_library_file_id": "libfile_fde3_f-5c178105889081919547341e7aae7a70_44ff1f20787081919dd91de18843de02",
-    "started_at_approx": "2026-11-19T05:00:00Z",
-    "elapsed_minutes_approx": 13,
+    "handoff_library_file_id": "libfile_fde3_f-6507e3d96ea481918639a56c0044f346_44ff1f20787081919dd91de18843de02",
+    "started_at_approx": "2026-11-19T17:00:00Z",
+    "elapsed_minutes_approx": 23,
     "platform_blocker": null
   },
   "recent_sessions": [
-    {
-      "session_kind": "scheduled",
-      "slot": "2026-11-16T06:00",
-      "completed_at": "2026-11-16T05:24:07.703Z",
-      "objective": "Installed selected perceptual CSV observation import and pinned scientific-source preparation through Python/JS/plan/native frame evidence",
-      "commit": "275d6392541ad3da204d8c3d1c22975f15454116",
-      "tested_commit": "23dde3dadc09fdc934a91d16dfeea9fea57adbc5",
-      "tested_tree": "712b1bc6046dd20efd987cb1f1372f5057990006",
-      "merged": true,
-      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/26",
-      "checks": {
-        "python_full_local": 2235,
-        "python_full_local_seconds": 94.63,
-        "new_import_cases": 34,
-        "targeted_final": 36,
-        "javascript_local_relevant": 50,
-        "native_existing_bench": 44,
-        "ci_python_versions": [
-          "3.10",
-          "3.11",
-          "3.12",
-          "3.13"
-        ],
-        "python312_final_ci": 2235,
-        "python312_final_ci_seconds": 97.82,
-        "ci_node": "22",
-        "installed_synthetic": "Fresh wheel/local JS outside checkout: 3 selected graphs, two distinct plans, blank-vs-zero/context preservation, invalid and overwrite refusals, partial JS inspection and byte equality. Native actual-sketch replays9 exchanges each, PWM66/0/227 and204/51/0, negative-control preservation and fake-clock off.",
-        "published_trial": {
-          "source": "Keller and Vosshall 2016 publisher supplement, DOI10.1186/s12868-016-0287-2",
-          "xlsx_bytes": 9461137,
-          "xlsx_sha256": "efcb1b07558431c869c5578abcd3fa1e4405a38cc68a8b1c1621594c673d9f62",
-          "prepared_bytes": 618,
-          "prepared_sha256": "57e9cd4b41bc69d8813726ae80442b177ae52b4e6100ac56872c546db94f991c",
-          "source_indexes": [
-            2500,
-            2501,
-            0
-          ],
-          "prepared_rows": [
-            1,
-            2,
-            3
-          ],
-          "imported": 3,
-          "planned": 1,
-          "planning_refused": 2,
-          "planned_commands": "CH0=.26, CH1=.38, CH2=.89 duration5",
-          "native_acceptance": "accepted",
-          "native_fake_pwm": [
-            66,
-            97,
-            227
-          ],
-          "native_exchanges": 9,
-          "source_files_deleted_before_replay": true,
-          "scope": "Pinned local source preparation; attribution/rights notice retained, source/header scale discrepancy recorded with R familiarity excluded. No demographics, joins/averages, source corpus redistribution or physical evidence.",
-          "transcript_sha256": "718f83823b9042b01c978d14240ef584e8ac98c065f3808f5669f24ed4cf6d2e",
-          "result_sha256": "0c6e7965e5c8c9982d16133b4ba0e1e13b5c73ab16a1412262c5f9464e5af3eb"
-        },
-        "preparation_refusals": "Wrong XLSX hash before output creation; existing directory refused without overwrite.",
-        "kit": "Rebuilt/extracted/fresh installed kit: new passive perceptual CSV/JS/plan entry using included files plus existing categorical/custom Python/Node endpoints passed. Preparation example included, external corpus excluded.",
-        "ci_esp32": {
-          "result": "success",
-          "compile_seconds": 32.12,
-          "ram_bytes": 22680,
-          "program_bytes": 287209,
-          "native_synthetic_evidence_artifact": 14199423309
-        },
-        "kit_ci_artifact": 14199169993,
-        "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43809350217",
-        "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43809350321",
-        "ci_result": "success",
-        "main_tree_matches_tested": true,
-        "post_merge_main_entry": "Fetched main275d639; normal installed import-keller and validate passed.",
-        "physical_access": false
-      },
-      "limitations": [
-        "Prepared single-record CSV contract only; fixed declared0..100 dimensionless subjective rating. CSV8MiB/source1MiB, CSV default field bound; only selected raw cells/source JSON and input hashes retained, not original full CSV or declaration formatting.",
-        "Free-text categorical fields remain opaque with detection unknown; absence never invents numerical zero. Occurrence-scoped IDs do not assert chemical/person equivalence. Source/license/preparation remain supplied declarations.",
-        "JS inspection partial with categories opaque and absent Annotation branch; exact bytes/known references retained, no complete scheme/corpus validation.",
-        "Native actual-sketch acceptance/fake PWM/fake clock are software observations; execution:not_observed and physical_validation:false. No serial/physical action/flash/diffusion, tags/releases or registry publication. Human bench NOT RUN; independent adoption unobserved.",
-        "Historical intermittent Node timeout is not declared fixed; existing deadlines/no-retry behavior unchanged."
-      ],
-      "weekly_review": "Week9–15: installed CLI/profiles, reusable Python/Node and JS clients, Core/CSV provenance/cohorts and pinned OdorNet trials, extracted caller-data kit, pinned firmware build/native bench and installed frame export/replay delivered. APIs/RFCs experimental; physical bench and third-party adoption not newly observed.",
-      "handoff_library_file_id": "libfile_fde3_f-972bd0b350188191920e71f106c6ea09_44ff1f20787081919dd91de18843de02"
-    },
     {
       "session_kind": "scheduled",
       "slot": "2026-11-16T18:00",
@@ -472,9 +389,78 @@
       "started_at_approx": "2026-11-19T05:00:00Z",
       "elapsed_minutes_approx": 13,
       "platform_blocker": null
+    },
+    {
+      "session_kind": "scheduled",
+      "slot": "2026-11-19T18:00",
+      "completed_at": "2026-11-19T17:23:51.763Z",
+      "objective": "Optional RDKit molecular consumer and complete explicitly linked molecular/observation scientific-to-passive-plan workflow",
+      "commit": "82d3e9b2eb75ff05ce19231de584910b6a680401",
+      "tested_commit": "68d36d3023f1c65ebbf819f76c9174ce923b117a",
+      "tested_tree": "1841faa24226c2af52bdbbb3fb08ab683d38e545",
+      "merged": true,
+      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/35",
+      "deliveries": [
+        {
+          "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/34",
+          "commit": "8ff259492366d6fd922c1020c5b26380492c496f",
+          "tested_commit": "872aa78064581a7a00096da3eba8d7ae0a8043c8",
+          "tested_tree": "fc2cf37810c82fa3bc05560ba75e9d18562ddbe3"
+        },
+        {
+          "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/35",
+          "commit": "82d3e9b2eb75ff05ce19231de584910b6a680401",
+          "tested_commit": "68d36d3023f1c65ebbf819f76c9174ce923b117a",
+          "tested_tree": "1841faa24226c2af52bdbbb3fb08ab683d38e545"
+        }
+      ],
+      "checks": {
+        "python_full_local": 2319,
+        "python_full_local_seconds": 119.15,
+        "first_slice_full_local": 2313,
+        "first_slice_seconds": 118.6,
+        "scientific_targeted": 17,
+        "rdkit_version": "2025.09.6",
+        "optional_scientific_ci_python": "3.12",
+        "molecular_proof": "Fresh SDK wheel target outside checkout, import location checked, isolated Python puts target first; copied consumer selects Molecule0.1 explicitly. Actual beta-pineneC10H16 with2specified stereo centers and diphenyl etherC12H10O, plus declared synthetic explicit-H/isotope/unknown-context variant. Exact source, policy/original SMILES retained; actual RDKit-only SDF reader and same-library canonical-isomeric re-read equality.",
+        "chemical_refusals": 7,
+        "successful_molecular_cases": 3,
+        "linked_plan_cases": 2,
+        "linked_proof": "Explicit observation->Stimulus->molecule references checked; mapping resource explicitly selected from linked pair. SemanticCH0=.25/CH1=.6 and perceptualCH2=.15/CH1=.18/CH0=.47 SDK order retained. Exact source/profile bytes, standard offline-plan artifact and experiment completion marker; installed normal encode-frame consumes artifacts without sending. Bad link/unmapped/missing data refuses before output; collisions preserved.",
+        "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44575548261",
+        "first_slice_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44573863560",
+        "ci_result": "success",
+        "base_ci_python_versions": [
+          "3.10",
+          "3.11",
+          "3.12",
+          "3.13"
+        ],
+        "ci_optional_scope": "RDKit-dependent cases skip where optional library absent; dedicated Python3.12 RDKit job runs17tests and full installed scientific proof.",
+        "proof_artifact": 14556242369,
+        "proof_artifact_digest": "sha256:6c390f9a15a2ec9c9bad924a308a1c020b2007340af74e8d37a091d859b2f3cd",
+        "first_proof_artifact": 14553859676,
+        "normal_kit_artifact": 14557270869,
+        "offline_kit_artifact": 14555104562,
+        "local_result_sha256": "2cc75bf882e50e4d439c53cfae887ed10dc2da2a48b2e84d6657af979967d561",
+        "main_tree_matches_tested": true,
+        "post_merge": "Fetched main,17focused tests pass0.66s; rebuilt SDK wheel target repeats3molecular/7refusal/2linked passive-plan paths with normal frame export.",
+        "physical_access": false
+      },
+      "limitations": [
+        "SDK Molecule0.1 remains opaque; RDKit parsing/sanitization/canonicalization/descriptors are separate version-dependent computations, not chemical authentication, source replacement or olfactory inference.",
+        "Plain SMILES only: no names/CX/control truncation, no identifier lookup/chemical joins/tautomer/salt standardization or measured geometry. Same-library SDF canonical-isomeric equality is a serialization check; exact source preserves unknown context/representations.",
+        "Explicit source graph links, provenance/profile capabilities remain supplied declarations; no chemical descriptor chooses intensities. Plans/frames remain passive execution:not_attempted; no transport/hardware/serial/GPIO/flash/diffusion, images/media, tags/releases or registry upload.",
+        "RDKit/dependencies belong to optional scientific runtime, not SDK default/offline closure. Fresh SDK target/import verified but no new clean scientific environment claim. Repository-run external-library proof is not independent third-party adoption. Human new-firmware bench remains NOT RUN.",
+        "Test fixtures corrected null-vs-omitted SMILES and assumed sorted mapper order; final code preserves SDK contract/order and all guards."
+      ],
+      "handoff_library_file_id": "libfile_fde3_f-6507e3d96ea481918639a56c0044f346_44ff1f20787081919dd91de18843de02",
+      "started_at_approx": "2026-11-19T17:00:00Z",
+      "elapsed_minutes_approx": 23,
+      "platform_blocker": null
     }
   ],
-  "next_objective": "Close first GraphML/NetworkX interoperability slice (#33); do not add more graph export dialects/flags/diagnostics by default. Developer-kit whole milestone remains active, human new-firmware bench NOT RUN. Next inspect known Molecule/SMILES contracts and existing scientific examples; prefer one complete optional RDKit consumer integration from explicitly declared source structures, retaining selected resource IDs, source/provenance/context and honest unsupported/invalid-structure refusals. Aim for an outside-checkout installed SDK workflow with real external-library consumption and an independently inspectable molecular result (without requiring RDKit in SDK default/offline closure). Do not infer chemical identity joins or olfactory outcomes, silently canonicalize/drop unknown representations, or promote RFC maturity. Verify the existing API and practical use before coding; a standalone executable example using current SDK may suffice. If an observed outside integration need supersedes this candidate, revise priority explicitly rather than expand a finished sub-tool. No physical or autonomous hardware action, tag/release/registry publishing.",
+  "next_objective": "Close optional RDKit and linked single scientific experiment slices (#34/#35); no additional chemistry descriptors/export formats or graph/Explorer/native diagnostics by default. Whole experimental developer-kit milestone remains active. Next inspect installed lifecycle adapter/transport/planning contracts for one genuinely new developer/experimenter capability: a bounded software-only protocol of several explicit passive plans, source/provenance retained per step, advancing only after correlated completion and aborting on rejection, explicit Stop or uncertain reply. Reuse existing single-plan/wire profile and normal installed entry where possible; no automatic retry/resend/reconnect, no new protocol merely for novelty. Exit: installed SDK/software reference/native sketch demonstration of two distinct planned steps with correlated observations, no next send after failure/Stop, capability/duration/stale/duplicate guards and retained reproducible report. Keep chemistry computations separate from odor/channel mapping. No physical serial/GPIO access, hardware orchestration, flash or odor claim; human new-firmware bench and independent adoption remain separate NOT RUN/unobserved gates. Reevaluate if observed external demand makes another bounded integration more useful.",
   "automation": {
     "id": "39cc72697e048191a1ba0d3e3e9d787c",
     "title": "OpenSmell — développement autonome quotidien",
@@ -491,9 +477,9 @@
   },
   "active_product_milestone": {
     "goal": "Installable OpenSmell developer kit spanning data, SDK, device integration and reproducible hardware bench",
-    "delivered": "Installed data/planning/SDK/adapter/serial kit plus passive structural GraphML export and actual independent NetworkX consumer with exact source/partial coverage (#33).",
-    "next": "Close first GraphML/NetworkX interoperability slice (#33); do not add more graph export dialects/flags/diagnostics by default. Developer-kit whole milestone remains active, human new-firmware bench NOT RUN. Next inspect known Molecule/SMILES contracts and existing scientific examples; prefer one complete optional RDKit consumer integration from explicitly declared source structures, retaining selected resource IDs, source/provenance/context and honest unsupported/invalid-structure refusals. Aim for an outside-checkout installed SDK workflow with real external-library consumption and an independently inspectable molecular result (without requiring RDKit in SDK default/offline closure). Do not infer chemical identity joins or olfactory outcomes, silently canonicalize/drop unknown representations, or promote RFC maturity. Verify the existing API and practical use before coding; a standalone executable example using current SDK may suffice. If an observed outside integration need supersedes this candidate, revise priority explicitly rather than expand a finished sub-tool. No physical or autonomous hardware action, tag/release/registry publishing."
+    "delivered": "Installed interoperable data/SDK/adapter/serial kit, GraphML/NetworkX and now optional molecular/SDF consumer plus explicitly linked scientific data-to-passive-plan experiment with exact source/profile and external-library proof (#34/#35).",
+    "next": "Close optional RDKit and linked single scientific experiment slices (#34/#35); no additional chemistry descriptors/export formats or graph/Explorer/native diagnostics by default. Whole experimental developer-kit milestone remains active. Next inspect installed lifecycle adapter/transport/planning contracts for one genuinely new developer/experimenter capability: a bounded software-only protocol of several explicit passive plans, source/provenance retained per step, advancing only after correlated completion and aborting on rejection, explicit Stop or uncertain reply. Reuse existing single-plan/wire profile and normal installed entry where possible; no automatic retry/resend/reconnect, no new protocol merely for novelty. Exit: installed SDK/software reference/native sketch demonstration of two distinct planned steps with correlated observations, no next send after failure/Stop, capability/duration/stale/duplicate guards and retained reproducible report. Keep chemistry computations separate from odor/channel mapping. No physical serial/GPIO access, hardware orchestration, flash or odor claim; human new-firmware bench and independent adoption remain separate NOT RUN/unobserved gates. Reevaluate if observed external demand makes another bounded integration more useful."
   },
-  "session_slot": "2026-11-19T18:00",
-  "last_completed_slot": "2026-11-19T06:00"
+  "session_slot": null,
+  "last_completed_slot": "2026-11-19T18:00"
 }
