@@ -18,7 +18,10 @@
     ],
     "branch": "feat/scientific-plan-trial-20261119",
     "base": "8ff259492366d6fd922c1020c5b26380492c496f",
-    "resume": "Finish explicit linked molecule/observation scientific planning example; both mappings, mismatch refusal, fresh installed proof, CI/merge; save combined Work and release. RDKit chemistry remains separate from mapping."
+    "resume": "Check final full suite and exact-head CI including17optional scientific tests and linked installed paths. Merge after reviews/rules; verify main, save combined Work, release. PR34 delivered; no physical actions.",
+    "commit": "68d36d3023f1c65ebbf819f76c9174ce923b117a",
+    "tested_tree": "1841faa24226c2af52bdbbb3fb08ab683d38e545",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/35"
   },
   "last_result": {
     "session_kind": "scheduled",
