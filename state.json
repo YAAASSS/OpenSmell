@@ -7,7 +7,13 @@
     "acquired_at": "2026-11-19T05:01:19.236Z",
     "expires_at": "2026-11-19T09:01:19.236Z"
   },
-  "open_work": null,
+  "open_work": {
+    "branch": "feat/graphml-20261119",
+    "commit": "353e52167e03c6b104d40167f0f5b0b778d8a483",
+    "tested_tree": "bd6f048e08f1f7de8024bb67f0b8b552eb092295",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/33",
+    "resume": "Check local full tests and exact-head CI, fix if needed, merge after rules/reviews; verify main and save Work, release lease. No hardware action."
+  },
   "last_result": {
     "session_kind": "scheduled",
     "slot": "2026-11-18T18:00",
