@@ -204,3 +204,27 @@ jobs:
           name: opensmell-offline-linux-cp312
           path: dist/opensmell-offline-linux-cp312.zip
           retention-days: 14
+
+  molecular-interoperability:
+    name: Optional RDKit molecular interoperability / Python 3.12
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-python@v7.1.0
+        with:
+          python-version: "3.12"
+      - name: Install explicit optional scientific consumer environment
+        run: python -m pip install . "build>=1.2" "pytest>=8" rdkit==2025.9.6
+      - name: Test actual molecule parsing and SDF round-trip
+        run: python -m pytest -q tests/test_rdkit_example.py
+      - name: Build wheel and verify installed SDK with independent SDF reader
+        run: |
+          python -m build --wheel
+          python -m tools.verify_installed_rdkit dist/opensmell-0.1.0-py3-none-any.whl --evidence-directory dist/rdkit-proof
+      - name: Retain experimental molecular interoperability evidence
+        if: always()
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: rdkit-molecular-interoperability-proof
+          path: dist/rdkit-proof
+          retention-days: 14

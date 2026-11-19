@@ -1724,6 +1724,12 @@ structural relationships in NetworkX via GraphML, preserving exact source bytes,
 parallel references, missing targets and opaque resources. It is passive and
 partial; graph reachability is not chemical equivalence or odor evidence.
 
+The optional [RDKit molecular workflow](docs/rdkit-molecule.md) consumes one
+explicitly selected declared SMILES through the installed SDK, preserves the
+original graph, and produces a re-readable SDF with separate computed results.
+Chemical parsing and canonicalization remain RDKit interpretations, not odor
+predictions or a promotion of the opaque Molecule contract.
+
 ### OpenSmell 0.1 foundation
 
 Completed:
