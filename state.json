@@ -8,11 +8,17 @@
     "expires_at": "2026-11-19T21:01:24.568Z"
   },
   "open_work": {
-    "branch": "feat/rdkit-20261119",
-    "commit": "872aa78064581a7a00096da3eba8d7ae0a8043c8",
-    "tested_tree": "fc2cf37810c82fa3bc05560ba75e9d18562ddbe3",
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/34",
-    "resume": "Check local full tests and exact-head CI including optional RDKit job. Fix failures if needed, merge after rules/reviews, verify main; save Work and release lease. No physical action."
+    "delivered": [
+      {
+        "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/34",
+        "commit": "8ff259492366d6fd922c1020c5b26380492c496f",
+        "tested_commit": "872aa78064581a7a00096da3eba8d7ae0a8043c8",
+        "tree": "fc2cf37810c82fa3bc05560ba75e9d18562ddbe3"
+      }
+    ],
+    "branch": "feat/scientific-plan-trial-20261119",
+    "base": "8ff259492366d6fd922c1020c5b26380492c496f",
+    "resume": "Finish explicit linked molecule/observation scientific planning example; both mappings, mismatch refusal, fresh installed proof, CI/merge; save combined Work and release. RDKit chemistry remains separate from mapping."
   },
   "last_result": {
     "session_kind": "scheduled",
