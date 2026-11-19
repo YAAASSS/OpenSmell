@@ -158,3 +158,11 @@ known references with exact source and explicit partial coverage. Follow
 `REFERENCE_GRAPH.md` and the included `inspect_reference_graph.py` to read it
 with optional NetworkX3.4.2. This analysis dependency is not in the default SDK
 or offline kit closure. No device command or chemical equivalence is inferred.
+
+## Optional molecular scientific consumer
+
+`RDKIT_MOLECULE.md`, `analyze_molecule.py` and `read_molecule_sdf.py` provide an
+explicit selected-Molecule workflow from your own graph to RDKit/SDF and a
+separate computation report, preserving the source exactly. RDKit2025.9.6 must
+be installed separately; it is not part of the default SDK/offline closure. No
+chemical identity join, source rewriting or odor result is inferred.

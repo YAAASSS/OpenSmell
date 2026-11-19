@@ -77,6 +77,22 @@ next prefer a complete scientific data-to-plan example or observed outside
 integration need, while human board observations remain NOT RUN. SDK/format,
 data, hardware and adoption axes in the roadmap above retain separate evidence.
 
+## Optional RDKit molecular consumer — 2026-11-19 evening
+
+The [molecular workflow](rdkit-molecule.md) reuses the installed SDK's explicit
+Molecule0.1 selection and treats chemical interpretation as an optional external
+consumer, preserving opaque SMILES semantics in the SDK. It retains exact source,
+selected original resource/string, parser policy/version, computed descriptors,
+SDF and a same-library re-read check. No chemical joins or olfactory claims.
+
+Exit: both real fixtures (including beta-pinene stereo), synthetic explicit-H/
+unknown content, refusals and overwrite guards through an outside-checkout SDK
+wheel and independent RDKit-only SDF reader. Close this first molecular consumer
+slice after CI. No chemistry descriptor/format expansion by default. Next prefer
+one integrated scientific data-to-plan walkthrough using the delivered entries,
+or an observed outside integration need. Human new-firmware bench remains NOT RUN;
+independent adoption, stable publication and all physical outcomes remain distinct.
+
 ## Initial audit — 2026-11-04
 
 - Starting `main`: `52d4504f2b99d0557cbfacf7b81f6fc7dd22f4ca`.
