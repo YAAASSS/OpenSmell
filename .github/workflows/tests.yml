@@ -216,7 +216,7 @@ jobs:
       - name: Install explicit optional scientific consumer environment
         run: python -m pip install . "build>=1.2" "pytest>=8" rdkit==2025.9.6
       - name: Test actual molecule parsing and SDF round-trip
-        run: python -m pytest -q tests/test_rdkit_example.py
+        run: python -m pytest -q tests/test_rdkit_example.py tests/test_scientific_plan_trial.py
       - name: Build wheel and verify installed SDK with independent SDF reader
         run: |
           python -m build --wheel

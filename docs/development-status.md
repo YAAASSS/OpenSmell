@@ -93,6 +93,25 @@ one integrated scientific data-to-plan walkthrough using the delivered entries,
 or an observed outside integration need. Human new-firmware bench remains NOT RUN;
 independent adoption, stable publication and all physical outcomes remain distinct.
 
+## Linked scientific data-to-plan workflow — 2026-11-19 evening
+
+The [complete trial](scientific-plan-trial.md) verifies caller-selected
+observation -> stimulus -> molecule links, then produces separate RDKit/SDF and
+passive SDK planning artifacts. Mapping resource/profile/duration remain explicit;
+no computed chemical descriptor is used as a channel intensity. Exact source and
+profile bytes, selected IDs and limitations are retained in a new experiment
+package; mismatch/missing data refuses before output. The installed frame-export
+entry independently consumes its standard offline-plan artifact without sending.
+
+Exit: both fixture mapping paths through the installed SDK and copied consumer,
+reusable plan artifact, structural mismatch/output collision refusals, optional
+chemistry/stereo tests and actual SDF reader. Close this integrated single-trial
+slice after CI. Next useful SDK milestone: a bounded software-only protocol of
+several explicitly selected plans, starting the next only after correlated
+completion and aborting on refusal, Stop or uncertainty; inspect existing APIs
+before designing any new surface. No serial/device action or new wire protocol.
+Keep physical validation and independent adoption as separate evidence gates.
+
 ## Initial audit — 2026-11-04
 
 - Starting `main`: `52d4504f2b99d0557cbfacf7b81f6fc7dd22f4ca`.

@@ -166,3 +166,7 @@ explicit selected-Molecule workflow from your own graph to RDKit/SDF and a
 separate computation report, preserving the source exactly. RDKit2025.9.6 must
 be installed separately; it is not part of the default SDK/offline closure. No
 chemical identity join, source rewriting or odor result is inferred.
+
+`SCIENTIFIC_PLAN_TRIAL.md` and `science_to_plan.py` extend this to an explicitly
+linked molecule/observation and a separate passive SDK mapping plan. Both source
+and profile bytes are retained; RDKit computations do not choose channels.
