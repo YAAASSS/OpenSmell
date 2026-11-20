@@ -1,141 +1,70 @@
 {
   "schema_version": 1,
-  "last_completed_brussels_date": "2026-11-19",
-  "last_processed_main_sha": "82d3e9b2eb75ff05ce19231de584910b6a680401",
-  "lease": {
-    "owner": "sequence-aca7tned8rg",
-    "acquired_at": "2026-11-20T05:03:35.039Z",
-    "expires_at": "2026-11-20T09:03:35.039Z"
-  },
-  "open_work": {
-    "branch": "feat/software-sequence-20261120",
-    "commit": "a8e132914a440c4feef19746b25b991b6a1d2223",
-    "tree": "19e927d793f692d0c06349a2cdea6ce41d298ed2",
-    "pr": 36,
-    "url": "https://github.com/YAAASSS/OpenSmell/pull/36",
+  "last_completed_brussels_date": "2026-11-20",
+  "last_processed_main_sha": "b90ca01a8dac000b9b51fca10e1b01295b09f95d",
+  "lease": null,
+  "open_work": null,
+  "last_result": {
+    "session_kind": "scheduled",
+    "slot": "2026-11-20T06:00",
+    "completed_at": "2026-11-20T05:24:45.949Z",
+    "objective": "Bounded installed SDK/CLI software sequences with per-step provenance and correlated receipts",
+    "commit": "b90ca01a8dac000b9b51fca10e1b01295b09f95d",
+    "tested_commit": "a8e132914a440c4feef19746b25b991b6a1d2223",
+    "tested_tree": "19e927d793f692d0c06349a2cdea6ce41d298ed2",
+    "merged": true,
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/36",
     "checks": {
       "python_full_local": 2370,
+      "python_full_local_seconds": 111.24,
       "targeted": 51,
       "javascript": 27,
       "installed_sequence_cases": 9,
-      "kit": "passed",
-      "installed_cli": "passed",
-      "tests_ci": 44680133624,
-      "firmware_ci": 44680133642
-    },
-    "resume": "Exact-head CI ongoing; inspect final jobs/reviews/rules and merge #36. Then fetch main, confirm tested tree, run normal installed sequence proof, save Work handoff and release slot."
-  },
-  "last_result": {
-    "session_kind": "scheduled",
-    "slot": "2026-11-19T18:00",
-    "completed_at": "2026-11-19T17:23:51.763Z",
-    "objective": "Optional RDKit molecular consumer and complete explicitly linked molecular/observation scientific-to-passive-plan workflow",
-    "commit": "82d3e9b2eb75ff05ce19231de584910b6a680401",
-    "tested_commit": "68d36d3023f1c65ebbf819f76c9174ce923b117a",
-    "tested_tree": "1841faa24226c2af52bdbbb3fb08ab683d38e545",
-    "merged": true,
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/35",
-    "deliveries": [
-      {
-        "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/34",
-        "commit": "8ff259492366d6fd922c1020c5b26380492c496f",
-        "tested_commit": "872aa78064581a7a00096da3eba8d7ae0a8043c8",
-        "tested_tree": "fc2cf37810c82fa3bc05560ba75e9d18562ddbe3"
-      },
-      {
-        "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/35",
-        "commit": "82d3e9b2eb75ff05ce19231de584910b6a680401",
-        "tested_commit": "68d36d3023f1c65ebbf819f76c9174ce923b117a",
-        "tested_tree": "1841faa24226c2af52bdbbb3fb08ab683d38e545"
-      }
-    ],
-    "checks": {
-      "python_full_local": 2319,
-      "python_full_local_seconds": 119.15,
-      "first_slice_full_local": 2313,
-      "first_slice_seconds": 118.6,
-      "scientific_targeted": 17,
-      "rdkit_version": "2025.09.6",
-      "optional_scientific_ci_python": "3.12",
-      "molecular_proof": "Fresh SDK wheel target outside checkout, import location checked, isolated Python puts target first; copied consumer selects Molecule0.1 explicitly. Actual beta-pineneC10H16 with2specified stereo centers and diphenyl etherC12H10O, plus declared synthetic explicit-H/isotope/unknown-context variant. Exact source, policy/original SMILES retained; actual RDKit-only SDF reader and same-library canonical-isomeric re-read equality.",
-      "chemical_refusals": 7,
-      "successful_molecular_cases": 3,
-      "linked_plan_cases": 2,
-      "linked_proof": "Explicit observation->Stimulus->molecule references checked; mapping resource explicitly selected from linked pair. SemanticCH0=.25/CH1=.6 and perceptualCH2=.15/CH1=.18/CH0=.47 SDK order retained. Exact source/profile bytes, standard offline-plan artifact and experiment completion marker; installed normal encode-frame consumes artifacts without sending. Bad link/unmapped/missing data refuses before output; collisions preserved.",
-      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44575548261",
-      "first_slice_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44573863560",
+      "installed_sequence_targets": [
+        "Python reference",
+        "independent Node reference",
+        "actual compiled native LED sketch"
+      ],
+      "sequence_proof": "Two distinct semantic/perceptual .1-second explicit offline plans; only correlated completion advances. Copied installed SDK consumer observes Stop on explicit5s first plan and never sends second. Trusted proxy drops second actual acceptance; earlier completed receipt retained, second unknown, no third render. Exact artifact bytes/context and transcript retained.",
+      "guards": "Bounds, frozen plans/context, all-plan live capability preflight including incompatible late step, request/execution ID protection, missing/reused/wrong IDs, rejection/EOF/malformed/timeout, interruption, cooperative cancellation race, checkpoint failure and output collision.",
+      "kit": "Fresh extracted kit installed CLI and copied SDK Stop consumer against Python/Node; prior kit trials pass; clean offline CPython3.12 CI repeats sequence entry with no network interfaces.",
+      "installed_cli": "Existing installed-wheel CLI and lifecycle proofs passed outside checkout.",
+      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44680133624",
+      "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44680133642",
       "ci_result": "success",
-      "base_ci_python_versions": [
+      "ci_exact_head": "a8e132914a440c4feef19746b25b991b6a1d2223",
+      "ci_python_versions": [
         "3.10",
         "3.11",
         "3.12",
         "3.13"
       ],
-      "ci_optional_scope": "RDKit-dependent cases skip where optional library absent; dedicated Python3.12 RDKit job runs17tests and full installed scientific proof.",
-      "proof_artifact": 14556242369,
-      "proof_artifact_digest": "sha256:6c390f9a15a2ec9c9bad924a308a1c020b2007340af74e8d37a091d859b2f3cd",
-      "first_proof_artifact": 14553859676,
-      "normal_kit_artifact": 14557270869,
-      "offline_kit_artifact": 14555104562,
-      "local_result_sha256": "2cc75bf882e50e4d439c53cfae887ed10dc2da2a48b2e84d6657af979967d561",
+      "ci_python312": "2364 passed,6 skipped without optional RDKit; dedicated optional scientific job passed",
+      "firmware": "Both ESP32 targets compiled; unchanged legacy/native checks,57lifecycle exchanges,both installed clients,installed sequence proof and12ownedPTY cases passed. No board access.",
+      "sequence_artifact": 14604250434,
+      "sequence_artifact_digest": "sha256:3f2c5a1053e69076ddcadc11d495f84747c927680f54a61198a16e6f877868dd",
+      "native_artifact": 14604121237,
+      "native_artifact_digest": "sha256:a6f612996565f277e1414fcce570c74a13c6b5bcd0b44800ac189cb611e344a4",
+      "normal_kit_artifact": 14603943484,
+      "offline_kit_artifact": 14603293763,
       "main_tree_matches_tested": true,
-      "post_merge": "Fetched main,17focused tests pass0.66s; rebuilt SDK wheel target repeats3molecular/7refusal/2linked passive-plan paths with normal frame export.",
+      "post_merge": "Fetched main; exact tested tree;51focused tests passed1.89s; rebuilt installed wheel repeated9software cases outside checkout.",
+      "main_result_sha256": "959a0fcd1edcb0a57275c617ef6789f41eebed139cd1643a2157520c17229047",
       "physical_access": false
     },
     "limitations": [
-      "SDK Molecule0.1 remains opaque; RDKit parsing/sanitization/canonicalization/descriptors are separate version-dependent computations, not chemical authentication, source replacement or olfactory inference.",
-      "Plain SMILES only: no names/CX/control truncation, no identifier lookup/chemical joins/tautomer/salt standardization or measured geometry. Same-library SDF canonical-isomeric equality is a serialization check; exact source preserves unknown context/representations.",
-      "Explicit source graph links, provenance/profile capabilities remain supplied declarations; no chemical descriptor chooses intensities. Plans/frames remain passive execution:not_attempted; no transport/hardware/serial/GPIO/flash/diffusion, images/media, tags/releases or registry upload.",
-      "RDKit/dependencies belong to optional scientific runtime, not SDK default/offline closure. Fresh SDK target/import verified but no new clean scientific environment claim. Repository-run external-library proof is not independent third-party adoption. Human new-firmware bench remains NOT RUN.",
-      "Test fixtures corrected null-vs-omitted SMILES and assumed sorted mapper order; final code preserves SDK contract/order and all guards."
+      "No new wire protocol. One-shot exclusively owned client, no retry/reconnect/automatic resume or durable reconciliation; custom transports must bound their own I/O.",
+      "Cooperative Stop serialized with synchronous exchanges, not emergency preemption; completion raced with Stop is completion plus cancellation, never fabricated stopped. Ctrl-C closes uncertain links without inferring Stop.",
+      "Software-only observed receipts; native input-sampled timing/fakePWM do not establish physical LED, diffusion, hardware compatibility or measured olfactory outcome. New-target human bench remains NOT RUN; no third-party adoption demonstrated.",
+      "Plans recomputed before child launch; all live capabilities checked before first render. Source/profile hash declarations and endpoint identity not authenticated; exact raw artifacts preserved including unknown context. Trusted child not sandboxed; reports include supplied arguments/data; interrupted checkpoint may be partial.",
+      "No physical port, flash, diffusion, tag/release, registry upload, paid service or additional automation."
     ],
-    "handoff_library_file_id": "libfile_fde3_f-6507e3d96ea481918639a56c0044f346_44ff1f20787081919dd91de18843de02",
-    "started_at_approx": "2026-11-19T17:00:00Z",
-    "elapsed_minutes_approx": 23,
+    "handoff_library_file_id": "libfile_fde3_f-bd523e23b1dc8191b65f946d60dfd9b0_44ff1f20787081919dd91de18843de02",
+    "lease_acquired_at": "2026-11-20T05:03:35.039Z",
+    "elapsed_under_lease_minutes": 21,
     "platform_blocker": null
   },
   "recent_sessions": [
-    {
-      "session_kind": "scheduled",
-      "slot": "2026-11-16T18:00",
-      "completed_at": "2026-11-16T17:15:19.128Z",
-      "objective": "Common extracted-kit caller graph entry with exact snapshots, explicit resource/profile, passive plans/refusals and opt-in cross-language software proof",
-      "commit": "36be1fad1c8b6be213818786fad40858d9f124cf",
-      "tested_commit": "787f8211d813da6498237e13e6d05b7f8ecfb3d4",
-      "tested_tree": "c873c557e98fa274b23ca2b536494568779b1e29",
-      "merged": true,
-      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/27",
-      "checks": {
-        "python_full_local": 2243,
-        "python_full_local_seconds": 104.86,
-        "new_graph_cases": 8,
-        "python312_final_ci": 2243,
-        "python312_final_ci_seconds": 92.75,
-        "ci_python_versions": [
-          "3.10",
-          "3.11",
-          "3.12",
-          "3.13"
-        ],
-        "ci_node": "22",
-        "extracted_installed_kit": "Fresh extracted wheel/npm installation outside checkout. Categorical and perceptual import graphs through same try_kit --graph entry; changed semanticCH0=.4 and perceptual swappedCH0=.89/CH1=0/CH2=.26 profiles; passive plans/refusals and explicit both clients x both Python/Node endpoints; existing cohort/custom paths retained.",
-        "preservation": "Exact graph/profile snapshots in required exclusive report, original bytes through limited JS reader, unknown fields preserved. Invalid/unmapped resource/preflight refusals before simulation; simulated lost reply retained unknown/exact phase with only one attempt.",
-        "guards": "Existing report prevents subprocess work; altered kit manifest blocks before workflow; simulation preflight fixed durations/channels, checkpoint before each client and after observations; no retry.",
-        "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/43915575570",
-        "ci_result": "success",
-        "kit_artifact": 14248958916,
-        "main_tree_matches_tested": true,
-        "post_merge_main": "Fetched merged main, normal-entry graph tests8 passed.",
-        "physical_access": false
-      },
-      "limitations": [
-        "Graph mode: 1MiB per graph/profile, explicit selection, required new report. Simulation walkthrough uses5s Stop/0.1s completion/disconnect on fixed software endpoints only; not a single arbitrary-duration physical execution.",
-        "JS inspection remains limited/partial where appropriate; provenance/capabilities/channel meaning are supplied declarations. No chemical joining, odor outcome or outside adoption established.",
-        "Python dependency availability inherited for installed proof; complete clean/offline third-party distribution still next. No protocol/firmware changes, new tags/releases/registry publication or physical actions.",
-        "Initial new unmapped-profile test accidentally used invalid/duplicate binding fixtures; corrected to distinct absent descriptors, then eight targeted cases and final full/CI2243 passed. No product gate weakened. Historical Node timeout not declared fixed; SDK deadlines/no-retry unchanged."
-      ],
-      "handoff_library_file_id": "libfile_fde3_f-aebb9f3bcf048191a593c3ea73602081_44ff1f20787081919dd91de18843de02"
-    },
     {
       "session_kind": "scheduled",
       "slot": "2026-11-17T06:00",
@@ -479,9 +408,69 @@
       "started_at_approx": "2026-11-19T17:00:00Z",
       "elapsed_minutes_approx": 23,
       "platform_blocker": null
+    },
+    {
+      "session_kind": "scheduled",
+      "slot": "2026-11-20T06:00",
+      "completed_at": "2026-11-20T05:24:45.949Z",
+      "objective": "Bounded installed SDK/CLI software sequences with per-step provenance and correlated receipts",
+      "commit": "b90ca01a8dac000b9b51fca10e1b01295b09f95d",
+      "tested_commit": "a8e132914a440c4feef19746b25b991b6a1d2223",
+      "tested_tree": "19e927d793f692d0c06349a2cdea6ce41d298ed2",
+      "merged": true,
+      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/36",
+      "checks": {
+        "python_full_local": 2370,
+        "python_full_local_seconds": 111.24,
+        "targeted": 51,
+        "javascript": 27,
+        "installed_sequence_cases": 9,
+        "installed_sequence_targets": [
+          "Python reference",
+          "independent Node reference",
+          "actual compiled native LED sketch"
+        ],
+        "sequence_proof": "Two distinct semantic/perceptual .1-second explicit offline plans; only correlated completion advances. Copied installed SDK consumer observes Stop on explicit5s first plan and never sends second. Trusted proxy drops second actual acceptance; earlier completed receipt retained, second unknown, no third render. Exact artifact bytes/context and transcript retained.",
+        "guards": "Bounds, frozen plans/context, all-plan live capability preflight including incompatible late step, request/execution ID protection, missing/reused/wrong IDs, rejection/EOF/malformed/timeout, interruption, cooperative cancellation race, checkpoint failure and output collision.",
+        "kit": "Fresh extracted kit installed CLI and copied SDK Stop consumer against Python/Node; prior kit trials pass; clean offline CPython3.12 CI repeats sequence entry with no network interfaces.",
+        "installed_cli": "Existing installed-wheel CLI and lifecycle proofs passed outside checkout.",
+        "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44680133624",
+        "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44680133642",
+        "ci_result": "success",
+        "ci_exact_head": "a8e132914a440c4feef19746b25b991b6a1d2223",
+        "ci_python_versions": [
+          "3.10",
+          "3.11",
+          "3.12",
+          "3.13"
+        ],
+        "ci_python312": "2364 passed,6 skipped without optional RDKit; dedicated optional scientific job passed",
+        "firmware": "Both ESP32 targets compiled; unchanged legacy/native checks,57lifecycle exchanges,both installed clients,installed sequence proof and12ownedPTY cases passed. No board access.",
+        "sequence_artifact": 14604250434,
+        "sequence_artifact_digest": "sha256:3f2c5a1053e69076ddcadc11d495f84747c927680f54a61198a16e6f877868dd",
+        "native_artifact": 14604121237,
+        "native_artifact_digest": "sha256:a6f612996565f277e1414fcce570c74a13c6b5bcd0b44800ac189cb611e344a4",
+        "normal_kit_artifact": 14603943484,
+        "offline_kit_artifact": 14603293763,
+        "main_tree_matches_tested": true,
+        "post_merge": "Fetched main; exact tested tree;51focused tests passed1.89s; rebuilt installed wheel repeated9software cases outside checkout.",
+        "main_result_sha256": "959a0fcd1edcb0a57275c617ef6789f41eebed139cd1643a2157520c17229047",
+        "physical_access": false
+      },
+      "limitations": [
+        "No new wire protocol. One-shot exclusively owned client, no retry/reconnect/automatic resume or durable reconciliation; custom transports must bound their own I/O.",
+        "Cooperative Stop serialized with synchronous exchanges, not emergency preemption; completion raced with Stop is completion plus cancellation, never fabricated stopped. Ctrl-C closes uncertain links without inferring Stop.",
+        "Software-only observed receipts; native input-sampled timing/fakePWM do not establish physical LED, diffusion, hardware compatibility or measured olfactory outcome. New-target human bench remains NOT RUN; no third-party adoption demonstrated.",
+        "Plans recomputed before child launch; all live capabilities checked before first render. Source/profile hash declarations and endpoint identity not authenticated; exact raw artifacts preserved including unknown context. Trusted child not sandboxed; reports include supplied arguments/data; interrupted checkpoint may be partial.",
+        "No physical port, flash, diffusion, tag/release, registry upload, paid service or additional automation."
+      ],
+      "handoff_library_file_id": "libfile_fde3_f-bd523e23b1dc8191b65f946d60dfd9b0_44ff1f20787081919dd91de18843de02",
+      "lease_acquired_at": "2026-11-20T05:03:35.039Z",
+      "elapsed_under_lease_minutes": 21,
+      "platform_blocker": null
     }
   ],
-  "next_objective": "Close optional RDKit and linked single scientific experiment slices (#34/#35); no additional chemistry descriptors/export formats or graph/Explorer/native diagnostics by default. Whole experimental developer-kit milestone remains active. Next inspect installed lifecycle adapter/transport/planning contracts for one genuinely new developer/experimenter capability: a bounded software-only protocol of several explicit passive plans, source/provenance retained per step, advancing only after correlated completion and aborting on rejection, explicit Stop or uncertain reply. Reuse existing single-plan/wire profile and normal installed entry where possible; no automatic retry/resend/reconnect, no new protocol merely for novelty. Exit: installed SDK/software reference/native sketch demonstration of two distinct planned steps with correlated observations, no next send after failure/Stop, capability/duration/stale/duplicate guards and retained reproducible report. Keep chemistry computations separate from odor/channel mapping. No physical serial/GPIO access, hardware orchestration, flash or odor claim; human new-firmware bench and independent adoption remain separate NOT RUN/unobserved gates. Reevaluate if observed external demand makes another bounded integration more useful.",
+  "next_objective": "Close the first bounded software-sequence slice (#36): installed Python SDK/CLI, two distinct explicit plans, correlated completion/Stop, lost-second-acceptance abort and extracted normal/offline kit have passed. Keep the whole interoperability developer-kit milestone active. Next prefer a complete portable caller experiment dossier built from actual caller-selected source data, explicit mapping/profile choices and observed software receipts using the installed entries, with a reproducible independent consumer entry outside the checkout. Choose concrete external experimenter/runner needs when available; do not add scheduler/report/diagnostic flags, new chemistry descriptors or more graph formats by default. Exit: a new developer can reproduce the dossier from exact included inputs with documented capabilities and unattempted/refused/uncertain outcomes kept distinct; a third-party repeat/adoption claim requires observation. Existing sequence report is already the receipt, so avoid merely repackaging it as a feature. Hardware physical wiring/LED observations for the opt-in firmware remain human-led NOT RUN; no autonomous serial/GPIO, flash, diffusion, tags/releases or registry publication.",
   "automation": {
     "id": "39cc72697e048191a1ba0d3e3e9d787c",
     "title": "OpenSmell — développement autonome quotidien",
@@ -498,9 +487,9 @@
   },
   "active_product_milestone": {
     "goal": "Installable OpenSmell developer kit spanning data, SDK, device integration and reproducible hardware bench",
-    "delivered": "Installed interoperable data/SDK/adapter/serial kit, GraphML/NetworkX and now optional molecular/SDF consumer plus explicitly linked scientific data-to-passive-plan experiment with exact source/profile and external-library proof (#34/#35).",
-    "next": "Close optional RDKit and linked single scientific experiment slices (#34/#35); no additional chemistry descriptors/export formats or graph/Explorer/native diagnostics by default. Whole experimental developer-kit milestone remains active. Next inspect installed lifecycle adapter/transport/planning contracts for one genuinely new developer/experimenter capability: a bounded software-only protocol of several explicit passive plans, source/provenance retained per step, advancing only after correlated completion and aborting on rejection, explicit Stop or uncertain reply. Reuse existing single-plan/wire profile and normal installed entry where possible; no automatic retry/resend/reconnect, no new protocol merely for novelty. Exit: installed SDK/software reference/native sketch demonstration of two distinct planned steps with correlated observations, no next send after failure/Stop, capability/duration/stale/duplicate guards and retained reproducible report. Keep chemistry computations separate from odor/channel mapping. No physical serial/GPIO access, hardware orchestration, flash or odor claim; human new-firmware bench and independent adoption remain separate NOT RUN/unobserved gates. Reevaluate if observed external demand makes another bounded integration more useful."
+    "delivered": "Installed interoperability kit, GraphML/NetworkX and optional RDKit/scientific single-trial slices (#34/#35), now bounded installed software sequence SDK/CLI with9cases across references/native and extracted/offline kit (#36). First sequence slice closed; hardware human validation and independent adoption remain separate.",
+    "next": "Close the first bounded software-sequence slice (#36): installed Python SDK/CLI, two distinct explicit plans, correlated completion/Stop, lost-second-acceptance abort and extracted normal/offline kit have passed. Keep the whole interoperability developer-kit milestone active. Next prefer a complete portable caller experiment dossier built from actual caller-selected source data, explicit mapping/profile choices and observed software receipts using the installed entries, with a reproducible independent consumer entry outside the checkout. Choose concrete external experimenter/runner needs when available; do not add scheduler/report/diagnostic flags, new chemistry descriptors or more graph formats by default. Exit: a new developer can reproduce the dossier from exact included inputs with documented capabilities and unattempted/refused/uncertain outcomes kept distinct; a third-party repeat/adoption claim requires observation. Existing sequence report is already the receipt, so avoid merely repackaging it as a feature. Hardware physical wiring/LED observations for the opt-in firmware remain human-led NOT RUN; no autonomous serial/GPIO, flash, diffusion, tags/releases or registry publication."
   },
-  "session_slot": "2026-11-20T06:00",
-  "last_completed_slot": "2026-11-19T18:00"
+  "session_slot": null,
+  "last_completed_slot": "2026-11-20T06:00"
 }
