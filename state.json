@@ -2,7 +2,11 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-19",
   "last_processed_main_sha": "82d3e9b2eb75ff05ce19231de584910b6a680401",
-  "lease": null,
+  "lease": {
+    "owner": "sequence-aca7tned8rg",
+    "acquired_at": "2026-11-20T05:03:35.039Z",
+    "expires_at": "2026-11-20T09:03:35.039Z"
+  },
   "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
@@ -480,6 +484,6 @@
     "delivered": "Installed interoperable data/SDK/adapter/serial kit, GraphML/NetworkX and now optional molecular/SDF consumer plus explicitly linked scientific data-to-passive-plan experiment with exact source/profile and external-library proof (#34/#35).",
     "next": "Close optional RDKit and linked single scientific experiment slices (#34/#35); no additional chemistry descriptors/export formats or graph/Explorer/native diagnostics by default. Whole experimental developer-kit milestone remains active. Next inspect installed lifecycle adapter/transport/planning contracts for one genuinely new developer/experimenter capability: a bounded software-only protocol of several explicit passive plans, source/provenance retained per step, advancing only after correlated completion and aborting on rejection, explicit Stop or uncertain reply. Reuse existing single-plan/wire profile and normal installed entry where possible; no automatic retry/resend/reconnect, no new protocol merely for novelty. Exit: installed SDK/software reference/native sketch demonstration of two distinct planned steps with correlated observations, no next send after failure/Stop, capability/duration/stale/duplicate guards and retained reproducible report. Keep chemistry computations separate from odor/channel mapping. No physical serial/GPIO access, hardware orchestration, flash or odor claim; human new-firmware bench and independent adoption remain separate NOT RUN/unobserved gates. Reevaluate if observed external demand makes another bounded integration more useful."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-20T06:00",
   "last_completed_slot": "2026-11-19T18:00"
 }
