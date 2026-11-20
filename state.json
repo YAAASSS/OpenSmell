@@ -9,11 +9,17 @@
   },
   "open_work": {
     "branch": "feat/experiment-table-20261120",
-    "commit": "d1f80b06aa8c2cf10797bdc262bdc730aa4a456d",
-    "tree": "3ef53ac29742307abdb73787dad107242abfac33",
+    "commit": "823352691391f10423bc4c97975762ae314e5bab",
+    "tree": "6d7264f39871039a7253518893fecece059ad2b0",
     "pr": 37,
     "url": "https://github.com/YAAASSS/OpenSmell/pull/37",
-    "resume": "Complete full suite/extracted kit, inspect exact-head CI and reviews, merge then verify main and save handoff."
+    "checks": {
+      "local_python": 2389,
+      "targeted": 19,
+      "installed_path": "passed; moved dossier, deleted inputs, exact repreparation, Python/Node receipts",
+      "extracted_kit": "passed"
+    },
+    "resume": "Inspect final exact-head CI 44781055043/44781055047, reviews/rules; merge if green. Then verify main, save Work handoff, release lease."
   },
   "last_result": {
     "session_kind": "scheduled",
