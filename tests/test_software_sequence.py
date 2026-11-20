@@ -47,7 +47,7 @@ for line in sys.stdin:
    print(json.dumps(error_response('busy','Explicit refusal')),flush=True);continue
  if request['type']=='execution_status':now[0]+=30
  response=json.loads(endpoint.exchange(line))
- if {mode!r}=='caps' and request['type']=='get_capabilities':response['channels']=[0]
+ if {mode!r}=='caps' and request['type']=='get_capabilities':response['channels']=[c for c in response['channels'] if c['channel']!=2]
  if {mode!r}=='wrong' and request['type']=='execution_status' and count==2:response['execution_id']='stale'
  print(json.dumps(response),flush=True)
 ''')
@@ -127,3 +127,23 @@ def test_duration_total_refused_before_launch(artifacts, endpoint, tmp_path):
     report = run_software_sequence([raw] * 5, endpoint(), expected_device_id=IDENTITY)
     assert report["status"] == "invalid" and "120" in report["detail"]
     assert not (tmp_path / "launched").exists()
+
+
+def test_valid_live_caps_refuse_only_late_plan_before_any_render(artifacts, endpoint):
+    report = run_software_sequence(artifacts, endpoint("caps"), expected_device_id=IDENTITY)
+    assert report["status"] == "invalid"
+    assert all(s["state"] == "not_attempted" for s in report["sequence"]["steps"])
+    assert not any(json.loads(e["request_line"])["type"] == "render" for e in report["transcript"])
+
+
+def test_storage_failure_after_possible_acceptance_keeps_uncertain_intent_and_never_advances(artifacts, endpoint, tmp_path):
+    snapshots = []
+    def fail(report):
+        if (report["transcript"] and json.loads(report["transcript"][-1]["request_line"])["type"] == "render"
+                and "response_line" in report["transcript"][-1]):
+            raise OSError("Checkpoint write failed after possible acceptance")
+        snapshots.append(report)
+    with pytest.raises(OSError): run_software_sequence(artifacts, endpoint(), expected_device_id=IDENTITY, on_progress=fail)
+    assert snapshots[-1]["sequence"]["steps"][0]["state"] == "unknown"
+    requests = [json.loads(line) for line in (tmp_path / "requests").read_text().splitlines()]
+    assert sum(r["type"] == "render" for r in requests) == 1

@@ -172,6 +172,10 @@ class SequenceRunner:
         finally:
             with self._lock:
                 self._client.close()
+                current = self._client.execution
+                if (self._index is not None and current
+                        and current["request_id"] == self._report["steps"][self._index].get("request_id")):
+                    self._report["steps"][self._index].update(state=current["state"], execution=current)
                 self._finished = True
                 self._publish()
         return self.report
