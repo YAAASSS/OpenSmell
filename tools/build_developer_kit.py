@@ -19,6 +19,9 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[1]
 # Explicit allowlist; external datasets, caches and arbitrary checkout files are excluded.
 PAYLOADS = {
+    "data/multisource_diphenyl_ether.osmell": "examples/multisource_diphenyl_ether.osmell",
+    "SOFTWARE_SEQUENCE.md": "docs/software-sequence.md",
+    "stop_after_acceptance.py": "examples/sequence/stop_after_acceptance.py",
     "SCIENTIFIC_PLAN_TRIAL.md": "docs/scientific-plan-trial.md",
     "science_to_plan.py": "examples/rdkit_molecule/science_to_plan.py",
     "RDKIT_MOLECULE.md": "docs/rdkit-molecule.md",

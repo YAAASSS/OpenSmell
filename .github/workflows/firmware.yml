@@ -15,6 +15,8 @@ on:
       - "tools/verify_installed_serial_bench.py"
       - "tools/verify_firmware_lifecycle.py"
       - "tools/verify_installed_firmware_lifecycle.py"
+      - "tools/verify_installed_sequence.py"
+      - "examples/sequence/**"
       - "examples/firmware_lifecycle/**"
       - "examples/lifecycle_client/**"
       - "packages/lifecycle-client/**"
@@ -34,6 +36,8 @@ on:
       - "tools/verify_installed_serial_bench.py"
       - "tools/verify_firmware_lifecycle.py"
       - "tools/verify_installed_firmware_lifecycle.py"
+      - "tools/verify_installed_sequence.py"
+      - "examples/sequence/**"
       - "examples/firmware_lifecycle/**"
       - "examples/lifecycle_client/**"
       - "packages/lifecycle-client/**"
@@ -81,6 +85,9 @@ jobs:
           mkdir -p dist/lifecycle-proof
           python -m tools.verify_firmware_lifecycle /tmp/opensmell-lifecycle-host --output dist/lifecycle-proof/native.json
           python -m tools.verify_installed_firmware_lifecycle dist/opensmell-0.1.0-py3-none-any.whl --host /tmp/opensmell-lifecycle-host --evidence-directory dist/lifecycle-proof/installed
+
+      - name: Verify installed bounded sequences against actual native sketch
+        run: python -m tools.verify_installed_sequence dist/opensmell-0.1.0-py3-none-any.whl --host /tmp/opensmell-lifecycle-host --evidence-directory dist/lifecycle-proof/sequence
 
       - name: Verify installed serial bench over owned pseudo-terminals
         run: python -m tools.verify_installed_serial_bench dist/opensmell-0.1.0-py3-none-any.whl --host /tmp/opensmell-lifecycle-host --evidence-directory dist/lifecycle-proof/serial

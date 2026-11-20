@@ -80,6 +80,32 @@ def main():
                                          "--duration", "5"]).stdout)
         if {c["channel"]: c["intensity"] for c in perceptual_plan["plan"]["commands"]} != {0: .26, 1: 0, 2: .89}:
             raise ValueError("Kit perceptual entry lost measured zero or used the wrong profile")
+        # New normal entry: generate two distinct explicit plans from included
+        # data, then run the installed CLI and copied SDK consumer outside checkout.
+        sequence_plans = []
+        for label, rid, duration in (
+            ("semantic", "e6ad8ce3-dc6e-5d94-9287-57665d48fc0b", ".1"),
+            ("perceptual", "219ef28c-9b58-52f2-93a7-0807f5897857", ".1"),
+            ("semantic", "e6ad8ce3-dc6e-5d94-9287-57665d48fc0b", "5"),
+        ):
+            raw = run([python, "-I", "-m", "opensmell", "plan", "data/multisource_diphenyl_ether.osmell",
+                       "--profile", f"profiles/{label}.json", "--resource-id", rid, "--duration", duration]).stdout
+            path = work / f"sequence-plan-{len(sequence_plans)}.json"
+            path.write_text(raw); sequence_plans.append(path)
+        for command, identity in (
+            ([str(python), "-I", "-u", str(kit / "software/python_device.py")], "opensmell-local-simulator-001"),
+            (["node", str(kit / "software/device.cjs")], "opensmell-node-simulator-001"),
+        ):
+            receipt = json.loads(run([python, "-I", "-m", "opensmell", "run-sequence", *sequence_plans[:2],
+                "--software-command-json", json.dumps(command), "--expected-device-id", identity,
+                "--output", work / f"{identity}-sequence.json"]).stdout)
+            if (receipt["status"] != "completed" or [s["state"] for s in receipt["sequence"]["steps"]] != ["completed"] * 2
+                    or receipt["sequence"]["steps"][0]["plan"]["commands"] == receipt["sequence"]["steps"][1]["plan"]["commands"]):
+                raise ValueError("Extracted kit must run distinct plans through the installed sequence CLI")
+            stopped = json.loads(run([python, "-I", "stop_after_acceptance.py", sequence_plans[2], sequence_plans[1],
+                "--software-command-json", json.dumps(command), "--expected-device-id", identity]).stdout)
+            if [s["state"] for s in stopped["steps"]] != ["stopped", "not_attempted"]:
+                raise ValueError("Extracted kit SDK Stop must leave later plans unattempted")
         output = kit / "trial.json"
         result = run([python, "try_kit.py", "--report", output])
         report = json.loads(result.stdout)
@@ -210,6 +236,7 @@ def main():
                           "caller_cohort": "passive and explicit simulation; partial refusals retained",
                           "perceptual_entry": "installed CSV/JS/plan from included files; missing versus zero preserved",
                           "caller_graphs": "both origins, changed profiles, passive plans/refusals and explicit both-client/endpoints",
+                          "sequence_entry": "two distinct plans completed and cooperative SDK Stop on both software references",
                           "offline_installation": args.offline, "physical_validation": False}))
 
 
