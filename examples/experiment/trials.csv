@@ -1,0 +1,3 @@
+trial_id,resource_id,duration,condition
+short,219ef28c-9b58-52f2-93a7-0807f5897857,0.1,declared-short
+longer,219ef28c-9b58-52f2-93a7-0807f5897857,0.2,declared-longer

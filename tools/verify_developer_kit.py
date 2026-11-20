@@ -82,6 +82,12 @@ def main():
             raise ValueError("Kit perceptual entry lost measured zero or used the wrong profile")
         # New normal entry: generate two distinct explicit plans from included
         # data, then run the installed CLI and copied SDK consumer outside checkout.
+        prepared = kit / "prepared-experiment"
+        designed = json.loads(run([python, "-I", "-m", "opensmell", "prepare-experiment", "data/trials.csv",
+            "--graph", "data/multisource_diphenyl_ether.osmell", "--profile", "profiles/perceptual.json",
+            "--output-directory", prepared]).stdout)
+        if designed["execution"] != "not_attempted":
+            raise ValueError("Kit preparation must remain passive")
         sequence_plans = []
         for label, rid, duration in (
             ("semantic", "e6ad8ce3-dc6e-5d94-9287-57665d48fc0b", ".1"),
@@ -96,6 +102,11 @@ def main():
             ([str(python), "-I", "-u", str(kit / "software/python_device.py")], "opensmell-local-simulator-001"),
             (["node", str(kit / "software/device.cjs")], "opensmell-node-simulator-001"),
         ):
+            prepared_receipt = json.loads(run([python, "-I", "-m", "opensmell", "run-sequence",
+                *[prepared/r["plan_file"] for r in designed["trials"]], "--software-command-json", json.dumps(command),
+                "--expected-device-id", identity, "--output", work / f"{identity}-designed.json"]).stdout)
+            if prepared_receipt["status"] != "completed":
+                raise ValueError("Prepared kit trial table must execute through normal software entry")
             receipt = json.loads(run([python, "-I", "-m", "opensmell", "run-sequence", *sequence_plans[:2],
                 "--software-command-json", json.dumps(command), "--expected-device-id", identity,
                 "--output", work / f"{identity}-sequence.json"]).stdout)

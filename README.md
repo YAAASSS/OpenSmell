@@ -1713,6 +1713,12 @@ separate ESP32 build target preserves the default acceptance-only firmware.
 Native software observations and cross-compilation do not establish physical
 LED/actuator compatibility; the new manual board bench remains NOT RUN.
 
+The installed [trial-table preparation](docs/experiment-table.md),
+`opensmell prepare-experiment`, compiles caller-selected resources and durations
+from CSV into a portable passive dossier. Exact inputs, ordered row annotations
+and normal offline plans are retained; invalid rows refuse the whole preparation.
+Execution remains a separate explicit choice through the existing software entry.
+
 The installed [bounded sequence entry](docs/software-sequence.md),
 `opensmell run-sequence`, runs explicit plans in order with per-step provenance
 and receipts. The SDK advances only after correlated completion and aborts later

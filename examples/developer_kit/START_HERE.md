@@ -174,3 +174,6 @@ and profile bytes are retained; RDKit computations do not choose channels.
 Use [SOFTWARE_SEQUENCE.md](SOFTWARE_SEQUENCE.md) to run explicit plans in order
 through the installed CLI, retain per-step receipts, and try cooperative Stop
 with the standalone installed-SDK consumer. Software only; no physical output proof.
+
+Use `opensmell prepare-experiment data/trials.csv --graph data/multisource_diphenyl_ether.osmell --profile profiles/perceptual.json --output-directory my-experiment`
+to compile an explicit ordered trial table passively; see [EXPERIMENT_TABLE.md](EXPERIMENT_TABLE.md).
