@@ -34,7 +34,10 @@ def main():
         # Select a different resource by making a declared synthetic second observation.
         rid='219ef28c-9b58-52f2-93a7-0807f5897857'
         second=json.loads(json.dumps(next(r for r in graph['resources'] if r['id']==rid)))
-        second['id']='caller-second-observation';graph['resources'].append(second)
+        second['id']='caller-second-observation'
+        second['org.opensmell.example.synthetic_copy_of']=rid
+        graph['org.opensmell.example.trial_proof']={'synthetic_copy':True,'new_measurement':False}
+        graph['resources'].append(second)
         raw=(json.dumps(graph,indent=3)+'\n').encode();(work/'caller.osmell').write_bytes(raw)
         (work/'profile.json').write_text(json.dumps(profile,indent=3))
         table=b'\xef\xbb\xbftrial_id,resource_id,duration,caller_note\r\nsecond,caller-second-observation,.2,"keep, this"\r\nfirst,'+rid.encode()+b',.1,explicit-order\r\n'

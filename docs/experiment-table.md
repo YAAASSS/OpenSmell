@@ -75,10 +75,16 @@ plans are self-contained. Reprepare from the three retained inputs to reproduce
 identical bytes. Changing a profile requires explicit repreparation in a new
 directory; do not edit generated plans to bypass recomputation checks.
 
-See [software-sequence.md](software-sequence.md) for cooperative Stop, correlation,
+See the [software sequence guide](https://github.com/YAAASSS/OpenSmell/blob/main/docs/software-sequence.md) for cooperative Stop, correlation,
 uncertainty and exclusively owned SDK clients. Preparation is not a command;
 acceptance is not completion; software completion is not physical diffusion or a
 measured olfactory result. No autonomous physical sequencing is provided.
+
+In the extracted developer kit, use `data/trials.csv`,
+`data/multisource_diphenyl_ether.osmell` and `profiles/perceptual.json` as inputs.
+For execution, select `["node","software/device.cjs"]`; the expected Node identity
+is unchanged. `SOFTWARE_SEQUENCE.md` is the bundled sequence guide. The wheel,
+fixture and standalone software endpoint are included; no checkout path is needed.
 
 ## Reproduce the complete installed path
 
