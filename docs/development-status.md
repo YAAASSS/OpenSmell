@@ -5,6 +5,23 @@ The broader roadmap remains in the [README](../README.md#roadmap).
 Operational checkpoints and the short session log live in `state.json` on the
 `automation/control` branch; follow its pending PR before starting new work.
 
+## Caller trial-table preparation — 2026-11-20 evening
+
+The first sequence slice is delivered (#36). The next useful step is
+[passive trial-table compilation](experiment-table.md): a caller can select graph
+resources/durations in CSV, prepare all explicit plans with one supplied profile,
+move the dossier and use the normal installed sequence entry separately. This
+adds caller protocol preparation, rather than another receipt/report wrapper.
+
+Exit: outside-checkout installed CLI on caller-modified graph/table, exact retained
+inputs and opaque annotations, byte-identical repreparation after relocation,
+global refusal before output for an invalid late row, and ordinary software
+receipts from Python/independent Node. Close this preparation slice after CI;
+no scheduling, statistics or new formats by default. The four kit axes below
+remain active; human hardware observations and independent adoption stay separate.
+Next prefer one real external experimenter integration/feedback-driven gap over
+more preparation or lifecycle flags. No third-party use has been observed.
+
 ## Bounded software sequence — 2026-11-20
 
 Active milestone: a developer can take documented caller data through installed

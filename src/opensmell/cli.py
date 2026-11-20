@@ -211,6 +211,22 @@ def _lifecycle_trial_command(args):
         return 1
 
 
+def _prepare_experiment_command(args):
+    from .experimental.experiment import prepare_experiment
+    import csv
+    try:
+        inputs = []
+        for name, bound in ((args.table, 65536), (args.graph, 8*1048576), (args.profile, 1048576)):
+            with Path(name).open("rb") as source:
+                inputs.append(source.read(bound+1))
+        report = prepare_experiment(*inputs, args.output_directory)
+        print(json.dumps(report, allow_nan=False)); return 0
+    except OSError as error:
+        print(json.dumps({"status":"error","error":str(error)})); return 2
+    except (OpenSmellError, ValueError, TypeError, KeyError, RecursionError, OverflowError, csv.Error) as error:
+        print(json.dumps({"status":"invalid","error":str(error)})); return 1
+
+
 def _sequence_command(args):
     from .experimental.software_sequence import run_software_sequence, MAX_BYTES
     try:
@@ -522,6 +538,11 @@ def main(argv: list[str] | None = None) -> int:
     trial.add_argument("--software-command-json", required=True, help="Trusted software executable/argument JSON array; no shell; report retains arguments")
     trial.add_argument("--expected-device-id", required=True, help="Explicit endpoint identity; never inferred from source")
     trial.add_argument("--output", required=True, help="New checkpointed trial report; never overwrite")
+    experiment = commands.add_parser("prepare-experiment", help="Compile an explicit ordered CSV trial table into passive offline plans")
+    experiment.add_argument("table", help="UTF-8 CSV with trial_id,resource_id,duration; max 64 KiB")
+    experiment.add_argument("--graph", required=True, help="Explicit source ResourceGraph")
+    experiment.add_argument("--profile", required=True, help="Explicit mapping/capability profile for every trial")
+    experiment.add_argument("--output-directory", required=True, help="New portable experiment directory; never overwrite")
     sequence = commands.add_parser("run-sequence", help="Run explicit offline plans in order on trusted software; no hardware")
     sequence.add_argument("files", nargs="+", help="1–16 explicit offline-plan JSON files in execution order; no stdin")
     sequence.add_argument("--software-command-json", required=True, help="Trusted executable/argument JSON array; no shell; arguments retained")
@@ -534,6 +555,8 @@ def main(argv: list[str] | None = None) -> int:
     reference.add_argument("file", help="Generic ResourceGraph file or stdin (-); 8 MiB maximum")
     reference.add_argument("--output-directory", required=True, help="New bundle directory; never overwrite")
     args = parser.parse_args(argv)
+    if args.command == "prepare-experiment":
+        return _prepare_experiment_command(args)
     if args.command == "run-sequence":
         return _sequence_command(args)
     if args.command == "reference-graph":
