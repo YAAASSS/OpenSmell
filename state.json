@@ -7,7 +7,14 @@
     "acquired_at": "2026-11-20T05:03:35.039Z",
     "expires_at": "2026-11-20T09:03:35.039Z"
   },
-  "open_work": null,
+  "open_work": {
+    "branch": "feat/software-sequence-20261120",
+    "commit": "537175a5669730240df6f9de6de286fe93ce7489",
+    "tree": "028e62bcb551abbda0315cf03376a83725109abd",
+    "pr": 36,
+    "url": "https://github.com/YAAASSS/OpenSmell/pull/36",
+    "resume": "Finish broad tests, installed 9-case software sequence proof and extracted-kit path; inspect exact-head CI/reviews/rules, merge then verify main."
+  },
   "last_result": {
     "session_kind": "scheduled",
     "slot": "2026-11-19T18:00",
