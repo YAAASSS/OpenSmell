@@ -211,6 +211,34 @@ def _lifecycle_trial_command(args):
         return 1
 
 
+def _sequence_command(args):
+    from .experimental.software_sequence import run_software_sequence, MAX_BYTES
+    try:
+        if not 1 <= len(args.files) <= 16:
+            raise ValueError("A sequence requires 1–16 explicit plan files")
+        inputs = []
+        for name in args.files:
+            with Path(name).open("rb") as source:
+                inputs.append(source.read(MAX_BYTES + 1))
+            if sum(map(len, inputs)) > 16 * 1048576:
+                raise ValueError("Combined inputs exceed 16 MiB")
+        command = _decode(args.software_command_json.encode())
+        with Path(args.output).open("x", encoding="utf-8") as output:
+            def save(report):
+                output.seek(0); output.truncate()
+                json.dump(report, output, allow_nan=False, indent=2)
+                output.write("\n"); output.flush()
+            report = run_software_sequence(inputs, command, expected_device_id=args.expected_device_id, on_progress=save)
+        print(json.dumps(report, allow_nan=False))
+        return 0 if report["status"] == "completed" else 3 if report["status"] in {"rejected", "incompatible", "stopped", "cancelled"} else 1
+    except OSError as error:
+        print(json.dumps({"status": "error", "error": str(error)}), file=sys.stderr)
+        return 2
+    except (OpenSmellError, ValueError, TypeError, KeyError, RecursionError, OverflowError) as error:
+        print(json.dumps({"status": "invalid", "error": str(error)}), file=sys.stderr)
+        return 1
+
+
 def _encode_frame_command(args):
     from .experimental.frame_export import encode_plan_frame
     try:
@@ -494,6 +522,11 @@ def main(argv: list[str] | None = None) -> int:
     trial.add_argument("--software-command-json", required=True, help="Trusted software executable/argument JSON array; no shell; report retains arguments")
     trial.add_argument("--expected-device-id", required=True, help="Explicit endpoint identity; never inferred from source")
     trial.add_argument("--output", required=True, help="New checkpointed trial report; never overwrite")
+    sequence = commands.add_parser("run-sequence", help="Run explicit offline plans in order on trusted software; no hardware")
+    sequence.add_argument("files", nargs="+", help="1–16 explicit offline-plan JSON files in execution order; no stdin")
+    sequence.add_argument("--software-command-json", required=True, help="Trusted executable/argument JSON array; no shell; arguments retained")
+    sequence.add_argument("--expected-device-id", required=True, help="Explicit software endpoint identity")
+    sequence.add_argument("--output", required=True, help="New checkpointed sequence report; never overwrite")
     table = commands.add_parser("observation-table", help="Project graph measurements for analysis, preserving source/context; never execute")
     table.add_argument("file", help="Generic ResourceGraph; '-' reads stdin; 8 MiB maximum")
     table.add_argument("--output", help="New JSON analysis artifact; never overwrite")
@@ -501,6 +534,8 @@ def main(argv: list[str] | None = None) -> int:
     reference.add_argument("file", help="Generic ResourceGraph file or stdin (-); 8 MiB maximum")
     reference.add_argument("--output-directory", required=True, help="New bundle directory; never overwrite")
     args = parser.parse_args(argv)
+    if args.command == "run-sequence":
+        return _sequence_command(args)
     if args.command == "reference-graph":
         return _reference_graph_command(args)
     if args.command == "lifecycle-trial":

@@ -106,3 +106,7 @@ failures retain it. Request bodies and command arguments are not included.
 The existing deadlines, fail-closed behavior and no-retry policy are unchanged.
 This supplies evidence for intermittent startup failures; it does not identify
 their cause or establish a universal startup guarantee.
+
+For multiple explicit plans, use the [bounded sequence runner](software-sequence.md)
+from the installed SDK or CLI. It retains each receipt and prevents advancement
+after refusal, Stop or uncertainty without changing this lifecycle contract.

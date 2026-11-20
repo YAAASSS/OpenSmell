@@ -170,3 +170,7 @@ chemical identity join, source rewriting or odor result is inferred.
 `SCIENTIFIC_PLAN_TRIAL.md` and `science_to_plan.py` extend this to an explicitly
 linked molecule/observation and a separate passive SDK mapping plan. Both source
 and profile bytes are retained; RDKit computations do not choose channels.
+
+Use [SOFTWARE_SEQUENCE.md](SOFTWARE_SEQUENCE.md) to run explicit plans in order
+through the installed CLI, retain per-step receipts, and try cooperative Stop
+with the standalone installed-SDK consumer. Software only; no physical output proof.

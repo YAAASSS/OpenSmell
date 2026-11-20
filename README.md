@@ -1713,6 +1713,12 @@ separate ESP32 build target preserves the default acceptance-only firmware.
 Native software observations and cross-compilation do not establish physical
 LED/actuator compatibility; the new manual board bench remains NOT RUN.
 
+The installed [bounded sequence entry](docs/software-sequence.md),
+`opensmell run-sequence`, runs explicit plans in order with per-step provenance
+and receipts. The SDK advances only after correlated completion and aborts later
+steps on refusal, Stop or uncertainty. Python, independent Node and the actual
+native sketch are software proofs; no physical sequence or odor result is claimed.
+
 The installed [adapter-author trial](docs/lifecycle-trial.md),
 `opensmell lifecycle-trial`, accepts an explicit offline plan, trusted software
 command and expected identity, and checkpoints the complete completion/Stop/

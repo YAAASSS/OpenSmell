@@ -5,6 +5,39 @@ The broader roadmap remains in the [README](../README.md#roadmap).
 Operational checkpoints and the short session log live in `state.json` on the
 `automation/control` branch; follow its pending PR before starting new work.
 
+## Bounded software sequence — 2026-11-20
+
+Active milestone: a developer can take documented caller data through installed
+planning and reusable lifecycle adapters, with explicit evidence at the hardware
+boundary. The previous single-trial, GraphML and optional RDKit/scientific slices
+are delivered; do not repeat them or refine Explorer by default.
+
+Current vertical slice: [installed sequence CLI and SDK](software-sequence.md).
+It runs distinct explicit offline plans, preflights every live capability before
+sending, advances only on correlated completion, and retains earlier receipts
+when a later step is refused, stopped or uncertain. Stop is cooperative; there is
+no retry/reconnect, new wire protocol, physical scheduling or automatic resume.
+
+Exit criterion: outside-checkout wheel CLI and SDK consumer against Python,
+independent Node and actual native sketch, with distinct semantic/perceptual
+plans, observed completion, correlated Stop and a deliberately lost second
+acceptance proving no third render. Exact inputs/provenance and raw transcripts
+must remain inspectable. Bounds, late capability refusal, failed checkpoints,
+interruption and output collisions must fail closed. Close this first sequence
+slice when these proofs and CI pass; do not add scheduler/diagnostic flags by default.
+
+| Axis | Usable result | Next bounded evidence |
+|---|---|---|
+| SDK / format | Installed passive plans, Python/JS lifecycle and Python bounded sequence runner | Keep existing contracts/Draft maturity; extend only for a demonstrated integration need |
+| Data / interoperability | CSV, GraphML/NetworkX, optional RDKit and explicit scientific data-to-plan paths | Reproducible caller experiment dossier linking selected input, mapping choices and actual software receipts |
+| Hardware | Both pinned LED targets compile, native lifecycle and installed manual serial bench | Human new-target wiring/hash/LED observations remain NOT RUN; no autonomous flash or command |
+| Adoption | Portable kit and clean offline Linux target | First independently repeated developer trial; internal reference runs do not establish outside adoption |
+
+After the sequence slice, prefer a complete portable caller experiment dossier
+using these installed entries over another isolated format/diagnostics feature.
+Keep human board observations and stable release/adoption as separate evidence
+gates. A software completion receipt never establishes a measured odor outcome.
+
 ## Current result and exit criteria — 2026-11-18
 
 Active milestone: a usable experimental developer kit spanning data, installed
