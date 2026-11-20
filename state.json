@@ -2,7 +2,11 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-20",
   "last_processed_main_sha": "b90ca01a8dac000b9b51fca10e1b01295b09f95d",
-  "lease": null,
+  "lease": {
+    "owner": "experiment-kl8kl5egin",
+    "acquired_at": "2026-11-20T17:05:59.193Z",
+    "expires_at": "2026-11-20T21:05:59.193Z"
+  },
   "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
@@ -490,6 +494,6 @@
     "delivered": "Installed interoperability kit, GraphML/NetworkX and optional RDKit/scientific single-trial slices (#34/#35), now bounded installed software sequence SDK/CLI with9cases across references/native and extracted/offline kit (#36). First sequence slice closed; hardware human validation and independent adoption remain separate.",
     "next": "Close the first bounded software-sequence slice (#36): installed Python SDK/CLI, two distinct explicit plans, correlated completion/Stop, lost-second-acceptance abort and extracted normal/offline kit have passed. Keep the whole interoperability developer-kit milestone active. Next prefer a complete portable caller experiment dossier built from actual caller-selected source data, explicit mapping/profile choices and observed software receipts using the installed entries, with a reproducible independent consumer entry outside the checkout. Choose concrete external experimenter/runner needs when available; do not add scheduler/report/diagnostic flags, new chemistry descriptors or more graph formats by default. Exit: a new developer can reproduce the dossier from exact included inputs with documented capabilities and unattempted/refused/uncertain outcomes kept distinct; a third-party repeat/adoption claim requires observation. Existing sequence report is already the receipt, so avoid merely repackaging it as a feature. Hardware physical wiring/LED observations for the opt-in firmware remain human-led NOT RUN; no autonomous serial/GPIO, flash, diffusion, tags/releases or registry publication."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-20T18:00",
   "last_completed_slot": "2026-11-20T06:00"
 }
