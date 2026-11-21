@@ -7,7 +7,14 @@
     "acquired_at": "2026-11-21T05:00:26.496Z",
     "expires_at": "2026-11-21T09:00:26.497Z"
   },
-  "open_work": null,
+  "open_work": {
+    "branch": "feat/lsl-markers-20261121",
+    "commit": "dc53bf30adbf0e99d3e6203d60dbe6deced00394",
+    "tree": "ee932c3806fa739a347a2b5658478ec95efd5437",
+    "pr": 38,
+    "url": "https://github.com/YAAASSS/OpenSmell/pull/38",
+    "resume": "Complete broad tests/kit and exact-head optional actual-LSL CI; inspect reviews/rules, merge then verify main and save handoff."
+  },
   "last_result": {
     "session_kind": "scheduled",
     "slot": "2026-11-20T18:00",
