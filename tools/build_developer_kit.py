@@ -19,6 +19,8 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[1]
 # Explicit allowlist; external datasets, caches and arbitrary checkout files are excluded.
 PAYLOADS = {
+    "CORE_PLANNING.md": "docs/core-planning.md",
+    "data/core_semantic_only.osmell": "examples/core_semantic_only.osmell",
     "LSL_MARKERS.md": "docs/lsl-markers.md",
     "lsl_bridge.py": "examples/lsl_markers/bridge.py",
     "lsl_receive.py": "examples/lsl_markers/receive.py",

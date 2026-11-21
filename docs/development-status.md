@@ -5,6 +5,24 @@ The broader roadmap remains in the [README](../README.md#roadmap).
 Operational checkpoints and the short session log live in `state.json` on the
 `automation/control` branch; follow its pending PR before starting new work.
 
+## Explicit Core semantic planning — 2026-11-21 evening
+
+The LSL example is delivered (#38). The next general SDK/format gap is the
+[installed Core selection entry](core-planning.md), especially semantic-only
+Core files that cannot use the existing chemical SMILES bridge. One explicit
+representation index and semantic profile produce a standard passive offline
+plan. Exact Core bytes retain all other data; no Molecule/identity is invented.
+
+Exit: installed normal entry outside checkout on existing and caller semantic-only
+Core data, distinct selected plans consumed by frame/sequence/native software,
+unknown/unmapped selection refusal, no overwrite, and stale-but-plan-consistent
+projection refused from retained Core bytes before send. Close this first Core
+slice after CI, without automatic additional representation modes or diagnostics.
+The four SDK/data/hardware/adoption axes remain active; human board observations
+and outside adoption remain separate unobserved gates. Next choose an observed
+external integration gap or a complete repeatable kit entry over another subtool
+refinement. Core validity does not imply renderability by this specific mapper.
+
 ## Optional external lab-event integration — 2026-11-21
 
 The first caller-table and sequence slices are delivered (#36/#37). The next

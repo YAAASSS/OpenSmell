@@ -54,6 +54,8 @@ def encode_plan_frame(raw, capabilities_raw, *, max_message_bytes=1024):
         raise ValueError("Plan commands must be objects")
     plan = RenderingPlan([DeviceCommand(c.get("channel"), c.get("intensity")) for c in supplied["commands"]],
                          supplied.get("duration"))
+    from .core_planning import validate_core_projection
+    validate_core_projection(artifact["source"]["document"])
     graph = generic_graph_from_dict(artifact["source"]["document"], registry=interchange_registry())
     recomputed = plan_with_profile(graph, RenderRequest(request.get("resource_id"), request.get("duration")),
                                    artifact["profile"]["document"])
