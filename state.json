@@ -1,135 +1,66 @@
 {
   "schema_version": 1,
-  "last_completed_brussels_date": "2026-11-20",
-  "last_processed_main_sha": "b68ca488c0a1526e37ab0a34a40a3bda5d160ef5",
-  "lease": {
-    "owner": "lsl-r0pkcjfxan",
-    "acquired_at": "2026-11-21T05:00:26.496Z",
-    "expires_at": "2026-11-21T09:00:26.497Z"
-  },
-  "open_work": {
-    "branch": "feat/lsl-markers-20261121",
-    "commit": "dc53bf30adbf0e99d3e6203d60dbe6deced00394",
-    "tree": "ee932c3806fa739a347a2b5658478ec95efd5437",
-    "pr": 38,
-    "url": "https://github.com/YAAASSS/OpenSmell/pull/38",
-    "checks": {
-      "python_full_local": 2395,
-      "seconds": 103.42,
-      "targeted": 6,
-      "actual_lsl_cases": 6,
-      "no_consumer_and_collision_no_child": true,
-      "kit": "passed",
-      "ci": 44869302495
-    },
-    "resume": "Optional actual LSL and offline-kit CI green; wait final Python/interop gates, inspect reviews/rules and exact SHA, merge, verify main, save handoff and release."
-  },
+  "last_completed_brussels_date": "2026-11-21",
+  "last_processed_main_sha": "f9a0d6c7b9671dfacdcae3f77f36b4b66a87e917",
+  "lease": null,
+  "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
-    "slot": "2026-11-20T18:00",
-    "completed_at": "2026-11-20T17:17:49.371Z",
-    "objective": "Caller CSV trial design -> portable passive offline plans -> normal installed software sequence receipts",
-    "commit": "b68ca488c0a1526e37ab0a34a40a3bda5d160ef5",
-    "tested_commit": "823352691391f10423bc4c97975762ae314e5bab",
-    "tested_tree": "6d7264f39871039a7253518893fecece059ad2b0",
+    "slot": "2026-11-21T06:00",
+    "completed_at": "2026-11-21T05:11:59.998Z",
+    "objective": "Optional real Lab Streaming Layer bridge from installed SDK trial snapshots to separate independent receiver",
+    "commit": "f9a0d6c7b9671dfacdcae3f77f36b4b66a87e917",
+    "tested_commit": "dc53bf30adbf0e99d3e6203d60dbe6deced00394",
+    "tested_tree": "ee932c3806fa739a347a2b5658478ec95efd5437",
     "merged": true,
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/37",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/38",
     "checks": {
-      "python_full_local": 2389,
-      "python_full_local_seconds": 115.73,
-      "targeted": 19,
-      "installed_proof": "Outside-checkout wheel; caller-modified graph with explicitly synthetic second observation, opaque context, CSV BOM/CRLF/quoted annotation and reversed order, distinct durations; exact retained inputs, moved dossier after originals deleted, ordinary run-sequence on Python/independent Node, byte-identical repreparation, invalid last row creates no output, collision refused.",
-      "kit": "Extracted kit new prepare-experiment and ordinary sequence path passed on both software references; clean offline Linux CPython3.12 CI repeats it.",
-      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44781055043",
-      "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44781055047",
+      "python_full_local": 2395,
+      "python_full_local_seconds": 103.42,
+      "targeted": 6,
+      "actual_lsl_scenarios": 6,
+      "actual_lsl_proof": "New venv outside checkout, installed SDK wheel/import location verified, explicitly supplied local pylsl1.18.7/NumPy2.2.6 wheels, copied bridge and pylsl-only receiver with no OpenSmell imports. Actual independent inlet/outlet processes compare every marker/raw timestamp. Two caller IDs complete on Python/Node; Stop on both references leaves second unattempted; refusal/unknown preserved. Marker counts12/12/7/7/6/6.",
+      "no_consumer_no_child": true,
+      "collision_no_child": true,
+      "optional_runtime": {
+        "pylsl": "1.18.7",
+        "numpy": "2.2.6",
+        "liblsl": "git:a497f3c36d6cc0938fc46a850b17a82c478b20bc/branch:refs/tags/v1.18.0.b7/build:Release/compiler:GNU-11.4.0/link:SHARED"
+      },
+      "kit": "Fresh extracted kit existing paths passed with optional scripts/docs included; default/offline dependencies unchanged.",
+      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44869302495",
       "ci_result": "success",
-      "ci_exact_head": "823352691391f10423bc4c97975762ae314e5bab",
+      "ci_exact_head": "dc53bf30adbf0e99d3e6203d60dbe6deced00394",
       "ci_python_versions": [
         "3.10",
         "3.11",
         "3.12",
         "3.13"
       ],
-      "ci_python312": "2383 passed,6 skipped without optional RDKit; dedicated optional scientific job succeeded",
-      "firmware": "Both ESP32 targets compiled, existing native/installed/PTY software proofs passed; no physical access",
-      "proof_artifact": 14652995385,
-      "proof_artifact_digest": "sha256:0ab4e0e9b77846af3b26de2d4a4d53dc910c0876c1eb0f0b6134bf597c2422ac",
-      "normal_kit_artifact": 14652027571,
-      "offline_kit_artifact": 14652910504,
+      "ci_python312": "2389passed,6skipped without optional RDKit; scientific optional job passed",
+      "optional_lsl_ci": "success; real receiver6scenarios plus no-consumer/collision gates",
+      "proof_artifact": 14693356226,
+      "proof_artifact_digest": "sha256:c80a7f418cf0fd24bbb14d2e6b366b1829ad07f03858d9c96d51888ec6e8054c",
+      "normal_kit_artifact": 14692909341,
+      "offline_kit_artifact": 14692854576,
       "main_tree_matches_tested": true,
-      "post_merge": "Fetched main,19focused tests passed0.57s; rebuilt wheel and repeated full installed preparation/relocation/repreparation/Python+Node proof.",
-      "physical_access": false
+      "post_merge": "Fetched main,6targeted tests passed0.08s; rebuilt wheel and repeated actual installed LSL6scenarios and guards successfully.",
+      "physical_access": false,
+      "firmware": "Not modified or compiled in this slice; prior hardware evidence not upgraded."
     },
     "limitations": [
-      "Passive preparation only; one explicit profile, caller CSV order, no randomization/statistics/scientific design validation or implicit selection. No executable selected by input data.",
-      "1–16 trials,120s total;CSV64KiB/graph8MiB/profile1MiB/plans16MiB; existing1024byte frame validation. Invalid row refuses all before output; exclusive directory; interrupted I/O may leave incomplete marker.",
-      "Exact source/profile/CSV and opaque annotations preserved; hashes identify supplied bytes, not authenticity. Prepared plans do not establish command acceptance/execution/odor result. Endpoint identity/live capabilities checked independently by execution entry.",
-      "Internal software references and declared synthetic clone are not new scientific measurements, hardware validation or independent adoption. Local proof inherits build dependencies; clean offline CI has its separate declared target. Human new-target bench remains NOT RUN."
+      "LSL marker clocks are software callback timestamps, not physical onset, accuracy/latency guarantee or independent acquisition compatibility. Publisher push/consumer connection is not receiver acknowledgement; proof compares actual received files.",
+      "Machine-scope discovery is configured but is not authentication/security isolation or proof of loopback-only sockets. Explicit source IDs/commands; trusted child not sandboxed; no physical commands.",
+      "Unknown includes pre-send intent and subsequent uncertain replies. Correlated SDK receipts retained; duplicate snapshots suppressed; marker callback failure aborts later sends. No retry/reconnect/replay. Partial files do not establish success.",
+      "Optional pinned LSL runtime verified on Linuxx86_64 CPython3.12 with bundled liblsl identity recorded. Local build environment dependencies inherited; no clean scientific/offline-LSL closure claim. Offline default kit remains separate and lacks optional LSL dependencies.",
+      "Repository-run external library receiver is not third-party adoption. Human new-firmware physical bench remains NOT RUN. No hardware/serial/GPIO/flash/diffusion, tag/release/registry upload, paid service or extra automation."
     ],
-    "handoff_library_file_id": "libfile_fde3_f-08615a4b80c48191ae0eed6b2a9b6a89_44ff1f20787081919dd91de18843de02",
-    "lease_acquired_at": "2026-11-20T17:05:59.193Z",
+    "handoff_library_file_id": "libfile_fde3_f-e04f6ada73308191974c82c1205aec16_44ff1f20787081919dd91de18843de02",
+    "lease_acquired_at": "2026-11-21T05:00:26.496Z",
     "elapsed_under_lease_minutes": 12,
     "platform_blocker": null
   },
   "recent_sessions": [
-    {
-      "session_kind": "scheduled",
-      "slot": "2026-11-17T18:00",
-      "completed_at": "2026-11-17T17:16:38.833Z",
-      "objective": "Installed observation-table export with loss-preserved context and optional real Pandas scientific interoperability",
-      "commit": "b7bec46d05560f1e15bead2f5c8a3350a42ef5b1",
-      "tested_commit": "538662a7690ebec7c170f7eb9648a96e4157837f",
-      "tested_tree": "8499aa9d686973c2527046061e3046ff0f83dd30",
-      "merged": true,
-      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/29",
-      "checks": {
-        "python_full_local": 2275,
-        "python_full_local_seconds": 99.83,
-        "new_projection_cases": 22,
-        "python312_final_ci": 2275,
-        "python312_final_ci_seconds": 98.91,
-        "ci_python_versions": [
-          "3.10",
-          "3.11",
-          "3.12",
-          "3.13"
-        ],
-        "local_pandas": "3.1.1",
-        "installed_analysis": "Fresh wheel import checked outside checkout; real Pandas consumer with explicit Float64/Int64/string dtypes; synthetic3records ->4/2/0 measurement rows and separate categorical payloads, original byte comparison; real multisource graph7measurements with absent units preserved.",
-        "published_source": {
-          "prepared_csv_sha256": "57e9cd4b41bc69d8813726ae80442b177ae52b4e6100ac56872c546db94f991c",
-          "original_xlsx_sha256": "efcb1b07558431c869c5578abcd3fa1e4405a38cc68a8b1c1621594c673d9f62",
-          "source_indexes": [
-            2500,
-            2501,
-            0
-          ],
-          "measurement_rows": [
-            8,
-            0,
-            3
-          ],
-          "first_values": "flower26 grass38 wood89; source rating scale/unit and opaque dilution retained",
-          "scope": "Same documented publisher-source preparation with familiarity excluded for prior scale ambiguity; no new corpus bytes redistributed."
-        },
-        "refusals": "Unknown contracts/resources and invalid measurements report partial with exact context/source retained. Missing/nil units distinct; no normalization/imputation/join/mean. Strict invalid graph/JSON refused; new output collision refused. SDK exact2**53+1 retained; Pandas Float64 lossy conversion refused before output creation.",
-        "kits": "Normal and clean/offline Linux target CI remain green; example/guide included, Pandas not added to SDK default dependencies or offline closure.",
-        "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44133740845",
-        "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44133741358",
-        "ci_result": "success",
-        "normal_kit_artifact": 14350108848,
-        "offline_kit_artifact": 14349704804,
-        "main_tree_matches_tested": true,
-        "post_merge_main": "Fetched main;22 targeted cases pass.",
-        "physical_access": false
-      },
-      "limitations": [
-        "Experimental Generic ResourceGraph0.1 projection with 8MiB strict input boundary. Source bytes and full parsed context retained; rows cover known perceptual0.1 only, category payloads remain opaque, partial coverage is not complete scientific validation.",
-        "Pandas is an optional real external consumer, not independent third-party adoption. Its Float64 conversion is explicit and refused when exact SDK integers would round; original JSON snapshot/context remains authoritative. No default dependency/optional offline Pandas package claim.",
-        "No physical serial/device access, flash/diffusion/odor result, tags/releases or registry publication. Existing firmware/build bench is unchanged and green; human board/odor observations remain NOT RUN. Historical Node timeout not claimed fixed."
-      ],
-      "handoff_library_file_id": "libfile_fde3_f-29f7afef0adc81919d098945808aad52_44ff1f20787081919dd91de18843de02"
-    },
     {
       "session_kind": "scheduled",
       "slot": "2026-11-18T06:00",
@@ -470,9 +401,65 @@
       "lease_acquired_at": "2026-11-20T17:05:59.193Z",
       "elapsed_under_lease_minutes": 12,
       "platform_blocker": null
+    },
+    {
+      "session_kind": "scheduled",
+      "slot": "2026-11-21T06:00",
+      "completed_at": "2026-11-21T05:11:59.998Z",
+      "objective": "Optional real Lab Streaming Layer bridge from installed SDK trial snapshots to separate independent receiver",
+      "commit": "f9a0d6c7b9671dfacdcae3f77f36b4b66a87e917",
+      "tested_commit": "dc53bf30adbf0e99d3e6203d60dbe6deced00394",
+      "tested_tree": "ee932c3806fa739a347a2b5658478ec95efd5437",
+      "merged": true,
+      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/38",
+      "checks": {
+        "python_full_local": 2395,
+        "python_full_local_seconds": 103.42,
+        "targeted": 6,
+        "actual_lsl_scenarios": 6,
+        "actual_lsl_proof": "New venv outside checkout, installed SDK wheel/import location verified, explicitly supplied local pylsl1.18.7/NumPy2.2.6 wheels, copied bridge and pylsl-only receiver with no OpenSmell imports. Actual independent inlet/outlet processes compare every marker/raw timestamp. Two caller IDs complete on Python/Node; Stop on both references leaves second unattempted; refusal/unknown preserved. Marker counts12/12/7/7/6/6.",
+        "no_consumer_no_child": true,
+        "collision_no_child": true,
+        "optional_runtime": {
+          "pylsl": "1.18.7",
+          "numpy": "2.2.6",
+          "liblsl": "git:a497f3c36d6cc0938fc46a850b17a82c478b20bc/branch:refs/tags/v1.18.0.b7/build:Release/compiler:GNU-11.4.0/link:SHARED"
+        },
+        "kit": "Fresh extracted kit existing paths passed with optional scripts/docs included; default/offline dependencies unchanged.",
+        "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44869302495",
+        "ci_result": "success",
+        "ci_exact_head": "dc53bf30adbf0e99d3e6203d60dbe6deced00394",
+        "ci_python_versions": [
+          "3.10",
+          "3.11",
+          "3.12",
+          "3.13"
+        ],
+        "ci_python312": "2389passed,6skipped without optional RDKit; scientific optional job passed",
+        "optional_lsl_ci": "success; real receiver6scenarios plus no-consumer/collision gates",
+        "proof_artifact": 14693356226,
+        "proof_artifact_digest": "sha256:c80a7f418cf0fd24bbb14d2e6b366b1829ad07f03858d9c96d51888ec6e8054c",
+        "normal_kit_artifact": 14692909341,
+        "offline_kit_artifact": 14692854576,
+        "main_tree_matches_tested": true,
+        "post_merge": "Fetched main,6targeted tests passed0.08s; rebuilt wheel and repeated actual installed LSL6scenarios and guards successfully.",
+        "physical_access": false,
+        "firmware": "Not modified or compiled in this slice; prior hardware evidence not upgraded."
+      },
+      "limitations": [
+        "LSL marker clocks are software callback timestamps, not physical onset, accuracy/latency guarantee or independent acquisition compatibility. Publisher push/consumer connection is not receiver acknowledgement; proof compares actual received files.",
+        "Machine-scope discovery is configured but is not authentication/security isolation or proof of loopback-only sockets. Explicit source IDs/commands; trusted child not sandboxed; no physical commands.",
+        "Unknown includes pre-send intent and subsequent uncertain replies. Correlated SDK receipts retained; duplicate snapshots suppressed; marker callback failure aborts later sends. No retry/reconnect/replay. Partial files do not establish success.",
+        "Optional pinned LSL runtime verified on Linuxx86_64 CPython3.12 with bundled liblsl identity recorded. Local build environment dependencies inherited; no clean scientific/offline-LSL closure claim. Offline default kit remains separate and lacks optional LSL dependencies.",
+        "Repository-run external library receiver is not third-party adoption. Human new-firmware physical bench remains NOT RUN. No hardware/serial/GPIO/flash/diffusion, tag/release/registry upload, paid service or extra automation."
+      ],
+      "handoff_library_file_id": "libfile_fde3_f-e04f6ada73308191974c82c1205aec16_44ff1f20787081919dd91de18843de02",
+      "lease_acquired_at": "2026-11-21T05:00:26.496Z",
+      "elapsed_under_lease_minutes": 12,
+      "platform_blocker": null
     }
   ],
-  "next_objective": "Close the first passive caller trial-table preparation slice (#37). Whole interoperability kit remains active; do not extend CSV options/dossier formats, sequence flags, chemistry descriptors or Explorer/native diagnostics by default. Next choose one concrete external experimenter consumer integration using installed SDK and caller-prepared trial IDs/plans: evaluate a software-only lab-event bridge (candidate local Lab Streaming Layer markers, after checking official API/dependency availability) with an actual independent receiver and observed lifecycle receipts. Distinguish application markers, acceptance, correlated software completion and physical onset; never infer odor timing. Exit: copied consumer outside checkout receives two explicit trial IDs/results through the external library, preserves rejection/Stop/unknown, reproduces with documented optional dependencies and no physical port/flash/diffusion. Avoid adopting a dependency without a usable vertical proof; choose another independent integration if blocked. No third-party adoption has been observed. Human new-firmware wiring/LED bench remains NOT RUN; no autonomous hardware commands, registry releases, paid services or added automations.",
+  "next_objective": "Close the first optional actual LSL marker bridge (#38). Installed SDK -> copied example -> separate actual pylsl-only receiver, 6terminal/uncertain scenarios plus no-consumer/collision guards, full suite/CI and main proof have passed. Do not add LSL timing diagnostics, recording formats, acquisition drivers or more marker flags by default. Rebalance the whole kit toward its primary SDK/format entry: inspect the existing Core/bridge/planning contracts for a concrete gap in taking a user's normal Core .osmell file to an explicit passive plan from an installed SDK/CLI. Choose a bounded first vertical path using one explicitly selected supported representation/scheme and caller-supplied mapping/capability profile; retain exact input/provenance, distinguish unknown representations and refuse unmapped/unsupported semantics without guessing odor channels or chemistry. Exit: installed normal entry outside checkout on caller data, known-selection plan consumed by existing frame/sequence boundary with no implicit send, unknown/ambiguous selection refuses before output and unknown bytes preserved. If already usable, do not repackage existing receipts as a feature: choose a demonstrated independent consumer gap instead. Keep data/interop, reproducible hardware bench and adoption as separate axes; human new-firmware wiring/LED observations remain NOT RUN, third-party adoption unobserved. No autonomous physical port/GPIO, flash, diffusion, registry release, paid service or extra automation.",
   "automation": {
     "id": "39cc72697e048191a1ba0d3e3e9d787c",
     "title": "OpenSmell — développement autonome quotidien",
@@ -489,9 +476,9 @@
   },
   "active_product_milestone": {
     "goal": "Installable OpenSmell developer kit spanning data, SDK, device integration and reproducible hardware bench",
-    "delivered": "Installable data/SDK/adapter kit, optional scientific consumers, bounded sequence (#36), and now passive caller trial-table preparation with movable exact-input dossier and ordinary installed software receipts (#37).",
-    "next": "Close the first passive caller trial-table preparation slice (#37). Whole interoperability kit remains active; do not extend CSV options/dossier formats, sequence flags, chemistry descriptors or Explorer/native diagnostics by default. Next choose one concrete external experimenter consumer integration using installed SDK and caller-prepared trial IDs/plans: evaluate a software-only lab-event bridge (candidate local Lab Streaming Layer markers, after checking official API/dependency availability) with an actual independent receiver and observed lifecycle receipts. Distinguish application markers, acceptance, correlated software completion and physical onset; never infer odor timing. Exit: copied consumer outside checkout receives two explicit trial IDs/results through the external library, preserves rejection/Stop/unknown, reproduces with documented optional dependencies and no physical port/flash/diffusion. Avoid adopting a dependency without a usable vertical proof; choose another independent integration if blocked. No third-party adoption has been observed. Human new-firmware wiring/LED bench remains NOT RUN; no autonomous hardware commands, registry releases, paid services or added automations."
+    "delivered": "Installed interoperability kit, scientific consumers, sequences and caller trial-table preparation (#36/#37), now optional actual LSL external-library software marker bridge with independent receiver (#38). No physical or independent adoption claim.",
+    "next": "Close the first optional actual LSL marker bridge (#38). Installed SDK -> copied example -> separate actual pylsl-only receiver, 6terminal/uncertain scenarios plus no-consumer/collision guards, full suite/CI and main proof have passed. Do not add LSL timing diagnostics, recording formats, acquisition drivers or more marker flags by default. Rebalance the whole kit toward its primary SDK/format entry: inspect the existing Core/bridge/planning contracts for a concrete gap in taking a user's normal Core .osmell file to an explicit passive plan from an installed SDK/CLI. Choose a bounded first vertical path using one explicitly selected supported representation/scheme and caller-supplied mapping/capability profile; retain exact input/provenance, distinguish unknown representations and refuse unmapped/unsupported semantics without guessing odor channels or chemistry. Exit: installed normal entry outside checkout on caller data, known-selection plan consumed by existing frame/sequence boundary with no implicit send, unknown/ambiguous selection refuses before output and unknown bytes preserved. If already usable, do not repackage existing receipts as a feature: choose a demonstrated independent consumer gap instead. Keep data/interop, reproducible hardware bench and adoption as separate axes; human new-firmware wiring/LED observations remain NOT RUN, third-party adoption unobserved. No autonomous physical port/GPIO, flash, diffusion, registry release, paid service or extra automation."
   },
-  "session_slot": "2026-11-21T06:00",
-  "last_completed_slot": "2026-11-20T18:00"
+  "session_slot": null,
+  "last_completed_slot": "2026-11-21T06:00"
 }
