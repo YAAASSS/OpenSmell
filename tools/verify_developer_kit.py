@@ -88,6 +88,9 @@ def main():
             "--output-directory", prepared]).stdout)
         if designed["execution"] != "not_attempted":
             raise ValueError("Kit preparation must remain passive")
+        core_plan = work / "selected-core-plan.json"
+        run([python, "-I", "-m", "opensmell", "plan-core", "data/core_semantic_only.osmell",
+             "--representation-index", "0", "--profile", "profiles/semantic.json", "--duration", ".1", "--output", core_plan])
         sequence_plans = []
         for label, rid, duration in (
             ("semantic", "e6ad8ce3-dc6e-5d94-9287-57665d48fc0b", ".1"),
@@ -102,6 +105,11 @@ def main():
             ([str(python), "-I", "-u", str(kit / "software/python_device.py")], "opensmell-local-simulator-001"),
             (["node", str(kit / "software/device.cjs")], "opensmell-node-simulator-001"),
         ):
+            core_receipt = json.loads(run([python, "-I", "-m", "opensmell", "run-sequence", core_plan,
+                "--software-command-json", json.dumps(command), "--expected-device-id", identity,
+                "--output", work / f"{identity}-core.json"]).stdout)
+            if core_receipt["status"] != "completed":
+                raise ValueError("Selected Core kit path must complete through normal software entry")
             prepared_receipt = json.loads(run([python, "-I", "-m", "opensmell", "run-sequence",
                 *[prepared/r["plan_file"] for r in designed["trials"]], "--software-command-json", json.dumps(command),
                 "--expected-device-id", identity, "--output", work / f"{identity}-designed.json"]).stdout)

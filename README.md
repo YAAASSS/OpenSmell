@@ -1713,6 +1713,12 @@ separate ESP32 build target preserves the default acceptance-only firmware.
 Native software observations and cross-compilation do not establish physical
 LED/actuator compatibility; the new manual board bench remains NOT RUN.
 
+The installed [explicit Core planning entry](docs/core-planning.md),
+`opensmell plan-core`, maps one selected Core semantic representation using a
+supplied profile, including files without chemical data. Exact Core bytes and
+unknown representations remain retained; normal export/send preflight rejects
+an altered intermediate projection. Planning remains passive.
+
 An [optional Lab Streaming Layer example](docs/lsl-markers.md) connects the
 installed SDK's software lifecycle snapshots to a separate real pylsl receiver.
 Caller trial IDs and completion/Stop/refusal/uncertainty remain distinct. Its

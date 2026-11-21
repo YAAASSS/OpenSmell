@@ -281,6 +281,31 @@ def _encode_frame_command(args):
     return 0
 
 
+def _plan_core_command(args):
+    from .experimental.core_planning import plan_core_bytes, MAX_CORE_BYTES
+    try:
+        if args.file == "-":
+            raw = sys.stdin.buffer.read(MAX_CORE_BYTES+1)
+        else:
+            with Path(args.file).open("rb") as source:
+                raw = source.read(MAX_CORE_BYTES+1)
+        with Path(args.profile).open("rb") as source:
+            profile = source.read(1048576+1)
+        artifact = plan_core_bytes(raw, profile, representation_index=args.representation_index, duration=args.duration)
+        encoded = (json.dumps(artifact,indent=2,allow_nan=False,ensure_ascii=True)+"\n").encode()
+        if len(encoded) > 8*1048576:
+            raise ValueError("Serialized offline plan exceeds8MiB")
+        if args.output:
+            with Path(args.output).open("xb") as target: target.write(encoded)
+        else:
+            sys.stdout.buffer.write(encoded)
+        return 0
+    except OSError as error:
+        print(json.dumps({"status":"error","error":str(error)}),file=sys.stderr); return 2
+    except (OpenSmellError,ValueError,TypeError,KeyError,RecursionError,OverflowError) as error:
+        print(json.dumps({"status":"invalid","error":str(error)}),file=sys.stderr); return 1
+
+
 def _plan_command(args: argparse.Namespace) -> int:
     """Produce a passive planning artifact, not an executable wire request."""
     try:
@@ -493,6 +518,12 @@ def main(argv: list[str] | None = None) -> int:
         subparser = commands.add_parser(command, help=f"{command.capitalize()} Core or experimental graph files")
         subparser.add_argument("files", nargs="+", help="UTF-8 file paths; '-' reads standard input once")
         subparser.add_argument("--json", action="store_true", help="Print one JSON report for all inputs")
+    core_planning = commands.add_parser("plan-core", help="Plan one explicitly selected Core semantic representation passively")
+    core_planning.add_argument("file", help="Core0.1 file or stdin (-); max4MiB")
+    core_planning.add_argument("--representation-index", type=int, required=True, help="Explicit zero-based semantic annotations0.1 representation index")
+    core_planning.add_argument("--profile", required=True, help="Explicit semantic mapping/capability profile")
+    core_planning.add_argument("--duration", type=float, required=True, help="Explicit requested duration in seconds")
+    core_planning.add_argument("--output", help="New normal offline-plan JSON artifact; never overwrite")
     planning = commands.add_parser("plan", help="Create an offline JSON plan from a graph and explicit profile")
     planning.add_argument("file", help="Generic ResourceGraph file; '-' reads stdin")
     planning.add_argument("--profile", required=True, help="Mapping profile JSON file")
@@ -555,6 +586,8 @@ def main(argv: list[str] | None = None) -> int:
     reference.add_argument("file", help="Generic ResourceGraph file or stdin (-); 8 MiB maximum")
     reference.add_argument("--output-directory", required=True, help="New bundle directory; never overwrite")
     args = parser.parse_args(argv)
+    if args.command == "plan-core":
+        return _plan_core_command(args)
     if args.command == "prepare-experiment":
         return _prepare_experiment_command(args)
     if args.command == "run-sequence":

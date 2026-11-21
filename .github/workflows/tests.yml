@@ -76,6 +76,17 @@ jobs:
           python -m build --wheel
           python -m tools.verify_installed_cli dist/*.whl --js-exchange-directory "$RUNNER_TEMP/js-sdk-exchange"
 
+      - name: Verify installed explicit Core planning path
+        run: python -m tools.verify_installed_core_plan dist/opensmell-0.1.0-py3-none-any.whl --evidence-directory dist/core-plan-proof
+
+      - name: Retain Core planning evidence
+        if: always()
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: core-planning-proof
+          path: dist/core-plan-proof
+          retention-days: 14
+
       - name: Verify installed caller trial-table experiment
         run: python -m tools.verify_installed_experiment dist/opensmell-0.1.0-py3-none-any.whl --evidence-directory dist/experiment-proof
 

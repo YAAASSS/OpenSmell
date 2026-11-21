@@ -181,3 +181,7 @@ to compile an explicit ordered trial table passively; see [EXPERIMENT_TABLE.md](
 Optional actual LSL software markers: see [LSL_MARKERS.md](LSL_MARKERS.md).
 The copied scripts use explicit optional dependencies, which are not bundled or
 required by this kit; no physical onset or acquisition-device compatibility is claimed.
+
+For an explicitly selected Core semantic representation without chemical data,
+use `opensmell plan-core data/core_semantic_only.osmell --representation-index 0 --profile profiles/semantic.json --duration 0.1 --output selected-core-plan.json`.
+See [CORE_PLANNING.md](CORE_PLANNING.md) for preservation, refusal and separate execution.
