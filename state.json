@@ -1,158 +1,62 @@
 {
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-21",
-  "last_processed_main_sha": "f9a0d6c7b9671dfacdcae3f77f36b4b66a87e917",
-  "lease": {
-    "owner": "core-plan-rvl4pb7wtb",
-    "acquired_at": "2026-11-21T17:00:05.293Z",
-    "expires_at": "2026-11-21T21:00:05.293Z"
-  },
-  "open_work": {
-    "branch": "feat/core-plan-20261121",
-    "commit": "122506de66b7651d1ae7b5b5cbdb25bd27eb74aa",
-    "tree": "1f760fbbcda1e37518d31928ecd3f9d75cccd26a",
-    "pr": 39,
-    "url": "https://github.com/YAAASSS/OpenSmell/pull/39",
-    "checks": {
-      "python_full_local": 2421,
-      "seconds": 104.55,
-      "targeted": 26,
-      "installed_core_path": "passed on Python/Node/actual native sketch; distinct selected plans, exact Core retained, deleted inputs, unknown/collision/stale projection refused",
-      "kit": "passed",
-      "tests_ci": 44928244980,
-      "firmware_ci": 44928244932
-    },
-    "resume": "Exact-head push CI is running (PR-triggered wrapper returns no runs); use REST run IDs/check-runs. Inspect final jobs/reviews/rules, merge if green, verify main and save handoff."
-  },
+  "last_processed_main_sha": "20ad31b1b27d9214de1be4cd1e0dd0c45f18adde",
+  "lease": null,
+  "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
-    "slot": "2026-11-21T06:00",
-    "completed_at": "2026-11-21T05:11:59.998Z",
-    "objective": "Optional real Lab Streaming Layer bridge from installed SDK trial snapshots to separate independent receiver",
-    "commit": "f9a0d6c7b9671dfacdcae3f77f36b4b66a87e917",
-    "tested_commit": "dc53bf30adbf0e99d3e6203d60dbe6deced00394",
-    "tested_tree": "ee932c3806fa739a347a2b5658478ec95efd5437",
+    "slot": "2026-11-21T18:00",
+    "completed_at": "2026-11-21T17:13:40.854Z",
+    "objective": "Explicit installed Core semantic selection to passive plan and normal software/native execution boundaries",
+    "commit": "20ad31b1b27d9214de1be4cd1e0dd0c45f18adde",
+    "tested_commit": "122506de66b7651d1ae7b5b5cbdb25bd27eb74aa",
+    "tested_tree": "1f760fbbcda1e37518d31928ecd3f9d75cccd26a",
     "merged": true,
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/38",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/39",
     "checks": {
-      "python_full_local": 2395,
-      "python_full_local_seconds": 103.42,
-      "targeted": 6,
-      "actual_lsl_scenarios": 6,
-      "actual_lsl_proof": "New venv outside checkout, installed SDK wheel/import location verified, explicitly supplied local pylsl1.18.7/NumPy2.2.6 wheels, copied bridge and pylsl-only receiver with no OpenSmell imports. Actual independent inlet/outlet processes compare every marker/raw timestamp. Two caller IDs complete on Python/Node; Stop on both references leaves second unattempted; refusal/unknown preserved. Marker counts12/12/7/7/6/6.",
-      "no_consumer_no_child": true,
-      "collision_no_child": true,
-      "optional_runtime": {
-        "pylsl": "1.18.7",
-        "numpy": "2.2.6",
-        "liblsl": "git:a497f3c36d6cc0938fc46a850b17a82c478b20bc/branch:refs/tags/v1.18.0.b7/build:Release/compiler:GNU-11.4.0/link:SHARED"
-      },
-      "kit": "Fresh extracted kit existing paths passed with optional scripts/docs included; default/offline dependencies unchanged.",
-      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44869302495",
+      "python_full_local": 2421,
+      "python_full_local_seconds": 104.55,
+      "targeted": 26,
+      "installed_core_proof": "Outside-checkout SDK wheel; original geraniol Core selects index1 and declared synthetic caller semantic-only Core selects index0; distinct CH0=.25/CH1=.6 plans, exact original Core bytes/hash verified, originals/profile removed before encode-frame and run-sequence. Python/independent Node/actual compiled native sketch all observe2correlated completions.",
+      "guards": "Explicit index, supported type/scheme/version/profile only; no chemistry requirement/fallback. Unknown/missing/out-of-range/bool index, malformed known data, unsupported duration/caps, unmapped result, size and collision refusal. Normal export/sequence recomputes reserved projection from exact Core snapshot; edited graph and matching edited plan still refuse before child launch.",
+      "kit": "Fresh extracted kit Core selection -> normal software completion on Python/Node passed alongside existing paths; clean offline-kit CI repeats new normal path.",
+      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44928244980",
+      "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44928244932",
       "ci_result": "success",
-      "ci_exact_head": "dc53bf30adbf0e99d3e6203d60dbe6deced00394",
+      "ci_exact_head": "122506de66b7651d1ae7b5b5cbdb25bd27eb74aa",
+      "ci_event": "push; PR-triggered workflow wrapper returned no runs, direct REST run/check-run exact-head verification used",
       "ci_python_versions": [
         "3.10",
         "3.11",
         "3.12",
         "3.13"
       ],
-      "ci_python312": "2389passed,6skipped without optional RDKit; scientific optional job passed",
-      "optional_lsl_ci": "success; real receiver6scenarios plus no-consumer/collision gates",
-      "proof_artifact": 14693356226,
-      "proof_artifact_digest": "sha256:c80a7f418cf0fd24bbb14d2e6b366b1829ad07f03858d9c96d51888ec6e8054c",
-      "normal_kit_artifact": 14692909341,
-      "offline_kit_artifact": 14692854576,
+      "ci_python312": "2415passed,6skipped without optional RDKit; dedicated optional scientific and actual LSL jobs passed",
+      "firmware": "Both ESP32 targets compiled; new installed Core path against actual native sketch and existing lifecycle/serial/perceptual software proofs passed. No port/flash.",
+      "proof_artifact": 14716548154,
+      "proof_artifact_digest": "sha256:b7eb7423fe3e05ea8281c82644b4e01b9e5f0fb646f8d5c3e6ed65c163e0f358",
+      "native_artifact": 14716194291,
+      "native_artifact_digest": "sha256:fa00f82d25ff49784e72186d74f4eb41f5c5ec0f46909adf839495b20ef92c67",
+      "normal_kit_artifact": 14715908452,
+      "offline_kit_artifact": 14716662972,
       "main_tree_matches_tested": true,
-      "post_merge": "Fetched main,6targeted tests passed0.08s; rebuilt wheel and repeated actual installed LSL6scenarios and guards successfully.",
-      "physical_access": false,
-      "firmware": "Not modified or compiled in this slice; prior hardware evidence not upgraded."
+      "post_merge": "Fetched main,26focused tests passed0.49s; rebuilt wheel and repeated full Core installed proof with Python/Node/native plus refusal/collision checks.",
+      "physical_access": false
     },
     "limitations": [
-      "LSL marker clocks are software callback timestamps, not physical onset, accuracy/latency guarantee or independent acquisition compatibility. Publisher push/consumer connection is not receiver acknowledgement; proof compares actual received files.",
-      "Machine-scope discovery is configured but is not authentication/security isolation or proof of loopback-only sockets. Explicit source IDs/commands; trusted child not sandboxed; no physical commands.",
-      "Unknown includes pre-send intent and subsequent uncertain replies. Correlated SDK receipts retained; duplicate snapshots suppressed; marker callback failure aborts later sends. No retry/reconnect/replay. Partial files do not establish success.",
-      "Optional pinned LSL runtime verified on Linuxx86_64 CPython3.12 with bundled liblsl identity recorded. Local build environment dependencies inherited; no clean scientific/offline-LSL closure claim. Offline default kit remains separate and lacks optional LSL dependencies.",
-      "Repository-run external library receiver is not third-party adoption. Human new-firmware physical bench remains NOT RUN. No hardware/serial/GPIO/flash/diffusion, tag/release/registry upload, paid service or extra automation."
+      "Only explicitly selected Core semantic annotations0.1 plus semantic profile supported. All other representations preserved in exact snapshot, not interpreted/merged; Core validity does not imply renderability. Existing chemical bridge unchanged.",
+      "Temporary generic graph subject is an opaque application convention, never invented Molecule/chemical identity/physical Stimulus/measurement. Normal offline-plan/Core/wire/RFC maturity unchanged. Core4MiB/profile1MiB/artifact8MiB; existing frame/live capability limits separate.",
+      "Reserved projection integrity recomputed from retained Core snapshot/index, not source authentication/signatures. Removing provenance intentionally is not cryptographically prevented. Profile values/hash declarations retained; original profile whitespace bytes not claimed. Strict JSON BOM refusal retained; valid whitespace/CRLF preserved.",
+      "Initial installed proof fixture with BOM failed the existing strict JSON boundary; fixture/docs corrected without weakening parser. Native host rebuilt from source because prior temporary executable was absent.",
+      "Software/native completion and fakePWM do not establish physical LED/odor result. Human new-target bench remains NOT RUN, independent adoption unobserved. Local build dependencies inherited; separate clean offline CI target. No physical ports/GPIO, flash, diffusion, tags/releases, registry upload, paid service or added automation."
     ],
-    "handoff_library_file_id": "libfile_fde3_f-e04f6ada73308191974c82c1205aec16_44ff1f20787081919dd91de18843de02",
-    "lease_acquired_at": "2026-11-21T05:00:26.496Z",
-    "elapsed_under_lease_minutes": 12,
+    "handoff_library_file_id": "libfile_fde3_f-9c792be175b081918ec70ac54701afb5_44ff1f20787081919dd91de18843de02",
+    "lease_acquired_at": "2026-11-21T17:00:05.293Z",
+    "elapsed_under_lease_minutes": 14,
     "platform_blocker": null
   },
   "recent_sessions": [
-    {
-      "session_kind": "scheduled",
-      "slot": "2026-11-18T06:00",
-      "completed_at": "2026-11-18T05:36:29.000Z",
-      "objective": "Installed SDK -> opt-in actual firmware lifecycle -> normal installed adapter-author CLI, with retained software/fake-output proof",
-      "commit": "199a0d139039756903a023266e7c258f6faf2bf6",
-      "tested_commit": "09784fb3b1bdaf692849167c63eee5fe00c9e10d",
-      "tested_tree": "5a7bb00b90931a43464c71f7b1e7771a3607213c",
-      "merged": true,
-      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/31",
-      "deliveries": [
-        {
-          "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/30",
-          "commit": "3e682a9cd9203c05e88d647e7680d234cb420f7b",
-          "tested_commit": "353f138347e0d95a1ea8372a05e01ac1406efd73",
-          "tested_tree": "141ccd04e5aa3167510430b97aa932011c3b638c"
-        },
-        {
-          "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/31",
-          "commit": "199a0d139039756903a023266e7c258f6faf2bf6",
-          "tested_commit": "09784fb3b1bdaf692849167c63eee5fe00c9e10d",
-          "tested_tree": "5a7bb00b90931a43464c71f7b1e7771a3607213c"
-        }
-      ],
-      "checks": {
-        "python_full_local": 2290,
-        "python_full_local_seconds": 100.39,
-        "new_behavior_cases": 15,
-        "post_merge_targeted": 15,
-        "post_merge_targeted_seconds": 5.21,
-        "python312_final_ci": 2290,
-        "python312_final_ci_seconds": 100.81,
-        "ci_python_versions": [
-          "3.10",
-          "3.11",
-          "3.12",
-          "3.13"
-        ],
-        "ci_node": "22",
-        "local_node": "24.22.1",
-        "legacy_native": 44,
-        "lifecycle_native_exchanges": 57,
-        "native_scope": "Actual compiled sketch, fake serial/PWM/clock; bounded invalid/busy/stale/refusal checks, correlated completion/Stop, terminal stability, latest ID and fresh-boot isolation, uint32 clock rollover",
-        "installed_proof": "Fresh wheel/local npm outside checkout: both clients x semantic/perceptual plans -> actual native sketch -> completed/stopped/unknown. Normal installed lifecycle-trial CLI: both mapping paths x Python/Node reference endpoints plus native sketch; wrong identity and report collision refuse before render/launch. Source exact artifact bytes/unknown context preserved; actionable plans recomputed from embedded snapshots; both trial durations preflight before first render.",
-        "failure_guards": "15 tests: lost/malformed/wrong-ID/non-completing endpoint stops after one render, no subsequent sends or retry; refused render retains rejection; invalid/changed plan/command/graph and live identity/duration preflight preserved.",
-        "esp32_compile": "Both esp32-led (default legacy) and explicitly selected esp32-led-lifecycle compiled locally and in final CI without upload. Pinned dependencies and integrity checks retained.",
-        "kit": "Rebuilt archive includes installed adapter guide with portable firmware URL; manifest hash checked. Normal and clean offline target CI passed.",
-        "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44244693954",
-        "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44244694063",
-        "ci_result": "success",
-        "lifecycle_ci_artifact": 14401216650,
-        "lifecycle_ci_artifact_digest": "sha256:1006126c98b1df12c069089e3b5d695f6c34272f51c0dc6ead96659309cd3281",
-        "prior_firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44243094571",
-        "prior_standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44243094413",
-        "main_tree_matches_tested": true,
-        "post_merge_main": "Fetched final main; normal installed lifecycle-trial against actual native sketch passed completed/stopped/unknown; 15 targeted tests passed.",
-        "post_merge_report_sha256": "ba47c909359cd1b33ea89e743ab05d6c7e16f556fb7e606e8f65f894a8e8f021",
-        "physical_access": false
-      },
-      "limitations": [
-        "Opt-in firmware-source LED experiment only; default Device Protocol0.1 remains acceptance-only, RFC0014 Draft. Physical board/idle MCU timing/entropy/electrical or odor observations NOT RUN; no flash/serial/GPIO/registry/tags/releases.",
-        "Boot random namespace/counter is probabilistic latest-run isolation, not authentication/durable reconciliation. request_id suppression is client-local; no wire exactly-once guarantee or automatic retry/reconnect.",
-        "Native realtime samples time on input, fake clock/pins do not prove autonomous physical expiry. CLI explicitly requires5s offline plan and derives0.1s completion before original5s Stop/closure;1024-byte frame and8MiB artifact bounds. Selected processes trusted, not sandboxed.",
-        "Exact input plan artifact preserved; embedded graph/profile snapshots and their hashes remain supplied declarations, not reauthenticated original source bytes. Command arguments/data appear in report; malformed response bytes are not exposed by ProcessTransport. Existing timeout/no-retry policy preserved, historical Node timeout not claimed fixed.",
-        "Installed proof inherits available Python dependencies; separate clean offline CI covers its declared Linux target. Repository-maintained interoperability is not independent adoption."
-      ],
-      "handoff_library_file_id": "libfile_fde3_f-98bf74c618ac8191bd853f6689d0de5e_44ff1f20787081919dd91de18843de02",
-      "work_started_at_approx": "2026-11-18T05:02:00Z",
-      "elapsed_minutes_approx": 34,
-      "platform_blocker": null,
-      "coordination_note": "Immediate correction of this run's own completion-log field using the exact released ref; no project writes, duplicate session or lease extension."
-    },
     {
       "session_kind": "scheduled",
       "slot": "2026-11-18T18:00",
@@ -477,9 +381,61 @@
       "lease_acquired_at": "2026-11-21T05:00:26.496Z",
       "elapsed_under_lease_minutes": 12,
       "platform_blocker": null
+    },
+    {
+      "session_kind": "scheduled",
+      "slot": "2026-11-21T18:00",
+      "completed_at": "2026-11-21T17:13:40.854Z",
+      "objective": "Explicit installed Core semantic selection to passive plan and normal software/native execution boundaries",
+      "commit": "20ad31b1b27d9214de1be4cd1e0dd0c45f18adde",
+      "tested_commit": "122506de66b7651d1ae7b5b5cbdb25bd27eb74aa",
+      "tested_tree": "1f760fbbcda1e37518d31928ecd3f9d75cccd26a",
+      "merged": true,
+      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/39",
+      "checks": {
+        "python_full_local": 2421,
+        "python_full_local_seconds": 104.55,
+        "targeted": 26,
+        "installed_core_proof": "Outside-checkout SDK wheel; original geraniol Core selects index1 and declared synthetic caller semantic-only Core selects index0; distinct CH0=.25/CH1=.6 plans, exact original Core bytes/hash verified, originals/profile removed before encode-frame and run-sequence. Python/independent Node/actual compiled native sketch all observe2correlated completions.",
+        "guards": "Explicit index, supported type/scheme/version/profile only; no chemistry requirement/fallback. Unknown/missing/out-of-range/bool index, malformed known data, unsupported duration/caps, unmapped result, size and collision refusal. Normal export/sequence recomputes reserved projection from exact Core snapshot; edited graph and matching edited plan still refuse before child launch.",
+        "kit": "Fresh extracted kit Core selection -> normal software completion on Python/Node passed alongside existing paths; clean offline-kit CI repeats new normal path.",
+        "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44928244980",
+        "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44928244932",
+        "ci_result": "success",
+        "ci_exact_head": "122506de66b7651d1ae7b5b5cbdb25bd27eb74aa",
+        "ci_event": "push; PR-triggered workflow wrapper returned no runs, direct REST run/check-run exact-head verification used",
+        "ci_python_versions": [
+          "3.10",
+          "3.11",
+          "3.12",
+          "3.13"
+        ],
+        "ci_python312": "2415passed,6skipped without optional RDKit; dedicated optional scientific and actual LSL jobs passed",
+        "firmware": "Both ESP32 targets compiled; new installed Core path against actual native sketch and existing lifecycle/serial/perceptual software proofs passed. No port/flash.",
+        "proof_artifact": 14716548154,
+        "proof_artifact_digest": "sha256:b7eb7423fe3e05ea8281c82644b4e01b9e5f0fb646f8d5c3e6ed65c163e0f358",
+        "native_artifact": 14716194291,
+        "native_artifact_digest": "sha256:fa00f82d25ff49784e72186d74f4eb41f5c5ec0f46909adf839495b20ef92c67",
+        "normal_kit_artifact": 14715908452,
+        "offline_kit_artifact": 14716662972,
+        "main_tree_matches_tested": true,
+        "post_merge": "Fetched main,26focused tests passed0.49s; rebuilt wheel and repeated full Core installed proof with Python/Node/native plus refusal/collision checks.",
+        "physical_access": false
+      },
+      "limitations": [
+        "Only explicitly selected Core semantic annotations0.1 plus semantic profile supported. All other representations preserved in exact snapshot, not interpreted/merged; Core validity does not imply renderability. Existing chemical bridge unchanged.",
+        "Temporary generic graph subject is an opaque application convention, never invented Molecule/chemical identity/physical Stimulus/measurement. Normal offline-plan/Core/wire/RFC maturity unchanged. Core4MiB/profile1MiB/artifact8MiB; existing frame/live capability limits separate.",
+        "Reserved projection integrity recomputed from retained Core snapshot/index, not source authentication/signatures. Removing provenance intentionally is not cryptographically prevented. Profile values/hash declarations retained; original profile whitespace bytes not claimed. Strict JSON BOM refusal retained; valid whitespace/CRLF preserved.",
+        "Initial installed proof fixture with BOM failed the existing strict JSON boundary; fixture/docs corrected without weakening parser. Native host rebuilt from source because prior temporary executable was absent.",
+        "Software/native completion and fakePWM do not establish physical LED/odor result. Human new-target bench remains NOT RUN, independent adoption unobserved. Local build dependencies inherited; separate clean offline CI target. No physical ports/GPIO, flash, diffusion, tags/releases, registry upload, paid service or added automation."
+      ],
+      "handoff_library_file_id": "libfile_fde3_f-9c792be175b081918ec70ac54701afb5_44ff1f20787081919dd91de18843de02",
+      "lease_acquired_at": "2026-11-21T17:00:05.293Z",
+      "elapsed_under_lease_minutes": 14,
+      "platform_blocker": null
     }
   ],
-  "next_objective": "Close the first optional actual LSL marker bridge (#38). Installed SDK -> copied example -> separate actual pylsl-only receiver, 6terminal/uncertain scenarios plus no-consumer/collision guards, full suite/CI and main proof have passed. Do not add LSL timing diagnostics, recording formats, acquisition drivers or more marker flags by default. Rebalance the whole kit toward its primary SDK/format entry: inspect the existing Core/bridge/planning contracts for a concrete gap in taking a user's normal Core .osmell file to an explicit passive plan from an installed SDK/CLI. Choose a bounded first vertical path using one explicitly selected supported representation/scheme and caller-supplied mapping/capability profile; retain exact input/provenance, distinguish unknown representations and refuse unmapped/unsupported semantics without guessing odor channels or chemistry. Exit: installed normal entry outside checkout on caller data, known-selection plan consumed by existing frame/sequence boundary with no implicit send, unknown/ambiguous selection refuses before output and unknown bytes preserved. If already usable, do not repackage existing receipts as a feature: choose a demonstrated independent consumer gap instead. Keep data/interop, reproducible hardware bench and adoption as separate axes; human new-firmware wiring/LED observations remain NOT RUN, third-party adoption unobserved. No autonomous physical port/GPIO, flash, diffusion, registry release, paid service or extra automation.",
+  "next_objective": "Close the first explicit Core semantic planning slice (#39): installed plan-core/API, semantic-only and existing Core data, exact retained bytes, selected-only mapping and source-recomputed projection guard, normal frame/sequence and actual native software proof, full CI/kit/main verification have passed. Do not automatically add representation fallbacks, projection modes or diagnostics. Whole interoperability kit remains active. Next inspect existing installed simulator/demo and kit entry points for one concrete adoption gap: starting from the wheel alone without checkout examples. If not already available, deliver a bounded installed starter-workspace command with declared synthetic Core data, explicit software-only mapping profile and an installed stdio simulator entry reusing the SDK endpoint; no automatic send, no new format/wire or apps dependency. Exit: install wheel in a fresh outside-checkout environment, create a new user workspace exclusively, inspect/plan its Core file and independently run an explicit software command through correlated completion/Stop/refusal guards using only installed resources; no Node/third-party or optional scientific dependency required for the minimal Python path. Kit and existing clients remain compatible; no-overwrite/source/provenance/unknown-data guards preserved. If already usable, do not repackage existing reports or generate a quota change: choose a demonstrated developer/experimenter integration need. Maintain SDK/format, data/interop, reproducible hardware bench and adoption axes. Physical new-firmware wiring/LED validation remains human-led NOT RUN and third-party adoption unobserved; no autonomous ports/GPIO/flash/diffusion, tags/releases/registry uploads, paid services or new automation.",
   "automation": {
     "id": "39cc72697e048191a1ba0d3e3e9d787c",
     "title": "OpenSmell — développement autonome quotidien",
@@ -496,9 +452,9 @@
   },
   "active_product_milestone": {
     "goal": "Installable OpenSmell developer kit spanning data, SDK, device integration and reproducible hardware bench",
-    "delivered": "Installed interoperability kit, scientific consumers, sequences and caller trial-table preparation (#36/#37), now optional actual LSL external-library software marker bridge with independent receiver (#38). No physical or independent adoption claim.",
-    "next": "Close the first optional actual LSL marker bridge (#38). Installed SDK -> copied example -> separate actual pylsl-only receiver, 6terminal/uncertain scenarios plus no-consumer/collision guards, full suite/CI and main proof have passed. Do not add LSL timing diagnostics, recording formats, acquisition drivers or more marker flags by default. Rebalance the whole kit toward its primary SDK/format entry: inspect the existing Core/bridge/planning contracts for a concrete gap in taking a user's normal Core .osmell file to an explicit passive plan from an installed SDK/CLI. Choose a bounded first vertical path using one explicitly selected supported representation/scheme and caller-supplied mapping/capability profile; retain exact input/provenance, distinguish unknown representations and refuse unmapped/unsupported semantics without guessing odor channels or chemistry. Exit: installed normal entry outside checkout on caller data, known-selection plan consumed by existing frame/sequence boundary with no implicit send, unknown/ambiguous selection refuses before output and unknown bytes preserved. If already usable, do not repackage existing receipts as a feature: choose a demonstrated independent consumer gap instead. Keep data/interop, reproducible hardware bench and adoption as separate axes; human new-firmware wiring/LED observations remain NOT RUN, third-party adoption unobserved. No autonomous physical port/GPIO, flash, diffusion, registry release, paid service or extra automation."
+    "delivered": "Installable interoperability kit, scientific/LSL consumers, caller trials/sequences, now explicit Core semantic-only planning into standard passive artifacts with source-recomputed preflight and installed software/native proof (#39).",
+    "next": "Close the first explicit Core semantic planning slice (#39): installed plan-core/API, semantic-only and existing Core data, exact retained bytes, selected-only mapping and source-recomputed projection guard, normal frame/sequence and actual native software proof, full CI/kit/main verification have passed. Do not automatically add representation fallbacks, projection modes or diagnostics. Whole interoperability kit remains active. Next inspect existing installed simulator/demo and kit entry points for one concrete adoption gap: starting from the wheel alone without checkout examples. If not already available, deliver a bounded installed starter-workspace command with declared synthetic Core data, explicit software-only mapping profile and an installed stdio simulator entry reusing the SDK endpoint; no automatic send, no new format/wire or apps dependency. Exit: install wheel in a fresh outside-checkout environment, create a new user workspace exclusively, inspect/plan its Core file and independently run an explicit software command through correlated completion/Stop/refusal guards using only installed resources; no Node/third-party or optional scientific dependency required for the minimal Python path. Kit and existing clients remain compatible; no-overwrite/source/provenance/unknown-data guards preserved. If already usable, do not repackage existing reports or generate a quota change: choose a demonstrated developer/experimenter integration need. Maintain SDK/format, data/interop, reproducible hardware bench and adoption axes. Physical new-firmware wiring/LED validation remains human-led NOT RUN and third-party adoption unobserved; no autonomous ports/GPIO/flash/diffusion, tags/releases/registry uploads, paid services or new automation."
   },
-  "session_slot": "2026-11-21T18:00",
-  "last_completed_slot": "2026-11-21T06:00"
+  "session_slot": null,
+  "last_completed_slot": "2026-11-21T18:00"
 }
