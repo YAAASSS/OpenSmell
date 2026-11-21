@@ -2,7 +2,11 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-21",
   "last_processed_main_sha": "f9a0d6c7b9671dfacdcae3f77f36b4b66a87e917",
-  "lease": null,
+  "lease": {
+    "owner": "core-plan-rvl4pb7wtb",
+    "acquired_at": "2026-11-21T17:00:05.293Z",
+    "expires_at": "2026-11-21T21:00:05.293Z"
+  },
   "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
@@ -479,6 +483,6 @@
     "delivered": "Installed interoperability kit, scientific consumers, sequences and caller trial-table preparation (#36/#37), now optional actual LSL external-library software marker bridge with independent receiver (#38). No physical or independent adoption claim.",
     "next": "Close the first optional actual LSL marker bridge (#38). Installed SDK -> copied example -> separate actual pylsl-only receiver, 6terminal/uncertain scenarios plus no-consumer/collision guards, full suite/CI and main proof have passed. Do not add LSL timing diagnostics, recording formats, acquisition drivers or more marker flags by default. Rebalance the whole kit toward its primary SDK/format entry: inspect the existing Core/bridge/planning contracts for a concrete gap in taking a user's normal Core .osmell file to an explicit passive plan from an installed SDK/CLI. Choose a bounded first vertical path using one explicitly selected supported representation/scheme and caller-supplied mapping/capability profile; retain exact input/provenance, distinguish unknown representations and refuse unmapped/unsupported semantics without guessing odor channels or chemistry. Exit: installed normal entry outside checkout on caller data, known-selection plan consumed by existing frame/sequence boundary with no implicit send, unknown/ambiguous selection refuses before output and unknown bytes preserved. If already usable, do not repackage existing receipts as a feature: choose a demonstrated independent consumer gap instead. Keep data/interop, reproducible hardware bench and adoption as separate axes; human new-firmware wiring/LED observations remain NOT RUN, third-party adoption unobserved. No autonomous physical port/GPIO, flash, diffusion, registry release, paid service or extra automation."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-21T18:00",
   "last_completed_slot": "2026-11-21T06:00"
 }
