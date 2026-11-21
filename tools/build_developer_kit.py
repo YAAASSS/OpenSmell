@@ -19,6 +19,9 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[1]
 # Explicit allowlist; external datasets, caches and arbitrary checkout files are excluded.
 PAYLOADS = {
+    "LSL_MARKERS.md": "docs/lsl-markers.md",
+    "lsl_bridge.py": "examples/lsl_markers/bridge.py",
+    "lsl_receive.py": "examples/lsl_markers/receive.py",
     "EXPERIMENT_TABLE.md": "docs/experiment-table.md",
     "data/trials.csv": "examples/experiment/trials.csv",
     "data/multisource_diphenyl_ether.osmell": "examples/multisource_diphenyl_ether.osmell",

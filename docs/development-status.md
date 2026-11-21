@@ -5,6 +5,23 @@ The broader roadmap remains in the [README](../README.md#roadmap).
 Operational checkpoints and the short session log live in `state.json` on the
 `automation/control` branch; follow its pending PR before starting new work.
 
+## Optional external lab-event integration — 2026-11-21
+
+The first caller-table and sequence slices are delivered (#36/#37). The next
+vertical path is the [copied installed-SDK LSL bridge](lsl-markers.md), using an
+actual separate pylsl consumer and optional pinned dependencies. No SDK/wire
+extension is needed. A trial marker records a software snapshot, never physical
+stimulus onset; a successful push is not a receiver acknowledgement.
+
+Exit: actual received samples and raw timestamps match the sender outside the
+checkout; two caller trial IDs complete on Python/Node, Stop leaves later trials
+unattempted, refusal and lost reply remain distinct, and no receiver/collision
+prevents child launch. After CI, close this first external-library bridge; do
+not add timing/marker diagnostics or acquisition hardware drivers by default.
+Next prioritize a complete independently repeatable kit trial or observed external
+consumer need, while keeping the SDK/data/hardware/adoption axes distinct.
+Human board observations and independent adoption remain unobserved gates.
+
 ## Caller trial-table preparation — 2026-11-20 evening
 
 The first sequence slice is delivered (#36). The next useful step is
