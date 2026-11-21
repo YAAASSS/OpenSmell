@@ -2,7 +2,11 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-20",
   "last_processed_main_sha": "b68ca488c0a1526e37ab0a34a40a3bda5d160ef5",
-  "lease": null,
+  "lease": {
+    "owner": "lsl-r0pkcjfxan",
+    "acquired_at": "2026-11-21T05:00:26.496Z",
+    "expires_at": "2026-11-21T09:00:26.497Z"
+  },
   "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
@@ -472,6 +476,6 @@
     "delivered": "Installable data/SDK/adapter kit, optional scientific consumers, bounded sequence (#36), and now passive caller trial-table preparation with movable exact-input dossier and ordinary installed software receipts (#37).",
     "next": "Close the first passive caller trial-table preparation slice (#37). Whole interoperability kit remains active; do not extend CSV options/dossier formats, sequence flags, chemistry descriptors or Explorer/native diagnostics by default. Next choose one concrete external experimenter consumer integration using installed SDK and caller-prepared trial IDs/plans: evaluate a software-only lab-event bridge (candidate local Lab Streaming Layer markers, after checking official API/dependency availability) with an actual independent receiver and observed lifecycle receipts. Distinguish application markers, acceptance, correlated software completion and physical onset; never infer odor timing. Exit: copied consumer outside checkout receives two explicit trial IDs/results through the external library, preserves rejection/Stop/unknown, reproduces with documented optional dependencies and no physical port/flash/diffusion. Avoid adopting a dependency without a usable vertical proof; choose another independent integration if blocked. No third-party adoption has been observed. Human new-firmware wiring/LED bench remains NOT RUN; no autonomous hardware commands, registry releases, paid services or added automations."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-21T06:00",
   "last_completed_slot": "2026-11-20T18:00"
 }
