@@ -1713,6 +1713,11 @@ separate ESP32 build target preserves the default acceptance-only firmware.
 Native software observations and cross-compilation do not establish physical
 LED/actuator compatibility; the new manual board bench remains NOT RUN.
 
+An [optional Lab Streaming Layer example](docs/lsl-markers.md) connects the
+installed SDK's software lifecycle snapshots to a separate real pylsl receiver.
+Caller trial IDs and completion/Stop/refusal/uncertainty remain distinct. Its
+markers and timestamps describe software callbacks, never physical odor onset.
+
 The installed [trial-table preparation](docs/experiment-table.md),
 `opensmell prepare-experiment`, compiles caller-selected resources and durations
 from CSV into a portable passive dossier. Exact inputs, ordered row annotations

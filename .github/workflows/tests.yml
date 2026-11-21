@@ -250,3 +250,33 @@ jobs:
           name: rdkit-molecular-interoperability-proof
           path: dist/rdkit-proof
           retention-days: 14
+
+  lsl-interoperability:
+    name: Optional actual LSL marker interoperability / Python 3.12
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-python@v7.1.0
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: "22"
+      - name: Install SDK and explicitly acquire optional pinned LSL runtime
+        run: |
+          python -m pip install . "build>=1.2" "pytest>=8"
+          python -m pip download --only-binary=:all: --dest dist/lsl-dependencies pylsl==1.18.7 numpy==2.2.6
+      - name: Verify marker projection without optional SDK dependency
+        run: python -m pytest -q tests/test_lsl_example.py
+      - name: Verify installed SDK with actual separate LSL receiver
+        run: |
+          python -m build --wheel
+          python -m tools.verify_installed_lsl dist/opensmell-0.1.0-py3-none-any.whl --dependency-directory dist/lsl-dependencies --evidence-directory dist/lsl-proof
+      - name: Retain actual LSL evidence
+        if: always()
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: optional-lsl-marker-proof
+          path: dist/lsl-proof
+          retention-days: 14
