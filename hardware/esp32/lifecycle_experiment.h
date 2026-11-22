@@ -113,7 +113,7 @@ void handleLifecycleMessage(const char* line) {
     if (!dryArmed) { lifeError(request,"busy","Manual dry-load enable required after low-to-high transition"); return; }
 #endif
     if (strcmp(lifeState,"running")==0) { lifeError(request,"busy","Execution already running"); return; }
-    if (!lifeNumber(request["duration"]) || request["duration"].as<double>() < MIN_DURATION || request["duration"].as<double>() > MAX_DURATION) {
+    if (!lifeNumber(request["duration"]) || request["duration"].as<double>() < 0.1 || request["duration"].as<double>() > MAX_DURATION) {
       lifeError(request,"invalid_request","Invalid duration"); return;
     }
     if (!request["commands"].is<JsonArray>() || request["commands"].size()<1 || request["commands"].size()>CHANNEL_COUNT) {
@@ -131,6 +131,10 @@ void handleLifecycleMessage(const char* line) {
       }
       seen[channel]=true; intensities[channel]=command["intensity"].as<float>();
     }
+#ifdef OPENSMELL_EXPERIMENTAL_DRY_LOAD
+    drySampleEnable(); // Recheck after validation and before any nonzero output.
+    if (!dryArmed) { lifeError(request,"busy","Manual dry-load enable removed"); return; }
+#endif
     if (lifeSequence==UINT32_MAX) { lifeError(request,"invalid_request","Execution identifier space exhausted; explicit reboot required"); return; }
     // Validate completely before touching outputs; generated IDs are fresh per boot/counter.
     ++lifeSequence;
@@ -141,10 +145,6 @@ void handleLifecycleMessage(const char* line) {
 #endif
     snprintf(lifeId,sizeof(lifeId),"%s-%s-%lu",prefix,lifeBoot,static_cast<unsigned long>(lifeSequence));
     lifeStarted=uint32_t(millis()); lifeDuration=uint32_t(std::ceil(request["duration"].as<double>()*1000.0));
-#ifdef OPENSMELL_EXPERIMENTAL_DRY_LOAD
-    drySampleEnable(); // Recheck after validation and before any nonzero output.
-    if (!dryArmed) { lifeError(request,"busy","Manual dry-load enable removed"); return; }
-#endif
     for (int channel=0; channel<CHANNEL_COUNT; ++channel) setChannelIntensity(channel,intensities[channel]);
     lifeState="running";
     JsonDocument reply; reply["protocol_version"]=PROTOCOL_VERSION; reply["type"]="ok"; reply["execution_id"]=lifeId;
