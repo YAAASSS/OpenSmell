@@ -62,10 +62,11 @@ With OpenSmell installed, produce a passive five-second plan from the documented
 example, then separately select the trusted native executable:
 
 ```sh
+set -C # Refuse an existing plan file (shell noclobber).
 opensmell plan examples/multisource_diphenyl_ether.osmell \
   --profile hardware/esp32/dry_load_profile.json \
   --resource-id e6ad8ce3-dc6e-5d94-9287-57665d48fc0b \
-  --duration 5 --output new-dry-plan.json
+  --duration 5 > new-dry-plan.json
 opensmell lifecycle-trial new-dry-plan.json \
   --software-command-json '["/tmp/opensmell-dry-load-host","--realtime","--simulate-enable"]' \
   --expected-device-id opensmell-esp32-dry-load-001 --output new-dry-trial.json
