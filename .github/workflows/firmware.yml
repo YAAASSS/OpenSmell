@@ -96,6 +96,7 @@ jobs:
           mkdir -p dist/lifecycle-proof/dry-load
           python -m tools.verify_dry_load /tmp/opensmell-dry-load-host --output dist/lifecycle-proof/dry-load/native.json
           python -m tools.verify_installed_firmware_lifecycle --dry-load dist/opensmell-0.1.0-py3-none-any.whl --host /tmp/opensmell-dry-load-host --evidence-directory dist/lifecycle-proof/dry-load/installed
+          python -m tools.verify_installed_serial_bench --dry-load dist/opensmell-0.1.0-py3-none-any.whl --host /tmp/opensmell-dry-load-host --evidence-directory dist/lifecycle-proof/dry-load/serial
 
       - name: Verify installed bounded sequences against actual native sketch
         run: python -m tools.verify_installed_sequence dist/opensmell-0.1.0-py3-none-any.whl --host /tmp/opensmell-lifecycle-host --evidence-directory dist/lifecycle-proof/sequence

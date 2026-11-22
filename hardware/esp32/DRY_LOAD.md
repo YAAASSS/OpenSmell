@@ -100,7 +100,19 @@ python -m tools.verify_installed_firmware_lifecycle --dry-load \
 
 It verifies Python/Node and the installed CLI for both explicit semantic and
 perceptual duty mappings, duplicate-send protection and report collision refusal.
-Build dependencies are inherited in that proof; it is not the separate clean
+The installed serial module is also verified through an owned pseudo-terminal.
+This additional proof needs the optional `serial` extra, or an explicitly supplied
+local PySerial wheel through `--serial-wheel`; it never selects a physical port:
+
+```sh
+python -m tools.verify_installed_serial_bench --dry-load \
+  dist/opensmell-0.1.0-py3-none-any.whl --host /tmp/opensmell-dry-load-host \
+  --evidence-directory new-dry-serial
+```
+
+Completion/Stop, deliberately lost/partial replies, wrong identity, altered-plan
+refusal and existing report collisions are checked on that software path only.
+Build dependencies are inherited in these proofs; it is not the separate clean
 offline starter target. Evidence is created exclusively and marked incomplete
 until success. Native values are software observations only.
 
@@ -185,11 +197,22 @@ resistor values, wiring photos, instruments and supply settings in
    LED-target identity/client defaults must not be silently substituted. Send one
    explicit short plan per channel and compare measured gate duty/current against
    declared values. Record actual raw serial replies separately from instruments.
-5. For a manual five-second command, observe gate/load shutoff at deadline, then
+5. The installed manual entry is `python -m opensmell.experimental.serial_bench`
+   from the [existing manual guide](../../docs/serial-lifecycle-bench.md), using
+   the new passive plan, operator-selected `--port`, explicit
+   `--expected-device-id opensmell-esp32-dry-load-001`, `--action complete` or
+   `--action stop`, and a fresh `--output`. Install the optional `serial` extra
+   first. If opening the port resets this board, select an explicit settling
+   interval with `--startup-delay` (0–30 seconds): keep enable low through reset,
+   then manually raise it during that interval before the first render. Otherwise
+   expect refusal; do not retry automatically. No actual board/reset behavior is
+   claimed. CI exercises this same installed module only on its own POSIX
+   pseudo-terminal, explicitly connected to the fake-enabled native sketch.
+6. For a manual five-second command, observe gate/load shutoff at deadline, then
    explicit Stop, then opening enable during a run. Record electrical traces and
    the correlated execution IDs/states separately. Re-enabling must not restart
    prior output. Verify a direct >5 s request refuses with no output change.
-6. Repeat loss of serial link: it must not be labeled Stop; the firmware's own
+7. Repeat loss of serial link: it must not be labeled Stop; the firmware's own
    deadline should still clear output. Finally open the independent load disconnect
    and power down. Record failures/unknowns; no automatic retry or resume.
 
