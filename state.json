@@ -1,119 +1,65 @@
 {
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-22",
-  "last_processed_main_sha": "b0ae3b6c0cd413c77f683c652a95188f09d84730",
-  "lease": {
-    "owner": "opensmell-dry-load-20261122T1700-nkz7497ybs",
-    "acquired_at": "2026-11-22T17:00:08.772Z",
-    "expires_at": "2026-11-22T21:00:08.772Z"
-  },
-  "open_work": {
-    "branch": "feat/dry-load-bench-20261122",
-    "commit": "fa8f4ec68df5b11542862a731f2eafe378d9ec4c",
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/41",
-    "objective": "Opt-in dry resistive-load firmware, proposed BOM/wiring, actual native and installed SDK proof",
-    "resume_action": "Final head fa8f4ec adds installed manual serial path on owned PTY (dry12/legacy12 passed locally) and manual reset/settling docs. Full2434local and92focused passed; native75/44/57 and installed Python/Node/CLI pass. Earlier head daa36a1 CI fully green; await final exact-head CI, merge if permitted, verify main. Local PlatformIO follow-up auto-review rejected for telemetry; no retry/workaround, subsequent interrupt found no running process. No physical ports."
-  },
+  "last_processed_main_sha": "fc552f2057dacad1ace9ac3cbba875e90dd8d163",
+  "lease": null,
+  "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
-    "slot": "2026-11-22T06:00",
-    "completed_at": "2026-11-22T05:19:29.034Z",
-    "objective": "Wheel-only passive starter workspace and installed bounded stdio simulator, with clean no-optional-runtime full user path",
-    "commit": "b0ae3b6c0cd413c77f683c652a95188f09d84730",
-    "tested_commit": "ed1f9160ca7011c2ce10c25b08169bc17e789ce4",
-    "tested_tree": "3e41c5aeff584e16a296906e1bada41c3b86a610",
+    "slot": "2026-11-22T18:00",
+    "completed_at": "2026-11-22T17:21:52.858Z",
+    "objective": "Distinct opt-in dry resistive-load firmware, proposed electrical BOM/wiring and installed SDK/normal serial-entry software proof",
+    "commit": "fc552f2057dacad1ace9ac3cbba875e90dd8d163",
+    "tested_commit": "fa8f4ec68df5b11542862a731f2eafe378d9ec4c",
+    "tested_tree": "cd2ef1a1545bf72ed7747ac3971ea674b24ba739",
     "merged": true,
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/40",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/41",
     "checks": {
       "python_full_local": 2434,
-      "python_full_local_seconds": 104.48,
-      "targeted": 13,
-      "clean_starter": "Fresh Linuxx86_64 CPython3.12 venv with system/user sites disabled; verified SDK import location. Installed only SDK and6verified normal dependency wheels with no-index; no checkout resources/scripts copied. Node removed from PATH and pandas/numpy/networkx/rdkit/serial/pylsl absence asserted. Installed console entry creates passive synthetic workspace; validate/inspect/plan-core, distinct caller Core plans/sequence and completion/Stop/unknown trial pass.",
-      "guards": "Original template hashes/lengths, existing workspace/plan collision preservation, unknown index/duration refusal, wrong identity no render, duplicate consumed request ID, stale execution IDs, strict bounded UTF8/LF framing and malformed/duplicate/nonfinite/BOM refusals followed by valid hello.",
-      "javascript": "Packed installed CJS/ESM client outside checkout also connects installed python-I-mopensmell simulate-device and observes completion/Stop/unknown; both original endpoints retained.",
-      "kit": "Fresh extracted-kit existing paths passed; clean offline-kit CI passed with new packaged wheel resources and starter guide link.",
-      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44988451262",
-      "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44988451275",
-      "ci_result": "success",
-      "ci_exact_head": "ed1f9160ca7011c2ce10c25b08169bc17e789ce4",
+      "python_full_local_seconds": 106.93,
+      "targeted_native_serial": 92,
+      "targeted_seconds": 2.98,
+      "native_dry_exchanges": 75,
+      "legacy_native_checks": 44,
+      "legacy_lifecycle_exchanges": 57,
+      "installed_proof": "Wheel/npm outside checkout: Python/Node/normal lifecycle-trial, explicit semantic/perceptual profiles on dry-load and lifecycle LED; completed/stopped/unknown, duplicate/request and report collision guards. Dry >5s refused before IO. Exact documented new-profile plan-to-trial path replayed.",
+      "installed_serial": "PySerial3.5 explicit local wheel; owned POSIX PTY only, 12 dry and12 legacy cases: completion/Stop, lost/partial reply, wrong identity/no render, edited plan/no IO, report collision. No physical serial port.",
+      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/45048421151",
+      "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/45048421150",
+      "ci_exact_head": "fa8f4ec68df5b11542862a731f2eafe378d9ec4c",
+      "ci_result": "success; all push/PR exact-head checks",
       "ci_python_versions": [
         "3.10",
         "3.11",
         "3.12",
         "3.13"
       ],
-      "ci_python312": "2428passed,6skipped without optional RDKit; dedicated scientific and actual LSL jobs passed",
-      "clean_starter_ci": "passed under sudo unshare --net, same clean wheel-only/no-Node/no-optional path",
-      "clean_target": "Existing pinned Linuxx86_64 CPython3.12 glibc>=2.28 dependency target; no new broad binary-platform claim",
-      "proof_artifact": 14741090735,
-      "proof_artifact_digest": "sha256:c26fabac1baf7b6f1f82f738c76089d50d8979e5ef8456c65c7828b3144e2135",
-      "normal_kit_artifact": 14739619956,
-      "offline_kit_artifact": 14740193794,
-      "firmware": "Existing two ESP32 targets compiled; native/installed/PTY software compatibility proofs passed. Firmware source unchanged, no physical test.",
+      "ci_python312": "2428passed,6skipped optional RDKit,103.52s; dedicated scientific job and actual LSL passed",
+      "firmware": "All3 ESP32 environments compiled in CI: esp32-led,esp32-led-lifecycle,esp32-dry-load. Existing frames/Core/sequence/PTY/perceptual and new dry native/installed/PTY proofs pass. No upload/physical access.",
+      "proof_artifact": 14764811299,
+      "proof_artifact_digest": "sha256:2703d5881b57407ed52cd2aa370a0ba4a5ca6127bf72266205b2343b17401fc8",
       "main_tree_matches_tested": true,
-      "post_merge": "Fetched main,13focused tests passed0.67s; rebuilt wheel and repeated clean installed starter proof successfully.",
+      "post_merge": "Fetched main, rebuilt native dry-load sketch,75 exchanges passed; normal installed CLI new-profile plan->trial passed;12 installed serial-entry owned-PTY cases passed.",
       "physical_access": false
     },
     "limitations": [
-      "Workspace creation is passive and exclusive, only3packaged synthetic files plus manifest, no planning/child launch or automatic send. Explicit profile/channel meaning supplied; synthetic source never claims measured odor. Unknown representation preserved.",
-      "SDK default dependency closure unchanged; wheel contains starter data, not third-party packages. Clean no-inherited proof is narrowly targeted LinuxCPython3.12; four-version normal suite is separate. Dependency acquisition explicit network phase, installed proof no-index and CI network namespace.",
-      "Simulator exposes existing SDK model/identity/profiles through strict UTF8 LF stdin/stdout, max65536bytes excluding LF. No hardware/network backend/mode. Bad framing closes without accepting partial request; EOF not completion. Complete malformed requests refuse; no retry/reconnect/durable recovery.",
-      "Manifest hashes identify original templates, not signatures/current edited-file validity; interrupted writes may leave incomplete directory/report. Normal plan Core-source and lifecycle correlation/duplicate guards remain in use.",
-      "Code/examples remain experimental; no new Core/wire contract, tags/releases/registry publication, paid services or extra automation. No physical ports/GPIO/flash/order/diffusion/human exposure. Human new-firmware bench remains NOT RUN; independent adoption unobserved."
+      "Proposed5V AO3400A low-side100ohm>=1W resistor dummy-load circuit grounded in manufacturer datasheets; board/wiring/gate/current/reset/thermal evidence remains NOT RUN. No valve/pump/inductive circuit, calibrated delivery, odor or outside adoption claim.",
+      "Manual GPIO32 low-to-high after boot, new identity and0.1–5s cap. Input drop clears outputs and correlates stopped; rearm does not restart old command. Sampled software permissive, not hardware emergency stop/watchdog/guaranteed latency; missed pulses, stalls, reset transients and electrical faults not proven safe. Per-command5s limit, not total energy limit.",
+      "Existing experimental lifecycle/error profiles and Draft maturity reused; LED defaults/identities retained. Mapping values are explicit illustrative electrical duty, not chemical/flow/odor semantics. Input/provenance and existing stale/duplicate guards retained.",
+      "Native/PySerial/installed proofs use fake GPIO/clock/owned PTYs and inherited build dependencies, not a new clean offline hardware kit proof. Documented plan stdout redirection corrected after normal-entry failure; PySerial optional runtime explicitly supplied after missing-dependency failure.",
+      "Local PlatformIO follow-up rejected by automatic approval review because collector could transmit telemetry/environment/project metadata. No retry/workaround; later interrupt found process absent. Compilation gate is the already-running public repository CI; no local full-three-target compile claim. No remaining publication blocker.",
+      "No actual serial/GPIO/flash/order/diffusion, tags/releases/registry publication, paid services or extra automation."
     ],
-    "handoff_library_file_id": "libfile_fde3_f-1cb91714155c8191a1068c9bc10b6bcd_44ff1f20787081919dd91de18843de02",
-    "lease_acquired_at": "2026-11-22T05:03:24.458Z",
-    "elapsed_under_lease_minutes": 16,
-    "platform_blocker": null
+    "handoff_library_file_id": "libfile_fde3_f-9671a70fb94481918613a217fa522255_44ff1f20787081919dd91de18843de02",
+    "lease_acquired_at": "2026-11-22T17:00:08.772Z",
+    "elapsed_under_lease_minutes": 22,
+    "platform_blocker": {
+      "action": "Local PlatformIO compilation follow-up",
+      "reason": "Automatic review rejected collector telemetry/environment-metadata risk",
+      "consequence": "No retry; independent already-launched public CI compiled all3 targets successfully; no remaining delivery blocker"
+    }
   },
   "recent_sessions": [
-    {
-      "session_kind": "scheduled",
-      "slot": "2026-11-19T06:00",
-      "completed_at": "2026-11-19T05:13:00.148Z",
-      "objective": "Installed structural-reference GraphML export with exact source/partial coverage and independent NetworkX scientific consumer",
-      "commit": "d88c800aebd0a5d8e05c788424f1d411a93b31e1",
-      "tested_commit": "353e52167e03c6b104d40167f0f5b0b778d8a483",
-      "tested_tree": "bd6f048e08f1f7de8024bb67f0b8b552eb092295",
-      "merged": true,
-      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/33",
-      "checks": {
-        "python_full_local": 2302,
-        "python_full_local_seconds": 121.18,
-        "new_cases": 10,
-        "installed_consumer": "Fresh wheel outside checkout -> installed reference-graph CLI -> stdlib GraphML/source/manifest bundle -> independent NetworkX3.4.2 consumer without OpenSmell imports. Both real multisource graphs5nodes/4edges; partial opaque/unresolved variant7nodes/4edges; exact source preservation, no overwrite and modified-bundle refusal.",
-        "structural_guards": "Parallel reference occurrences, self references, XML/Unicode/control-sensitive opaque IDs, unknown resources and large integers preserved. Only registered discovery used; unresolved placeholders explicit, no heuristics/roles/chemical joins inferred. Invalid input creates no bundle; CLI stdin tested.",
-        "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44462910715",
-        "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44462910861",
-        "ci_result": "success",
-        "ci_python_versions": [
-          "3.10",
-          "3.11",
-          "3.12",
-          "3.13"
-        ],
-        "ci_node": "22",
-        "proof_artifact": 14500513634,
-        "proof_artifact_digest": "sha256:ed724009d34baa7c0ad900f92d802f425adc647be3fb67a6bdbac2665333986c",
-        "normal_kit_artifact": 14500523728,
-        "offline_kit_artifact": 14500558563,
-        "local_result_sha256": "758a1bfacf85f915994944560a06ef4d0c37b2057bb0335ffa599dcd102c7106",
-        "kit": "Guide and independent consumer included; actual standard/clean offline CI pass. NetworkX only development/optional consumer dependency, no SDK runtime/offline closure addition.",
-        "main_tree_matches_tested": true,
-        "post_merge": "Fetched main;10 targeted cases pass1.30s; rebuilt/reinstalled wheel repeats3 external-reader cases outside checkout.",
-        "physical_access": false
-      },
-      "limitations": [
-        "Always partial structural projection. Registered class does not imply complete scientific scheme validation; unknown payloads remain opaque, no heuristic references or cross-file chemical equivalence.",
-        "GraphML edits do not modify source.osmell and no reverse reconstruction is supplied. Source bytes exact; hashes identify declarations/bytes without authentication. Known edge role/path not provided by discovery and not invented.",
-        "NetworkX3.4.2 pinned proof; fresh SDK install inherits test runtime dependencies or explicit local NetworkX wheel, not a new offline closure claim. Project-maintained external-library integration is not third-party adoption.",
-        "No physical access, GPIO/serial/flash/diffusion, new wire protocol/RFC maturity, tag/release/registry upload or odor result. Human new-target board bench NOT RUN."
-      ],
-      "handoff_library_file_id": "libfile_fde3_f-5c178105889081919547341e7aae7a70_44ff1f20787081919dd91de18843de02",
-      "started_at_approx": "2026-11-19T05:00:00Z",
-      "elapsed_minutes_approx": 13,
-      "platform_blocker": null
-    },
     {
       "session_kind": "scheduled",
       "slot": "2026-11-19T18:00",
@@ -449,9 +395,64 @@
       "lease_acquired_at": "2026-11-22T05:03:24.458Z",
       "elapsed_under_lease_minutes": 16,
       "platform_blocker": null
+    },
+    {
+      "session_kind": "scheduled",
+      "slot": "2026-11-22T18:00",
+      "completed_at": "2026-11-22T17:21:52.858Z",
+      "objective": "Distinct opt-in dry resistive-load firmware, proposed electrical BOM/wiring and installed SDK/normal serial-entry software proof",
+      "commit": "fc552f2057dacad1ace9ac3cbba875e90dd8d163",
+      "tested_commit": "fa8f4ec68df5b11542862a731f2eafe378d9ec4c",
+      "tested_tree": "cd2ef1a1545bf72ed7747ac3971ea674b24ba739",
+      "merged": true,
+      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/41",
+      "checks": {
+        "python_full_local": 2434,
+        "python_full_local_seconds": 106.93,
+        "targeted_native_serial": 92,
+        "targeted_seconds": 2.98,
+        "native_dry_exchanges": 75,
+        "legacy_native_checks": 44,
+        "legacy_lifecycle_exchanges": 57,
+        "installed_proof": "Wheel/npm outside checkout: Python/Node/normal lifecycle-trial, explicit semantic/perceptual profiles on dry-load and lifecycle LED; completed/stopped/unknown, duplicate/request and report collision guards. Dry >5s refused before IO. Exact documented new-profile plan-to-trial path replayed.",
+        "installed_serial": "PySerial3.5 explicit local wheel; owned POSIX PTY only, 12 dry and12 legacy cases: completion/Stop, lost/partial reply, wrong identity/no render, edited plan/no IO, report collision. No physical serial port.",
+        "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/45048421151",
+        "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/45048421150",
+        "ci_exact_head": "fa8f4ec68df5b11542862a731f2eafe378d9ec4c",
+        "ci_result": "success; all push/PR exact-head checks",
+        "ci_python_versions": [
+          "3.10",
+          "3.11",
+          "3.12",
+          "3.13"
+        ],
+        "ci_python312": "2428passed,6skipped optional RDKit,103.52s; dedicated scientific job and actual LSL passed",
+        "firmware": "All3 ESP32 environments compiled in CI: esp32-led,esp32-led-lifecycle,esp32-dry-load. Existing frames/Core/sequence/PTY/perceptual and new dry native/installed/PTY proofs pass. No upload/physical access.",
+        "proof_artifact": 14764811299,
+        "proof_artifact_digest": "sha256:2703d5881b57407ed52cd2aa370a0ba4a5ca6127bf72266205b2343b17401fc8",
+        "main_tree_matches_tested": true,
+        "post_merge": "Fetched main, rebuilt native dry-load sketch,75 exchanges passed; normal installed CLI new-profile plan->trial passed;12 installed serial-entry owned-PTY cases passed.",
+        "physical_access": false
+      },
+      "limitations": [
+        "Proposed5V AO3400A low-side100ohm>=1W resistor dummy-load circuit grounded in manufacturer datasheets; board/wiring/gate/current/reset/thermal evidence remains NOT RUN. No valve/pump/inductive circuit, calibrated delivery, odor or outside adoption claim.",
+        "Manual GPIO32 low-to-high after boot, new identity and0.1–5s cap. Input drop clears outputs and correlates stopped; rearm does not restart old command. Sampled software permissive, not hardware emergency stop/watchdog/guaranteed latency; missed pulses, stalls, reset transients and electrical faults not proven safe. Per-command5s limit, not total energy limit.",
+        "Existing experimental lifecycle/error profiles and Draft maturity reused; LED defaults/identities retained. Mapping values are explicit illustrative electrical duty, not chemical/flow/odor semantics. Input/provenance and existing stale/duplicate guards retained.",
+        "Native/PySerial/installed proofs use fake GPIO/clock/owned PTYs and inherited build dependencies, not a new clean offline hardware kit proof. Documented plan stdout redirection corrected after normal-entry failure; PySerial optional runtime explicitly supplied after missing-dependency failure.",
+        "Local PlatformIO follow-up rejected by automatic approval review because collector could transmit telemetry/environment/project metadata. No retry/workaround; later interrupt found process absent. Compilation gate is the already-running public repository CI; no local full-three-target compile claim. No remaining publication blocker.",
+        "No actual serial/GPIO/flash/order/diffusion, tags/releases/registry publication, paid services or extra automation."
+      ],
+      "handoff_library_file_id": "libfile_fde3_f-9671a70fb94481918613a217fa522255_44ff1f20787081919dd91de18843de02",
+      "lease_acquired_at": "2026-11-22T17:00:08.772Z",
+      "elapsed_under_lease_minutes": 22,
+      "platform_blocker": {
+        "action": "Local PlatformIO compilation follow-up",
+        "reason": "Automatic review rejected collector telemetry/environment-metadata risk",
+        "consequence": "No retry; independent already-launched public CI compiled all3 targets successfully; no remaining delivery blocker"
+      }
     }
   ],
-  "next_objective": "Close the first wheel-only starter slice (#40): installed passive workspace resources and stdio SDK simulator, clean venv without optional dependencies/Node/checkout files, normal plan/sequence/trial, installed JS client compatibility, full CI and main proof have passed. Do not add template catalogs, auto-send wizards, simulator diagnostics or more CLI flags by default. Whole interoperability developer-kit milestone stays active. Rebalance toward concrete reproducible hardware preparation: inspect current hardware BOM/wiring/source/manual evidence to identify one genuinely new dry low-voltage actuator-bench capability beyond the already-delivered LED/lifecycle bridge. If justified, choose a small complete source/compile/native-harness vertical slice with explicit proposed electrical BOM/wiring grounded in primary manufacturer datasheets, a distinct declared prototype capability/identity and a manual bench procedure; preserve default LED targets/protocol contracts and use existing installed SDK entry for software proof. Explain the new use and sought evidence before coding. No hypothetical audit chain or repeat LED diagnostic polishing. No physical command, serial/GPIO access, flash, purchase/order, odor diffusion or human exposure; compilation/simulation only. Proposed electrical compatibility, drive observations, calibrated flow/chemical/odor output and third-party adoption must remain separate and unobserved without actual evidence. If no useful independent hardware source slice exists, choose a concrete outside developer need rather than fabricate work. Keep SDK/format, data/interop, hardware and adoption axes with bounded exits. Human new-firmware bench remains NOT RUN; no registry release, tag, paid service or additional automation.",
+  "next_objective": "Close #41 dry-load source/software slice: three ESP32 targets compile, native arm/trip/duration and installed Python/Node/CLI/manual serial-entry PTY proofs passed; physical electrical/board/reset/current/gate traces remain NOT RUN, no autonomous commands or flash. Next useful kit capability: inspect tools/build_developer_kit.py (currently includes native replay docs/LED capabilities, not the new firmware source/dependency) and make the dry-load native bench runnable from an extracted developer kit without checkout resources. Use explicit pinned ArduinoJson source identity, user-supplied trusted C++ compiler prerequisites, normal installed SDK/CLI and owned PTY; preserve exact source/dependency hashes, mapping/provenance and no-overwrite guards. Bounded exit: independently extracted kit builds the actual sketch and passes completion/Stop/input-drop/refusal/unknown through normal installed entries without using checkout files; no telemetry-dependent PlatformIO execution in this local environment, no hardware/toolchain download or remote execution hidden in input data. Do not add a new simulator, auto-send wizard, interlock diagnostics UI or speculative actuator design. Keep the human dry-load electrical evidence gate separate. Maintain SDK/format, data/interop, hardware and adoption axes; independent adoption remains unobserved.",
   "automation": {
     "id": "39cc72697e048191a1ba0d3e3e9d787c",
     "title": "OpenSmell — développement autonome quotidien",
@@ -468,9 +469,9 @@
   },
   "active_product_milestone": {
     "goal": "Installable OpenSmell developer kit spanning data, SDK, device integration and reproducible hardware bench",
-    "delivered": "Installed data/SDK/interop kit with Core planning, caller trials, optional scientific/LSL consumers, now passive wheel-only starter workspace and installed stdio simulator with clean no-Node/no-optional-runtime proof (#40).",
-    "next": "Close the first wheel-only starter slice (#40): installed passive workspace resources and stdio SDK simulator, clean venv without optional dependencies/Node/checkout files, normal plan/sequence/trial, installed JS client compatibility, full CI and main proof have passed. Do not add template catalogs, auto-send wizards, simulator diagnostics or more CLI flags by default. Whole interoperability developer-kit milestone stays active. Rebalance toward concrete reproducible hardware preparation: inspect current hardware BOM/wiring/source/manual evidence to identify one genuinely new dry low-voltage actuator-bench capability beyond the already-delivered LED/lifecycle bridge. If justified, choose a small complete source/compile/native-harness vertical slice with explicit proposed electrical BOM/wiring grounded in primary manufacturer datasheets, a distinct declared prototype capability/identity and a manual bench procedure; preserve default LED targets/protocol contracts and use existing installed SDK entry for software proof. Explain the new use and sought evidence before coding. No hypothetical audit chain or repeat LED diagnostic polishing. No physical command, serial/GPIO access, flash, purchase/order, odor diffusion or human exposure; compilation/simulation only. Proposed electrical compatibility, drive observations, calibrated flow/chemical/odor output and third-party adoption must remain separate and unobserved without actual evidence. If no useful independent hardware source slice exists, choose a concrete outside developer need rather than fabricate work. Keep SDK/format, data/interop, hardware and adoption axes with bounded exits. Human new-firmware bench remains NOT RUN; no registry release, tag, paid service or additional automation."
+    "delivered": "Installed SDK/data/interop/starter kit plus distinct dry resistive-load source target, proposed electrical BOM/wiring, actual native/installed Python+Node+CLI and owned-PTY normal serial-entry proof (#41). All3 ESP32 targets compile in CI. New-target physical electrical validation and independent adoption remain unobserved.",
+    "next": "Close #41 dry-load source/software slice: three ESP32 targets compile, native arm/trip/duration and installed Python/Node/CLI/manual serial-entry PTY proofs passed; physical electrical/board/reset/current/gate traces remain NOT RUN, no autonomous commands or flash. Next useful kit capability: inspect tools/build_developer_kit.py (currently includes native replay docs/LED capabilities, not the new firmware source/dependency) and make the dry-load native bench runnable from an extracted developer kit without checkout resources. Use explicit pinned ArduinoJson source identity, user-supplied trusted C++ compiler prerequisites, normal installed SDK/CLI and owned PTY; preserve exact source/dependency hashes, mapping/provenance and no-overwrite guards. Bounded exit: independently extracted kit builds the actual sketch and passes completion/Stop/input-drop/refusal/unknown through normal installed entries without using checkout files; no telemetry-dependent PlatformIO execution in this local environment, no hardware/toolchain download or remote execution hidden in input data. Do not add a new simulator, auto-send wizard, interlock diagnostics UI or speculative actuator design. Keep the human dry-load electrical evidence gate separate. Maintain SDK/format, data/interop, hardware and adoption axes; independent adoption remains unobserved."
   },
-  "session_slot": "2026-11-22T18:00",
-  "last_completed_slot": "2026-11-22T06:00"
+  "session_slot": null,
+  "last_completed_slot": "2026-11-22T18:00"
 }
