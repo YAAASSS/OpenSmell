@@ -7,7 +7,13 @@
     "acquired_at": "2026-11-22T17:00:08.772Z",
     "expires_at": "2026-11-22T21:00:08.772Z"
   },
-  "open_work": null,
+  "open_work": {
+    "branch": "feat/dry-load-bench-20261122",
+    "commit": "577f67df8fc1777afcdaba9364c23d2ee5ded2c2",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/41",
+    "objective": "Opt-in dry resistive-load firmware, proposed BOM/wiring, actual native and installed SDK proof",
+    "resume_action": "Verify CI for exact head, diagnose failures, complete compiler proof and review, merge only when permitted; verify main then release state."
+  },
   "last_result": {
     "session_kind": "scheduled",
     "slot": "2026-11-22T06:00",
