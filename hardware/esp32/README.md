@@ -11,6 +11,14 @@ to exercise both semantic and perceptual rendering paths.
 It does **not** reproduce a physical odor. LEDs are used as simple, observable
 stand-in actuators.
 
+## New opt-in dry resistive-load preparation
+
+The [dry-load guide](DRY_LOAD.md) defines a separate `esp32-dry-load` source
+target, proposed 5 V MOSFET/resistor BOM and wiring, manual enable input and
+five-second limit. Compile/native and installed SDK proofs are software evidence;
+its [physical evidence record](DRY_LOAD_RESULTS.md) is **NOT RUN**. It is not an
+odor/valve design. Both LED environments and their identities remain unchanged.
+
 ## Local Explorer interface
 
 The experimental pre-alpha [Local Explorer](../../apps/local_demo/README.md)

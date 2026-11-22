@@ -11,13 +11,16 @@ from .serial_pty_bench import NativeSerialBench
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--dry-load',action='store_true',help='Explicit fake-enable dry-load native target; owned PTY only')
     parser.add_argument('wheel',type=Path);parser.add_argument('--host',type=Path,required=True)
     parser.add_argument('--serial-wheel',type=Path,help='Explicit optional local PySerial wheel; otherwise host dependency inherited')
     parser.add_argument('--evidence-directory',type=Path,required=True)
-    args=parser.parse_args();root=Path(__file__).resolve().parents[1]
+    args=parser.parse_args()
+    device_id = 'opensmell-esp32-dry-load-001' if args.dry_load else 'opensmell-esp32-lifecycle-led-001'
+    root=Path(__file__).resolve().parents[1]
     wheel=args.wheel.resolve(strict=True);host=args.host.resolve(strict=True)
     evidence=args.evidence_directory.resolve();evidence.mkdir(parents=True,exist_ok=False)
-    result={'status':'incomplete','physical_validation':False,'path':'installed SDK -> PySerial -> owned POSIX PTY -> actual native sketch','cases':[]}
+    result={'status':'incomplete','physical_validation':False,'path':'installed SDK -> PySerial -> owned POSIX PTY -> actual native sketch','simulated_dry_enable':args.dry_load,'expected_device_id':device_id,'cases':[]}
     def save():(evidence/'result.json').write_text(json.dumps(result,indent=2)+'\n')
     save()
     try:
@@ -34,19 +37,26 @@ def main():
             assert str(work/'venv') in location
             result['installed_location']=location
             for mapper,rid in [('semantic','e6ad8ce3-dc6e-5d94-9287-57665d48fc0b'),('perceptual','219ef28c-9b58-52f2-93a7-0807f5897857')]:
+                profile = json.loads((root / f'examples/offline_{mapper}_profile.json').read_bytes())
+                if args.dry_load:
+                    profile['capabilities']['device_id'] = device_id
+                    profile['capabilities']['max_duration'] = 5
+                    profile['description'] = 'Illustrative electrical duty for proposed resistive dummy loads; no physical validation or odor claim.'
+                profile_path = work / 'profile.json'
+                profile_path.write_text(json.dumps(profile))
                 for action,duration,fault,identity,expected,state,count in [
-                    ('complete',.1,None,'opensmell-esp32-lifecycle-led-001',0,'completed',1),
-                    ('stop',5,None,'opensmell-esp32-lifecycle-led-001',0,'stopped',1),
-                    ('stop',5,'lost','opensmell-esp32-lifecycle-led-001',1,'unknown',1),
-                    ('complete',.1,'partial','opensmell-esp32-lifecycle-led-001',1,'unknown',1),
+                    ('complete',.1,None,device_id,0,'completed',1),
+                    ('stop',5,None,device_id,0,'stopped',1),
+                    ('stop',5,'lost',device_id,1,'unknown',1),
+                    ('complete',.1,'partial',device_id,1,'unknown',1),
                     ('stop',5,None,'wrong-device',3,None,0),
-                    ('stop',5,'invalid','opensmell-esp32-lifecycle-led-001',1,None,0)]:
+                    ('stop',5,'invalid',device_id,1,None,0)]:
                     name=f'{mapper}-{action}-{fault or identity}'
-                    raw=run([python,'-I','-m','opensmell','plan',root/'examples/multisource_diphenyl_ether.osmell','--profile',root/f'examples/offline_{mapper}_profile.json','--resource-id',rid,'--duration',duration])
+                    raw=run([python,'-I','-m','opensmell','plan',root/'examples/multisource_diphenyl_ether.osmell','--profile',profile_path,'--resource-id',rid,'--duration',duration])
                     if fault=='invalid':
                         altered=json.loads(raw);altered['plan']['commands'][0]['intensity']=.123;raw=json.dumps(altered).encode()
                     plan=work/'plan.json';plan.write_bytes(raw);output=evidence/(name+'.json')
-                    with NativeSerialBench(host,fault=fault) as bench:
+                    with NativeSerialBench(host,fault=fault,simulate_dry_enable=args.dry_load) as bench:
                         command=[python,'-I','-m','opensmell.experimental.serial_bench',plan,'--port',bench.port,'--expected-device-id',identity,'--action',action,'--output',output]
                         report=json.loads(run(command,expected))
                         assert (report['execution']['state'] if report.get('execution') else None)==state,report

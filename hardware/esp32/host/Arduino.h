@@ -7,8 +7,14 @@
 #include <string>
 
 constexpr int OUTPUT = 1;
+constexpr int INPUT_PULLDOWN = 2;
+constexpr int LOW = 0;
+constexpr int HIGH = 1;
+extern int hostInputs[64];
+inline int digitalRead(int pin) { return hostInputs[pin]; }
 extern unsigned long hostMillis;
 extern int hostPins[64];
+inline void digitalWrite(int pin, int value) { hostPins[pin] = value; }
 inline unsigned long millis() { return hostMillis; }
 inline void pinMode(int, int) {}
 inline void analogWrite(int pin, int value) { hostPins[pin] = value; }

@@ -1646,6 +1646,12 @@ The active direction covers the installed SDK/CLI, interoperable data, reusable
 adapters and a reproducible ESP32 bench. Local Explorer remains a demo client.
 See [the deliverables and exit criteria](docs/development-status.md#active-direction--developer-kit-and-concrete-prototype-2026-11-10).
 
+For concrete electrical preparation beyond the LED reference, the
+[opt-in dry resistive-load bench](hardware/esp32/DRY_LOAD.md) supplies a proposed
+5 V MOSFET/resistor BOM, wiring and a distinct five-second firmware target with
+manual enable. Compilation/native SDK proofs are separate from its **NOT RUN**
+physical evidence record; no actuator/odor compatibility is claimed.
+
 For a minimal path with only the installed wheel and normal dependencies, start
 with the [wheel-only software workspace](docs/wheel-starter.md):
 

@@ -9,10 +9,13 @@ import tty
 
 
 class NativeSerialBench:
-    def __init__(self, host, *, fault=None):
+    def __init__(self, host, *, fault=None, simulate_dry_enable=False):
         self.master,self.slave=pty.openpty();tty.setraw(self.slave)
         self.port=os.ttyname(self.slave)
-        self.process=subprocess.Popen([str(host),'--realtime'],stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.DEVNULL)
+        command = [str(host), '--realtime']
+        if simulate_dry_enable:
+            command.append('--simulate-enable')  # Explicit fake GPIO on native executable only.
+        self.process=subprocess.Popen(command,stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.DEVNULL)
         self.requests=[];self.fault=fault;self.closed_master=False
         self.done=threading.Event();self.thread=threading.Thread(target=self._relay,daemon=True);self.thread.start()
     def _relay(self):
