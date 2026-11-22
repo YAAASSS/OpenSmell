@@ -1,0 +1,23 @@
+{
+  "opensmell": "0.1",
+  "example": "Synthetic starter data for software-only mapping; not a measured odor",
+  "odor": {
+    "id": "urn:opensmell:example:synthetic-starter",
+    "representations": [
+      {
+        "type": "semantic",
+        "scheme": {"id": "org.opensmell.semantic.annotations", "version": "0.1"},
+        "data": {"annotations": [
+          {"value": "floral", "language": "en", "state": "present"},
+          {"value": "green&herbal", "language": "en", "state": "unknown"}
+        ]},
+        "provenance": {"source": "OpenSmell synthetic software starter; no empirical measurement"}
+      },
+      {
+        "type": "semantic",
+        "scheme": {"id": "org.opensmell.example.opaque", "version": "9"},
+        "data": {"note": "Synthetic uninterpreted extension retained exactly", "value": null}
+      }
+    ]
+  }
+}

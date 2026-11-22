@@ -227,6 +227,17 @@ jobs:
         run: |
           python -m pip install ".[dev]"
           python -m tools.offline_dependencies --output "$RUNNER_TEMP/offline-dependencies"
+      - name: Verify clean wheel-only starter with no network interfaces
+        run: |
+          python -m build --wheel
+          sudo --preserve-env=PATH unshare --net "$(command -v python)" -m tools.verify_installed_starter dist/opensmell-0.1.0-py3-none-any.whl --dependency-directory "$RUNNER_TEMP/offline-dependencies" --evidence-directory dist/starter-proof
+      - name: Retain clean wheel-only starter evidence
+        if: always()
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: clean-wheel-starter-proof
+          path: dist/starter-proof
+          retention-days: 14
       - name: Build optional offline target without publishing
         run: python -m tools.build_developer_kit --wheelhouse "$RUNNER_TEMP/offline-dependencies" --output dist/opensmell-offline-linux-cp312.zip
       - name: Verify clean installation and full trials with no network namespace interfaces

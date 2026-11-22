@@ -281,6 +281,14 @@ def _encode_frame_command(args):
     return 0
 
 
+def _init_workspace_command(args):
+    from .experimental.starter import init_workspace
+    try:
+        print(json.dumps(init_workspace(args.directory),allow_nan=False)); return 0
+    except OSError as error:
+        print(json.dumps({"status":"error","error":str(error)}),file=sys.stderr); return 2
+
+
 def _plan_core_command(args):
     from .experimental.core_planning import plan_core_bytes, MAX_CORE_BYTES
     try:
@@ -518,6 +526,9 @@ def main(argv: list[str] | None = None) -> int:
         subparser = commands.add_parser(command, help=f"{command.capitalize()} Core or experimental graph files")
         subparser.add_argument("files", nargs="+", help="UTF-8 file paths; '-' reads standard input once")
         subparser.add_argument("--json", action="store_true", help="Print one JSON report for all inputs")
+    workspace = commands.add_parser("init-workspace", help="Create a new passive synthetic software starter using only installed resources")
+    workspace.add_argument("directory", help="New workspace directory; never overwrite")
+    commands.add_parser("simulate-device", help="Serve the SDK software simulator over bounded stdin/stdout JSON lines; no hardware")
     core_planning = commands.add_parser("plan-core", help="Plan one explicitly selected Core semantic representation passively")
     core_planning.add_argument("file", help="Core0.1 file or stdin (-); max4MiB")
     core_planning.add_argument("--representation-index", type=int, required=True, help="Explicit zero-based semantic annotations0.1 representation index")
@@ -586,6 +597,11 @@ def main(argv: list[str] | None = None) -> int:
     reference.add_argument("file", help="Generic ResourceGraph file or stdin (-); 8 MiB maximum")
     reference.add_argument("--output-directory", required=True, help="New bundle directory; never overwrite")
     args = parser.parse_args(argv)
+    if args.command == "init-workspace":
+        return _init_workspace_command(args)
+    if args.command == "simulate-device":
+        from .experimental.stdio_simulator import main as serve_simulator
+        return serve_simulator()
     if args.command == "plan-core":
         return _plan_core_command(args)
     if args.command == "prepare-experiment":

@@ -5,6 +5,25 @@ The broader roadmap remains in the [README](../README.md#roadmap).
 Operational checkpoints and the short session log live in `state.json` on the
 `automation/control` branch; follow its pending PR before starting new work.
 
+## Wheel-only software starter — 2026-11-22
+
+The first selected Core path is delivered (#39). The next adoption gap is the
+[installed minimal workspace and simulator](wheel-starter.md): a new user can
+start from the wheel alone, create passive declared synthetic Core/profile data,
+then independently select the installed stdio software endpoint. No checkout
+resources, Node, browser, serial or optional scientific runtime is required.
+Existing Core planning, lifecycle/Stop and profiles are reused rather than replaced.
+
+Exit: a clean environment with only verified normal dependencies and no Node on
+PATH creates/inspects/plans the workspace, observes distinct caller-plan completion,
+Stop and link uncertainty, and refuses collisions/unknown selection/duration/
+wrong identity. CI repeats the narrow Linux CPython3.12 target with no network
+interfaces. Close this first starter slice after CI; no template catalog, new
+wire protocol or auto-send wizard by default. Next prefer a concrete developer
+integration need or reproducible hardware preparation gap over more diagnostics.
+SDK/data/hardware/adoption axes stay distinct; human board observations and
+independent adoption remain unobserved gates.
+
 ## Explicit Core semantic planning — 2026-11-21 evening
 
 The LSL example is delivered (#38). The next general SDK/format gap is the

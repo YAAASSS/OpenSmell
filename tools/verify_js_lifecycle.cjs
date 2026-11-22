@@ -19,7 +19,7 @@ try {
  const artifact=JSON.parse(run(installed,['-I','-m','opensmell','plan','source.osmell','--profile','profile.json','--resource-id','e6ad8ce3-dc6e-5d94-9287-57665d48fc0b','--duration','5']));
  assert.equal(artifact.execution,'not_attempted');fs.writeFileSync(path.join(work,'plan.json'),JSON.stringify(artifact.plan));
  const reports=[];
- for(const [command,id] of [[[process.execPath,path.join(work,'device.cjs')],'opensmell-node-simulator-001'],[[installed,'-I','-u',path.join(work,'python_device.py')],'opensmell-local-simulator-001']]){
+ for(const [command,id] of [[[process.execPath,path.join(work,'device.cjs')],'opensmell-node-simulator-001'],[[installed,'-I','-u',path.join(work,'python_device.py')],'opensmell-local-simulator-001'],[[installed,'-I','-m','opensmell','simulate-device'],'opensmell-local-simulator-001']]){
   const report=JSON.parse(run(process.execPath,['try_client.cjs',JSON.stringify(command),id,'plan.json']));
   assert.equal(report.completed.state,'completed');assert.equal(report.stopped.state,'stopped');assert.equal(report.unknown.state,'unknown');reports.push(report);
  }
