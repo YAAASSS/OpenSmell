@@ -61,4 +61,4 @@ Issues = "https://github.com/YAAASSS/OpenSmell/issues"
 where = ["src"]
 
 [tool.setuptools.package-data]
-opensmell = ["schemas/*.json"]
+opensmell = ["schemas/*.json", "starter/*.json", "starter/*.osmell", "starter/*.md"]

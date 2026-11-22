@@ -1646,6 +1646,19 @@ The active direction covers the installed SDK/CLI, interoperable data, reusable
 adapters and a reproducible ESP32 bench. Local Explorer remains a demo client.
 See [the deliverables and exit criteria](docs/development-status.md#active-direction--developer-kit-and-concrete-prototype-2026-11-10).
 
+For a minimal path with only the installed wheel and normal dependencies, start
+with the [wheel-only software workspace](docs/wheel-starter.md):
+
+```sh
+opensmell init-workspace my-first-workspace
+```
+
+This creates declared synthetic data, an explicit software mapping profile and
+an English walkthrough, without launching a device. The installed
+`opensmell simulate-device` endpoint is selected separately through normal
+software execution commands. No checkout examples, Node or optional scientific
+runtime is needed; no physical output is claimed.
+
 With the current checkout installed (`python -m pip install .`):
 
 ```sh
