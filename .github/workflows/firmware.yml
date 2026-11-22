@@ -8,6 +8,7 @@ on:
       - "examples/multisource_diphenyl_ether.osmell"
       - "examples/offline_*_profile.json"
       - "tools/build_esp32_host.py"
+      - "tools/verify_dry_load.py"
       - "tools/verify_esp32_firmware.py"
       - "tools/verify_installed_frames.py"
       - "tools/verify_installed_perceptual.py"
@@ -30,6 +31,7 @@ on:
       - "examples/multisource_diphenyl_ether.osmell"
       - "examples/offline_*_profile.json"
       - "tools/build_esp32_host.py"
+      - "tools/verify_dry_load.py"
       - "tools/verify_esp32_firmware.py"
       - "tools/verify_installed_frames.py"
       - "tools/verify_installed_perceptual.py"
@@ -66,7 +68,7 @@ jobs:
           python -m pip install platformio==6.1.18
           python -m pip install ".[serial]" "build>=1.2"
       - name: Compile ESP32 firmware without upload
-        run: pio run --project-dir hardware/esp32 --environment esp32-led --environment esp32-led-lifecycle
+        run: pio run --project-dir hardware/esp32 --environment esp32-led --environment esp32-led-lifecycle --environment esp32-dry-load
       - name: Obtain pinned host dependency
         run: |
           git clone https://github.com/bblanchon/ArduinoJson.git /tmp/ArduinoJson
@@ -87,6 +89,13 @@ jobs:
           mkdir -p dist/lifecycle-proof
           python -m tools.verify_firmware_lifecycle /tmp/opensmell-lifecycle-host --output dist/lifecycle-proof/native.json
           python -m tools.verify_installed_firmware_lifecycle dist/opensmell-0.1.0-py3-none-any.whl --host /tmp/opensmell-lifecycle-host --evidence-directory dist/lifecycle-proof/installed
+
+      - name: Exercise opt-in dry resistive-load target and installed clients
+        run: |
+          python -m tools.build_esp32_host --dry-load --arduinojson /tmp/ArduinoJson --output /tmp/opensmell-dry-load-host
+          mkdir -p dist/lifecycle-proof/dry-load
+          python -m tools.verify_dry_load /tmp/opensmell-dry-load-host --output dist/lifecycle-proof/dry-load/native.json
+          python -m tools.verify_installed_firmware_lifecycle --dry-load dist/opensmell-0.1.0-py3-none-any.whl --host /tmp/opensmell-dry-load-host --evidence-directory dist/lifecycle-proof/dry-load/installed
 
       - name: Verify installed bounded sequences against actual native sketch
         run: python -m tools.verify_installed_sequence dist/opensmell-0.1.0-py3-none-any.whl --host /tmp/opensmell-lifecycle-host --evidence-directory dist/lifecycle-proof/sequence

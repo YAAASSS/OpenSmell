@@ -1,5 +1,9 @@
 #include <ArduinoJson.h>
 
+#if defined(OPENSMELL_EXPERIMENTAL_DRY_LOAD) && !defined(OPENSMELL_EXPERIMENTAL_LIFECYCLE)
+#error "Dry-load target requires the experimental lifecycle implementation"
+#endif
+
 
 // --------------------------------------------------
 // Physical device configuration
@@ -14,7 +18,9 @@ const int CHANNEL_PINS[CHANNEL_COUNT] = {
 };
 
 const char* PROTOCOL_VERSION = "0.1";
-#ifdef OPENSMELL_EXPERIMENTAL_LIFECYCLE
+#ifdef OPENSMELL_EXPERIMENTAL_DRY_LOAD
+const char* DEVICE_ID = "opensmell-esp32-dry-load-001";
+#elif defined(OPENSMELL_EXPERIMENTAL_LIFECYCLE)
 const char* DEVICE_ID = "opensmell-esp32-lifecycle-led-001";
 #else
 const char* DEVICE_ID = "opensmell-esp32-led-3ch-001";
@@ -24,7 +30,11 @@ const float MIN_INTENSITY = 0.0;
 const float MAX_INTENSITY = 1.0;
 
 const float MIN_DURATION = 0.1;
+#ifdef OPENSMELL_EXPERIMENTAL_DRY_LOAD
+const float MAX_DURATION = 5.0;
+#else
 const float MAX_DURATION = 30.0;
+#endif
 
 
 // --------------------------------------------------
@@ -674,6 +684,12 @@ void receiveSerialMessages() {
 // --------------------------------------------------
 
 void setup() {
+
+#ifdef OPENSMELL_EXPERIMENTAL_DRY_LOAD
+  // Latch low before enabling output mode. External gate pulldowns remain required.
+  for (int channel=0; channel<CHANNEL_COUNT; ++channel)
+    digitalWrite(CHANNEL_PINS[channel], LOW);
+#endif
 
   for (
     int channel = 0;

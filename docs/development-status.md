@@ -5,6 +5,25 @@ The broader roadmap remains in the [README](../README.md#roadmap).
 Operational checkpoints and the short session log live in `state.json` on the
 `automation/control` branch; follow its pending PR before starting new work.
 
+## Dry resistive-load driver preparation — 2026-11-22 evening
+
+The wheel-only starter slice (#40) is closed. The hardware gap now gets a distinct
+[source target and proposed electrical bench](../hardware/esp32/DRY_LOAD.md):
+three 5 V resistor loads through MOSFETs, low-to-high manual enable, sampled
+input-drop shutdown and a five-second limit. Existing SDK/Draft lifecycle profiles
+are reused; neither the default LED firmware nor wire contract is replaced.
+This moves toward concrete electrical integration rather than more starter flags.
+
+Exit: all three ESP32 environments compile; actual native sketch refuses boot-high
+and unarmed commands, observes duration/Stop/input-drop and no restart on rearm;
+installed Python/Node/CLI use explicit mappings and correlated lifecycle receipts.
+Close this software/source slice after CI. Next is a separately authorized human
+board/BOM/wiring/hash/current/gate-trace record, currently **NOT RUN**. Do not
+claim physical compatibility, calibrated delivery, odor reproduction or outside
+adoption, and do not autonomously operate/flash the board. Choose the next useful
+independent developer integration while physical evidence is unavailable; no
+hypothetical actuator expansion or repeated interlock diagnostics by default.
+
 ## Wheel-only software starter — 2026-11-22
 
 The first selected Core path is delivered (#39). The next adoption gap is the
@@ -101,7 +120,7 @@ slice when these proofs and CI pass; do not add scheduler/diagnostic flags by de
 |---|---|---|
 | SDK / format | Installed passive plans, Python/JS lifecycle and Python bounded sequence runner | Keep existing contracts/Draft maturity; extend only for a demonstrated integration need |
 | Data / interoperability | CSV, GraphML/NetworkX, optional RDKit and explicit scientific data-to-plan paths | Reproducible caller experiment dossier linking selected input, mapping choices and actual software receipts |
-| Hardware | Both pinned LED targets compile, native lifecycle and installed manual serial bench | Human new-target wiring/hash/LED observations remain NOT RUN; no autonomous flash or command |
+| Hardware | Pinned LED references plus opt-in dry-load source, proposed electrical BOM/wiring and software lifecycle proof | Human dry-load board/hash/gate/current observations remain NOT RUN; no autonomous flash or command |
 | Adoption | Portable kit and clean offline Linux target | First independently repeated developer trial; internal reference runs do not establish outside adoption |
 
 After the sequence slice, prefer a complete portable caller experiment dossier

@@ -1,4 +1,4 @@
-"""Installed Python/Node clients against the actual opt-in native LED sketch.
+"""Installed Python/Node clients against the actual opt-in native LED or dry-load sketch.
 
 Explicit trusted executable only; no serial/GPIO access, downloads or retries.
 """
@@ -15,11 +15,14 @@ import venv
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--dry-load", action="store_true", help="Explicit fake-input dry resistive-load target")
     parser.add_argument("wheel", type=Path)
     parser.add_argument("--host", required=True, type=Path)
     parser.add_argument("--evidence-directory", required=True, type=Path,
                         help="New directory; never overwrite existing evidence")
     args = parser.parse_args()
+    device_id = "opensmell-esp32-dry-load-001" if args.dry_load else "opensmell-esp32-lifecycle-led-001"
+    command_args = ["--realtime", "--simulate-enable"] if args.dry_load else ["--realtime"]
     root = Path(__file__).resolve().parents[1]
     wheel = args.wheel.resolve(strict=True)
     host = args.host.resolve(strict=True)
@@ -28,6 +31,7 @@ def main():
     evidence = args.evidence_directory.resolve()
     evidence.mkdir(parents=True, exist_ok=False)
     summary = {"result": "incomplete", "physical_validation": False,
+               "simulated_dry_enable": args.dry_load, "expected_device_id": device_id,
                "native_sha256": hashlib.sha256(host.read_bytes()).hexdigest(),
                "wheel_sha256": hashlib.sha256(wheel.read_bytes()).hexdigest(), "cases": []}
     def checkpoint():
@@ -64,14 +68,25 @@ def main():
                 (work / target).write_bytes((root / source).read_bytes())
             for mapper, resource in (("semantic", "e6ad8ce3-dc6e-5d94-9287-57665d48fc0b"),
                                      ("perceptual", "219ef28c-9b58-52f2-93a7-0807f5897857")):
-                (work / "profile.json").write_bytes((root / f"examples/offline_{mapper}_profile.json").read_bytes())
+                profile = json.loads((root / f"examples/offline_{mapper}_profile.json").read_bytes())
+                if args.dry_load:
+                    if mapper == "semantic":
+                        profile = json.loads((root / "hardware/esp32/dry_load_profile.json").read_bytes())
+                    profile["capabilities"]["device_id"] = device_id
+                    profile["capabilities"]["max_duration"] = 5
+                    profile["description"] = "Declared synthetic dry resistive-load duty mapping; no flow/odor relationship or physical validation."
+                (work / "profile.json").write_text(json.dumps(profile))
                 report = work / f"python-{mapper}.json"
                 command = [python, "-I", "try_native.py", "--native-host", host,
                            "--graph", "graph.osmell", "--profile", "profile.json", "--resource-id", resource,
                            "--output", report]
+                if args.dry_load:
+                    command.append("--dry-load")
                 run(command)
                 result = json.loads(report.read_bytes())
                 assert result["result"] == "passed" and result["duplicate_request_refused_before_io"]
+                if args.dry_load:
+                    assert result["duration_refused_before_io"]
                 assert [result["results"][key]["state"] for key in ("completion", "stop", "disconnect")] == ["completed", "stopped", "unknown"]
                 before = report.read_bytes()
                 run(command, expected=1)  # exclusive checkpoint fails before creating a process
@@ -81,16 +96,16 @@ def main():
                                                "--profile", "profile.json", "--resource-id", resource, "--duration", "5"]))
                 plan = plan_report["plan"]
                 (work / "plan.json").write_text(json.dumps(plan))
-                node_result = json.loads(run(["node", "try_client.cjs", json.dumps([str(host), "--realtime"]),
-                                              "opensmell-esp32-lifecycle-led-001", "plan.json"]))
+                node_result = json.loads(run(["node", "try_client.cjs", json.dumps([str(host), *command_args]),
+                                              device_id, "plan.json"]))
                 assert [node_result[key]["state"] for key in ("completed", "stopped", "unknown")] == ["completed", "stopped", "unknown"]
                 (evidence / f"node-{mapper}.json").write_text(json.dumps(node_result, indent=2) + "\n")
                 (evidence / f"plan-{mapper}.json").write_text(json.dumps(plan_report, indent=2) + "\n")
                 (work / "offline-plan.json").write_text(json.dumps(plan_report))
                 executable = work / "venv" / ("Scripts/opensmell.exe" if os.name == "nt" else "bin/opensmell")
                 trial = json.loads(run([executable, "lifecycle-trial", "offline-plan.json",
-                                       "--software-command-json", json.dumps([str(host), "--realtime"]),
-                                       "--expected-device-id", "opensmell-esp32-lifecycle-led-001",
+                                       "--software-command-json", json.dumps([str(host), *command_args]),
+                                       "--expected-device-id", device_id,
                                        "--output", work / f"trial-{mapper}.json"]))
                 assert trial["status"] == "passed" and trial["duplicate_request_refused_before_io"]
                 assert [trial["results"][k]["state"] for k in ("completion", "stop", "disconnect")] == ["completed", "stopped", "unknown"]
