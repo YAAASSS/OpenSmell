@@ -9,10 +9,10 @@
   },
   "open_work": {
     "branch": "feat/dry-load-bench-20261122",
-    "commit": "76ea7c74c61c0b12c4858311525547415d801aab",
+    "commit": "fa8f4ec68df5b11542862a731f2eafe378d9ec4c",
     "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/41",
     "objective": "Opt-in dry resistive-load firmware, proposed BOM/wiring, actual native and installed SDK proof",
-    "resume_action": "Exact head 76ea7c7 published after final identity-preservation review. Native 75 and legacy44/57 pass; outside-checkout installed dry/legacy proofs and full Python suite checked locally. Wait for exact-head standard+firmware CI, merge if allowed, verify main; no physical access."
+    "resume_action": "Final head fa8f4ec adds installed manual serial path on owned PTY (dry12/legacy12 passed locally) and manual reset/settling docs. Full2434local and92focused passed; native75/44/57 and installed Python/Node/CLI pass. Earlier head daa36a1 CI fully green; await final exact-head CI, merge if permitted, verify main. Local PlatformIO follow-up auto-review rejected for telemetry; no retry/workaround, subsequent interrupt found no running process. No physical ports."
   },
   "last_result": {
     "session_kind": "scheduled",
