@@ -2,7 +2,11 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-21",
   "last_processed_main_sha": "20ad31b1b27d9214de1be4cd1e0dd0c45f18adde",
-  "lease": null,
+  "lease": {
+    "owner": "starter-y5f66zs065",
+    "acquired_at": "2026-11-22T05:03:24.458Z",
+    "expires_at": "2026-11-22T09:03:24.458Z"
+  },
   "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
@@ -455,6 +459,6 @@
     "delivered": "Installable interoperability kit, scientific/LSL consumers, caller trials/sequences, now explicit Core semantic-only planning into standard passive artifacts with source-recomputed preflight and installed software/native proof (#39).",
     "next": "Close the first explicit Core semantic planning slice (#39): installed plan-core/API, semantic-only and existing Core data, exact retained bytes, selected-only mapping and source-recomputed projection guard, normal frame/sequence and actual native software proof, full CI/kit/main verification have passed. Do not automatically add representation fallbacks, projection modes or diagnostics. Whole interoperability kit remains active. Next inspect existing installed simulator/demo and kit entry points for one concrete adoption gap: starting from the wheel alone without checkout examples. If not already available, deliver a bounded installed starter-workspace command with declared synthetic Core data, explicit software-only mapping profile and an installed stdio simulator entry reusing the SDK endpoint; no automatic send, no new format/wire or apps dependency. Exit: install wheel in a fresh outside-checkout environment, create a new user workspace exclusively, inspect/plan its Core file and independently run an explicit software command through correlated completion/Stop/refusal guards using only installed resources; no Node/third-party or optional scientific dependency required for the minimal Python path. Kit and existing clients remain compatible; no-overwrite/source/provenance/unknown-data guards preserved. If already usable, do not repackage existing reports or generate a quota change: choose a demonstrated developer/experimenter integration need. Maintain SDK/format, data/interop, reproducible hardware bench and adoption axes. Physical new-firmware wiring/LED validation remains human-led NOT RUN and third-party adoption unobserved; no autonomous ports/GPIO/flash/diffusion, tags/releases/registry uploads, paid services or new automation."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-22T06:00",
   "last_completed_slot": "2026-11-21T18:00"
 }
