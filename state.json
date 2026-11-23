@@ -9,9 +9,9 @@
   },
   "open_work": {
     "branch": "feat/native-kit-20261123",
-    "commit": "cec58c2832ad6db7270312180d97d099f1c91653",
+    "commit": "ddc974967f0846cac46efd0d04c5caf6b20c9440",
     "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/42",
-    "resume_action": "Head cec58c2: extracted kit proof passes locally (actual native75, SDK+Node completed/stopped/unknown, installed manual entry owned PTY Stop, source/addition/collision guards);8focused tests pass, full suite running. Exact-head CI includes unshare--net proof, queued/running. Review/merge when green, verify main and save Monday handoff."
+    "resume_action": "Final head ddc9749 fixes missing setuptools>=68/wheel prerequisite for no-isolation kit packing in firmware CI. No product code changed after2440local tests and extracted source proof passed. Await exact-head CI including actual unshare--net extracted kit chain; if failure inspect logs, otherwise merge and verify main; Monday report draft in scratch needs final hashes/results and Library save."
   },
   "last_result": {
     "session_kind": "scheduled",
