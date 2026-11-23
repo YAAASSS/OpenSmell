@@ -16,6 +16,8 @@ import sys
 import tempfile
 import zipfile
 
+from .npm_command import npm_command
+
 ROOT = Path(__file__).resolve().parents[1]
 # Explicit allowlist; external datasets, caches and arbitrary checkout files are excluded.
 PAYLOADS = {
@@ -108,7 +110,7 @@ def main():
         target = TARGET
     if args.output.exists():
         parser.error("Output already exists")
-    npm = shutil.which("npm")
+    npm = npm_command()
     if not npm:
         parser.error("npm is required to pack the local JavaScript SDK")
     with tempfile.TemporaryDirectory(prefix="opensmell-kit-build-") as temporary:
@@ -118,11 +120,11 @@ def main():
         wheels = list(artifacts.glob("*.whl"))
         if len(wheels) != 1 or wheels[0].name != "opensmell-0.1.0-py3-none-any.whl":
             raise ValueError("Unexpected Python artifact; update kit install instructions when changing version")
-        packed = json.loads(subprocess.check_output([npm, "pack", "--ignore-scripts", "--json", "--pack-destination", artifacts],
+        packed = json.loads(subprocess.check_output([*npm, "pack", "--ignore-scripts", "--json", "--pack-destination", artifacts],
                                                    cwd=ROOT / "packages/javascript"))[0]
         if packed["name"] != "@opensmell/graph-reader" or packed["filename"] != "opensmell-graph-reader-0.1.0-experimental.0.tgz":
             raise ValueError("Unexpected JavaScript artifact; update kit install instructions when changing version")
-        lifecycle = json.loads(subprocess.check_output([npm, "pack", "--ignore-scripts", "--json", "--pack-destination", artifacts],
+        lifecycle = json.loads(subprocess.check_output([*npm, "pack", "--ignore-scripts", "--json", "--pack-destination", artifacts],
                                                       cwd=ROOT / "packages/lifecycle-client"))[0]
         if lifecycle["filename"] != "opensmell-lifecycle-client-0.1.0-experimental.0.tgz":
             raise ValueError("Unexpected lifecycle package version")

@@ -9,6 +9,7 @@ on:
       - "examples/offline_*_profile.json"
       - "tools/build_esp32_host.py"
       - "tools/native_kit.py"
+      - "tools/npm_command.py"
       - "tools/verify_native_kit.py"
       - "tools/build_developer_kit.py"
       - "examples/developer_kit/**"
@@ -36,6 +37,7 @@ on:
       - "examples/offline_*_profile.json"
       - "tools/build_esp32_host.py"
       - "tools/native_kit.py"
+      - "tools/npm_command.py"
       - "tools/verify_native_kit.py"
       - "tools/build_developer_kit.py"
       - "examples/developer_kit/**"
@@ -61,7 +63,11 @@ permissions:
 
 jobs:
   compile-and-bench:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-2025]
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v7.0.1
@@ -72,26 +78,32 @@ jobs:
         with:
           node-version: "22"
       - name: Install software build tools
+        if: runner.os == 'Linux'
         run: |
           python -m pip install platformio==6.1.18
           python -m pip install ".[serial]" "build>=1.2" "setuptools>=68" wheel
       - name: Compile ESP32 firmware without upload
+        if: runner.os == 'Linux'
         run: pio run --project-dir hardware/esp32 --environment esp32-led --environment esp32-led-lifecycle --environment esp32-dry-load
       - name: Obtain pinned host dependency
+        if: runner.os == 'Linux'
         run: |
           git clone https://github.com/bblanchon/ArduinoJson.git /tmp/ArduinoJson
           git -C /tmp/ArduinoJson checkout f9fe8557f13d8949eafd49ebd93a2929c4e5065f
       - name: Compile and exercise actual sketch on host
+        if: runner.os == 'Linux'
         run: |
           python -m tools.build_esp32_host --arduinojson /tmp/ArduinoJson --output /tmp/opensmell-firmware-host
           python -m tools.verify_esp32_firmware /tmp/opensmell-firmware-host
 
       - name: Verify installed offline frame export against actual sketch
+        if: runner.os == 'Linux'
         run: |
           python -m build --wheel
           python -m tools.verify_installed_frames dist/opensmell-0.1.0-py3-none-any.whl --host /tmp/opensmell-firmware-host
 
       - name: Exercise opt-in lifecycle sketch and both installed clients
+        if: runner.os == 'Linux'
         run: |
           python -m tools.build_esp32_host --lifecycle --arduinojson /tmp/ArduinoJson --output /tmp/opensmell-lifecycle-host
           mkdir -p dist/lifecycle-proof
@@ -99,6 +111,7 @@ jobs:
           python -m tools.verify_installed_firmware_lifecycle dist/opensmell-0.1.0-py3-none-any.whl --host /tmp/opensmell-lifecycle-host --evidence-directory dist/lifecycle-proof/installed
 
       - name: Exercise opt-in dry resistive-load target and installed clients
+        if: runner.os == 'Linux'
         run: |
           python -m tools.build_esp32_host --dry-load --arduinojson /tmp/ArduinoJson --output /tmp/opensmell-dry-load-host
           mkdir -p dist/lifecycle-proof/dry-load
@@ -107,20 +120,25 @@ jobs:
           python -m tools.verify_installed_serial_bench --dry-load dist/opensmell-0.1.0-py3-none-any.whl --host /tmp/opensmell-dry-load-host --evidence-directory dist/lifecycle-proof/dry-load/serial
 
       - name: Verify installed bounded sequences against actual native sketch
+        if: runner.os == 'Linux'
         run: python -m tools.verify_installed_sequence dist/opensmell-0.1.0-py3-none-any.whl --host /tmp/opensmell-lifecycle-host --evidence-directory dist/lifecycle-proof/sequence
 
       - name: Verify installed selected Core plans against actual native sketch
+        if: runner.os == 'Linux'
         run: python -m tools.verify_installed_core_plan dist/opensmell-0.1.0-py3-none-any.whl --host /tmp/opensmell-lifecycle-host --evidence-directory dist/lifecycle-proof/core-plan
 
       - name: Verify installed serial bench over owned pseudo-terminals
+        if: runner.os == 'Linux'
         run: python -m tools.verify_installed_serial_bench dist/opensmell-0.1.0-py3-none-any.whl --host /tmp/opensmell-lifecycle-host --evidence-directory dist/lifecycle-proof/serial
 
       - name: Build optional native source kit and verify extracted installed entry
+        if: runner.os == 'Linux'
         run: |
           python -m tools.build_developer_kit --native-arduinojson /tmp/ArduinoJson --output dist/opensmell-native-kit.zip
           sudo --preserve-env=PATH unshare --net "$(command -v python)" -m tools.verify_native_kit dist/opensmell-native-kit.zip --compiler /usr/bin/g++ --output dist/lifecycle-proof/native-kit
 
       - name: Retain optional native source kit
+        if: runner.os == 'Linux'
         uses: actions/upload-artifact@v7.0.2
         with:
           name: opensmell-native-source-kit
@@ -128,7 +146,7 @@ jobs:
           retention-days: 14
 
       - name: Retain experimental native lifecycle evidence
-        if: always()
+        if: always() && runner.os == 'Linux'
         uses: actions/upload-artifact@v7.0.2
         with:
           name: experimental-led-lifecycle-native-proof
@@ -136,11 +154,47 @@ jobs:
           retention-days: 14
 
       - name: Verify selected perceptual import through installed SDKs and native sketch
+        if: runner.os == 'Linux'
         run: python -m tools.verify_installed_perceptual dist/opensmell-0.1.0-py3-none-any.whl --host /tmp/opensmell-firmware-host --evidence-directory dist/perceptual-proof
 
       - name: Retain experimental synthetic perceptual proof
+        if: runner.os == 'Linux'
         uses: actions/upload-artifact@v7.0.2
         with:
           name: synthetic-perceptual-native-proof
           path: dist/perceptual-proof
+          retention-days: 14
+      - name: Select preinstalled local MinGW compiler without download
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $candidates = @('C:\msys64\ucrt64\bin\g++.exe', 'C:\mingw64\bin\g++.exe')
+          $compiler = $candidates | Where-Object { Test-Path $_ } | Select-Object -First 1
+          if (-not $compiler) { throw 'No declared local MinGW compiler available' }
+          "NATIVE_COMPILER=$compiler" >> $env:GITHUB_ENV
+          (Split-Path $compiler) >> $env:GITHUB_PATH
+          & $compiler --version
+          python --version
+          node --version
+      - name: Explicit build dependencies and pinned header source
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          python -m pip install . 'build>=1.2' 'setuptools>=68' wheel
+          git clone https://github.com/bblanchon/ArduinoJson.git "$env:RUNNER_TEMP\ArduinoJson"
+          git -C "$env:RUNNER_TEMP\ArduinoJson" checkout f9fe8557f13d8949eafd49ebd93a2929c4e5065f
+      - name: Pack and try real extracted Windows path
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          python -m tools.build_developer_kit --native-arduinojson "$env:RUNNER_TEMP\ArduinoJson" --output dist/windows-native-kit.zip
+          python -m tools.verify_native_kit dist/windows-native-kit.zip --compiler "$env:NATIVE_COMPILER" --output 'dist/windows native proof'
+      - name: Retain Windows kit and software evidence
+        if: always() && runner.os == 'Windows'
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: windows-extracted-native-kit
+          path: |
+            dist/windows-native-kit.zip
+            dist/windows native proof
           retention-days: 14

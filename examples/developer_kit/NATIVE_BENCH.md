@@ -7,6 +7,9 @@ PlatformIO, ESP32 toolchain or download is needed at use time. Compiler and sour
 are trusted executable inputs, not sandboxed. No board port, flash or physical
 command is available through this build entry.
 
+For the separate Windows PowerShell path, see [WINDOWS_NATIVE.md](WINDOWS_NATIVE.md).
+The commands below use the Linux executable name; Windows build emits `.exe`.
+
 From the extracted kit on Linux:
 
 ```sh
