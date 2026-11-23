@@ -14,7 +14,7 @@ installed on your machine; the example is not a promise that this path exists.
 ```powershell
 python -m venv '.\my venv'
 & '.\my venv\Scripts\python.exe' -m pip install '.\packages\opensmell-0.1.0-py3-none-any.whl'
-$compiler = 'C:\msys64\ucrt64\bin\g++.exe'
+$compiler = 'C:\mingw64\bin\g++.exe'
 $env:PATH = (Split-Path $compiler) + ';' + $env:PATH
 & '.\my venv\Scripts\python.exe' native_bench.py --compiler $compiler --output 'native build'
 & '.\my venv\Scripts\python.exe' native\tools\verify_dry_load.py '.\native build\dry-load-host.exe' --output native-proof.json
@@ -43,3 +43,6 @@ this is not a clean offline Windows dependency closure. No MSVC/clang, arbitrary
 Windows version or physical serial driver compatibility is claimed. Compiler
 and source are trusted executable inputs, not sandboxed. Inventory hashes are
 not signatures; machine code is not promised bit-reproducible.
+
+Verified first target: Windows Server 2025 x64, CPython 3.12.10, Node 22.23.5,
+MinGW-w64 GCC 15.2.0 at the example path. Other setups need their own observation.
