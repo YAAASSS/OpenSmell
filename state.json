@@ -7,7 +7,12 @@
     "acquired_at": "2026-11-23T05:00:13.861Z",
     "expires_at": "2026-11-23T09:00:13.861Z"
   },
-  "open_work": null,
+  "open_work": {
+    "branch": "feat/native-kit-20261123",
+    "commit": "4e2670e71e5bc76bbce3e607118276231a3d04ad",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/42",
+    "resume_action": "Complete extracted-kit proof and exact-head CI, review and merge, verify main, save handoff; no hardware/PlatformIO local execution."
+  },
   "last_result": {
     "session_kind": "scheduled",
     "slot": "2026-11-22T18:00",
