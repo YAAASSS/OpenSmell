@@ -2,6 +2,7 @@
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path, PurePosixPath
 import subprocess
 import sys
@@ -42,7 +43,7 @@ def main():
     def save(): (output/'build.json').write_text(json.dumps(report,indent=2)+'\n')
     save()
     try:
-        executable=output/'dry-load-host'
+        executable=output/('dry-load-host.exe' if os.name=='nt' else 'dry-load-host')
         subprocess.run([sys.executable,str(ROOT/'native/tools/build_esp32_host.py'),'--dry-load','--compiler',str(compiler),'--arduinojson',str(ROOT/'native/ArduinoJson'),'--output',str(executable)],check=True,timeout=150)
         report.update(result='built',executable=str(executable),executable_sha256=hashlib.sha256(executable.read_bytes()).hexdigest())
     except BaseException as error:

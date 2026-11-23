@@ -25,6 +25,8 @@ def native_payloads(directory):
                  'dependency':{'name':'ArduinoJson','version':'7.2.1','commit':PIN,'source':'https://github.com/bblanchon/ArduinoJson','selection':'committed src/ and LICENSE.txt blobs'},
                  'files':{p:{'sha256':hashlib.sha256(b).hexdigest(),'byte_length':len(b)} for p,b in sorted(result.items())}}
     result['native/inventory.json']=(json.dumps(inventory,indent=2)+'\n').encode()
+    result['native_trial.py']=(ROOT/'examples/firmware_lifecycle/try_native.py').read_bytes()
     result['native_bench.py']=(ROOT/'examples/developer_kit/native_bench.py').read_bytes()
+    result['WINDOWS_NATIVE.md']=(ROOT/'examples/developer_kit/WINDOWS_NATIVE.md').read_bytes()
     result['NATIVE_BENCH.md']=(ROOT/'examples/developer_kit/NATIVE_BENCH.md').read_bytes()
     return result

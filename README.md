@@ -1651,6 +1651,10 @@ compile the actual dry-load sketch from an extracted archive using a supplied
 local C++ compiler, then use the installed SDK. Pinned dependency headers/license
 are included explicitly; build never launches an endpoint or accesses hardware.
 
+The [first Windows PowerShell path](examples/developer_kit/WINDOWS_NATIVE.md)
+uses the same kit with an explicit local MinGW compiler and a native `.exe`.
+It keeps compilation separate from installed SDK trials and physical hardware.
+
 For concrete electrical preparation beyond the LED reference, the
 [opt-in dry resistive-load bench](hardware/esp32/DRY_LOAD.md) supplies a proposed
 5 V MOSFET/resistor BOM, wiring and a distinct five-second firmware target with

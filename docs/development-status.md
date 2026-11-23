@@ -5,6 +5,17 @@ The broader roadmap remains in the [README](../README.md#roadmap).
 Operational checkpoints and the short session log live in `state.json` on the
 `automation/control` branch; follow its pending PR before starting new work.
 
+## First Windows extracted native path — 2026-11-23 evening
+
+The Linux native source kit (#42) is delivered. The next first usable platform
+slice is the [Windows kit path](../examples/developer_kit/WINDOWS_NATIVE.md):
+explicit local MinGW compiler, actual `.exe`, installed Python/Node/CLI clients,
+no checkout files at use. Build and trial remain separate. No WSL or physical
+ports are involved. Exit: actual Windows runner passes paths-with-spaces,
+source/output guards and correlated lifecycle cases; Linux stays green.
+Close this first Windows path after CI; do not infer all Windows compilers,
+offline dependency closure, POSIX PTY coverage or hardware compatibility.
+
 ## Extracted native source kit — 2026-11-23
 
 The dry-load source slice (#41) is closed. The next usable kit entry bundles

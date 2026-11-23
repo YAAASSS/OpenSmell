@@ -7,6 +7,9 @@ PlatformIO, ESP32 toolchain or download is needed at use time. Compiler and sour
 are trusted executable inputs, not sandboxed. No board port, flash or physical
 command is available through this build entry.
 
+For the separate Windows PowerShell path, see [WINDOWS_NATIVE.md](WINDOWS_NATIVE.md).
+The commands below use the Linux executable name; Windows build emits `.exe`.
+
 From the extracted kit on Linux:
 
 ```sh
@@ -24,7 +27,7 @@ opensmell lifecycle-trial new-native-plan.json \
 Build never launches the endpoint. Explicit subsequent controls sample fake input
 only; the native proof exercises arm/drop/refusal and correlated SDK Stop. The
 ordinary installed trial observes completion/Stop/unknown. No ESP32 binary is
-produced. Compiler/platform compatibility beyond the verified Linux host and
+produced. Compiler/platform coverage is limited to the documented Linux/Windows paths;
 bit-identical machine-code reproducibility are not claimed. CI repeats the extracted
 compile/SDK/Node/owned-PTY proof with network interfaces disabled; its Python
 build dependencies are inherited, separate from the clean offline SDK target.
