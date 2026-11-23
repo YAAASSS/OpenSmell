@@ -28,7 +28,7 @@ def main():
     def save(): (args.output/'result.json').write_text(json.dumps(result,indent=2)+'\n')
     save()
     with tempfile.TemporaryDirectory(prefix='opensmell-native-kit-') as tmp:
-        work=Path(tmp);kit=work/'kit with spaces';kit.mkdir()
+        work=Path(tmp).resolve();kit=work/'kit with spaces';kit.mkdir()
         with zipfile.ZipFile(archive) as z:
             names=z.namelist()
             if len(set(names))!=len(names) or any(not (kit/n).resolve().is_relative_to(kit) for n in names): raise ValueError('Unsafe ZIP')
