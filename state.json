@@ -2,7 +2,11 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-22",
   "last_processed_main_sha": "fc552f2057dacad1ace9ac3cbba875e90dd8d163",
-  "lease": null,
+  "lease": {
+    "owner": "native-kit-20261123-wq9jujsgro9",
+    "acquired_at": "2026-11-23T05:00:13.861Z",
+    "expires_at": "2026-11-23T09:00:13.861Z"
+  },
   "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
@@ -472,6 +476,6 @@
     "delivered": "Installed SDK/data/interop/starter kit plus distinct dry resistive-load source target, proposed electrical BOM/wiring, actual native/installed Python+Node+CLI and owned-PTY normal serial-entry proof (#41). All3 ESP32 targets compile in CI. New-target physical electrical validation and independent adoption remain unobserved.",
     "next": "Close #41 dry-load source/software slice: three ESP32 targets compile, native arm/trip/duration and installed Python/Node/CLI/manual serial-entry PTY proofs passed; physical electrical/board/reset/current/gate traces remain NOT RUN, no autonomous commands or flash. Next useful kit capability: inspect tools/build_developer_kit.py (currently includes native replay docs/LED capabilities, not the new firmware source/dependency) and make the dry-load native bench runnable from an extracted developer kit without checkout resources. Use explicit pinned ArduinoJson source identity, user-supplied trusted C++ compiler prerequisites, normal installed SDK/CLI and owned PTY; preserve exact source/dependency hashes, mapping/provenance and no-overwrite guards. Bounded exit: independently extracted kit builds the actual sketch and passes completion/Stop/input-drop/refusal/unknown through normal installed entries without using checkout files; no telemetry-dependent PlatformIO execution in this local environment, no hardware/toolchain download or remote execution hidden in input data. Do not add a new simulator, auto-send wizard, interlock diagnostics UI or speculative actuator design. Keep the human dry-load electrical evidence gate separate. Maintain SDK/format, data/interop, hardware and adoption axes; independent adoption remains unobserved."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-23T06:00",
   "last_completed_slot": "2026-11-22T18:00"
 }
