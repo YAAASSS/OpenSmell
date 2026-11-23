@@ -2,7 +2,11 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-23",
   "last_processed_main_sha": "94410a8f036863dd349d87fc7800a688c140729f",
-  "lease": null,
+  "lease": {
+    "owner": "windows-kit-20261123-x28lvdp9t5",
+    "acquired_at": "2026-11-23T17:01:44.177Z",
+    "expires_at": "2026-11-23T21:01:44.177Z"
+  },
   "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
@@ -454,6 +458,6 @@
     "delivered": "Installed SDK/data/interoperability/starter kit and dry-load source now usable as optional extracted native source kit (#42): explicit pinned headers/license, local compiler, installed Python/Node/CLI and owned-PTY proof under disabled network. Source/compile software slice closed; physical electrical evidence and independent adoption unobserved.",
     "next": "Close #42 first extracted-native-kit slice once exact-head CI/main proof pass. No further source-inventory diagnostics or template catalog by default. Whole interoperability kit remains active. Next useful adoption capability to evaluate: a first actual Windows extracted-kit/native-SDK journey on a hosted Windows runner, with explicit supplied C++ compiler, installed wheel and packed Node client. Current native proof/paths are Linux/POSIX only; inspect existing kit installer/compiler/runtime assumptions, implement one complete normal entry and verify on the actual Windows runner before claiming support. Do not emulate Windows on Linux or claim POSIX PTY coverage there. Keep caller sources/opaque context, identity/capability/duration and duplicate guards; no endpoint launch at build, toolchain downloads hidden in input, physical ports, flash, purchases or release. Human dry-load board/BOM/hash/reset/gate/current measurements remain NOT RUN; independent developer adoption is still unobserved, internal CI is not adoption. Keep SDK/format, data/interop, hardware and adoption as distinct milestone axes."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-23T18:00",
   "last_completed_slot": "2026-11-23T06:00"
 }
