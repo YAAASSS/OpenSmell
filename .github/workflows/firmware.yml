@@ -118,7 +118,7 @@ jobs:
       - name: Build optional native source kit and verify extracted installed entry
         run: |
           python -m tools.build_developer_kit --native-arduinojson /tmp/ArduinoJson --output dist/opensmell-native-kit.zip
-          python -m tools.verify_native_kit dist/opensmell-native-kit.zip --compiler /usr/bin/g++ --output dist/lifecycle-proof/native-kit
+          sudo --preserve-env=PATH unshare --net "$(command -v python)" -m tools.verify_native_kit dist/opensmell-native-kit.zip --compiler /usr/bin/g++ --output dist/lifecycle-proof/native-kit
 
       - name: Retain optional native source kit
         uses: actions/upload-artifact@v7.0.2

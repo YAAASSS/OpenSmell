@@ -25,7 +25,9 @@ Build never launches the endpoint. Explicit subsequent controls sample fake inpu
 only; the native proof exercises arm/drop/refusal and correlated SDK Stop. The
 ordinary installed trial observes completion/Stop/unknown. No ESP32 binary is
 produced. Compiler/platform compatibility beyond the verified Linux host and
-bit-identical machine-code reproducibility are not claimed.
+bit-identical machine-code reproducibility are not claimed. CI repeats the extracted
+compile/SDK/Node/owned-PTY proof with network interfaces disabled; its Python
+build dependencies are inherited, separate from the clean offline SDK target.
 
 The inventory records per-file SHA256/length and ArduinoJson commit
 `f9fe8557f13d8949eafd49ebd93a2929c4e5065f`. The packer reads committed headers,
