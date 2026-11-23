@@ -1646,6 +1646,11 @@ The active direction covers the installed SDK/CLI, interoperable data, reusable
 adapters and a reproducible ESP32 bench. Local Explorer remains a demo client.
 See [the deliverables and exit criteria](docs/development-status.md#active-direction--developer-kit-and-concrete-prototype-2026-11-10).
 
+The optional [native source kit](examples/developer_kit/NATIVE_BENCH.md) can
+compile the actual dry-load sketch from an extracted archive using a supplied
+local C++ compiler, then use the installed SDK. Pinned dependency headers/license
+are included explicitly; build never launches an endpoint or accesses hardware.
+
 For concrete electrical preparation beyond the LED reference, the
 [opt-in dry resistive-load bench](hardware/esp32/DRY_LOAD.md) supplies a proposed
 5 V MOSFET/resistor BOM, wiring and a distinct five-second firmware target with

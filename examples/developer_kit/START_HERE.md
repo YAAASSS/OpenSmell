@@ -189,3 +189,8 @@ See [CORE_PLANNING.md](CORE_PLANNING.md) for preservation, refusal and separate 
 For a smaller Python-only workspace using installed wheel resources, see
 [WHEEL_STARTER.md](WHEEL_STARTER.md). `opensmell init-workspace my-first-workspace`
 creates passive synthetic inputs; the installed software simulator is chosen separately.
+
+If explicitly built with `--native-arduinojson`, this archive also contains
+[NATIVE_BENCH.md](NATIVE_BENCH.md): compile the actual dry-load sketch with a
+chosen local C++ compiler, then use the installed SDK separately. The optional
+source bundle has no physical/flash backend; ordinary archives omit it.

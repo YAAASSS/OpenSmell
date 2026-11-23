@@ -5,6 +5,22 @@ The broader roadmap remains in the [README](../README.md#roadmap).
 Operational checkpoints and the short session log live in `state.json` on the
 `automation/control` branch; follow its pending PR before starting new work.
 
+## Extracted native source kit — 2026-11-23
+
+The dry-load source slice (#41) is closed. The next usable kit entry bundles
+actual sketch sources plus explicitly selected committed ArduinoJson headers and
+license. An extracted kit can compile with a caller-selected C++17 compiler and
+use the installed SDK/CLI, Node and owned PTY without checkout files. See
+[NATIVE_BENCH.md](../examples/developer_kit/NATIVE_BENCH.md). No downloads,
+PlatformIO, endpoint auto-launch, ESP32 binary or flash in the build entry.
+
+Exit: extracted actual-sketch build, native arm/drop/refusal, installed lifecycle
+completion/Stop/unknown and owned PTY Stop; source/include alteration and existing
+output refuse before compiler launch. Close after exact-head CI. Human electrical
+measurements remain NOT RUN; no further kit catalog or interlock diagnostics by
+default. Next pursue an independently repeatable developer trial and concrete
+feedback, keeping SDK/data/hardware/adoption evidence distinct.
+
 ## Dry resistive-load driver preparation — 2026-11-22 evening
 
 The wheel-only starter slice (#40) is closed. The hardware gap now gets a distinct
