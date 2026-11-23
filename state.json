@@ -9,9 +9,9 @@
   },
   "open_work": {
     "branch": "feat/windows-native-kit-20261123",
-    "commit": "173003e6c905cb1aac2acf2c728753397dcc107e",
+    "commit": "ac2b3a3137edaae7b4f83a0eba9cd4436d69edfc",
     "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/43",
-    "resume_action": "Head173003e fixes canonical temp-root containment after actual Windows ZIP false refusal. Existing CI OS matrix accepted; separate new workflow was auto-review rejected and never published. Linux extracted proof and10focused pass; full suite check. Await real Windows proof, fix exact-head errors, merge only all green; no POSIX PTY or hardware claim on Windows."
+    "resume_action": "Final head ac2b3a3 documents actual observed Windows target/compiler. Previous173003e all checks green: real Windows75+SDK/CLI/Node completion/Stop/unknown and guards, Linux full proof. Await exact final documentation-head CI; merge if green, verify main, save Work. Local2442tests/10focused pass. No new workflow/task created; original separate-workflow tree auto-review rejection resolved with existing CI OS matrix."
   },
   "last_result": {
     "session_kind": "scheduled",
