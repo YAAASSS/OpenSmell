@@ -8,6 +8,10 @@ on:
       - "examples/multisource_diphenyl_ether.osmell"
       - "examples/offline_*_profile.json"
       - "tools/build_esp32_host.py"
+      - "tools/native_kit.py"
+      - "tools/verify_native_kit.py"
+      - "tools/build_developer_kit.py"
+      - "examples/developer_kit/**"
       - "tools/verify_dry_load.py"
       - "tools/verify_esp32_firmware.py"
       - "tools/verify_installed_frames.py"
@@ -31,6 +35,10 @@ on:
       - "examples/multisource_diphenyl_ether.osmell"
       - "examples/offline_*_profile.json"
       - "tools/build_esp32_host.py"
+      - "tools/native_kit.py"
+      - "tools/verify_native_kit.py"
+      - "tools/build_developer_kit.py"
+      - "examples/developer_kit/**"
       - "tools/verify_dry_load.py"
       - "tools/verify_esp32_firmware.py"
       - "tools/verify_installed_frames.py"
@@ -66,7 +74,7 @@ jobs:
       - name: Install software build tools
         run: |
           python -m pip install platformio==6.1.18
-          python -m pip install ".[serial]" "build>=1.2"
+          python -m pip install ".[serial]" "build>=1.2" "setuptools>=68" wheel
       - name: Compile ESP32 firmware without upload
         run: pio run --project-dir hardware/esp32 --environment esp32-led --environment esp32-led-lifecycle --environment esp32-dry-load
       - name: Obtain pinned host dependency
@@ -106,6 +114,18 @@ jobs:
 
       - name: Verify installed serial bench over owned pseudo-terminals
         run: python -m tools.verify_installed_serial_bench dist/opensmell-0.1.0-py3-none-any.whl --host /tmp/opensmell-lifecycle-host --evidence-directory dist/lifecycle-proof/serial
+
+      - name: Build optional native source kit and verify extracted installed entry
+        run: |
+          python -m tools.build_developer_kit --native-arduinojson /tmp/ArduinoJson --output dist/opensmell-native-kit.zip
+          sudo --preserve-env=PATH unshare --net "$(command -v python)" -m tools.verify_native_kit dist/opensmell-native-kit.zip --compiler /usr/bin/g++ --output dist/lifecycle-proof/native-kit
+
+      - name: Retain optional native source kit
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: opensmell-native-source-kit
+          path: dist/opensmell-native-kit.zip
+          retention-days: 14
 
       - name: Retain experimental native lifecycle evidence
         if: always()

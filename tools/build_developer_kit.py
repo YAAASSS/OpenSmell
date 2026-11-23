@@ -94,7 +94,12 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, required=True, help="New ZIP file; existing outputs are refused")
     parser.add_argument('--wheelhouse',type=Path,help='Explicit prepared pinned dependency directory; adds offline target, no automatic download')
+    parser.add_argument('--native-arduinojson', type=Path, help='Opt-in native sketch and pinned local committed ArduinoJson headers; no download/build/run')
     args = parser.parse_args()
+    native = {}
+    if args.native_arduinojson:
+        from .native_kit import native_payloads
+        native = native_payloads(args.native_arduinojson)
     offline_payloads = {}
     target = None
     if args.wheelhouse:
@@ -122,6 +127,7 @@ def main():
         if lifecycle["filename"] != "opensmell-lifecycle-client-0.1.0-experimental.0.tgz":
             raise ValueError("Unexpected lifecycle package version")
         payloads = {name: (ROOT / source).read_bytes() for name, source in PAYLOADS.items()}
+        payloads.update(native)
         payloads["packages/" + wheels[0].name] = wheels[0].read_bytes()
         payloads["packages/" + packed["filename"]] = (artifacts / packed["filename"]).read_bytes()
         payloads["packages/" + lifecycle["filename"]] = (artifacts / lifecycle["filename"]).read_bytes()
