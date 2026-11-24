@@ -199,3 +199,5 @@ For a reusable lazy transport factory and the installed explicit human serial
 sequence entry, see [TRANSPORT_SEQUENCES.md](TRANSPORT_SEQUENCES.md). The source
 recipe never authorizes autonomous physical commands; verification uses owned
 pseudo-terminals only. Existing software sequence commands remain unchanged.
+
+For a whole caller-ordered prepared dossier, see [RUN_EXPERIMENT.md](RUN_EXPERIMENT.md).

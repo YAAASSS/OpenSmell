@@ -227,6 +227,40 @@ def _prepare_experiment_command(args):
         print(json.dumps({"status":"invalid","error":str(error)})); return 1
 
 
+def _run_experiment_command(args):
+    from .experimental.experiment_run import run_prepared_experiment
+    from .experimental.process_transport import ProcessTransport
+    import csv
+    try:
+        command = _decode(args.software_command_json.encode())
+        if (not isinstance(command, list) or not 1 <= len(command) <= 64
+                or any(not isinstance(arg, str) or "\0" in arg for arg in command)
+                or not command[0].strip() or sum(map(len, command)) > 16384):
+            raise ValueError("Explicit executable/argument array required (max64 items/16KiB)")
+        stop = [False]
+        with Path(args.output).open("x", encoding="utf-8") as output:
+            def save(report):
+                output.seek(0); output.truncate()
+                json.dump(report, output, allow_nan=False, indent=2)
+                output.write("\n"); output.flush()
+                if args.action == "stop-first" and report.get("sequence"):
+                    if any(s["state"] == "accepted" for s in report["sequence"]["steps"]):
+                        stop[0] = True
+            report = run_prepared_experiment(args.directory,
+                lambda: ProcessTransport(command, startup_timeout=5),
+                expected_device_id=args.expected_device_id,
+                transport_context={"command":command}, on_progress=save,
+                stop_requested=lambda: stop[0])
+        print(json.dumps(report, allow_nan=False))
+        return (0 if report["status"] == "completed" or
+                (args.action == "stop-first" and report["status"] == "stopped") else
+                3 if report["status"] in {"invalid", "rejected", "incompatible"} else 1)
+    except OSError as error:
+        print(json.dumps({"status":"error","error":str(error)}), file=sys.stderr); return 2
+    except (OpenSmellError, ValueError, TypeError, KeyError, RecursionError, OverflowError, csv.Error) as error:
+        print(json.dumps({"status":"invalid","error":str(error)}), file=sys.stderr); return 1
+
+
 def _sequence_command(args):
     from .experimental.software_sequence import run_software_sequence, MAX_BYTES
     try:
@@ -585,6 +619,12 @@ def main(argv: list[str] | None = None) -> int:
     experiment.add_argument("--graph", required=True, help="Explicit source ResourceGraph")
     experiment.add_argument("--profile", required=True, help="Explicit mapping/capability profile for every trial")
     experiment.add_argument("--output-directory", required=True, help="New portable experiment directory; never overwrite")
+    run_experiment = commands.add_parser("run-experiment", help="Verify and run one prepared experiment on explicitly selected trusted software")
+    run_experiment.add_argument("directory", help="Explicit prepared-experiment directory; never selects transport")
+    run_experiment.add_argument("--software-command-json", required=True, help="Trusted executable/argument JSON array; no shell; not sandboxed")
+    run_experiment.add_argument("--expected-device-id", required=True)
+    run_experiment.add_argument("--action", choices=("complete", "stop-first"), required=True)
+    run_experiment.add_argument("--output", required=True, help="New checkpoint report; never overwrite; flush is not crash durability")
     sequence = commands.add_parser("run-sequence", help="Run explicit offline plans in order on trusted software; no hardware")
     sequence.add_argument("files", nargs="+", help="1–16 explicit offline-plan JSON files in execution order; no stdin")
     sequence.add_argument("--software-command-json", required=True, help="Trusted executable/argument JSON array; no shell; arguments retained")
@@ -606,6 +646,8 @@ def main(argv: list[str] | None = None) -> int:
         return _plan_core_command(args)
     if args.command == "prepare-experiment":
         return _prepare_experiment_command(args)
+    if args.command == "run-experiment":
+        return _run_experiment_command(args)
     if args.command == "run-sequence":
         return _sequence_command(args)
     if args.command == "reference-graph":
