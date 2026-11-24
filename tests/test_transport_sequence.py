@@ -106,3 +106,22 @@ def test_software_command_snapshot_matches_actual_connection(inputs,monkeypatch)
     assert report['status']=='completed'
     assert seen==[['explicit-original','argument']]
     assert report['command']==seen[0]
+
+
+def test_initial_checkpoint_failure_precedes_factory(inputs):
+    opened=[]
+    def fail(report):raise OSError('Cannot persist initial intent')
+    with pytest.raises(OSError):run_transport_sequence(inputs,lambda:opened.append(True),expected_device_id=ID,on_progress=fail)
+    assert not opened
+
+
+def test_serial_cli_does_not_relabel_uncertainty_after_storage_error(inputs,tmp_path,monkeypatch):
+    import opensmell.experimental.serial_sequence as module
+    plan=tmp_path/'plan.json';plan.write_bytes(inputs[0]);output=tmp_path/'report.json'
+    def failed_run(*args,on_progress,**kwargs):
+        on_progress({'status':'unknown','physical_validation':False,'sequence':{'steps':[{'state':'unknown'}]}})
+        raise OSError('Checkpoint failed after possible acceptance')
+    monkeypatch.setattr(module,'run_serial_sequence',failed_run)
+    code=module.main([str(plan),'--port','owned-test-port','--expected-device-id',ID,'--action','complete','--output',str(output)])
+    assert code==2
+    assert json.loads(output.read_bytes())['status']=='unknown'

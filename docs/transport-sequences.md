@@ -79,8 +79,8 @@ actual identity/capabilities, not a legacy LED default.
 and cooperatively requests Stop; later plans remain unattempted. A race with
 completion can produce a different terminal state; inspect the report instead of
 relabeling it. Both actions exclusively create a fresh report and checkpoint
-before I/O. Exit0 expected completion/Stop,3 invalid/incompatible/refused,1 other
-uncertain/cancelled outcome,2 file/checkpoint error. A failed write after possible
+before I/O. Exit0 expected completion/Stop,3 invalid/incompatible/refused,1 other outcome (including unexpected Stop,
+cancellation or unknown),2 file/checkpoint error. A failed write after possible
 acceptance is not replaced by a fabricated invalid/no-send report.
 
 The SDK convenience API is
