@@ -21,6 +21,7 @@ from .npm_command import npm_command
 ROOT = Path(__file__).resolve().parents[1]
 # Explicit allowlist; external datasets, caches and arbitrary checkout files are excluded.
 PAYLOADS = {
+    "TRANSPORT_SEQUENCES.md": "docs/transport-sequences.md",
     "WHEEL_STARTER.md": "docs/wheel-starter.md",
     "CORE_PLANNING.md": "docs/core-planning.md",
     "data/core_semantic_only.osmell": "examples/core_semantic_only.osmell",

@@ -194,3 +194,8 @@ If explicitly built with `--native-arduinojson`, this archive also contains
 [NATIVE_BENCH.md](NATIVE_BENCH.md): compile the actual dry-load sketch with a
 chosen local C++ compiler, then use the installed SDK separately. The optional
 source bundle has no physical/flash backend; ordinary archives omit it.
+
+For a reusable lazy transport factory and the installed explicit human serial
+sequence entry, see [TRANSPORT_SEQUENCES.md](TRANSPORT_SEQUENCES.md). The source
+recipe never authorizes autonomous physical commands; verification uses owned
+pseudo-terminals only. Existing software sequence commands remain unchanged.
