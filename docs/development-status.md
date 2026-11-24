@@ -5,6 +5,21 @@ The broader roadmap remains in the [README](../README.md#roadmap).
 Operational checkpoints and the short session log live in `state.json` on the
 `automation/control` branch; follow its pending PR before starting new work.
 
+## Prepared dossier execution — 2026-11-24 evening
+
+The reusable sequence core/manual serial slice (#44/#45) is closed. The next
+usable SDK/data entry is [run-experiment](run-experiment.md): one explicitly
+selected prepared dossier, fully checked before a separately selected transport.
+No hand enumeration of plan files, implicit port/executable or new wire contract.
+
+Exit: installed CLI outside checkout consumes a relocated dossier after originals
+are removed; distinct caller trials and opaque annotations retained; completion,
+Stop, second refusal/unknown preserve earlier receipts and halt later sends;
+hash-consistent corrupted last trial and output collision cause no process traffic.
+Close this first dossier path after CI. Next prioritize a concrete independent
+integration/analysis need over scheduler/retry/catalog extensions. Physical board
+measurements and independent adoption stay unobserved gates.
+
 ## Reusable transport sequences — 2026-11-24
 
 The first Windows kit path (#43) is delivered. The next SDK integration gap is
