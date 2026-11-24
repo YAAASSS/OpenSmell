@@ -2,7 +2,11 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-23",
   "last_processed_main_sha": "7eb1aa9519e63d9c051c1880b71362bc6df3d3b2",
-  "lease": null,
+  "lease": {
+    "owner": "serial-sequence-20261124-vzcype5yg0o",
+    "acquired_at": "2026-11-24T05:04:49.653Z",
+    "expires_at": "2026-11-24T09:04:49.653Z"
+  },
   "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
@@ -447,6 +451,6 @@
     "delivered": "Installed data/SDK/interop/starter and dry-load source kit now has first actual Windows extracted .exe/installed Python+CLI+Node path (#43), with Linux native/owned-PTY/network-disabled coverage retained. Human electrical evidence and external adoption remain unobserved.",
     "next": "Close #43 first Windows extracted native path after exact-head CI/main evidence; no further OS/compiler permutations or packaging diagnostics by default. Keep the whole data/SDK/device kit milestone active. Next concrete SDK integration gap observed in source: run_software_sequence currently constructs ProcessTransport from a software command, whereas the installed manual serial bench accepts only one plan. Evaluate and implement a reusable transport-neutral bounded sequence core with an explicit human-operated serial sequence entry, reusing existing LifecycleAdapter/SerialDeviceTransport and offline artifacts. Prove a complete caller-table -> passive plans -> installed sequence path using only owned POSIX PTYs/native sketch, with distinct plans, full preflight before first render, Stop/refusal/unknown preventing later sends, source/provenance and consumed-ID/report-collision guards. Keep software CLI compatible, no port discovery, auto-retry/reconnect, implicit arming or physical commands. Do not actually open a physical port or flash; source/SDK and owned-PTY software evidence only. Physical dry-load board/BOM/binary/reset/gate/current record remains NOT RUN; third-party adoption unobserved. Keep format/data interoperability, SDK/device integration, hardware and adoption axes distinct."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-24T06:00",
   "last_completed_slot": "2026-11-23T18:00"
 }
