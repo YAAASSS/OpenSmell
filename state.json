@@ -8,10 +8,12 @@
     "expires_at": "2026-11-24T09:04:49.653Z"
   },
   "open_work": {
-    "branch": "feat/serial-sequence-20261124",
-    "commit": "7a9eb87218fa5c137c7c410f911080bfa40e0213",
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/44",
-    "resume_action": "Final7a9eb87 includes extracted-kit guide, two extra checkpoint tests and preserved software snapshot. Local full2455passed119.49s before2newtests; final targeted66passed2.75s. Installed wheel proof8cases across LED/dry plus invalid-last/noIO, late-livecaps/noRender, wrongIdentity, collision guards pass. Await exact-head standard/Linux/Windows existing CI, review and merge, verify main, save Work. No physical serial/GPIO/flash."
+    "branch": "fix/sequence-checkpoints-20261124",
+    "commit": "64833034723f3a27757e4a6232c538483db3dfd4",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/45",
+    "feature_pr": "https://github.com/YAAASSS/OpenSmell/pull/44",
+    "merged_feature_main": "f1b73034591c1654b6611db0cb9cc348e90b28d0",
+    "resume_action": "Feature#44 merged and post-main installed8cases/guards pass. Finish docs-only checkpoint ownership clarification after standard CI; runtime files unchanged. Merge docs PR, verify main, complete Work and release. No hardware."
   },
   "last_result": {
     "session_kind": "scheduled",
