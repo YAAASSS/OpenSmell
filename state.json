@@ -9,9 +9,9 @@
   },
   "open_work": {
     "branch": "feat/serial-sequence-20261124",
-    "commit": "ebe34ec9818a67bb03dc880dda47a2413ffa4ed7",
+    "commit": "7a9eb87218fa5c137c7c410f911080bfa40e0213",
     "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/44",
-    "resume_action": "Complete installed CSV->plans->owned PTY/native sequence proof and full suite; review shared-core compatibility/uncertainty/checkpoint cleanup, follow exact-head existing CI, merge if green and permitted, verify main and save Work. No physical port or flash."
+    "resume_action": "Final7a9eb87 includes extracted-kit guide, two extra checkpoint tests and preserved software snapshot. Local full2455passed119.49s before2newtests; final targeted66passed2.75s. Installed wheel proof8cases across LED/dry plus invalid-last/noIO, late-livecaps/noRender, wrongIdentity, collision guards pass. Await exact-head standard/Linux/Windows existing CI, review and merge, verify main, save Work. No physical serial/GPIO/flash."
   },
   "last_result": {
     "session_kind": "scheduled",
