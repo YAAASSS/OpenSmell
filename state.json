@@ -1,119 +1,55 @@
 {
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-24",
-  "last_processed_main_sha": "8a8c674cca84a219d41696f6486079d84bdbe339",
-  "lease": {
-    "owner": "experiment-run-1795539685579-so0gjvgs5lk",
-    "acquired_at": "2026-11-24T17:13:41.027Z",
-    "expires_at": "2026-11-24T21:13:41.027Z"
-  },
-  "open_work": {
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/46",
-    "merged_main": "c559144817abd9e5c6b1464d1351b946a9bf9dbe",
-    "resume_action": "Coordination recovery only: no-op missing helpers meant original lease writes never ran. Feature already merged and verified. Save explicit incident in handoff/state and release after ownership confirmation. No more project writes."
-  },
+  "last_processed_main_sha": "c559144817abd9e5c6b1464d1351b946a9bf9dbe",
+  "lease": null,
+  "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
-    "slot": "2026-11-24T06:00",
-    "completed_at": "2026-11-24T05:33:33.091Z",
-    "objective": "Installed transport-neutral SDK and explicit manual serial sequence with complete caller-table to native-sketch owned-PTY evidence",
-    "commit": "8a8c674cca84a219d41696f6486079d84bdbe339",
-    "tested_commit": "7a9eb87218fa5c137c7c410f911080bfa40e0213",
-    "tested_tree": "4ac728d8519bb28823bbd2ba70239aad2e883c0f",
+    "slot": "2026-11-24T18:00",
+    "completed_at": "2026-11-24T17:14:34.272Z",
+    "objective": "Installed prepared experiment dossier execution: verified retained CSV/source/profile bindings, caller-ordered trials, separately chosen transport and trial-linked receipts",
+    "commit": "c559144817abd9e5c6b1464d1351b946a9bf9dbe",
+    "tested_commit": "9d85f50ef6a59f3467f34bc45d947cb892b569bb",
+    "tested_tree": "f2d79d8d2af9bc0d71ee4a75e662b3c1534ca5a7",
     "merged": true,
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/44",
-    "documentation_pull_request": "https://github.com/YAAASSS/OpenSmell/pull/45",
-    "documentation_tested_commit": "64833034723f3a27757e4a6232c538483db3dfd4",
-    "final_tree": "87c37f621db8fa19cafd6376908d4063d42d7bb5",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/46",
     "checks": {
-      "python_full_local": 2455,
-      "python_full_local_seconds": 119.49,
-      "python_full_local_scope": "Before final two checkpoint tests; final targeted suite includes them. Counts overlap.",
-      "focused": 66,
-      "focused_seconds": 2.75,
-      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/45332171821",
-      "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/45332177629",
-      "documentation_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/45333616006",
-      "ci_python312": "2451 passed,6 skipped,96.96s; dedicated RDKit/LSL and clean offline kit pass",
-      "ci_result": "All exact feature-head checks and all16 exact documentation-head push/PR checks successful; no required reviews/rules or unresolved comments.",
-      "installed_cases": 8,
-      "installed_scope": "Fresh venv/wheel outside checkout; caller CSV with distinct durations, retained passive plans after originals removed; actual compiled native LED lifecycle and dry-load through owned POSIX PTYs. Complete,Stop-first,second-lost,second-refused for each sketch; no physical port.",
-      "guards": "Invalid last input no IO, incompatible late live caps no render, wrong identity no render; report collisions preserved without new traffic; source snapshots retained.",
-      "firmware": "3 ESP32 targets compiled in existing CI; Linux and actual Windows kit paths retained.",
-      "proof_artifact": 14892412710,
-      "proof_artifact_digest": "sha256:d70d7143a21c36651838bdee4e1b1326d436d873df7f183d72405fcadd131439",
-      "post_merge": "Rebuilt wheel from #44 merged main f1b73034591c1654b6611db0cb9cc348e90b28d0 and repeated installed8cases/guards successfully. Final #45 delta only docs/transport-sequences.md; runtime, firmware and proof files unchanged. Final main tree equals exact docs-tested tree.",
+      "focused": 50,
+      "focused_seconds": 1.58,
+      "python_full_local": 2473,
+      "python_full_local_seconds": 106.89,
+      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/45445134390",
+      "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/45445134539",
+      "ci_result": "All20 exact-head push/PR checks success; Python3.10-3.13, dedicated RDKit/LSL, clean offline kit, Linux native/ESP32 and existing actual Windows kit proof pass",
+      "ci_python312": "2467passed,6skipped,106.63s",
+      "installed": "Fresh venv/wheel outside checkout with inherited build deps. Normal prepare-experiment CLI, relocated dossier, originals removed, installed run-experiment CLI through explicit verifier fault wrapper to actual native lifecycle LED sketch with --realtime. Three distinct durations and trial IDs; completion, Stop-first,second lost,second injected refusal all pass. All output collisions no new process traffic; hash-consistent corrupted last binding refuses before process.",
+      "post_merge": "Fetched actual main, tree matches exact tested tree. Rebuilt main wheel, fresh venv outside checkout, all4 installed native cases and guards pass again.",
+      "artifact": 14944148744,
+      "artifact_digest": "sha256:f5ab45f7d1f1748d70d1e7578ca2facdfb9f66de7794b810c686e9f6c8b173b4",
       "physical_access": false
     },
     "limitations": [
-      "Owned POSIX PTY/native software evidence only, no physical serial/GPIO/flash or electrical/olfactory observation. Windows existing CI does not prove physical COM use.",
-      "Second refusal is explicitly injected software fault; downstream native ledger is distinct from client receipt. A lost reply remains unknown for client even if harness saw acceptance.",
-      "Stop cooperative, cannot preempt blocked exchange; Ctrl-C closes with uncertainty, no emergency stop or crash-safe retry/resume guarantee.",
-      "SDK report memory-only without on_progress; CLI writer flushes, no fsync/crash durability promise. Callback failure closes and retains uncertainty.",
-      "No new automation, release/tag/registry publication, expense, hardware order or physical diffusion; human dry-load evidence and independent adoption remain unobserved."
+      "Software/native evidence only; no actual physical serial/GPIO/flash, electrical measurement or olfactory outcome. Human dry-load board gate and outside adoption remain unobserved.",
+      "Extra passive manifest/top-level plan data and retained exact sources preserved; required bindings compared to current0.1 compiler. Consistency, not authentication or scientific validity; no silent migration.",
+      "Trusted executable array not sandboxed; no executable/port selected by dossier. SDK callback persistence optional; CLI flush not fsync/crash recovery. Invalid dossier may leave exclusively created empty report. No retry, reconnect or scheduler.",
+      "First verifier attempts corrected extra newline and missing explicit native realtime clock; final4 scenarios and exact CI proof pass. No runtime contract weakening.",
+      "No new workflow/automation, paid service, expense, hardware order, physical diffusion, media generation, release/tag or registry publication.",
+      "Initial coordination lease was not acquired: missing cross-run helper evaluation silently did nothing. Explicit recovery lease later acquired/confirmed and incident recorded; initial protocol deviation cannot be retroactively corrected. No concurrent change detected."
     ],
-    "handoff_library_file_id": "libfile_fde3_f-b257b8d2f34881919471c28841c8a859_44ff1f20787081919dd91de18843de02",
-    "lease_acquired_at": "2026-11-24T05:04:49.653Z",
-    "elapsed_under_lease_minutes": 29,
-    "platform_blocker": null
+    "handoff_library_file_id": "libfile_fde3_f-04b13eeb48408191961e39e6f6d08553_44ff1f20787081919dd91de18843de02",
+    "lease_acquired_at": null,
+    "platform_blocker": null,
+    "coordination_incident": {
+      "initial_lease_acquired": false,
+      "reason": "Missing cross-run helper strings were indirectly evaluated as undefined/no-op. No initial control writes happened. Discovered at final remote confirmation.",
+      "recovery_lease_acquired_at": "2026-11-24T17:13:41.027Z",
+      "recovery_owner": "experiment-run-1795539685579-so0gjvgs5lk",
+      "remote_state_before_recovery": "34e46c962baab3743f916d9984312019145e63a2, morning slot, lease=null/open_work=null; no concurrent main change detected",
+      "corrective_action": "Rebuilt helper strings, actual state-only child commit/CAS acquisition and remote owner confirmation; accurate handoff/state, then release. Never assume cross-run stores; assert helper presence and confirm actual remote ownership."
+    }
   },
   "recent_sessions": [
-    {
-      "session_kind": "scheduled",
-      "slot": "2026-11-21T06:00",
-      "completed_at": "2026-11-21T05:11:59.998Z",
-      "objective": "Optional real Lab Streaming Layer bridge from installed SDK trial snapshots to separate independent receiver",
-      "commit": "f9a0d6c7b9671dfacdcae3f77f36b4b66a87e917",
-      "tested_commit": "dc53bf30adbf0e99d3e6203d60dbe6deced00394",
-      "tested_tree": "ee932c3806fa739a347a2b5658478ec95efd5437",
-      "merged": true,
-      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/38",
-      "checks": {
-        "python_full_local": 2395,
-        "python_full_local_seconds": 103.42,
-        "targeted": 6,
-        "actual_lsl_scenarios": 6,
-        "actual_lsl_proof": "New venv outside checkout, installed SDK wheel/import location verified, explicitly supplied local pylsl1.18.7/NumPy2.2.6 wheels, copied bridge and pylsl-only receiver with no OpenSmell imports. Actual independent inlet/outlet processes compare every marker/raw timestamp. Two caller IDs complete on Python/Node; Stop on both references leaves second unattempted; refusal/unknown preserved. Marker counts12/12/7/7/6/6.",
-        "no_consumer_no_child": true,
-        "collision_no_child": true,
-        "optional_runtime": {
-          "pylsl": "1.18.7",
-          "numpy": "2.2.6",
-          "liblsl": "git:a497f3c36d6cc0938fc46a850b17a82c478b20bc/branch:refs/tags/v1.18.0.b7/build:Release/compiler:GNU-11.4.0/link:SHARED"
-        },
-        "kit": "Fresh extracted kit existing paths passed with optional scripts/docs included; default/offline dependencies unchanged.",
-        "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44869302495",
-        "ci_result": "success",
-        "ci_exact_head": "dc53bf30adbf0e99d3e6203d60dbe6deced00394",
-        "ci_python_versions": [
-          "3.10",
-          "3.11",
-          "3.12",
-          "3.13"
-        ],
-        "ci_python312": "2389passed,6skipped without optional RDKit; scientific optional job passed",
-        "optional_lsl_ci": "success; real receiver6scenarios plus no-consumer/collision gates",
-        "proof_artifact": 14693356226,
-        "proof_artifact_digest": "sha256:c80a7f418cf0fd24bbb14d2e6b366b1829ad07f03858d9c96d51888ec6e8054c",
-        "normal_kit_artifact": 14692909341,
-        "offline_kit_artifact": 14692854576,
-        "main_tree_matches_tested": true,
-        "post_merge": "Fetched main,6targeted tests passed0.08s; rebuilt wheel and repeated actual installed LSL6scenarios and guards successfully.",
-        "physical_access": false,
-        "firmware": "Not modified or compiled in this slice; prior hardware evidence not upgraded."
-      },
-      "limitations": [
-        "LSL marker clocks are software callback timestamps, not physical onset, accuracy/latency guarantee or independent acquisition compatibility. Publisher push/consumer connection is not receiver acknowledgement; proof compares actual received files.",
-        "Machine-scope discovery is configured but is not authentication/security isolation or proof of loopback-only sockets. Explicit source IDs/commands; trusted child not sandboxed; no physical commands.",
-        "Unknown includes pre-send intent and subsequent uncertain replies. Correlated SDK receipts retained; duplicate snapshots suppressed; marker callback failure aborts later sends. No retry/reconnect/replay. Partial files do not establish success.",
-        "Optional pinned LSL runtime verified on Linuxx86_64 CPython3.12 with bundled liblsl identity recorded. Local build environment dependencies inherited; no clean scientific/offline-LSL closure claim. Offline default kit remains separate and lacks optional LSL dependencies.",
-        "Repository-run external library receiver is not third-party adoption. Human new-firmware physical bench remains NOT RUN. No hardware/serial/GPIO/flash/diffusion, tag/release/registry upload, paid service or extra automation."
-      ],
-      "handoff_library_file_id": "libfile_fde3_f-e04f6ada73308191974c82c1205aec16_44ff1f20787081919dd91de18843de02",
-      "lease_acquired_at": "2026-11-21T05:00:26.496Z",
-      "elapsed_under_lease_minutes": 12,
-      "platform_blocker": null
-    },
     {
       "session_kind": "scheduled",
       "slot": "2026-11-21T18:00",
@@ -423,9 +359,54 @@
       "lease_acquired_at": "2026-11-24T05:04:49.653Z",
       "elapsed_under_lease_minutes": 29,
       "platform_blocker": null
+    },
+    {
+      "session_kind": "scheduled",
+      "slot": "2026-11-24T18:00",
+      "completed_at": "2026-11-24T17:14:34.272Z",
+      "objective": "Installed prepared experiment dossier execution: verified retained CSV/source/profile bindings, caller-ordered trials, separately chosen transport and trial-linked receipts",
+      "commit": "c559144817abd9e5c6b1464d1351b946a9bf9dbe",
+      "tested_commit": "9d85f50ef6a59f3467f34bc45d947cb892b569bb",
+      "tested_tree": "f2d79d8d2af9bc0d71ee4a75e662b3c1534ca5a7",
+      "merged": true,
+      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/46",
+      "checks": {
+        "focused": 50,
+        "focused_seconds": 1.58,
+        "python_full_local": 2473,
+        "python_full_local_seconds": 106.89,
+        "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/45445134390",
+        "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/45445134539",
+        "ci_result": "All20 exact-head push/PR checks success; Python3.10-3.13, dedicated RDKit/LSL, clean offline kit, Linux native/ESP32 and existing actual Windows kit proof pass",
+        "ci_python312": "2467passed,6skipped,106.63s",
+        "installed": "Fresh venv/wheel outside checkout with inherited build deps. Normal prepare-experiment CLI, relocated dossier, originals removed, installed run-experiment CLI through explicit verifier fault wrapper to actual native lifecycle LED sketch with --realtime. Three distinct durations and trial IDs; completion, Stop-first,second lost,second injected refusal all pass. All output collisions no new process traffic; hash-consistent corrupted last binding refuses before process.",
+        "post_merge": "Fetched actual main, tree matches exact tested tree. Rebuilt main wheel, fresh venv outside checkout, all4 installed native cases and guards pass again.",
+        "artifact": 14944148744,
+        "artifact_digest": "sha256:f5ab45f7d1f1748d70d1e7578ca2facdfb9f66de7794b810c686e9f6c8b173b4",
+        "physical_access": false
+      },
+      "limitations": [
+        "Software/native evidence only; no actual physical serial/GPIO/flash, electrical measurement or olfactory outcome. Human dry-load board gate and outside adoption remain unobserved.",
+        "Extra passive manifest/top-level plan data and retained exact sources preserved; required bindings compared to current0.1 compiler. Consistency, not authentication or scientific validity; no silent migration.",
+        "Trusted executable array not sandboxed; no executable/port selected by dossier. SDK callback persistence optional; CLI flush not fsync/crash recovery. Invalid dossier may leave exclusively created empty report. No retry, reconnect or scheduler.",
+        "First verifier attempts corrected extra newline and missing explicit native realtime clock; final4 scenarios and exact CI proof pass. No runtime contract weakening.",
+        "No new workflow/automation, paid service, expense, hardware order, physical diffusion, media generation, release/tag or registry publication.",
+        "Initial coordination lease was not acquired: missing cross-run helper evaluation silently did nothing. Explicit recovery lease later acquired/confirmed and incident recorded; initial protocol deviation cannot be retroactively corrected. No concurrent change detected."
+      ],
+      "handoff_library_file_id": "libfile_fde3_f-04b13eeb48408191961e39e6f6d08553_44ff1f20787081919dd91de18843de02",
+      "lease_acquired_at": null,
+      "platform_blocker": null,
+      "coordination_incident": {
+        "initial_lease_acquired": false,
+        "reason": "Missing cross-run helper strings were indirectly evaluated as undefined/no-op. No initial control writes happened. Discovered at final remote confirmation.",
+        "recovery_lease_acquired_at": "2026-11-24T17:13:41.027Z",
+        "recovery_owner": "experiment-run-1795539685579-so0gjvgs5lk",
+        "remote_state_before_recovery": "34e46c962baab3743f916d9984312019145e63a2, morning slot, lease=null/open_work=null; no concurrent main change detected",
+        "corrective_action": "Rebuilt helper strings, actual state-only child commit/CAS acquisition and remote owner confirmation; accurate handoff/state, then release. Never assume cross-run stores; assert helper presence and confirm actual remote ownership."
+      }
     }
   ],
-  "next_objective": "The transport-neutral SDK and explicit manual serial sequence first slice (#44) is delivered and closed; #45 clarifies checkpoint ownership. Next useful SDK/data integration: one explicitly selected prepared-experiment dossier execution entry, without manually listing numbered plans. Validate retained manifest/CSV/source/profile bindings, hashes, declared caller order and distinct trial IDs and all plan bounds before invoking a trusted transport factory. Preserve exact unknown/passive data, provenance and prior receipts. Transport is chosen outside data, never port/executable from manifest and no autorun on import. Prove relocated dossier after originals removed, ordered distinct receipts, Stop/second refusal/unknown halting later steps, late corrupted input and output collision before connection. Reuse bounded core and existing SDK/CLI lifecycle; no automatic retry/reconnect or diagnostic catalog. Physical dry-load board/BOM/binary/reset/gate/current measurements remain human NOT RUN, independent adoption unobserved. Keep SDK/format, data/interop, hardware and adoption as the active whole-project milestone.",
+  "next_objective": "Close #46 first installed prepared dossier execution path after exact-head CI/main proof. Next concrete data/SDK milestone: an installed passive analysis entry joining caller-supplied experimental observations to retained execution receipts by explicit trial_id. Inspect observation_table/perceptual measurement contracts and dossier report before choosing the slice; preserve exact input bytes, unknown data, units/provenance and distinguish endpoint receipt from human observation and measured olfactory outcome. No fabricated observations or automatic third-party contact. Prove a relocated dossier/report plus explicit supplied observation data outside checkout, ordered joined rows and clear unmatched/incomplete/unknown cases without executing anything. Avoid scheduler/retry/reconnect/diagnostic catalog expansion. Physical dry-load board/BOM/binary/reset/gate/current evidence remains human NOT RUN; third-party adoption unobserved. SDK/format, data/interop, hardware and adoption remain the whole-project milestone.",
   "automation": {
     "id": "39cc72697e048191a1ba0d3e3e9d787c",
     "title": "OpenSmell — développement autonome quotidien",
@@ -442,9 +423,9 @@
   },
   "active_product_milestone": {
     "goal": "Installable OpenSmell developer kit spanning data, SDK, device integration and reproducible hardware bench",
-    "delivered": "Installed data/SDK/interop/starter, Linux/Windows extracted actual-sketch native kits (#42/#43), and reusable transport-neutral plus explicit manual serial bounded sequence (#44/#45) proven via installed wheel/native-owned PTYs. Human electrical evidence and external adoption remain unobserved.",
-    "next": "The transport-neutral SDK and explicit manual serial sequence first slice (#44) is delivered and closed; #45 clarifies checkpoint ownership. Next useful SDK/data integration: one explicitly selected prepared-experiment dossier execution entry, without manually listing numbered plans. Validate retained manifest/CSV/source/profile bindings, hashes, declared caller order and distinct trial IDs and all plan bounds before invoking a trusted transport factory. Preserve exact unknown/passive data, provenance and prior receipts. Transport is chosen outside data, never port/executable from manifest and no autorun on import. Prove relocated dossier after originals removed, ordered distinct receipts, Stop/second refusal/unknown halting later steps, late corrupted input and output collision before connection. Reuse bounded core and existing SDK/CLI lifecycle; no automatic retry/reconnect or diagnostic catalog. Physical dry-load board/BOM/binary/reset/gate/current measurements remain human NOT RUN, independent adoption unobserved. Keep SDK/format, data/interop, hardware and adoption as the active whole-project milestone."
+    "delivered": "Installable data/SDK/interop/starter, actual Linux/Windows native source kits, reusable/manual serial sequences (#44/#45), and verified relocated prepared-dossier execution with trial-linked receipts (#46) delivered. Human electrical evidence and independent adoption unobserved.",
+    "next": "Close #46 first installed prepared dossier execution path after exact-head CI/main proof. Next concrete data/SDK milestone: an installed passive analysis entry joining caller-supplied experimental observations to retained execution receipts by explicit trial_id. Inspect observation_table/perceptual measurement contracts and dossier report before choosing the slice; preserve exact input bytes, unknown data, units/provenance and distinguish endpoint receipt from human observation and measured olfactory outcome. No fabricated observations or automatic third-party contact. Prove a relocated dossier/report plus explicit supplied observation data outside checkout, ordered joined rows and clear unmatched/incomplete/unknown cases without executing anything. Avoid scheduler/retry/reconnect/diagnostic catalog expansion. Physical dry-load board/BOM/binary/reset/gate/current evidence remains human NOT RUN; third-party adoption unobserved. SDK/format, data/interop, hardware and adoption remain the whole-project milestone."
   },
-  "session_slot": "2026-11-24T18:00",
-  "last_completed_slot": "2026-11-24T06:00"
+  "session_slot": null,
+  "last_completed_slot": "2026-11-24T18:00"
 }
