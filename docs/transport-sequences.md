@@ -40,8 +40,10 @@ through normal frame validation, not a new permissive parser.
 
 A sequence advances only on correlated `completed`. Stop, refusal or unknown
 halts later sends and retains earlier receipts. IDs are consumed within one fresh
-exclusive session, not durable reconciliation across restarts. A checkpoint is
-written before possible acceptance. Callback/storage failure closes the session
+exclusive session, not durable reconciliation across restarts. The SDK publishes progress before possible acceptance; without `on_progress`,
+its report is memory-only. The CLI supplies a writer and flushes checkpoints.
+Applications supply their own persistence callback; no crash-safe durability is
+implied by a callback or flush. Callback/storage failure closes the session
 and never permits later renders. Partial output is not success. No retry,
 reconnect, discovery or automatic resume is supplied.
 
