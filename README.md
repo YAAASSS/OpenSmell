@@ -1646,6 +1646,11 @@ The active direction covers the installed SDK/CLI, interoperable data, reusable
 adapters and a reproducible ESP32 bench. Local Explorer remains a demo client.
 See [the deliverables and exit criteria](docs/development-status.md#active-direction--developer-kit-and-concrete-prototype-2026-11-10).
 
+The [transport-neutral sequence SDK](docs/transport-sequences.md) runs explicit
+offline plans with a caller-owned transport factory. Its installed manual serial
+entry reuses the same bounded lifecycle runner; software/owned-PTY proofs are
+separate from physical validation.
+
 The optional [native source kit](examples/developer_kit/NATIVE_BENCH.md) can
 compile the actual dry-load sketch from an extracted archive using a supplied
 local C++ compiler, then use the installed SDK. Pinned dependency headers/license

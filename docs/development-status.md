@@ -5,6 +5,21 @@ The broader roadmap remains in the [README](../README.md#roadmap).
 Operational checkpoints and the short session log live in `state.json` on the
 `automation/control` branch; follow its pending PR before starting new work.
 
+## Reusable transport sequences — 2026-11-24
+
+The first Windows kit path (#43) is delivered. The next SDK integration gap is
+[transport-neutral bounded sequences](transport-sequences.md), with a lazy
+caller-supplied transport and an explicit installed manual serial entry. Existing
+software command/report behavior remains compatible. No Explorer dependency or
+new wire contract; source/provenance and all preflight bounds are retained.
+
+Exit: installed caller CSV -> passive plans -> owned PTY -> actual native sketch
+with distinct durations, completion, Stop, second refusal/lost reply halting later
+steps, invalid last input/no connection, late live caps/no render and report
+collision protection. No physical serial/GPIO/flash; human board measurements
+remain NOT RUN. Close this first reusable/manual sequence path after CI, without
+automatic scheduler or reconnect extensions.
+
 ## First Windows extracted native path — 2026-11-23 evening
 
 The Linux native source kit (#42) is delivered. The next first usable platform
