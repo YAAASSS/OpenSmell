@@ -2,8 +2,16 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-24",
   "last_processed_main_sha": "8a8c674cca84a219d41696f6486079d84bdbe339",
-  "lease": null,
-  "open_work": null,
+  "lease": {
+    "owner": "experiment-run-1795539685579-so0gjvgs5lk",
+    "acquired_at": "2026-11-24T17:13:41.027Z",
+    "expires_at": "2026-11-24T21:13:41.027Z"
+  },
+  "open_work": {
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/46",
+    "merged_main": "c559144817abd9e5c6b1464d1351b946a9bf9dbe",
+    "resume_action": "Coordination recovery only: no-op missing helpers meant original lease writes never ran. Feature already merged and verified. Save explicit incident in handoff/state and release after ownership confirmation. No more project writes."
+  },
   "last_result": {
     "session_kind": "scheduled",
     "slot": "2026-11-24T06:00",
@@ -437,6 +445,6 @@
     "delivered": "Installed data/SDK/interop/starter, Linux/Windows extracted actual-sketch native kits (#42/#43), and reusable transport-neutral plus explicit manual serial bounded sequence (#44/#45) proven via installed wheel/native-owned PTYs. Human electrical evidence and external adoption remain unobserved.",
     "next": "The transport-neutral SDK and explicit manual serial sequence first slice (#44) is delivered and closed; #45 clarifies checkpoint ownership. Next useful SDK/data integration: one explicitly selected prepared-experiment dossier execution entry, without manually listing numbered plans. Validate retained manifest/CSV/source/profile bindings, hashes, declared caller order and distinct trial IDs and all plan bounds before invoking a trusted transport factory. Preserve exact unknown/passive data, provenance and prior receipts. Transport is chosen outside data, never port/executable from manifest and no autorun on import. Prove relocated dossier after originals removed, ordered distinct receipts, Stop/second refusal/unknown halting later steps, late corrupted input and output collision before connection. Reuse bounded core and existing SDK/CLI lifecycle; no automatic retry/reconnect or diagnostic catalog. Physical dry-load board/BOM/binary/reset/gate/current measurements remain human NOT RUN, independent adoption unobserved. Keep SDK/format, data/interop, hardware and adoption as the active whole-project milestone."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-24T18:00",
   "last_completed_slot": "2026-11-24T06:00"
 }
