@@ -1,4 +1,4 @@
-"""Explicit semantic Core selection to an ordinary experimental offline plan.
+"""Explicit semantic or perceptual Core selection to an ordinary experimental offline plan.
 
 No chemical representation required; no new Core or device wire contract.
 """
@@ -20,7 +20,7 @@ MAX_CORE_BYTES = 4 * 1048576
 
 
 def project_core_selection(raw, representation_index):
-    """Project exactly one selected known semantic representation, retaining all bytes."""
+    """Project exactly one selected supported representation, retaining all bytes."""
     if not isinstance(raw, bytes) or len(raw) > MAX_CORE_BYTES:
         raise ValueError('Core bytes required; at most 4 MiB')
     document = decode_bytes(raw)
@@ -31,6 +31,9 @@ def project_core_selection(raw, representation_index):
     if type(representation_index) is not int or not 0 <= representation_index < len(representations):
         raise ValueError('Explicit zero-based representation index required and must exist')
     selected = representations[representation_index]
+    if selected['type'] == 'perceptual':
+        from .core_perceptual import project_perceptual_selection
+        return project_perceptual_selection(raw, document, representation_index)
     scheme = selected['scheme']
     if (selected['type'] != 'semantic' or scheme['id'] != 'org.opensmell.semantic.annotations'
             or scheme['version'] != '0.1'):
@@ -58,11 +61,15 @@ def validate_core_projection(document):
     Other generic graphs are unchanged. Integrity is not source authentication;
     removing this application convention does not authenticate a different graph.
     """
-    if SELECTION_KEY not in document:
+    from .core_perceptual import SELECTION_KEY as PERCEPTUAL_KEY
+    keys = [key for key in (SELECTION_KEY, PERCEPTUAL_KEY) if key in document]
+    if not keys:
         return
-    selection = document[SELECTION_KEY]
+    if len(keys) != 1:
+        raise ValueError('Ambiguous Core selection projection')
+    selection = document[keys[0]]
     if not isinstance(selection, dict) or selection.get('version') != '0.1':
-        raise ValueError('Unsupported Core semantic selection projection')
+        raise ValueError('Unsupported Core selection projection')
     snapshot = selection.get('source')
     if not isinstance(snapshot, dict) or snapshot.get('encoding') != 'base64':
         raise ValueError('Missing exact Core source snapshot')
@@ -84,19 +91,21 @@ def plan_core_bytes(raw, profile_raw, *, representation_index, duration):
         raise ValueError('Profile bytes required; at most 1 MiB')
     projection, subject = project_core_selection(raw, representation_index)
     profile = decode_bytes(profile_raw)
-    if not isinstance(profile, dict) or profile.get('mapper') != 'semantic':
-        raise ValueError('Selected Core semantic representation requires an explicit semantic mapping profile')
+    from .core_perceptual import SELECTION_KEY as PERCEPTUAL_KEY
+    kind = 'perceptual' if PERCEPTUAL_KEY in projection else 'semantic'
+    if not isinstance(profile, dict) or profile.get('mapper') != kind:
+        raise ValueError('Selected Core ' + kind + ' representation requires an explicit ' + kind + ' mapping profile')
     graph = generic_graph_from_dict(projection, registry=interchange_registry())
     request = RenderRequest(subject, duration)
     plan = plan_with_profile(graph, request, profile)
     encoded_projection = json.dumps(projection,sort_keys=True,allow_nan=False).encode()
     artifact = {'format':'org.opensmell.experimental.offline-plan','version':'0.1','status':'planned',
                 'execution':'not_attempted','capability_basis':'supplied_profile_not_live_device',
-                'source':{'input':'explicit Core semantic projection','sha256':hashlib.sha256(encoded_projection).hexdigest(),
+                'source':{'input':'explicit Core ' + kind + ' projection','sha256':hashlib.sha256(encoded_projection).hexdigest(),
                           'document':projection},
                 'profile':{'input':'supplied profile','sha256':hashlib.sha256(profile_raw).hexdigest(),'document':profile},
                 'request':asdict(request),'plan':asdict(plan),
-                'limitations':['Only the explicitly selected Core semantic annotations0.1 are interpreted.',
+                'limitations':[('Only the explicitly selected Core semantic annotations0.1 are interpreted.' if kind == 'semantic' else 'Only selected experimental Core perceptual measurements0.1 are mapped under explicit unit/scale/normalization policy.'),
                                'Exact Core bytes retain all other representations and provenance; no chemical identity is inferred.',
                                'Application mapping and supplied capabilities; no command, acceptance, execution or odor result.',
                                'Projection is an experimental application convention; hashes are not signatures.']}

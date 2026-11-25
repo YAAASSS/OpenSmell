@@ -1,4 +1,7 @@
-# Explicit Core semantic planning (experimental)
+# Explicit Core planning (experimental)
+
+The semantic path below remains compatible. For the opt-in quantitative path,
+see [Core perceptual planning and explicit unit/scale policy](core-perceptual-planning.md).
 
 `opensmell plan-core` plans **one explicitly selected semantic representation**
 from a Core0.1 `.osmell` file with an application-owned mapping/capability profile.
@@ -35,7 +38,7 @@ selection is supplied. Use your own Core/profile paths outside the checkout;
 stdin `-` is supported for Core input. `--output` exclusively creates a new file;
 stdout is available when it is omitted. Exit0 planned,1 invalid/refused,2 file error.
 
-The first slice accepts only `type:semantic`,
+The original semantic slice accepts only `type:semantic`,
 `org.opensmell.semantic.annotations` version0.1, with an explicit `mapper:semantic`
 profile. Known scheme data must validate. A selected unknown scheme/type/version,
 invalid index, unmapped annotation set, incompatible supplied capabilities or

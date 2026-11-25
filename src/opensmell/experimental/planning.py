@@ -29,6 +29,8 @@ def plan_with_profile(
     mappers. No channel meaning or physical effect is inferred from input data.
     See Draft RFC-0015 for this experimental configuration envelope.
     """
+    if not isinstance(graph, GenericResourceGraph):
+        raise TypeError("graph must be a GenericResourceGraph")
     if not isinstance(profile, dict):
         raise TypeError("mapping profile must be an object")
     if profile.get("format") != MAPPING_PROFILE_FORMAT or profile.get("version") != "0.1":
@@ -48,7 +50,11 @@ def plan_with_profile(
     require_support = getattr(mapper, "require_support", None)
     if require_support is not None:
         require_support(capabilities)
-    plan = mapper.map(graph, request)
+    from .core_perceptual import SELECTION_KEY as CORE_PERCEPTUAL_KEY, map_core_perceptual
+    if CORE_PERCEPTUAL_KEY in graph.extra:
+        plan = map_core_perceptual(graph, request, profile, mapper)
+    else:
+        plan = mapper.map(graph, request)
     capabilities.require_plan(plan)
     if not plan.commands:
         raise ValueError("mapping produced no commands; check the selected resource and bindings")
