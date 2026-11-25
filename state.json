@@ -2,8 +2,15 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-24",
   "last_processed_main_sha": "c559144817abd9e5c6b1464d1351b946a9bf9dbe",
-  "lease": null,
-  "open_work": null,
+  "lease": {
+    "owner": "trial-observations-20261125-1795582915345-g2taflcurhv",
+    "acquired_at": "2026-11-25T05:01:55.346Z",
+    "expires_at": "2026-11-25T09:01:55.346Z"
+  },
+  "open_work": {
+    "branch": "feat/trial-observations-20261125",
+    "resume_action": "Implement passive installed trial-observation join after inspecting current measurement/receipt contracts."
+  },
   "last_result": {
     "session_kind": "scheduled",
     "slot": "2026-11-24T18:00",
@@ -426,6 +433,6 @@
     "delivered": "Installable data/SDK/interop/starter, actual Linux/Windows native source kits, reusable/manual serial sequences (#44/#45), and verified relocated prepared-dossier execution with trial-linked receipts (#46) delivered. Human electrical evidence and independent adoption unobserved.",
     "next": "Close #46 first installed prepared dossier execution path after exact-head CI/main proof. Next concrete data/SDK milestone: an installed passive analysis entry joining caller-supplied experimental observations to retained execution receipts by explicit trial_id. Inspect observation_table/perceptual measurement contracts and dossier report before choosing the slice; preserve exact input bytes, unknown data, units/provenance and distinguish endpoint receipt from human observation and measured olfactory outcome. No fabricated observations or automatic third-party contact. Prove a relocated dossier/report plus explicit supplied observation data outside checkout, ordered joined rows and clear unmatched/incomplete/unknown cases without executing anything. Avoid scheduler/retry/reconnect/diagnostic catalog expansion. Physical dry-load board/BOM/binary/reset/gate/current evidence remains human NOT RUN; third-party adoption unobserved. SDK/format, data/interop, hardware and adoption remain the whole-project milestone."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-25T06:00",
   "last_completed_slot": "2026-11-24T18:00"
 }
