@@ -1,0 +1,122 @@
+{
+  "opensmell": "0.1",
+  "odor": {
+    "id": "urn:opensmell:synthetic:core-perceptual",
+    "representations": [
+      {
+        "type": "perceptual",
+        "scheme": {
+          "id": "org.opensmell.perceptual.measurements",
+          "version": "0.1",
+          "caller_extension": "retained"
+        },
+        "data": {
+          "measurements": [
+            {
+              "property": "flower",
+              "value": 2.5,
+              "scale": {
+                "min": 0,
+                "max": 10
+              },
+              "unit": "rating",
+              "future": {
+                "opaque": [
+                  null,
+                  36893488147419103232
+                ]
+              }
+            },
+            {
+              "property": "grass",
+              "value": 0,
+              "scale": {
+                "min": -1,
+                "max": 1
+              },
+              "unit": null
+            },
+            {
+              "property": "wood",
+              "value": 100,
+              "scale": {
+                "min": 0,
+                "max": 100
+              }
+            }
+          ]
+        },
+        "provenance": {
+          "source": "Declared synthetic Core example; no measured participant/device outcome"
+        }
+      },
+      {
+        "type": "perceptual",
+        "scheme": {
+          "id": "org.opensmell.perceptual.measurements",
+          "version": "0.1",
+          "caller_extension": "retained"
+        },
+        "data": {
+          "measurements": [
+            {
+              "property": "flower",
+              "value": 7.5,
+              "scale": {
+                "min": 0,
+                "max": 10
+              },
+              "unit": "rating",
+              "future": {
+                "opaque": [
+                  null,
+                  36893488147419103232
+                ]
+              }
+            },
+            {
+              "property": "grass",
+              "value": 0,
+              "scale": {
+                "min": -1,
+                "max": 1
+              },
+              "unit": null
+            },
+            {
+              "property": "wood",
+              "value": 100,
+              "scale": {
+                "min": 0,
+                "max": 100
+              }
+            }
+          ]
+        },
+        "provenance": {
+          "source": "Declared synthetic Core example; no measured participant/device outcome"
+        }
+      },
+      {
+        "type": "caller.future",
+        "scheme": {
+          "id": "caller.unknown",
+          "version": "9"
+        },
+        "data": {
+          "opaque": [
+            true,
+            null,
+            1180591620717411303424
+          ]
+        }
+      }
+    ],
+    "metadata": {
+      "description": "Two quantitative source selections; no chemical representation and no measured odor outcome."
+    }
+  },
+  "future": {
+    "retain": "all bytes"
+  }
+}

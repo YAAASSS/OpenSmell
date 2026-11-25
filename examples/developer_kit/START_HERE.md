@@ -203,3 +203,5 @@ pseudo-terminals only. Existing software sequence commands remain unchanged.
 For a whole caller-ordered prepared dossier, see [RUN_EXPERIMENT.md](RUN_EXPERIMENT.md).
 
 For passive receipt/observation joins and CSV analysis, see [TRIAL_ANALYSIS.md](TRIAL_ANALYSIS.md).
+
+For explicit quantitative Core selection, see [CORE_PERCEPTUAL.md](CORE_PERCEPTUAL.md).

@@ -584,7 +584,7 @@ def main(argv: list[str] | None = None) -> int:
     workspace = commands.add_parser("init-workspace", help="Create a new passive synthetic software starter using only installed resources")
     workspace.add_argument("directory", help="New workspace directory; never overwrite")
     commands.add_parser("simulate-device", help="Serve the SDK software simulator over bounded stdin/stdout JSON lines; no hardware")
-    core_planning = commands.add_parser("plan-core", help="Plan one explicitly selected Core semantic representation passively")
+    core_planning = commands.add_parser("plan-core", help="Plan one explicitly selected Core semantic/perceptual representation passively")
     core_planning.add_argument("file", help="Core0.1 file or stdin (-); max4MiB")
     core_planning.add_argument("--representation-index", type=int, required=True, help="Explicit zero-based semantic annotations0.1 representation index")
     core_planning.add_argument("--profile", required=True, help="Explicit semantic mapping/capability profile")

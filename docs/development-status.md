@@ -5,6 +5,21 @@ The broader roadmap remains in the [README](../README.md#roadmap).
 Operational checkpoints and the short session log live in `state.json` on the
 `automation/control` branch; follow its pending PR before starting new work.
 
+## Core quantitative selection — 2026-11-25 evening
+
+The first passive trial-analysis slice (#47) is closed. The SDK/format gap is now
+[explicit Core perceptual selection](core-perceptual-planning.md): choose one
+quantitative representation with explicit normalization and expected unit/scale
+policy, without requiring a chemical representation or inventing an Observation.
+Existing semantic output and ordinary graph mappers remain compatible.
+
+Exit: installed Core->two distinct selected plans->frames after originals removed
+->Python/Node/actual native sketch receipts; exact Core/provenance/unknown fields
+retained, explicit unit presence and scale mismatch/duplicate/missing bound data,
+unknown index, stale projection and output collision refusals. Close this bounded
+path after CI; no automatic representation/policy catalog. Human hardware evidence
+and independent adoption remain unobserved, separate whole-kit gates.
+
 ## Trial observation analysis — 2026-11-25
 
 The first installed dossier execution path (#46) is closed. The next concrete
