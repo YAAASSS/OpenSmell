@@ -5,6 +5,23 @@ The broader roadmap remains in the [README](../README.md#roadmap).
 Operational checkpoints and the short session log live in `state.json` on the
 `automation/control` branch; follow its pending PR before starting new work.
 
+## Trial observation analysis — 2026-11-25
+
+The first installed dossier execution path (#46) is closed. The next concrete
+data/SDK slice is [passive trial observation analysis](trial-analysis.md): explicit
+caller bindings connect separately supplied observation IDs to retained receipts,
+with loss-preserving JSON and CSVs for external analysis. Reuse existing perceptual
+projection; never infer a measurement from completion or invent trial observations.
+
+Exit: installed prepare/run/analyze outside checkout, relocated dossier and removed
+originals, distinct trial IDs in caller order, explicit synthetic imported data,
+Pandas CSV consumer, exact bytes/provenance/unknown data retained; missing/zero/unit
+semantics preserved; uncertain/unrecorded receipts, ambiguous/unmatched bindings,
+stale report and collision behaviors demonstrated. Close this first analysis slice
+after CI. Next choose an independent integration/data need from the whole kit,
+not endless receipt diagnostics or scheduler/retry extensions. Physical board and
+independent adoption evidence remain unobserved.
+
 ## Prepared dossier execution — 2026-11-24 evening
 
 The reusable sequence core/manual serial slice (#44/#45) is closed. The next

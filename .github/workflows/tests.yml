@@ -90,6 +90,9 @@ jobs:
       - name: Verify installed caller trial-table experiment
         run: python -m tools.verify_installed_experiment dist/opensmell-0.1.0-py3-none-any.whl --evidence-directory dist/experiment-proof
 
+      - name: Verify passive installed trial observation analysis
+        run: python -m tools.verify_installed_trial_analysis dist/opensmell-0.1.0-py3-none-any.whl --output dist/experiment-proof/analysis
+
       - name: Retain portable caller experiment proof
         if: always()
         uses: actions/upload-artifact@v7.0.2

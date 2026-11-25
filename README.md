@@ -1646,6 +1646,10 @@ The active direction covers the installed SDK/CLI, interoperable data, reusable
 adapters and a reproducible ESP32 bench. Local Explorer remains a demo client.
 See [the deliverables and exit criteria](docs/development-status.md#active-direction--developer-kit-and-concrete-prototype-2026-11-10).
 
+The installed [`analyze-experiment` entry](docs/trial-analysis.md) joins explicit
+caller observation IDs to trial receipts and exports loss-preserving JSON/CSV for
+external analysis. Execution completion never creates a measurement.
+
 The installed [`run-experiment` entry](docs/run-experiment.md) consumes one verified
 prepared dossier in caller order, with explicit software transport selection and
 retained trial IDs/receipts. It also exposes a transport-neutral SDK entry.

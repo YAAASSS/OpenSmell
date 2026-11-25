@@ -78,6 +78,8 @@ this protocol before changing project files. Read-only inspection needs no lease
    Create a tree containing only `state.json`, then a commit whose parent is the
    observed control head. Move the branch with an **expected-head-SHA check** and
    `force=false`. The GitHub `update_ref` tool supports `expected_sha`.
+   Initialize coordination functions in the current run; fail on missing helpers.
+   Confirm acquisition from a newly fetched remote state, never the local object.
 3. A rejected lease means another session won: stop, rather than retrying with a
    newer SHA. Re-read state and verify ownership before making project changes.
 4. Do not extend the lease. The initial 240-minute maximum supports the increased
