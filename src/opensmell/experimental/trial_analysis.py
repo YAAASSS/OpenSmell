@@ -53,6 +53,11 @@ def analyze_experiment(directory, report_raw, observations_raw, bindings_raw):
                 or len(sequence['steps']) != len(plans)):
             raise ValueError('Expected one ordered sequence step per prepared trial')
         steps = sequence['steps']
+        if sequence.get('physical_validation') is not False:
+            raise ValueError('Contradictory physical-validation declaration in sequence')
+        if report.get('status') == 'completed' and (sequence.get('status') != 'completed'
+                or any(not isinstance(step, dict) or step.get('state') != 'completed' for step in steps)):
+            raise ValueError('Completed report requires every declared sequence step to be completed')
         for step, expected, trial in zip(steps, expected_steps, context['trial_order']):
             if (not isinstance(step, dict) or step.get('step_id') != expected.step_id
                     or step.get('trial_id') != trial['trial_id'] or step.get('plan') != asdict(expected.plan)

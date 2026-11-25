@@ -75,7 +75,7 @@ def test_no_receipts_and_unfinished_snapshot(inputs):
     assert {'no_sequence_receipts','unfinished_report'} <= {i['code'] for i in result['coverage']['issues']}
 
 
-@pytest.mark.parametrize('kind',['manifest','plan','trial','state','execution','format','length'])
+@pytest.mark.parametrize('kind',['manifest','plan','trial','state','execution','format','length','aggregate','physical'])
 def test_report_cannot_bind_to_another_dossier(inputs,kind):
     d,r,g,b=inputs
     if kind=='manifest':r['prepared_experiment']['manifest']['sha256']='0'*64
@@ -85,6 +85,8 @@ def test_report_cannot_bind_to_another_dossier(inputs,kind):
     if kind=='execution':r['sequence']['steps'][0]['execution']=None
     if kind=='format':r['format']='future'
     if kind=='length':r['sequence']['steps'].pop()
+    if kind=='aggregate':r['sequence']['status']='unknown'
+    if kind=='physical':r['sequence']['physical_validation']=True
     with pytest.raises(ValueError):analyze((d,r,g,b))
 
 
