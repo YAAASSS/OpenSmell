@@ -227,6 +227,27 @@ def _prepare_experiment_command(args):
         print(json.dumps({"status":"invalid","error":str(error)})); return 1
 
 
+def _analyze_experiment_command(args):
+    from .experimental.trial_analysis import analyze_experiment, write_analysis_directory
+    from .experimental.trial_analysis import MAX_REPORT_BYTES, MAX_OBSERVATION_BYTES, MAX_BINDING_BYTES
+    import csv
+    try:
+        raws = []
+        for path, bound in ((args.report, MAX_REPORT_BYTES), (args.observations, MAX_OBSERVATION_BYTES), (args.bindings, MAX_BINDING_BYTES)):
+            with Path(path).open("rb") as source:
+                raws.append(source.read(bound+1))
+        result = analyze_experiment(args.directory, *raws)
+        write_analysis_directory(result, args.output_directory)
+        print(json.dumps({"status":result["status"], "execution":"not_attempted", "physical_validation":False,
+                          "trial_count":len(result["tables"]["trials"]), "measurement_count":len(result["tables"]["measurements"]),
+                          "issue_count":len(result["coverage"]["issues"])}))
+        return 3 if result["status"] == "partial" else 0
+    except OSError as error:
+        print(json.dumps({"status":"error", "error":str(error)}), file=sys.stderr); return 2
+    except (OpenSmellError, ValueError, TypeError, KeyError, RecursionError, OverflowError, csv.Error) as error:
+        print(json.dumps({"status":"invalid", "error":str(error)}), file=sys.stderr); return 1
+
+
 def _run_experiment_command(args):
     from .experimental.experiment_run import run_prepared_experiment
     from .experimental.process_transport import ProcessTransport
@@ -619,6 +640,12 @@ def main(argv: list[str] | None = None) -> int:
     experiment.add_argument("--graph", required=True, help="Explicit source ResourceGraph")
     experiment.add_argument("--profile", required=True, help="Explicit mapping/capability profile for every trial")
     experiment.add_argument("--output-directory", required=True, help="New portable experiment directory; never overwrite")
+    analysis = commands.add_parser("analyze-experiment", help="Passively join explicit observation IDs to a prepared dossier's execution receipts")
+    analysis.add_argument("directory", help="Selected prepared-experiment directory")
+    analysis.add_argument("--report", required=True, help="Retained run-experiment receipt report; max64MiB")
+    analysis.add_argument("--observations", required=True, help="Separately supplied observation ResourceGraph; max8MiB")
+    analysis.add_argument("--bindings", required=True, help="Explicit trial_id,observation_id CSV; max64KiB")
+    analysis.add_argument("--output-directory", required=True, help="New analysis.json/trials.csv/measurements.csv directory; never overwrite")
     run_experiment = commands.add_parser("run-experiment", help="Verify and run one prepared experiment on explicitly selected trusted software")
     run_experiment.add_argument("directory", help="Explicit prepared-experiment directory; never selects transport")
     run_experiment.add_argument("--software-command-json", required=True, help="Trusted executable/argument JSON array; no shell; not sandboxed")
@@ -646,6 +673,8 @@ def main(argv: list[str] | None = None) -> int:
         return _plan_core_command(args)
     if args.command == "prepare-experiment":
         return _prepare_experiment_command(args)
+    if args.command == "analyze-experiment":
+        return _analyze_experiment_command(args)
     if args.command == "run-experiment":
         return _run_experiment_command(args)
     if args.command == "run-sequence":
