@@ -2,8 +2,15 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-25",
   "last_processed_main_sha": "3f21511c756a073bd01eadd3a1224a94c64056d2",
-  "lease": null,
-  "open_work": null,
+  "lease": {
+    "owner": "core-perceptual-20261125-1795626000751-t8qrbqzwskn",
+    "acquired_at": "2026-11-25T17:00:00.751Z",
+    "expires_at": "2026-11-25T21:00:00.751Z"
+  },
+  "open_work": {
+    "branch": "feat/core-perceptual-20261125",
+    "resume_action": "Implement explicit Core quantitative selection with unit/scale/normalization policy, retain semantic behavior; no physical IO."
+  },
   "last_result": {
     "session_kind": "scheduled",
     "slot": "2026-11-25T06:00",
@@ -419,6 +426,6 @@
     "delivered": "Installable data/SDK/interop/starter, Linux/Windows actual native source kits, reusable sequences and prepared dossier execution (#46) now connect to passive explicit observation analysis (#47), with retained provenance/trial IDs, JSON/CSV and Pandas proof. Human electrical/olfactory evidence and independent adoption remain unobserved.",
     "next": "Close #47 first passive trial-observation analysis slice after final exact-head CI and installed main proof. The data->plan->receipt->analysis kit path is now usable; no more automatic join/receipt diagnostics, scheduler/retry or template catalog. Next concrete SDK/format gap observed in core_planning.py: plan-core accepts only selected semantic annotations0.1. Evaluate/implement a bounded explicit Core perceptual-measurement selection path without requiring a chemical representation, reusing known Core validation, current mapper/profile and frame/lifecycle adapters. Check Core contract, units and scale constraints before coding; do not infer normalization or select fallback representations. Exit: installed caller Core with quantitative data->explicit indexed selection/profile->passive offline plan retaining exact Core/provenance/unknown representations->software Python/Node or actual native sketch client; unsupported/ambiguous selection, incompatible profile/unit/scale, stale projection and capability/duration refusal with no implicit connection. Keep existing semantic selection backward-compatible and no new wire contract by default. Human dry-load board/electrical/olfactory evidence and independent adoption remain unobserved; whole SDK/format,data/interop,hardware/adoption kit milestone stays active."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-25T18:00",
   "last_completed_slot": "2026-11-25T06:00"
 }
