@@ -54,13 +54,14 @@ def main():
              'scope':'Synthetic declared source observations; not outcomes measured from the software run'}
         graph_raw=(json.dumps(graph,indent=3)+'\n').encode()
         observations=work/'observations.osmell';observations.write_bytes(graph_raw)
+        planning_source=work/'planning-source.osmell';planning_source.write_bytes(graph_raw)
         profile=work/'profile.json';profile.write_bytes((root/'examples/offline_perceptual_profile.json').read_bytes())
         table=work/'trials.csv';table.write_text('trial_id,resource_id,duration,note\n'+''.join(
              f'{trial},{rid},{duration},{note}\n' for trial,rid,duration,note in
              [('trial-A',ids[0],.1,'caller-A'),('trial-B',ids[1],.2,'caller-B'),('trial-C',ids[0],.1,'caller-C')]))
-        cli('prepare-experiment',table,'--graph',observations,'--profile',profile,'--output-directory',work/'original-dossier')
+        cli('prepare-experiment',table,'--graph',planning_source,'--profile',profile,'--output-directory',work/'original-dossier')
         moved=work/'relocated dossier';shutil.move(work/'original-dossier',moved)
-        for path in [source,original,profile,table,*[work/f'part-{i}.osmell' for i in (1,2,3)]]:path.unlink()
+        for path in [source,original,profile,table,planning_source,*[work/f'part-{i}.osmell' for i in (1,2,3)]]:path.unlink()
         report=output/'completed-report.json'
         cli('run-experiment',moved,'--software-command-json',json.dumps([str(python),'-I','-m','opensmell','simulate-device']),
             '--expected-device-id','opensmell-local-simulator-001','--action','complete','--output',report)
