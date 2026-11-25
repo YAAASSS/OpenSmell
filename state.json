@@ -1,117 +1,55 @@
 {
   "schema_version": 1,
-  "last_completed_brussels_date": "2026-11-24",
-  "last_processed_main_sha": "c559144817abd9e5c6b1464d1351b946a9bf9dbe",
-  "lease": {
-    "owner": "trial-observations-20261125-1795582915345-g2taflcurhv",
-    "acquired_at": "2026-11-25T05:01:55.346Z",
-    "expires_at": "2026-11-25T09:01:55.346Z"
-  },
-  "open_work": {
-    "branch": "feat/trial-observations-20261125",
-    "commit": "060e1883b550bb91fea4a92502f3ea768fd74265",
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/47",
-    "merged_main": "3f21511c756a073bd01eadd3a1224a94c64056d2",
-    "resume_action": "Merged47 with all20 exact-head checks success, main tree identical. Rebuild installed proof from main; save Work, release state. Passive analysis/no physical IO."
-  },
+  "last_completed_brussels_date": "2026-11-25",
+  "last_processed_main_sha": "3f21511c756a073bd01eadd3a1224a94c64056d2",
+  "lease": null,
+  "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
-    "slot": "2026-11-24T18:00",
-    "completed_at": "2026-11-24T17:14:34.272Z",
-    "objective": "Installed prepared experiment dossier execution: verified retained CSV/source/profile bindings, caller-ordered trials, separately chosen transport and trial-linked receipts",
-    "commit": "c559144817abd9e5c6b1464d1351b946a9bf9dbe",
-    "tested_commit": "9d85f50ef6a59f3467f34bc45d947cb892b569bb",
-    "tested_tree": "f2d79d8d2af9bc0d71ee4a75e662b3c1534ca5a7",
+    "slot": "2026-11-25T06:00",
+    "completed_at": "2026-11-25T05:20:53.154Z",
+    "objective": "Installed passive trial observation analysis: explicit ID bindings to retained experiment receipts, loss-preserving JSON and CSV/Pandas consumer",
+    "commit": "3f21511c756a073bd01eadd3a1224a94c64056d2",
+    "tested_commit": "060e1883b550bb91fea4a92502f3ea768fd74265",
+    "tested_tree": "14d39da77b6fecbe79040907dd9bc88d30474fb2",
     "merged": true,
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/46",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/47",
     "checks": {
-      "focused": 50,
-      "focused_seconds": 1.58,
-      "python_full_local": 2473,
-      "python_full_local_seconds": 106.89,
-      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/45445134390",
-      "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/45445134539",
-      "ci_result": "All20 exact-head push/PR checks success; Python3.10-3.13, dedicated RDKit/LSL, clean offline kit, Linux native/ESP32 and existing actual Windows kit proof pass",
-      "ci_python312": "2467passed,6skipped,106.63s",
-      "installed": "Fresh venv/wheel outside checkout with inherited build deps. Normal prepare-experiment CLI, relocated dossier, originals removed, installed run-experiment CLI through explicit verifier fault wrapper to actual native lifecycle LED sketch with --realtime. Three distinct durations and trial IDs; completion, Stop-first,second lost,second injected refusal all pass. All output collisions no new process traffic; hash-consistent corrupted last binding refuses before process.",
-      "post_merge": "Fetched actual main, tree matches exact tested tree. Rebuilt main wheel, fresh venv outside checkout, all4 installed native cases and guards pass again.",
-      "artifact": 14944148744,
-      "artifact_digest": "sha256:f5ab45f7d1f1748d70d1e7578ca2facdfb9f66de7794b810c686e9f6c8b173b4",
+      "focused": 64,
+      "focused_seconds": 3.11,
+      "new_tests": 26,
+      "python_full_local": 2499,
+      "python_full_local_seconds": 116.76,
+      "python_full_local_scope": "Final full suite after aggregate/physical-declaration consistency guards; PYTHONPATH explicitly current src. Earlier2497 suite not counted as final.",
+      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/45552162991",
+      "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/45552162281",
+      "ci_result": "All20 final exact-head push/PR checks successful; Python3.10-3.13, optional RDKit/LSL, clean offline kit, interop and Linux/Windows firmware/native kit coverage retained; no reviews requested/unresolved threads.",
+      "ci_python312": "2493passed,6skipped,106.61s",
+      "installed": "Fresh wheel/venv outside checkout with inherited build/Pandas dependencies. Normal synthetic Keller-style import,3-trial preparation and explicit software simulation, relocated dossier, original planning graph/CSV/profile paths deleted, normal passive analyze-experiment and optional Pandas CSV consumer. Graph order reversed, caller trial order retained;4,2,0 numeric rows, missing/zero/unit/unknown/provenance/exact bytes preserved. SDK-produced completed/unknown/not_attempted receipts remain distinct from separately supplied synthetic observations. Ambiguous associations no double count; stale receipt refuses before output, collision preserves bytes.",
+      "post_merge": "Fetched actual main, tree identical to final tested head. Rebuilt wheel from main, fresh installed venv and complete import/prepare/run/analyze/Pandas/guards proof pass again, physical_validation=false.",
+      "artifact": 14993373554,
+      "artifact_digest": "sha256:33307db58c298b5ac2ad0640a8b5ee993ae57be0f0dcbfecdd241b51cf27da56",
       "physical_access": false
     },
     "limitations": [
-      "Software/native evidence only; no actual physical serial/GPIO/flash, electrical measurement or olfactory outcome. Human dry-load board gate and outside adoption remain unobserved.",
-      "Extra passive manifest/top-level plan data and retained exact sources preserved; required bindings compared to current0.1 compiler. Consistency, not authentication or scientific validity; no silent migration.",
-      "Trusted executable array not sandboxed; no executable/port selected by dossier. SDK callback persistence optional; CLI flush not fsync/crash recovery. Invalid dossier may leave exclusively created empty report. No retry, reconnect or scheduler.",
-      "First verifier attempts corrected extra newline and missing explicit native realtime clock; final4 scenarios and exact CI proof pass. No runtime contract weakening.",
-      "No new workflow/automation, paid service, expense, hardware order, physical diffusion, media generation, release/tag or registry publication.",
-      "Initial coordination lease was not acquired: missing cross-run helper evaluation silently did nothing. Explicit recovery lease later acquired/confirmed and incident recorded; initial protocol deviation cannot be retroactively corrected. No concurrent change detected."
+      "Analysis performs explicit unauthenticated ID joins, not source/device authentication, stimulus equivalence, scientific validity, causal inference or odor efficacy. Caller observations may predate the software run.",
+      "No unit conversion, normalization, statistics, imputation or coercion; numeric values and unit presence preserved. Categories remain opaque and separate. Unknown/unmeasured/unmatched/ambiguous data retained in snapshots/projection and diagnostics; partial remains partial.",
+      "Report64MiB,observation8MiB,bindings64KiB/4096rows bounds; existing dossier limits retained. Exact raw strings exported to CSV; consumers choose safe import types/settings.",
+      "No physical port/GPIO/flash, hardware order, spending, paid service, diffusion, media generation, tag/release/registry publication or new automation. Human electrical/olfactory observations and third-party adoption remain unobserved."
     ],
-    "handoff_library_file_id": "libfile_fde3_f-04b13eeb48408191961e39e6f6d08553_44ff1f20787081919dd91de18843de02",
-    "lease_acquired_at": null,
-    "platform_blocker": null,
-    "coordination_incident": {
-      "initial_lease_acquired": false,
-      "reason": "Missing cross-run helper strings were indirectly evaluated as undefined/no-op. No initial control writes happened. Discovered at final remote confirmation.",
-      "recovery_lease_acquired_at": "2026-11-24T17:13:41.027Z",
-      "recovery_owner": "experiment-run-1795539685579-so0gjvgs5lk",
-      "remote_state_before_recovery": "34e46c962baab3743f916d9984312019145e63a2, morning slot, lease=null/open_work=null; no concurrent main change detected",
-      "corrective_action": "Rebuilt helper strings, actual state-only child commit/CAS acquisition and remote owner confirmation; accurate handoff/state, then release. Never assume cross-run stores; assert helper presence and confirm actual remote ownership."
-    }
+    "handoff_library_file_id": "libfile_fde3_f-6abbaca36d888191a43ede8245395159_44ff1f20787081919dd91de18843de02",
+    "lease_acquired_at": "2026-11-25T05:01:55.346Z",
+    "coordination": {
+      "initial_lease_acquired": true,
+      "owner": "trial-observations-20261125-1795582915345-g2taflcurhv",
+      "acquisition_confirmed_remote_sha": "692adafe0fe041c3a6eaa68dff0776660a799de4",
+      "current_run_helpers_initialized_and_asserted": true,
+      "no_renewal": true
+    },
+    "elapsed_under_lease_minutes": 19,
+    "platform_blocker": null
   },
   "recent_sessions": [
-    {
-      "session_kind": "scheduled",
-      "slot": "2026-11-21T18:00",
-      "completed_at": "2026-11-21T17:13:40.854Z",
-      "objective": "Explicit installed Core semantic selection to passive plan and normal software/native execution boundaries",
-      "commit": "20ad31b1b27d9214de1be4cd1e0dd0c45f18adde",
-      "tested_commit": "122506de66b7651d1ae7b5b5cbdb25bd27eb74aa",
-      "tested_tree": "1f760fbbcda1e37518d31928ecd3f9d75cccd26a",
-      "merged": true,
-      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/39",
-      "checks": {
-        "python_full_local": 2421,
-        "python_full_local_seconds": 104.55,
-        "targeted": 26,
-        "installed_core_proof": "Outside-checkout SDK wheel; original geraniol Core selects index1 and declared synthetic caller semantic-only Core selects index0; distinct CH0=.25/CH1=.6 plans, exact original Core bytes/hash verified, originals/profile removed before encode-frame and run-sequence. Python/independent Node/actual compiled native sketch all observe2correlated completions.",
-        "guards": "Explicit index, supported type/scheme/version/profile only; no chemistry requirement/fallback. Unknown/missing/out-of-range/bool index, malformed known data, unsupported duration/caps, unmapped result, size and collision refusal. Normal export/sequence recomputes reserved projection from exact Core snapshot; edited graph and matching edited plan still refuse before child launch.",
-        "kit": "Fresh extracted kit Core selection -> normal software completion on Python/Node passed alongside existing paths; clean offline-kit CI repeats new normal path.",
-        "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44928244980",
-        "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44928244932",
-        "ci_result": "success",
-        "ci_exact_head": "122506de66b7651d1ae7b5b5cbdb25bd27eb74aa",
-        "ci_event": "push; PR-triggered workflow wrapper returned no runs, direct REST run/check-run exact-head verification used",
-        "ci_python_versions": [
-          "3.10",
-          "3.11",
-          "3.12",
-          "3.13"
-        ],
-        "ci_python312": "2415passed,6skipped without optional RDKit; dedicated optional scientific and actual LSL jobs passed",
-        "firmware": "Both ESP32 targets compiled; new installed Core path against actual native sketch and existing lifecycle/serial/perceptual software proofs passed. No port/flash.",
-        "proof_artifact": 14716548154,
-        "proof_artifact_digest": "sha256:b7eb7423fe3e05ea8281c82644b4e01b9e5f0fb646f8d5c3e6ed65c163e0f358",
-        "native_artifact": 14716194291,
-        "native_artifact_digest": "sha256:fa00f82d25ff49784e72186d74f4eb41f5c5ec0f46909adf839495b20ef92c67",
-        "normal_kit_artifact": 14715908452,
-        "offline_kit_artifact": 14716662972,
-        "main_tree_matches_tested": true,
-        "post_merge": "Fetched main,26focused tests passed0.49s; rebuilt wheel and repeated full Core installed proof with Python/Node/native plus refusal/collision checks.",
-        "physical_access": false
-      },
-      "limitations": [
-        "Only explicitly selected Core semantic annotations0.1 plus semantic profile supported. All other representations preserved in exact snapshot, not interpreted/merged; Core validity does not imply renderability. Existing chemical bridge unchanged.",
-        "Temporary generic graph subject is an opaque application convention, never invented Molecule/chemical identity/physical Stimulus/measurement. Normal offline-plan/Core/wire/RFC maturity unchanged. Core4MiB/profile1MiB/artifact8MiB; existing frame/live capability limits separate.",
-        "Reserved projection integrity recomputed from retained Core snapshot/index, not source authentication/signatures. Removing provenance intentionally is not cryptographically prevented. Profile values/hash declarations retained; original profile whitespace bytes not claimed. Strict JSON BOM refusal retained; valid whitespace/CRLF preserved.",
-        "Initial installed proof fixture with BOM failed the existing strict JSON boundary; fixture/docs corrected without weakening parser. Native host rebuilt from source because prior temporary executable was absent.",
-        "Software/native completion and fakePWM do not establish physical LED/odor result. Human new-target bench remains NOT RUN, independent adoption unobserved. Local build dependencies inherited; separate clean offline CI target. No physical ports/GPIO, flash, diffusion, tags/releases, registry upload, paid service or added automation."
-      ],
-      "handoff_library_file_id": "libfile_fde3_f-9c792be175b081918ec70ac54701afb5_44ff1f20787081919dd91de18843de02",
-      "lease_acquired_at": "2026-11-21T17:00:05.293Z",
-      "elapsed_under_lease_minutes": 14,
-      "platform_blocker": null
-    },
     {
       "session_kind": "scheduled",
       "slot": "2026-11-22T06:00",
@@ -414,9 +352,54 @@
         "remote_state_before_recovery": "34e46c962baab3743f916d9984312019145e63a2, morning slot, lease=null/open_work=null; no concurrent main change detected",
         "corrective_action": "Rebuilt helper strings, actual state-only child commit/CAS acquisition and remote owner confirmation; accurate handoff/state, then release. Never assume cross-run stores; assert helper presence and confirm actual remote ownership."
       }
+    },
+    {
+      "session_kind": "scheduled",
+      "slot": "2026-11-25T06:00",
+      "completed_at": "2026-11-25T05:20:53.154Z",
+      "objective": "Installed passive trial observation analysis: explicit ID bindings to retained experiment receipts, loss-preserving JSON and CSV/Pandas consumer",
+      "commit": "3f21511c756a073bd01eadd3a1224a94c64056d2",
+      "tested_commit": "060e1883b550bb91fea4a92502f3ea768fd74265",
+      "tested_tree": "14d39da77b6fecbe79040907dd9bc88d30474fb2",
+      "merged": true,
+      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/47",
+      "checks": {
+        "focused": 64,
+        "focused_seconds": 3.11,
+        "new_tests": 26,
+        "python_full_local": 2499,
+        "python_full_local_seconds": 116.76,
+        "python_full_local_scope": "Final full suite after aggregate/physical-declaration consistency guards; PYTHONPATH explicitly current src. Earlier2497 suite not counted as final.",
+        "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/45552162991",
+        "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/45552162281",
+        "ci_result": "All20 final exact-head push/PR checks successful; Python3.10-3.13, optional RDKit/LSL, clean offline kit, interop and Linux/Windows firmware/native kit coverage retained; no reviews requested/unresolved threads.",
+        "ci_python312": "2493passed,6skipped,106.61s",
+        "installed": "Fresh wheel/venv outside checkout with inherited build/Pandas dependencies. Normal synthetic Keller-style import,3-trial preparation and explicit software simulation, relocated dossier, original planning graph/CSV/profile paths deleted, normal passive analyze-experiment and optional Pandas CSV consumer. Graph order reversed, caller trial order retained;4,2,0 numeric rows, missing/zero/unit/unknown/provenance/exact bytes preserved. SDK-produced completed/unknown/not_attempted receipts remain distinct from separately supplied synthetic observations. Ambiguous associations no double count; stale receipt refuses before output, collision preserves bytes.",
+        "post_merge": "Fetched actual main, tree identical to final tested head. Rebuilt wheel from main, fresh installed venv and complete import/prepare/run/analyze/Pandas/guards proof pass again, physical_validation=false.",
+        "artifact": 14993373554,
+        "artifact_digest": "sha256:33307db58c298b5ac2ad0640a8b5ee993ae57be0f0dcbfecdd241b51cf27da56",
+        "physical_access": false
+      },
+      "limitations": [
+        "Analysis performs explicit unauthenticated ID joins, not source/device authentication, stimulus equivalence, scientific validity, causal inference or odor efficacy. Caller observations may predate the software run.",
+        "No unit conversion, normalization, statistics, imputation or coercion; numeric values and unit presence preserved. Categories remain opaque and separate. Unknown/unmeasured/unmatched/ambiguous data retained in snapshots/projection and diagnostics; partial remains partial.",
+        "Report64MiB,observation8MiB,bindings64KiB/4096rows bounds; existing dossier limits retained. Exact raw strings exported to CSV; consumers choose safe import types/settings.",
+        "No physical port/GPIO/flash, hardware order, spending, paid service, diffusion, media generation, tag/release/registry publication or new automation. Human electrical/olfactory observations and third-party adoption remain unobserved."
+      ],
+      "handoff_library_file_id": "libfile_fde3_f-6abbaca36d888191a43ede8245395159_44ff1f20787081919dd91de18843de02",
+      "lease_acquired_at": "2026-11-25T05:01:55.346Z",
+      "coordination": {
+        "initial_lease_acquired": true,
+        "owner": "trial-observations-20261125-1795582915345-g2taflcurhv",
+        "acquisition_confirmed_remote_sha": "692adafe0fe041c3a6eaa68dff0776660a799de4",
+        "current_run_helpers_initialized_and_asserted": true,
+        "no_renewal": true
+      },
+      "elapsed_under_lease_minutes": 19,
+      "platform_blocker": null
     }
   ],
-  "next_objective": "Close #46 first installed prepared dossier execution path after exact-head CI/main proof. Next concrete data/SDK milestone: an installed passive analysis entry joining caller-supplied experimental observations to retained execution receipts by explicit trial_id. Inspect observation_table/perceptual measurement contracts and dossier report before choosing the slice; preserve exact input bytes, unknown data, units/provenance and distinguish endpoint receipt from human observation and measured olfactory outcome. No fabricated observations or automatic third-party contact. Prove a relocated dossier/report plus explicit supplied observation data outside checkout, ordered joined rows and clear unmatched/incomplete/unknown cases without executing anything. Avoid scheduler/retry/reconnect/diagnostic catalog expansion. Physical dry-load board/BOM/binary/reset/gate/current evidence remains human NOT RUN; third-party adoption unobserved. SDK/format, data/interop, hardware and adoption remain the whole-project milestone.",
+  "next_objective": "Close #47 first passive trial-observation analysis slice after final exact-head CI and installed main proof. The data->plan->receipt->analysis kit path is now usable; no more automatic join/receipt diagnostics, scheduler/retry or template catalog. Next concrete SDK/format gap observed in core_planning.py: plan-core accepts only selected semantic annotations0.1. Evaluate/implement a bounded explicit Core perceptual-measurement selection path without requiring a chemical representation, reusing known Core validation, current mapper/profile and frame/lifecycle adapters. Check Core contract, units and scale constraints before coding; do not infer normalization or select fallback representations. Exit: installed caller Core with quantitative data->explicit indexed selection/profile->passive offline plan retaining exact Core/provenance/unknown representations->software Python/Node or actual native sketch client; unsupported/ambiguous selection, incompatible profile/unit/scale, stale projection and capability/duration refusal with no implicit connection. Keep existing semantic selection backward-compatible and no new wire contract by default. Human dry-load board/electrical/olfactory evidence and independent adoption remain unobserved; whole SDK/format,data/interop,hardware/adoption kit milestone stays active.",
   "automation": {
     "id": "39cc72697e048191a1ba0d3e3e9d787c",
     "title": "OpenSmell — développement autonome quotidien",
@@ -433,9 +416,9 @@
   },
   "active_product_milestone": {
     "goal": "Installable OpenSmell developer kit spanning data, SDK, device integration and reproducible hardware bench",
-    "delivered": "Installable data/SDK/interop/starter, actual Linux/Windows native source kits, reusable/manual serial sequences (#44/#45), and verified relocated prepared-dossier execution with trial-linked receipts (#46) delivered. Human electrical evidence and independent adoption unobserved.",
-    "next": "Close #46 first installed prepared dossier execution path after exact-head CI/main proof. Next concrete data/SDK milestone: an installed passive analysis entry joining caller-supplied experimental observations to retained execution receipts by explicit trial_id. Inspect observation_table/perceptual measurement contracts and dossier report before choosing the slice; preserve exact input bytes, unknown data, units/provenance and distinguish endpoint receipt from human observation and measured olfactory outcome. No fabricated observations or automatic third-party contact. Prove a relocated dossier/report plus explicit supplied observation data outside checkout, ordered joined rows and clear unmatched/incomplete/unknown cases without executing anything. Avoid scheduler/retry/reconnect/diagnostic catalog expansion. Physical dry-load board/BOM/binary/reset/gate/current evidence remains human NOT RUN; third-party adoption unobserved. SDK/format, data/interop, hardware and adoption remain the whole-project milestone."
+    "delivered": "Installable data/SDK/interop/starter, Linux/Windows actual native source kits, reusable sequences and prepared dossier execution (#46) now connect to passive explicit observation analysis (#47), with retained provenance/trial IDs, JSON/CSV and Pandas proof. Human electrical/olfactory evidence and independent adoption remain unobserved.",
+    "next": "Close #47 first passive trial-observation analysis slice after final exact-head CI and installed main proof. The data->plan->receipt->analysis kit path is now usable; no more automatic join/receipt diagnostics, scheduler/retry or template catalog. Next concrete SDK/format gap observed in core_planning.py: plan-core accepts only selected semantic annotations0.1. Evaluate/implement a bounded explicit Core perceptual-measurement selection path without requiring a chemical representation, reusing known Core validation, current mapper/profile and frame/lifecycle adapters. Check Core contract, units and scale constraints before coding; do not infer normalization or select fallback representations. Exit: installed caller Core with quantitative data->explicit indexed selection/profile->passive offline plan retaining exact Core/provenance/unknown representations->software Python/Node or actual native sketch client; unsupported/ambiguous selection, incompatible profile/unit/scale, stale projection and capability/duration refusal with no implicit connection. Keep existing semantic selection backward-compatible and no new wire contract by default. Human dry-load board/electrical/olfactory evidence and independent adoption remain unobserved; whole SDK/format,data/interop,hardware/adoption kit milestone stays active."
   },
-  "session_slot": "2026-11-25T06:00",
-  "last_completed_slot": "2026-11-24T18:00"
+  "session_slot": null,
+  "last_completed_slot": "2026-11-25T06:00"
 }
