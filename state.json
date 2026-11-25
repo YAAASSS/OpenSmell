@@ -11,7 +11,8 @@
     "branch": "feat/trial-observations-20261125",
     "commit": "060e1883b550bb91fea4a92502f3ea768fd74265",
     "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/47",
-    "resume_action": "Final SDK additionally rejects contradictory completed/physical declarations; 64 targeted and installed proof pass, full suite in progress. Follow final exact-head CI and merge47, main proof/Work/release."
+    "merged_main": "3f21511c756a073bd01eadd3a1224a94c64056d2",
+    "resume_action": "Merged47 with all20 exact-head checks success, main tree identical. Rebuild installed proof from main; save Work, release state. Passive analysis/no physical IO."
   },
   "last_result": {
     "session_kind": "scheduled",
