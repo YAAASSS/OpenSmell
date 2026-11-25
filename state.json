@@ -9,9 +9,9 @@
   },
   "open_work": {
     "branch": "feat/trial-observations-20261125",
-    "commit": "641cb4173cf4be356db0caeb1ae82c6471495977",
+    "commit": "01a886aa14aa160aaaf3d26804f892635d2def89",
     "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/47",
-    "resume_action": "Complete broad tests, exact-head CI and diff review; merge if gates pass, verify installed main and save Work. Passive analysis, no physical IO."
+    "resume_action": "Installed final proof passes after deleting original planning graph; all runtime tests previously pass, proof-only followup. Check final exact-head CI and merge47 when permitted, verify main and handoff."
   },
   "last_result": {
     "session_kind": "scheduled",
