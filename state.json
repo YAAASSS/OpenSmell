@@ -11,7 +11,8 @@
     "branch": "feat/core-perceptual-20261125",
     "commit": "0c61095054ea71806c283bdd20cdcbc46cdf8bfb",
     "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/48",
-    "resume_action": "Finish final broad/native installed proof and exact-head CI, review diff and merge when permitted. Verify main, save Work and release. No physical IO."
+    "merged_main": "75406c59b4af1d3b6226ead7cb1b484f1ed1ec9f",
+    "resume_action": "Merged48 after20 exact-head checks success, main tree identical. Finish post-main installed proof, Work and coordination release. No physical IO."
   },
   "last_result": {
     "session_kind": "scheduled",
