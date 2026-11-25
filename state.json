@@ -1,117 +1,54 @@
 {
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-25",
-  "last_processed_main_sha": "3f21511c756a073bd01eadd3a1224a94c64056d2",
-  "lease": {
-    "owner": "core-perceptual-20261125-1795626000751-t8qrbqzwskn",
-    "acquired_at": "2026-11-25T17:00:00.751Z",
-    "expires_at": "2026-11-25T21:00:00.751Z"
-  },
-  "open_work": {
-    "branch": "feat/core-perceptual-20261125",
-    "commit": "0c61095054ea71806c283bdd20cdcbc46cdf8bfb",
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/48",
-    "merged_main": "75406c59b4af1d3b6226ead7cb1b484f1ed1ec9f",
-    "resume_action": "Merged48 after20 exact-head checks success, main tree identical. Finish post-main installed proof, Work and coordination release. No physical IO."
-  },
+  "last_processed_main_sha": "75406c59b4af1d3b6226ead7cb1b484f1ed1ec9f",
+  "lease": null,
+  "open_work": null,
   "last_result": {
     "session_kind": "scheduled",
-    "slot": "2026-11-25T06:00",
-    "completed_at": "2026-11-25T05:20:53.154Z",
-    "objective": "Installed passive trial observation analysis: explicit ID bindings to retained experiment receipts, loss-preserving JSON and CSV/Pandas consumer",
-    "commit": "3f21511c756a073bd01eadd3a1224a94c64056d2",
-    "tested_commit": "060e1883b550bb91fea4a92502f3ea768fd74265",
-    "tested_tree": "14d39da77b6fecbe79040907dd9bc88d30474fb2",
+    "slot": "2026-11-25T18:00",
+    "completed_at": "2026-11-25T17:13:19.371Z",
+    "objective": "Installed explicit Core perceptual selection with required normalization/unit/scale policy, exact provenance and software endpoint interoperability",
+    "commit": "75406c59b4af1d3b6226ead7cb1b484f1ed1ec9f",
+    "tested_commit": "0c61095054ea71806c283bdd20cdcbc46cdf8bfb",
+    "tested_tree": "2c5e00fcc8ad679eec20b100331e3d83d0c3ba6a",
     "merged": true,
-    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/47",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/48",
     "checks": {
-      "focused": 64,
-      "focused_seconds": 3.11,
-      "new_tests": 26,
-      "python_full_local": 2499,
-      "python_full_local_seconds": 116.76,
-      "python_full_local_scope": "Final full suite after aggregate/physical-declaration consistency guards; PYTHONPATH explicitly current src. Earlier2497 suite not counted as final.",
-      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/45552162991",
-      "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/45552162281",
-      "ci_result": "All20 final exact-head push/PR checks successful; Python3.10-3.13, optional RDKit/LSL, clean offline kit, interop and Linux/Windows firmware/native kit coverage retained; no reviews requested/unresolved threads.",
-      "ci_python312": "2493passed,6skipped,106.61s",
-      "installed": "Fresh wheel/venv outside checkout with inherited build/Pandas dependencies. Normal synthetic Keller-style import,3-trial preparation and explicit software simulation, relocated dossier, original planning graph/CSV/profile paths deleted, normal passive analyze-experiment and optional Pandas CSV consumer. Graph order reversed, caller trial order retained;4,2,0 numeric rows, missing/zero/unit/unknown/provenance/exact bytes preserved. SDK-produced completed/unknown/not_attempted receipts remain distinct from separately supplied synthetic observations. Ambiguous associations no double count; stale receipt refuses before output, collision preserves bytes.",
-      "post_merge": "Fetched actual main, tree identical to final tested head. Rebuilt wheel from main, fresh installed venv and complete import/prepare/run/analyze/Pandas/guards proof pass again, physical_validation=false.",
-      "artifact": 14993373554,
-      "artifact_digest": "sha256:33307db58c298b5ac2ad0640a8b5ee993ae57be0f0dcbfecdd241b51cf27da56",
+      "focused": 84,
+      "focused_seconds": 1.81,
+      "new_tests": 33,
+      "python_full_local": 2532,
+      "python_full_local_seconds": 112.53,
+      "python_full_local_scope": "Final full run after graph-type guard; PYTHONPATH explicitly current src. Earlier run not used as final evidence.",
+      "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/45661185891",
+      "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/45661184831",
+      "ci_result": "All20 exact-head push/PR checks success. Python3.10-3.13, separate RDKit/LSL and clean offline kit, existing Linux/Windows/native/3ESP32 compile proofs retained. No requested reviews/unresolved threads.",
+      "ci_python312": "2526passed,6skipped,110.82s",
+      "installed": "Fresh venv/wheel outside checkout with inherited build deps. Synthetic Core without chemistry has two explicit selections; exact CRLF/Core SHA/length and opaque unknown context preserved. Explicit profile normalization and unit/presence/scale expectations. Original Core/profile paths deleted, normal frame entry and software sequence complete both distinct plans on Python, independent Node and actual compiled native lifecycle sketch. Unit/scale/policy/unknown-index refusals, report collisions and stale graph+matching-plan before process launch pass.",
+      "post_merge": "Fetched actual main, tree equals exact tested head. Rebuilt wheel from main; fresh installed proof reruns both selections/frames/completion on Python/Node/native and all refusal/collision/stale guards successfully, physical_validation=false.",
+      "artifact": 15045740652,
+      "artifact_digest": "sha256:acbbcd65caa74157997ddd084bbb4d770e8b4f6b21c6a3f2496c518027ba0ecf",
       "physical_access": false
     },
     "limitations": [
-      "Analysis performs explicit unauthenticated ID joins, not source/device authentication, stimulus equivalence, scientific validity, causal inference or odor efficacy. Caller observations may predate the software run.",
-      "No unit conversion, normalization, statistics, imputation or coercion; numeric values and unit presence preserved. Categories remain opaque and separate. Unknown/unmeasured/unmatched/ambiguous data retained in snapshots/projection and diagnostics; partial remains partial.",
-      "Report64MiB,observation8MiB,bindings64KiB/4096rows bounds; existing dossier limits retained. Exact raw strings exported to CSV; consumers choose safe import types/settings.",
-      "No physical port/GPIO/flash, hardware order, spending, paid service, diffusion, media generation, tag/release/registry publication or new automation. Human electrical/olfactory observations and third-party adoption remain unobserved."
+      "Experimental opt-in Core application convention, no Core/device wire change or global perceptual scheme registration. RFC0005 and0015 remain Draft. One opaque quantitative representation resource; no Molecule/Stimulus/participant/measured Observation invented.",
+      "Explicit normalization reuses float demonstration formula; no assumed0..100, unit conversion, calibration or physical efficacy. Policy unit presence/value and numeric scale must match selected bound data; missing/duplicate bound properties refuse. Unselected data/provenance retained in exact source.",
+      "Core4MiB/profile1MiB/plan8MiB and normal command/capability/duration bounds retained. Hashes identify bytes, not authenticity; profile parsed values retained, not whitespace.",
+      "Software/synthetic/native evidence only. No physical port/GPIO/flash, material order, expense, paid service, diffusion, media generation, tag/release/registry publication, third-party contact or new automation. Human dry-load electrical/olfactory evidence and independent adoption unobserved."
     ],
-    "handoff_library_file_id": "libfile_fde3_f-6abbaca36d888191a43ede8245395159_44ff1f20787081919dd91de18843de02",
-    "lease_acquired_at": "2026-11-25T05:01:55.346Z",
+    "handoff_library_file_id": "libfile_fde3_f-415d823693e48191877f8e1c0544cd66_44ff1f20787081919dd91de18843de02",
+    "lease_acquired_at": "2026-11-25T17:00:00.751Z",
     "coordination": {
       "initial_lease_acquired": true,
-      "owner": "trial-observations-20261125-1795582915345-g2taflcurhv",
-      "acquisition_confirmed_remote_sha": "692adafe0fe041c3a6eaa68dff0776660a799de4",
+      "acquisition_confirmed_remote_sha": "7c46202ef9a12316b478335dca3f5db4ea15fb3c",
       "current_run_helpers_initialized_and_asserted": true,
       "no_renewal": true
     },
-    "elapsed_under_lease_minutes": 19,
+    "elapsed_under_lease_minutes": 13,
     "platform_blocker": null
   },
   "recent_sessions": [
-    {
-      "session_kind": "scheduled",
-      "slot": "2026-11-22T06:00",
-      "completed_at": "2026-11-22T05:19:29.034Z",
-      "objective": "Wheel-only passive starter workspace and installed bounded stdio simulator, with clean no-optional-runtime full user path",
-      "commit": "b0ae3b6c0cd413c77f683c652a95188f09d84730",
-      "tested_commit": "ed1f9160ca7011c2ce10c25b08169bc17e789ce4",
-      "tested_tree": "3e41c5aeff584e16a296906e1bada41c3b86a610",
-      "merged": true,
-      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/40",
-      "checks": {
-        "python_full_local": 2434,
-        "python_full_local_seconds": 104.48,
-        "targeted": 13,
-        "clean_starter": "Fresh Linuxx86_64 CPython3.12 venv with system/user sites disabled; verified SDK import location. Installed only SDK and6verified normal dependency wheels with no-index; no checkout resources/scripts copied. Node removed from PATH and pandas/numpy/networkx/rdkit/serial/pylsl absence asserted. Installed console entry creates passive synthetic workspace; validate/inspect/plan-core, distinct caller Core plans/sequence and completion/Stop/unknown trial pass.",
-        "guards": "Original template hashes/lengths, existing workspace/plan collision preservation, unknown index/duration refusal, wrong identity no render, duplicate consumed request ID, stale execution IDs, strict bounded UTF8/LF framing and malformed/duplicate/nonfinite/BOM refusals followed by valid hello.",
-        "javascript": "Packed installed CJS/ESM client outside checkout also connects installed python-I-mopensmell simulate-device and observes completion/Stop/unknown; both original endpoints retained.",
-        "kit": "Fresh extracted-kit existing paths passed; clean offline-kit CI passed with new packaged wheel resources and starter guide link.",
-        "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44988451262",
-        "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/44988451275",
-        "ci_result": "success",
-        "ci_exact_head": "ed1f9160ca7011c2ce10c25b08169bc17e789ce4",
-        "ci_python_versions": [
-          "3.10",
-          "3.11",
-          "3.12",
-          "3.13"
-        ],
-        "ci_python312": "2428passed,6skipped without optional RDKit; dedicated scientific and actual LSL jobs passed",
-        "clean_starter_ci": "passed under sudo unshare --net, same clean wheel-only/no-Node/no-optional path",
-        "clean_target": "Existing pinned Linuxx86_64 CPython3.12 glibc>=2.28 dependency target; no new broad binary-platform claim",
-        "proof_artifact": 14741090735,
-        "proof_artifact_digest": "sha256:c26fabac1baf7b6f1f82f738c76089d50d8979e5ef8456c65c7828b3144e2135",
-        "normal_kit_artifact": 14739619956,
-        "offline_kit_artifact": 14740193794,
-        "firmware": "Existing two ESP32 targets compiled; native/installed/PTY software compatibility proofs passed. Firmware source unchanged, no physical test.",
-        "main_tree_matches_tested": true,
-        "post_merge": "Fetched main,13focused tests passed0.67s; rebuilt wheel and repeated clean installed starter proof successfully.",
-        "physical_access": false
-      },
-      "limitations": [
-        "Workspace creation is passive and exclusive, only3packaged synthetic files plus manifest, no planning/child launch or automatic send. Explicit profile/channel meaning supplied; synthetic source never claims measured odor. Unknown representation preserved.",
-        "SDK default dependency closure unchanged; wheel contains starter data, not third-party packages. Clean no-inherited proof is narrowly targeted LinuxCPython3.12; four-version normal suite is separate. Dependency acquisition explicit network phase, installed proof no-index and CI network namespace.",
-        "Simulator exposes existing SDK model/identity/profiles through strict UTF8 LF stdin/stdout, max65536bytes excluding LF. No hardware/network backend/mode. Bad framing closes without accepting partial request; EOF not completion. Complete malformed requests refuse; no retry/reconnect/durable recovery.",
-        "Manifest hashes identify original templates, not signatures/current edited-file validity; interrupted writes may leave incomplete directory/report. Normal plan Core-source and lifecycle correlation/duplicate guards remain in use.",
-        "Code/examples remain experimental; no new Core/wire contract, tags/releases/registry publication, paid services or extra automation. No physical ports/GPIO/flash/order/diffusion/human exposure. Human new-firmware bench remains NOT RUN; independent adoption unobserved."
-      ],
-      "handoff_library_file_id": "libfile_fde3_f-1cb91714155c8191a1068c9bc10b6bcd_44ff1f20787081919dd91de18843de02",
-      "lease_acquired_at": "2026-11-22T05:03:24.458Z",
-      "elapsed_under_lease_minutes": 16,
-      "platform_blocker": null
-    },
     {
       "session_kind": "scheduled",
       "slot": "2026-11-22T18:00",
@@ -407,9 +344,53 @@
       },
       "elapsed_under_lease_minutes": 19,
       "platform_blocker": null
+    },
+    {
+      "session_kind": "scheduled",
+      "slot": "2026-11-25T18:00",
+      "completed_at": "2026-11-25T17:13:19.371Z",
+      "objective": "Installed explicit Core perceptual selection with required normalization/unit/scale policy, exact provenance and software endpoint interoperability",
+      "commit": "75406c59b4af1d3b6226ead7cb1b484f1ed1ec9f",
+      "tested_commit": "0c61095054ea71806c283bdd20cdcbc46cdf8bfb",
+      "tested_tree": "2c5e00fcc8ad679eec20b100331e3d83d0c3ba6a",
+      "merged": true,
+      "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/48",
+      "checks": {
+        "focused": 84,
+        "focused_seconds": 1.81,
+        "new_tests": 33,
+        "python_full_local": 2532,
+        "python_full_local_seconds": 112.53,
+        "python_full_local_scope": "Final full run after graph-type guard; PYTHONPATH explicitly current src. Earlier run not used as final evidence.",
+        "standard_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/45661185891",
+        "firmware_ci": "https://github.com/YAAASSS/OpenSmell/actions/runs/45661184831",
+        "ci_result": "All20 exact-head push/PR checks success. Python3.10-3.13, separate RDKit/LSL and clean offline kit, existing Linux/Windows/native/3ESP32 compile proofs retained. No requested reviews/unresolved threads.",
+        "ci_python312": "2526passed,6skipped,110.82s",
+        "installed": "Fresh venv/wheel outside checkout with inherited build deps. Synthetic Core without chemistry has two explicit selections; exact CRLF/Core SHA/length and opaque unknown context preserved. Explicit profile normalization and unit/presence/scale expectations. Original Core/profile paths deleted, normal frame entry and software sequence complete both distinct plans on Python, independent Node and actual compiled native lifecycle sketch. Unit/scale/policy/unknown-index refusals, report collisions and stale graph+matching-plan before process launch pass.",
+        "post_merge": "Fetched actual main, tree equals exact tested head. Rebuilt wheel from main; fresh installed proof reruns both selections/frames/completion on Python/Node/native and all refusal/collision/stale guards successfully, physical_validation=false.",
+        "artifact": 15045740652,
+        "artifact_digest": "sha256:acbbcd65caa74157997ddd084bbb4d770e8b4f6b21c6a3f2496c518027ba0ecf",
+        "physical_access": false
+      },
+      "limitations": [
+        "Experimental opt-in Core application convention, no Core/device wire change or global perceptual scheme registration. RFC0005 and0015 remain Draft. One opaque quantitative representation resource; no Molecule/Stimulus/participant/measured Observation invented.",
+        "Explicit normalization reuses float demonstration formula; no assumed0..100, unit conversion, calibration or physical efficacy. Policy unit presence/value and numeric scale must match selected bound data; missing/duplicate bound properties refuse. Unselected data/provenance retained in exact source.",
+        "Core4MiB/profile1MiB/plan8MiB and normal command/capability/duration bounds retained. Hashes identify bytes, not authenticity; profile parsed values retained, not whitespace.",
+        "Software/synthetic/native evidence only. No physical port/GPIO/flash, material order, expense, paid service, diffusion, media generation, tag/release/registry publication, third-party contact or new automation. Human dry-load electrical/olfactory evidence and independent adoption unobserved."
+      ],
+      "handoff_library_file_id": "libfile_fde3_f-415d823693e48191877f8e1c0544cd66_44ff1f20787081919dd91de18843de02",
+      "lease_acquired_at": "2026-11-25T17:00:00.751Z",
+      "coordination": {
+        "initial_lease_acquired": true,
+        "acquisition_confirmed_remote_sha": "7c46202ef9a12316b478335dca3f5db4ea15fb3c",
+        "current_run_helpers_initialized_and_asserted": true,
+        "no_renewal": true
+      },
+      "elapsed_under_lease_minutes": 13,
+      "platform_blocker": null
     }
   ],
-  "next_objective": "Close #47 first passive trial-observation analysis slice after final exact-head CI and installed main proof. The data->plan->receipt->analysis kit path is now usable; no more automatic join/receipt diagnostics, scheduler/retry or template catalog. Next concrete SDK/format gap observed in core_planning.py: plan-core accepts only selected semantic annotations0.1. Evaluate/implement a bounded explicit Core perceptual-measurement selection path without requiring a chemical representation, reusing known Core validation, current mapper/profile and frame/lifecycle adapters. Check Core contract, units and scale constraints before coding; do not infer normalization or select fallback representations. Exit: installed caller Core with quantitative data->explicit indexed selection/profile->passive offline plan retaining exact Core/provenance/unknown representations->software Python/Node or actual native sketch client; unsupported/ambiguous selection, incompatible profile/unit/scale, stale projection and capability/duration refusal with no implicit connection. Keep existing semantic selection backward-compatible and no new wire contract by default. Human dry-load board/electrical/olfactory evidence and independent adoption remain unobserved; whole SDK/format,data/interop,hardware/adoption kit milestone stays active.",
+  "next_objective": "Close #48 first explicit quantitative Core selection path after exact-head CI/main proof; no automatic representation catalog or more selection diagnostics. The next concrete data/format gap: installed scientific imports produce Generic ResourceGraph observations, while quantitative plan-core expects a Core document. Inspect existing contracts and implement a bounded passive export of one explicitly chosen Observation/result to Core perceptual data with caller-supplied odor ID, exact original graph/context snapshots and no inferred chemical identity, participant or presentation. Preserve unknown schemes/provenance and avoid unit conversion or fabricated measurements; refuse incompatible/unmeasured selection and collisions. Exit: installed declared-synthetic import -> explicit observation/result-to-Core export -> indexed Core plan under explicit unit/scale policy -> Python/Node or actual native software client, original paths removed and exact source recoverable, no overwrite or automatic sending. Keep old Core bridge/semantic behavior compatible. No retries/scheduler, no physical port/GPIO/flash. Human dry-load electrical/olfactory evidence and independent adoption remain unobserved; SDK/format,data/interop,hardware/adoption remain the active whole-project kit milestone.",
   "automation": {
     "id": "39cc72697e048191a1ba0d3e3e9d787c",
     "title": "OpenSmell — développement autonome quotidien",
@@ -426,9 +407,9 @@
   },
   "active_product_milestone": {
     "goal": "Installable OpenSmell developer kit spanning data, SDK, device integration and reproducible hardware bench",
-    "delivered": "Installable data/SDK/interop/starter, Linux/Windows actual native source kits, reusable sequences and prepared dossier execution (#46) now connect to passive explicit observation analysis (#47), with retained provenance/trial IDs, JSON/CSV and Pandas proof. Human electrical/olfactory evidence and independent adoption remain unobserved.",
-    "next": "Close #47 first passive trial-observation analysis slice after final exact-head CI and installed main proof. The data->plan->receipt->analysis kit path is now usable; no more automatic join/receipt diagnostics, scheduler/retry or template catalog. Next concrete SDK/format gap observed in core_planning.py: plan-core accepts only selected semantic annotations0.1. Evaluate/implement a bounded explicit Core perceptual-measurement selection path without requiring a chemical representation, reusing known Core validation, current mapper/profile and frame/lifecycle adapters. Check Core contract, units and scale constraints before coding; do not infer normalization or select fallback representations. Exit: installed caller Core with quantitative data->explicit indexed selection/profile->passive offline plan retaining exact Core/provenance/unknown representations->software Python/Node or actual native sketch client; unsupported/ambiguous selection, incompatible profile/unit/scale, stale projection and capability/duration refusal with no implicit connection. Keep existing semantic selection backward-compatible and no new wire contract by default. Human dry-load board/electrical/olfactory evidence and independent adoption remain unobserved; whole SDK/format,data/interop,hardware/adoption kit milestone stays active."
+    "delivered": "Installable SDK/data/interop/starter, Linux/Windows native source kits, reusable execution and prepared dossier/analysis paths (#46/#47) now include explicit quantitative Core planning with source-preserving policy and Python/Node/native proof (#48). Human electrical/olfactory evidence and independent adoption remain unobserved.",
+    "next": "Close #48 first explicit quantitative Core selection path after exact-head CI/main proof; no automatic representation catalog or more selection diagnostics. The next concrete data/format gap: installed scientific imports produce Generic ResourceGraph observations, while quantitative plan-core expects a Core document. Inspect existing contracts and implement a bounded passive export of one explicitly chosen Observation/result to Core perceptual data with caller-supplied odor ID, exact original graph/context snapshots and no inferred chemical identity, participant or presentation. Preserve unknown schemes/provenance and avoid unit conversion or fabricated measurements; refuse incompatible/unmeasured selection and collisions. Exit: installed declared-synthetic import -> explicit observation/result-to-Core export -> indexed Core plan under explicit unit/scale policy -> Python/Node or actual native software client, original paths removed and exact source recoverable, no overwrite or automatic sending. Keep old Core bridge/semantic behavior compatible. No retries/scheduler, no physical port/GPIO/flash. Human dry-load electrical/olfactory evidence and independent adoption remain unobserved; SDK/format,data/interop,hardware/adoption remain the active whole-project kit milestone."
   },
-  "session_slot": "2026-11-25T18:00",
-  "last_completed_slot": "2026-11-25T06:00"
+  "session_slot": null,
+  "last_completed_slot": "2026-11-25T18:00"
 }
