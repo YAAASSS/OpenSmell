@@ -1646,6 +1646,10 @@ The active direction covers the installed SDK/CLI, interoperable data, reusable
 adapters and a reproducible ESP32 bench. Local Explorer remains a demo client.
 See [the deliverables and exit criteria](docs/development-status.md#active-direction--developer-kit-and-concrete-prototype-2026-11-10).
 
+The installed [`export-observation-core` entry](docs/observation-core.md) selects
+one supplied observation result into Core with a caller-owned odor ID and exact
+recoverable graph context, then reuses the quantitative planning path.
+
 The installed [`plan-core` quantitative path](docs/core-perceptual-planning.md)
 selects one perceptual representation under an explicit unit/scale/normalization
 policy, preserving exact Core bytes without inventing a measured observation.

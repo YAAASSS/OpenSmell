@@ -26,6 +26,7 @@ on:
       - "tools/verify_installed_experiment_run.py"
       - "tools/verify_installed_core_plan.py"
       - "tools/verify_installed_core_perceptual.py"
+      - "tools/verify_installed_observation_core.py"
       - "examples/core_perceptual_only.osmell"
       - "examples/sequence/**"
       - "examples/firmware_lifecycle/**"
@@ -58,6 +59,7 @@ on:
       - "tools/verify_installed_experiment_run.py"
       - "tools/verify_installed_core_plan.py"
       - "tools/verify_installed_core_perceptual.py"
+      - "tools/verify_installed_observation_core.py"
       - "examples/core_perceptual_only.osmell"
       - "examples/sequence/**"
       - "examples/firmware_lifecycle/**"
@@ -144,6 +146,7 @@ jobs:
         run: |
           python -m tools.verify_installed_core_plan dist/opensmell-0.1.0-py3-none-any.whl --host /tmp/opensmell-lifecycle-host --evidence-directory dist/lifecycle-proof/core-plan
           python -m tools.verify_installed_core_perceptual dist/opensmell-0.1.0-py3-none-any.whl --host /tmp/opensmell-lifecycle-host --output dist/lifecycle-proof/core-plan/perceptual
+          python -m tools.verify_installed_observation_core dist/opensmell-0.1.0-py3-none-any.whl --host /tmp/opensmell-lifecycle-host --output dist/lifecycle-proof/core-plan/observation-export
 
       - name: Verify installed serial bench over owned pseudo-terminals
         if: runner.os == 'Linux'

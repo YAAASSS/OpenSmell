@@ -227,6 +227,32 @@ def _prepare_experiment_command(args):
         print(json.dumps({"status":"invalid","error":str(error)})); return 1
 
 
+def _observation_core_command(args):
+    from .experimental.observation_core import export_observation_core, extract_observation_source
+    from .experimental.observation_core import MAX_GRAPH_BYTES, MAX_CORE_BYTES
+    try:
+        bound = MAX_GRAPH_BYTES if args.command == "export-observation-core" else MAX_CORE_BYTES
+        if args.file == "-":
+            raw = sys.stdin.buffer.read(bound+1)
+        else:
+            with Path(args.file).open("rb") as source:
+                raw = source.read(bound+1)
+        if args.command == "export-observation-core":
+            output = export_observation_core(raw, observation_id=args.observation_id,
+                       result_index=args.result_index, odor_id=args.odor_id)
+        else:
+            output = extract_observation_source(raw)
+        if args.output:
+            with Path(args.output).open("xb") as target: target.write(output)
+        else:
+            sys.stdout.buffer.write(output)
+        return 0
+    except OSError as error:
+        print(json.dumps({"status":"error","error":str(error)}),file=sys.stderr); return 2
+    except (OpenSmellError,ValueError,TypeError,KeyError,RecursionError,OverflowError) as error:
+        print(json.dumps({"status":"invalid","error":str(error)}),file=sys.stderr); return 1
+
+
 def _analyze_experiment_command(args):
     from .experimental.trial_analysis import analyze_experiment, write_analysis_directory
     from .experimental.trial_analysis import MAX_REPORT_BYTES, MAX_OBSERVATION_BYTES, MAX_BINDING_BYTES
@@ -640,6 +666,15 @@ def main(argv: list[str] | None = None) -> int:
     experiment.add_argument("--graph", required=True, help="Explicit source ResourceGraph")
     experiment.add_argument("--profile", required=True, help="Explicit mapping/capability profile for every trial")
     experiment.add_argument("--output-directory", required=True, help="New portable experiment directory; never overwrite")
+    observation_core = commands.add_parser("export-observation-core", help="Passively select an observation result into Core with exact original graph context")
+    observation_core.add_argument("file", help="Generic ResourceGraph file or stdin (-); max2MiB")
+    observation_core.add_argument("--observation-id", required=True)
+    observation_core.add_argument("--result-index", required=True, type=int, help="Explicit zero-based result index; no fallback")
+    observation_core.add_argument("--odor-id", required=True, help="Caller-owned Core odor ID; never inferred from source")
+    observation_core.add_argument("--output", help="New Core file; stdout when omitted; max4MiB")
+    observation_source = commands.add_parser("extract-observation-source", help="Recover exact original graph from a consistent selected observation Core export")
+    observation_source.add_argument("file", help="Exported Core file or stdin (-); max4MiB")
+    observation_source.add_argument("--output", help="New graph file; stdout when omitted")
     analysis = commands.add_parser("analyze-experiment", help="Passively join explicit observation IDs to a prepared dossier's execution receipts")
     analysis.add_argument("directory", help="Selected prepared-experiment directory")
     analysis.add_argument("--report", required=True, help="Retained run-experiment receipt report; max64MiB")
@@ -673,6 +708,8 @@ def main(argv: list[str] | None = None) -> int:
         return _plan_core_command(args)
     if args.command == "prepare-experiment":
         return _prepare_experiment_command(args)
+    if args.command in {"export-observation-core", "extract-observation-source"}:
+        return _observation_core_command(args)
     if args.command == "analyze-experiment":
         return _analyze_experiment_command(args)
     if args.command == "run-experiment":

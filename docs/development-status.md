@@ -5,6 +5,22 @@ The broader roadmap remains in the [README](../README.md#roadmap).
 Operational checkpoints and the short session log live in `state.json` on the
 `automation/control` branch; follow its pending PR before starting new work.
 
+## Selected observation to Core — 2026-11-26
+
+The first quantitative Core selection slice (#48) is closed. The next data/format
+entry is [selected observation-result export](observation-core.md), bridging an
+explicit graph result to Core without manual JSON assembly. Caller-owned odor ID,
+exact graph recovery and recomputation before consuming the exported Core keep
+source context distinct from identity or an invented experiment.
+
+Exit: installed synthetic import->explicit export/recovery->Core plan under caller
+unit/scale policy->Python/Node/actual native software receipts after original paths
+removed; missing ratings remain missing, exact unknown/context/source bytes recover,
+unsupported/unmeasured selection and stale source/plan/collisions refuse. Close
+this bounded export after CI; no automatic schema/result catalog or physical action.
+SDK/format,data interoperability,hardware preparation and adoption stay distinct;
+human bench and independent adoption evidence remain unobserved.
+
 ## Core quantitative selection — 2026-11-25 evening
 
 The first passive trial-analysis slice (#47) is closed. The SDK/format gap is now
