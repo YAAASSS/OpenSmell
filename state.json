@@ -2,8 +2,15 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-25",
   "last_processed_main_sha": "75406c59b4af1d3b6226ead7cb1b484f1ed1ec9f",
-  "lease": null,
-  "open_work": null,
+  "lease": {
+    "owner": "observation-core-20261126-1795669506467-trexpaecmh",
+    "acquired_at": "2026-11-26T05:05:06.467Z",
+    "expires_at": "2026-11-26T09:05:06.467Z"
+  },
+  "open_work": {
+    "branch": "feat/observation-core-20261126",
+    "resume_action": "Implement passive explicit observation/result-to-Core export with original graph recovery, then installed data/plan/software proof."
+  },
   "last_result": {
     "session_kind": "scheduled",
     "slot": "2026-11-25T18:00",
@@ -410,6 +417,6 @@
     "delivered": "Installable SDK/data/interop/starter, Linux/Windows native source kits, reusable execution and prepared dossier/analysis paths (#46/#47) now include explicit quantitative Core planning with source-preserving policy and Python/Node/native proof (#48). Human electrical/olfactory evidence and independent adoption remain unobserved.",
     "next": "Close #48 first explicit quantitative Core selection path after exact-head CI/main proof; no automatic representation catalog or more selection diagnostics. The next concrete data/format gap: installed scientific imports produce Generic ResourceGraph observations, while quantitative plan-core expects a Core document. Inspect existing contracts and implement a bounded passive export of one explicitly chosen Observation/result to Core perceptual data with caller-supplied odor ID, exact original graph/context snapshots and no inferred chemical identity, participant or presentation. Preserve unknown schemes/provenance and avoid unit conversion or fabricated measurements; refuse incompatible/unmeasured selection and collisions. Exit: installed declared-synthetic import -> explicit observation/result-to-Core export -> indexed Core plan under explicit unit/scale policy -> Python/Node or actual native software client, original paths removed and exact source recoverable, no overwrite or automatic sending. Keep old Core bridge/semantic behavior compatible. No retries/scheduler, no physical port/GPIO/flash. Human dry-load electrical/olfactory evidence and independent adoption remain unobserved; SDK/format,data/interop,hardware/adoption remain the active whole-project kit milestone."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-26T06:00",
   "last_completed_slot": "2026-11-25T18:00"
 }
