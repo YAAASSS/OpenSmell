@@ -21,6 +21,8 @@ from .npm_command import npm_command
 ROOT = Path(__file__).resolve().parents[1]
 # Explicit allowlist; external datasets, caches and arbitrary checkout files are excluded.
 PAYLOADS = {
+    "OBSERVATION_CORE.md": "docs/observation-core.md",
+    "data/observation_core_profile.json": "examples/offline_observation_core_profile.json",
     "CORE_PERCEPTUAL.md": "docs/core-perceptual-planning.md",
     "data/core_perceptual_only.osmell": "examples/core_perceptual_only.osmell",
     "data/core_perceptual_profile.json": "examples/offline_core_perceptual_profile.json",

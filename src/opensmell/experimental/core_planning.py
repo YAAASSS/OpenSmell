@@ -27,6 +27,8 @@ def project_core_selection(raw, representation_index):
     if not isinstance(document, dict) or 'format' in document or document.get('opensmell') != '0.1':
         raise ValueError('Expected an unambiguous Core 0.1 document')
     validate_document(document)
+    from .observation_core import validate_observation_core
+    validate_observation_core(document)
     representations = document['odor']['representations']
     if type(representation_index) is not int or not 0 <= representation_index < len(representations):
         raise ValueError('Explicit zero-based representation index required and must exist')
