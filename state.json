@@ -12,7 +12,8 @@
     "commit": "7547ffc47047e8f1c5b48867cac84e1a4f15534f",
     "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/50",
     "objective": "Installed JavaScript Core inspection and exact Python/Node exchange",
-    "next_action": "Final local/full and installed proof; corrected exact-head CI then merge"
+    "next_action": "Rebuild from verified main, repeat installed Python/npm proof, save Work and release lease",
+    "merged_main_sha": "5a20b7689bc7bcecf60fa143b17c226a04d14726"
   },
   "last_result": {
     "session_kind": "scheduled",
