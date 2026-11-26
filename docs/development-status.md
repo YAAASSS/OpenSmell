@@ -5,6 +5,23 @@ The broader roadmap remains in the [README](../README.md#roadmap).
 Operational checkpoints and the short session log live in `state.json` on the
 `automation/control` branch; follow its pending PR before starting new work.
 
+## Installed JavaScript Core reader — 2026-11-26 evening
+
+The selected observation/Core export (#49) is closed. The next cross-language
+SDK/data entry is [explicit installed JavaScript Core inspection](javascript-core.md):
+Core0.1 envelope and provisional quantitative fields, source-safe numeric display,
+ordered opaque representations and original-byte recovery. Existing graph entry
+and bounds remain compatible; ambiguous competing envelopes now refuse.
+
+Exit: installed Python synthetic import/export -> actual packed/installed Node
+CJS/ESM/CLI outside checkout -> exact Core transfer -> Python source recovery and
+explicit quantitative plan, after original paths removed. Mixed units, zero/null/
+missing values, unknown payloads/unsafe numeric tokens, bounds and collisions are
+covered. Close this first reader after CI; no automatic dispatch, editing, full
+Python-registry parity or further reader diagnostics by default. Next choose a
+concrete external data/analysis integration over polishing Explorer or this reader.
+Human electrical/olfactory results and independent adoption remain unobserved.
+
 ## Selected observation to Core — 2026-11-26
 
 The first quantitative Core selection slice (#48) is closed. The next data/format

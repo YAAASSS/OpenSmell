@@ -79,6 +79,7 @@ jobs:
       - name: Verify installed explicit Core planning path
         run: |
           python -m tools.verify_installed_core_plan dist/opensmell-0.1.0-py3-none-any.whl --evidence-directory dist/core-plan-proof
+          python -m tools.verify_installed_js_core dist/opensmell-0.1.0-py3-none-any.whl --output dist/core-plan-proof/js-reader
           python -m tools.verify_installed_core_perceptual dist/opensmell-0.1.0-py3-none-any.whl --output dist/core-plan-proof/perceptual
           python -m tools.verify_installed_observation_core dist/opensmell-0.1.0-py3-none-any.whl --output dist/core-plan-proof/observation-export
 
@@ -159,7 +160,7 @@ jobs:
         run: node --test tests/local_demo_import.test.cjs tests/local_demo_lifecycle.test.cjs
 
       - name: Verify independent JavaScript graph reader and intact transfers
-        run: node --test tests/graph_viewer_js.test.cjs tests/js_sdk.test.cjs
+        run: node --test tests/graph_viewer_js.test.cjs tests/js_sdk.test.cjs tests/core_reader_js.test.cjs
 
       - name: Verify JavaScript reader exchange with Python Local Explorer
         run: python -m pytest tests/test_graph_viewer_js_exchange.py -q

@@ -1,5 +1,6 @@
-/** Limited experimental graph profile, not full Core/graph schema validation. */
+/** Limited experimental graph and explicit Core profiles; not full schema validation. */
 export const LIMIT: 1048576;
+export const CORE_LIMIT: 4194304;
 export const FORMAT: "org.opensmell.experimental.generic-resource-graph";
 export type ResourceKind = "molecule" | "annotation" | "stimulus" | "observation_target" | "observation" | "opaque";
 /** Display text retains numeric tokens; it is not a normalized numeric value. */
@@ -12,6 +13,11 @@ export interface InspectionReport {
   file: {name: string; byte_length: number; sha256: string; utf8_bom: boolean};
   format?: DisplayField;
   version?: DisplayField;
+  core?: {version: DisplayField; odor_id: string; metadata: DisplayField; provenance: DisplayField;
+    odor_provenance: DisplayField; representations: Array<{index: number; type: string; scheme: DisplayField;
+      data: DisplayField; provenance: DisplayField; representation_json: string; status: "opaque" | "inspected";
+      entries?: Array<{property: string; value: DisplayField; unit: DisplayField; scale: DisplayField;
+        min: DisplayField; max: DisplayField}>}>};
   resources: Array<{id: string; type: string; type_version: DisplayField;
                     kind: ResourceKind; status: "recognized" | "opaque" | "invalid"; path: string}>;
   references: Array<{source_id: string; field: string; target_id: string;
@@ -41,5 +47,7 @@ export interface InspectionResult {
   copyBytes(): Uint8Array;
 }
 export function inspectBytes(input: Uint8Array, name?: string): Promise<InspectionResult>;
-declare const reader: {LIMIT: typeof LIMIT; FORMAT: typeof FORMAT; inspectBytes: typeof inspectBytes};
+/** Explicit limited Core 0.1 inspection, no automatic dispatch or planning. */
+export function inspectCoreBytes(input: Uint8Array, name?: string): Promise<InspectionResult>;
+declare const reader: {LIMIT: typeof LIMIT; CORE_LIMIT: typeof CORE_LIMIT; FORMAT: typeof FORMAT; inspectBytes: typeof inspectBytes; inspectCoreBytes: typeof inspectCoreBytes};
 export default reader;

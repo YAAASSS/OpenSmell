@@ -1,4 +1,4 @@
-/* Independent, deliberately limited JavaScript inspection. No Python or network.
+/* Independent, deliberately limited JavaScript graph/Core inspection. No Python or network.
  * Wire dispatch/reference rules follow the existing portable verifiers in
  * tools/verify_{multisource_beta_pinene_interop,reference_discovery_vectors}.js.
  * Those historical fixture verifiers remain unchanged and run separately.
@@ -10,6 +10,7 @@
 })(globalThis, function () {
   "use strict";
   const LIMIT = 1_048_576;
+  const CORE_LIMIT = 4_194_304;
   const FORMAT = "org.opensmell.experimental.generic-resource-graph";
   const own = (object, key) => Object.prototype.hasOwnProperty.call(object, key);
   const object = value => value !== null && typeof value === "object" && !Array.isArray(value);
@@ -102,7 +103,7 @@
     "No hardware access, mapping, Python analysis or network upload occurs in this reader.",
   ];
 
-  function analyze(text, report) {
+  function analyze(text, report, core = false) {
     const diagnostic = (severity, code, path, message) => report.diagnostics.push({severity, code, path, message});
     let graph;
     try { graph = JSON.parse(text); }
@@ -126,6 +127,42 @@
       context_json: raw(`${path}/context`),
     });
     requireValue(object(graph), "", "The graph must be a JSON object.");
+    if (core) {
+      requireValue(!own(graph, "format"), "/format", "Ambiguous Core envelope: a graph format discriminator is also present.");
+      requireValue(graph.opensmell === "0.1", "/opensmell", "This Core reader requires opensmell version 0.1.");
+      requireValue(object(graph.odor), "/odor", "odor must be an object.");
+      const odor = graph.odor;
+      requireValue(string(odor.id), "/odor/id", "Odor id must be a nonempty string.");
+      if (own(odor, "metadata")) {
+        requireValue(object(odor.metadata), "/odor/metadata", "metadata must be an object when present.");
+        if (own(odor.metadata, "description")) requireValue(string(odor.metadata.description), "/odor/metadata/description", "description must be nonempty text.");
+        if (own(odor.metadata, "labels")) {
+          const labels = odor.metadata.labels;
+          requireValue(object(labels) && Object.keys(labels).length > 0 && Object.values(labels).every(string), "/odor/metadata/labels", "labels must be a nonempty object of nonempty text values.");
+        }
+      }
+      requireValue(Array.isArray(odor.representations) && odor.representations.length > 0, "/odor/representations", "representations must be a nonempty array.");
+      report.core = {version: field(graph, "opensmell", ""), odor_id: odor.id,
+        metadata: field(odor, "metadata", "/odor"), provenance: field(graph, "provenance", ""),
+        odor_provenance: field(odor, "provenance", "/odor"), representations: []};
+      for (const [index, representation] of odor.representations.entries()) {
+        const path = `/odor/representations/${index}`;
+        requireValue(object(representation) && string(representation.type), path, "A representation requires a nonempty type string.");
+        const selected = scheme(representation.scheme, `${path}/scheme`);
+        requireValue(object(representation.data), `${path}/data`, "Representation data must be an object.");
+        const item = {index, type: representation.type, scheme: field(representation, "scheme", path),
+          data: field(representation, "data", path), provenance: field(representation, "provenance", path),
+          representation_json: raw(path), status: "opaque"};
+        report.core.representations.push(item);
+        if (representation.type === "perceptual" && selected.id === "org.opensmell.perceptual.measurements" && selected.version === "0.1") {
+          item.entries = measurementEntries(representation.data, path);
+          item.status = "inspected";
+        } else diagnostic("warning", "opaque_representation", path, "Type/scheme/version not interpreted by this Core profile. Original representation and file bytes retained; payload meaning not validated.");
+      }
+      diagnostic("info", "scope", "", "Core envelope and listed quantitative fields only. Chemical/semantic/unknown payloads, extensions, export-source consistency and authenticity are not validated. This is not full Python Core validation or planning.");
+      return;
+    }
+    requireValue(!own(graph, "opensmell"), "/opensmell", "Ambiguous graph envelope: a Core discriminator is also present.");
     report.format = field(graph, "format", ""); report.version = field(graph, "version", "");
     if (graph.format !== FORMAT || graph.version !== "0.1") {
       throw new InspectionError("unsupported_format", "/format", "Unsupported format/version. This reader supports experimental Generic ResourceGraph 0.1, not Core documents or other graph formats.");
@@ -166,6 +203,26 @@
     function scheme(value, path) {
       requireValue(object(value) && string(value.id) && string(value.version), path, "A scheme needs nonempty id and version strings.");
       return value;
+    }
+    function measurementEntries(data, location) {
+      requireValue(Array.isArray(data.measurements), `${location}/data/measurements`, "measurements must be an array.");
+      return data.measurements.map((measurement, index) => {
+        const p = `${location}/data/measurements/${index}`;
+        requireValue(object(measurement) && string(measurement.property), p, "Measurement property must be a nonempty string.");
+        requireValue(!own(measurement, "value") || measurement.value === null || typeof measurement.value === "number", `${p}/value`, "A displayed quantitative value must be a number, null or missing.");
+        const scale = measurement.scale;
+        requireValue(scale == null || object(scale), `${p}/scale`, "Scale must be an object, null or missing.");
+        for (const key of ["min", "max"]) requireValue(!object(scale) || !own(scale, key) || scale[key] === null || typeof scale[key] === "number", `${p}/scale/${key}`, "A scale bound must be numeric, null or missing.");
+        requireValue(!own(measurement, "unit") || measurement.unit === null || string(measurement.unit), `${p}/unit`, "Unit must be nonempty text, null or missing.");
+        const fields = [`${p}/value`, `${p}/scale/min`, `${p}/scale/max`];
+        if (typeof measurement.value !== "number" || !object(scale) || typeof scale.min !== "number" || typeof scale.max !== "number") {
+          diagnostic("warning", "unavailable_measurement", p, "Value or explicit min/max scale is missing/null. Shown as supplied; no range check or normalization performed.");
+        } else if (!fields.some(key => limitedNumbers.has(key))) {
+          requireValue(scale.min < scale.max, `${p}/scale`, "Scale minimum must be less than maximum.");
+          requireValue(measurement.value >= scale.min && measurement.value <= scale.max, `${p}/value`, "Measurement is outside its declared scale.");
+        }
+        return {property: measurement.property, value: field(measurement, "value", p), unit: field(measurement, "unit", p), scale: field(measurement, "scale", p), min: field(scale, "min", `${p}/scale`), max: field(scale, "max", `${p}/scale`)};
+      });
     }
     for (const [index, resource] of graph.resources.entries()) {
       const item = report.resources[index], path = item.path;
@@ -214,24 +271,7 @@
               diagnostic("warning", "opaque_scheme", `${location}/scheme`, "Result scheme/version not interpreted; its payload is preserved, not validated.");
               continue;
             }
-            requireValue(Array.isArray(result.data.measurements), `${location}/data/measurements`, "measurements must be an array.");
-            const entries = result.data.measurements.map((measurement, index) => {
-              const p = `${location}/data/measurements/${index}`;
-              requireValue(object(measurement) && string(measurement.property), p, "Measurement property must be a nonempty string.");
-              requireValue(!own(measurement, "value") || measurement.value === null || typeof measurement.value === "number", `${p}/value`, "A displayed quantitative value must be a number, null or missing.");
-              const scale = measurement.scale;
-              requireValue(scale == null || object(scale), `${p}/scale`, "Scale must be an object, null or missing.");
-              for (const key of ["min", "max"]) requireValue(!object(scale) || !own(scale, key) || scale[key] === null || typeof scale[key] === "number", `${p}/scale/${key}`, "A scale bound must be numeric, null or missing.");
-              requireValue(!own(measurement, "unit") || measurement.unit === null || string(measurement.unit), `${p}/unit`, "Unit must be nonempty text, null or missing.");
-              const fields = [`${p}/value`, `${p}/scale/min`, `${p}/scale/max`];
-              if (typeof measurement.value !== "number" || !object(scale) || typeof scale.min !== "number" || typeof scale.max !== "number") {
-                diagnostic("warning", "unavailable_measurement", p, "Value or explicit min/max scale is missing/null. Shown as supplied; no range check or normalization performed.");
-              } else if (!fields.some(key => limitedNumbers.has(key))) {
-                requireValue(scale.min < scale.max, `${p}/scale`, "Scale minimum must be less than maximum.");
-                requireValue(measurement.value >= scale.min && measurement.value <= scale.max, `${p}/value`, "Measurement is outside its declared scale.");
-              }
-              return {property: measurement.property, value: field(measurement, "value", p), unit: field(measurement, "unit", p), scale: field(measurement, "scale", p), min: field(scale, "min", `${p}/scale`), max: field(scale, "max", `${p}/scale`)};
-            });
+            const entries = measurementEntries(result.data, location);
             groups.push({result_index: offset, entries});
           }
           report.observations.push({id: item.id, stimulus: resource.stimulus.resource_id, target: field(resource, "target", path), source: source(resource, path), groups});
@@ -249,18 +289,28 @@
     diagnostic("info", "scope", "", "Listed checks only. Unknown fields, source declarations, chemistry and opaque payload meanings are not validated.");
   }
 
-  async function inspectBytes(input, name = "graph.osmell") {
+  async function inspect(input, name, core) {
+    const bound = core ? CORE_LIMIT : LIMIT;
     if (!(input instanceof Uint8Array)) throw new TypeError("Expected file bytes as Uint8Array.");
-    if (input.byteLength > LIMIT) throw new InspectionError("file_too_large", "", "File too large. Maximum: 1,048,576 bytes (1 MiB), including any UTF-8 BOM.");
+    if (input.byteLength > bound) throw new InspectionError("file_too_large", "", `File too large. Maximum: ${bound.toLocaleString("en-US")} bytes, including any UTF-8 BOM.`);
     const bytes = Uint8Array.from(input); // Private snapshot; callers cannot alter downloads.
     const hash = Array.from(new Uint8Array(await globalThis.crypto.subtle.digest("SHA-256", bytes)), value => value.toString(16).padStart(2, "0")).join("");
     const bom = bytes[0] === 0xef && bytes[1] === 0xbb && bytes[2] === 0xbf;
     const report = {tool: "OpenSmell JavaScript Graph Reader", report_version: "application-specific 0.1", file: {name, byte_length: bytes.length, sha256: hash, utf8_bom: bom}, status: "inspected", checks: [...CHECKS], limits: [...LIMITS], diagnostics: [], resources: [], references: [], molecules: [], annotations: [], observations: [], stimuli: [], targets: []};
+    if (core) {
+      report.tool = "OpenSmell JavaScript Core Reader";
+      report.checks = ["Inclusive 4,194,304-byte Core file limit (including UTF-8 BOM).",
+        "Fatal UTF-8 decoding, JSON syntax, duplicate keys, maximum nesting of 64.",
+        "Explicit Core 0.1 envelope, metadata fields, nonempty odor ID/representations/type/scheme, object data; refuses graph format discriminator.",
+        "Only perceptual + org.opensmell.perceptual.measurements 0.1 quantitative fields are interpreted.",
+        "Safe-integer ranges only with usable explicit scale; other numeric lexemes reported verbatim."];
+      report.limits.push("Not full Core/scheme validation. No export-marker consistency, embedded source decoding or Python-registry parity; declared source and provenance remain unverified.");
+    }
     try {
       let text;
       try { text = new TextDecoder("utf-8", {fatal: true, ignoreBOM: true}).decode(bytes); }
       catch { throw new InspectionError("invalid_utf8", "", "Invalid UTF-8. No replacement characters were inserted; the file was not interpreted."); }
-      analyze(bom ? text.slice(1) : text, report);
+      analyze(bom ? text.slice(1) : text, report, core);
     } catch (error) {
       if (!(error instanceof InspectionError)) throw error;
       report.diagnostics.push({severity: "error", code: error.code, path: error.path, message: error.message});
@@ -273,5 +323,7 @@
       return Uint8Array.from(bytes);
     }};
   }
-  return {LIMIT, FORMAT, inspectBytes};
+  const inspectBytes = (input, name = "graph.osmell") => inspect(input, name, false);
+  const inspectCoreBytes = (input, name = "core.osmell") => inspect(input, name, true);
+  return {LIMIT, CORE_LIMIT, FORMAT, inspectBytes, inspectCoreBytes};
 });

@@ -1,3 +1,3 @@
 import reader from "./reader.cjs";
-export const {LIMIT, FORMAT, inspectBytes} = reader;
+export const {LIMIT, CORE_LIMIT, FORMAT, inspectBytes, inspectCoreBytes} = reader;
 export default reader;

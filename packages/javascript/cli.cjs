@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 "use strict";
 const fs = require("node:fs");
-const {inspectBytes, LIMIT} = require("./index.cjs");
+const {inspectBytes, inspectCoreBytes, LIMIT, CORE_LIMIT} = require("./index.cjs");
 
-function readBounded(filename) {
+function readBounded(filename, limit) {
   const fd = fs.openSync(filename, "r");
   try {
-    const buffer = Buffer.alloc(LIMIT + 1);
+    const buffer = Buffer.alloc(limit + 1);
     let used = 0, count;
     while (used < buffer.length && (count = fs.readSync(fd, buffer, used, buffer.length - used, null)) > 0) used += count;
     return buffer.subarray(0, used);
@@ -14,9 +14,11 @@ function readBounded(filename) {
 }
 
 async function main(args) {
+  const core = args[0] === "--core";
+  if (core) args = args.slice(1);
   if (args.length === 1 && args[0] === "--help") {
-    console.log("Usage: opensmell-inspect-js FILE [--copy NEW_FILE]");
-    console.log("Offline experimental graph inspection. Exit: 0 inspected, 3 partial, 1 rejected, 2 I/O/usage.");
+    console.log("Usage: opensmell-inspect-js [--core] FILE [--copy NEW_FILE]");
+    console.log("Offline experimental graph or explicit --core inspection. Exit: 0 inspected, 3 partial, 1 rejected, 2 I/O/usage.");
     return 0;
   }
   if (![1, 3].includes(args.length) || args[0].startsWith("--") ||
@@ -25,7 +27,7 @@ async function main(args) {
     return 2;
   }
   try {
-    const result = await inspectBytes(readBounded(args[0]), args[0]);
+    const result = await (core ? inspectCoreBytes : inspectBytes)(readBounded(args[0], core ? CORE_LIMIT : LIMIT), args[0]);
     if (result.report.status !== "rejected" && args.length === 3)
       fs.writeFileSync(args[2], result.copyBytes(), {flag: "wx"});
     console.log(JSON.stringify(result.report, null, 2));
