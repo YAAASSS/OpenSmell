@@ -11,7 +11,8 @@
     "branch": "feat/observation-core-20261126",
     "commit": "ab35f74959b575ea0c25dcc260d81b3f16f370bd",
     "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/49",
-    "resume_action": "Finish broad/native installed proofs and exact-head CI, review diff and merge when gates pass. Verify main, save Work and release; no physical IO."
+    "merged_main": "b1b03971ccdb919f37123f66a28ddcfd44b83f70",
+    "resume_action": "Merged49 after20 exact-head checks success, main tree identical. Finish post-main installed proof, Work and release; no physical IO."
   },
   "last_result": {
     "session_kind": "scheduled",
