@@ -1,4 +1,4 @@
-/** Limited experimental graph profile, not full Core/graph schema validation. */
+/** Limited experimental graph and explicit Core profiles; not full schema validation. */
 export const LIMIT: 1048576;
 export const CORE_LIMIT: 4194304;
 export const FORMAT: "org.opensmell.experimental.generic-resource-graph";

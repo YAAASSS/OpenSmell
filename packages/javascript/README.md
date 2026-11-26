@@ -49,8 +49,9 @@ Wrong input types reject with TypeError. Invalid UTF-8, malformed/ambiguous JSON
 invalid recognized resources and unresolved required references produce a
 rejected report. Unknown types/versions/schemes remain opaque, with diagnostics.
 The profile and numeric/Unicode limitations are disclosed in each report.
-This slice reads Generic ResourceGraph 0.1, not Core files, batch bundles,
-arbitrary JSON, graph editing, mapping or physical output.
+The original graph entry reads Generic ResourceGraph 0.1. Core requires the
+explicit additional entry below. Neither reads batch bundles/arbitrary JSON or
+performs editing, mapping or physical output.
 
 ## Installed CLI
 
