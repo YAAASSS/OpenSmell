@@ -2,8 +2,16 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-26",
   "last_processed_main_sha": "b1b03971ccdb919f37123f66a28ddcfd44b83f70",
-  "lease": null,
-  "open_work": null,
+  "lease": {
+    "owner": "js-core-1795712796899-agvftw4nmlq",
+    "acquired_at": "2026-11-26T17:06:36.899Z",
+    "expires_at": "2026-11-26T21:06:36.899Z"
+  },
+  "open_work": {
+    "branch": "work/js-core-reader-20261126",
+    "objective": "Installed JavaScript Core loss-preserving inspection",
+    "next_action": "Implement npm reader and outside-checkout Python/Node proof"
+  },
   "last_result": {
     "session_kind": "scheduled",
     "slot": "2026-11-26T06:00",
@@ -401,6 +409,6 @@
     "delivered": "Installable data/SDK/interop/starter, Linux/Windows native source kits, reusable execution, prepared dossier/analysis and quantitative Core planning (#46-48) now include selected Observation/result->Core export with exact graph recovery and installed Python/Node/native proof (#49). Human electrical/olfactory evidence and independent adoption remain unobserved.",
     "next": "Close #49 first passive selected Observation/result-to-Core export/recovery path after exact-head CI and main proof; no more export/result-selection diagnostics or automatic schema catalog. The next concrete cross-language gap is observed in packages/javascript/reader.cjs: the independent npm reader explicitly rejects Core documents and supports only experimental Generic ResourceGraph0.1. Implement a bounded first installed JavaScript Core inspection/read path (explicit entry or unambiguous dispatch), covering envelope and known quantitative representation fields with source-safe number/token handling, zero/missing/null units/scales, provenance and unknown schemes/representations preserved as exact original bytes. Do not infer normalization, chemical identity, planning or full Python conformance; unknown/unvalidated scope must remain explicit. Exit: Python installed synthetic import/export produces Core -> independently packed/installed Node consumer outside checkout reads known perceptual data and preserves exact original bytes/unsafe-number lexemes -> Python still plans/validates recovered source; ambiguous/invalid envelopes and output collisions refuse, no precision loss or transport. Preserve existing graph npm API/CLI behavior. Keep whole SDK/format,data interoperability,hardware/adoption kit active; human dry-load electrical/olfactory validation and external adoption remain unobserved. No physical IO, scheduler/retry/catalog expansion, tag/release or new automation."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-26T18:00",
   "last_completed_slot": "2026-11-26T06:00"
 }
