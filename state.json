@@ -9,7 +9,9 @@
   },
   "open_work": {
     "branch": "feat/observation-core-20261126",
-    "resume_action": "Implement passive explicit observation/result-to-Core export with original graph recovery, then installed data/plan/software proof."
+    "commit": "ab35f74959b575ea0c25dcc260d81b3f16f370bd",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/49",
+    "resume_action": "Finish broad/native installed proofs and exact-head CI, review diff and merge when gates pass. Verify main, save Work and release; no physical IO."
   },
   "last_result": {
     "session_kind": "scheduled",
