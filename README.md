@@ -2077,6 +2077,14 @@ opensmell.org
 
 **OpenSmell — an open interoperability layer for digital olfaction.**
 
+### Installed JavaScript Core inspection
+
+The locally packable [JavaScript Core reader](docs/javascript-core.md) inspects
+Core0.1 envelopes and quantitative fields with exact original-byte transfer.
+Use `opensmell-inspect-js --core FILE --copy NEW_FILE` after local npm installation.
+Unknown representations and unsafe numeric tokens remain preserved; this limited
+experimental inspection is separate from Python planning and source verification.
+
 ### Installed software adapter SDK
 
 A locally packable [JavaScript lifecycle client](docs/javascript-lifecycle.md) now

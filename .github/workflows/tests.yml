@@ -74,6 +74,7 @@ jobs:
       - name: Verify installed SDKs with Python and Node and exchanged bytes
         run: |
           python -m build --wheel
+          python -m tools.verify_installed_js_core dist/opensmell-0.1.0-py3-none-any.whl --output dist/core-plan-proof/js-reader
           python -m tools.verify_installed_cli dist/*.whl --js-exchange-directory "$RUNNER_TEMP/js-sdk-exchange"
 
       - name: Verify installed explicit Core planning path
@@ -159,7 +160,7 @@ jobs:
         run: node --test tests/local_demo_import.test.cjs tests/local_demo_lifecycle.test.cjs
 
       - name: Verify independent JavaScript graph reader and intact transfers
-        run: node --test tests/graph_viewer_js.test.cjs tests/js_sdk.test.cjs
+        run: node --test tests/graph_viewer_js.test.cjs tests/js_sdk.test.cjs tests/core_reader_js.test.cjs
 
       - name: Verify JavaScript reader exchange with Python Local Explorer
         run: python -m pytest tests/test_graph_viewer_js_exchange.py -q
