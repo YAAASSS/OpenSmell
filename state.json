@@ -9,8 +9,10 @@
   },
   "open_work": {
     "branch": "work/js-core-reader-20261126",
-    "objective": "Installed JavaScript Core loss-preserving inspection",
-    "next_action": "Implement npm reader and outside-checkout Python/Node proof"
+    "commit": "eefd6ebd3051980feaf6b104b1ad51a195cab2c8",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/50",
+    "objective": "Installed JavaScript Core inspection and exact Python/Node exchange",
+    "next_action": "Run final local tests, inspect exact head CI/reviews, merge and verify main"
   },
   "last_result": {
     "session_kind": "scheduled",
