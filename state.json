@@ -11,7 +11,8 @@
     "branch": "feat/trial-profiles-20261127",
     "commit": "afbfc006688389f4eca0aec3bba5f0e3797ea504",
     "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/52",
-    "next_action": "Full2612/focused80 pass. Correct installed verifier for existing CLI invalid-dossier empty-report semantics; await exact CI then merge."
+    "next_action": "Repeat full installed12cases on verified main; handoff and release",
+    "merged_main_sha": "8441948783565729896a892ebf3902c7b7da1205"
   },
   "last_result": {
     "session_kind": "scheduled",
