@@ -9,7 +9,9 @@
   },
   "open_work": {
     "branch": "feat/keller-cohort-20261127",
-    "next_action": "Implement bounded selected quantitative cohort graph with exact CSV recovery"
+    "commit": "30b9c33bca459995353b27fd2ab0ea88fd5c6ac4",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/51",
+    "next_action": "Inspect full tests, final diff and exact-head CI; merge and repeat installed proof"
   },
   "last_result": {
     "session_kind": "scheduled",
