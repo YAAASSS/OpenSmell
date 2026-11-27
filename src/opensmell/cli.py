@@ -460,6 +460,39 @@ def _observation_table_command(args):
         return 1
 
 
+def _perceptual_cohort_command(args):
+    import csv
+    from .experimental.perceptual_cohort import import_keller_cohort, extract_keller_source, MAX_CSV_BYTES, MAX_GRAPH_BYTES
+    from .experimental.perceptual_import import MAX_SOURCE_BYTES
+    try:
+        limit = MAX_CSV_BYTES if args.command == "import-keller-cohort" else MAX_GRAPH_BYTES
+        if args.file == "-":
+            raw = sys.stdin.buffer.read(limit + 1)
+        else:
+            with Path(args.file).open("rb") as stream:
+                raw = stream.read(limit + 1)
+        if args.command == "import-keller-cohort":
+            with Path(args.source).open("rb") as stream:
+                source = stream.read(MAX_SOURCE_BYTES + 1)
+            if len(source) > MAX_SOURCE_BYTES:
+                raise ValueError("Source declaration exceeds 1 MiB")
+            output = import_keller_cohort(raw, rows=args.rows, source=_decode(source))
+        else:
+            output = extract_keller_source(raw)
+        if args.output:
+            with Path(args.output).open("xb") as stream:
+                stream.write(output)
+        else:
+            sys.stdout.buffer.write(output)
+    except OSError as error:
+        print(json.dumps({"status": "error", "error": str(error)}), file=sys.stderr)
+        return 2
+    except (OpenSmellError, ValueError, TypeError, csv.Error, RecursionError, OverflowError) as error:
+        print(json.dumps({"status": "invalid", "error": str(error)}), file=sys.stderr)
+        return 1
+    return 0
+
+
 def _import_perceptual_command(args):
     import csv
     from .experimental.perceptual_import import import_keller_csv, MAX_CSV_BYTES, MAX_SOURCE_BYTES
@@ -638,6 +671,14 @@ def main(argv: list[str] | None = None) -> int:
     perceptual.add_argument("--row", type=int, required=True, help="One-based logical data record, excluding header")
     perceptual.add_argument("--source", required=True, help="Source/license/preparation/rating-scale declaration JSON")
     perceptual.add_argument("--output", help="New graph file; existing paths are refused")
+    cohort = commands.add_parser("import-keller-cohort", help="Import explicitly selected quantitative CSV observations and retain refusals")
+    cohort.add_argument("file", help="Prepared UTF-8 CSV or '-'; 512 KiB maximum, whole source retained")
+    cohort.add_argument("--rows", nargs="+", type=int, required=True, help="1..100 unique logical data records, caller order")
+    cohort.add_argument("--source", required=True, help="Source/license/preparation/rating-scale declaration")
+    cohort.add_argument("--output", help="New graph file; never overwrite")
+    recover = commands.add_parser("extract-keller-source", help="Check cohort consistency and recover exact original CSV")
+    recover.add_argument("file", help="Cohort graph or '-'; 2 MiB maximum")
+    recover.add_argument("--output", help="New CSV file; never overwrite")
     batch = commands.add_parser("import-odornet-batch", help="Import explicit CSV records with per-record outcomes")
     batch.add_argument("file", help="UTF-8 CSV; '-' reads stdin")
     batch.add_argument("--rows", required=True, nargs="+", type=int, help="Unique one-based data records")
@@ -722,6 +763,8 @@ def main(argv: list[str] | None = None) -> int:
         return _lifecycle_trial_command(args)
     if args.command == "observation-table":
         return _observation_table_command(args)
+    if args.command in {"import-keller-cohort", "extract-keller-source"}:
+        return _perceptual_cohort_command(args)
     if args.command == "import-keller":
         return _import_perceptual_command(args)
     if args.command == "replay-frame":

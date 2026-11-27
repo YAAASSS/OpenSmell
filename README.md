@@ -2077,6 +2077,14 @@ opensmell.org
 
 **OpenSmell — an open interoperability layer for digital olfaction.**
 
+### Import selected quantitative observations together
+
+The installed [quantitative cohort entry](docs/perceptual-cohort.md) imports explicit
+prepared CSV records in caller order, retains accepted/unmeasured/refused outcomes
+and recovers the whole exact source. Use `opensmell import-keller-cohort CSV --rows 2 1 3 4 --source SOURCE.json --output cohort.osmell`.
+The graph works with observation tables and explicit Core/Node planning workflows;
+matching participant/CID declarations never trigger automatic joins or averaging.
+
 ### Installed JavaScript Core inspection
 
 The locally packable [JavaScript Core reader](docs/javascript-core.md) inspects

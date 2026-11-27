@@ -5,6 +5,22 @@ The broader roadmap remains in the [README](../README.md#roadmap).
 Operational checkpoints and the short session log live in `state.json` on the
 `automation/control` branch; follow its pending PR before starting new work.
 
+## Selected quantitative cohort — 2026-11-27
+
+The first installed JS Core reader (#50) is closed. The active SDK/data slice is
+[explicit quantitative cohort import](perceptual-cohort.md), reusing the prepared
+Keller dialect and occurrence IDs. One reusable graph retains selected order,
+accepted/unmeasured/refused outcomes and the whole original CSV for recovery.
+No participant/chemical joins, averaging or physical outcome inference.
+
+Exit: installed cohort after original paths removed -> independent packed Node
+intact graph transfer -> observation table with unmeasured record -> two explicit
+Core selections/Node copies/Python plans with different bindings, exact source
+recovery and collision/stale/selection/global refusal checks. Close this bounded
+entry after CI; no dialect/catalog/scheduler expansion or diagnostics chain.
+Next prioritize a concrete scientific integration or developer adoption need;
+human electrical/olfactory and outside adoption evidence remain unobserved.
+
 ## Installed JavaScript Core reader — 2026-11-26 evening
 
 The selected observation/Core export (#49) is closed. The next cross-language
