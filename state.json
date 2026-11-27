@@ -9,7 +9,9 @@
   },
   "open_work": {
     "branch": "feat/trial-profiles-20261127",
-    "next_action": "Implement explicit per-trial profile preparation and bound dossier validation"
+    "commit": "f06101342197e8799d1cd8a803fc58153239ca54",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/52",
+    "next_action": "Verify installed proof/full suite, exact-head CI and review diff; merge and verify main"
   },
   "last_result": {
     "session_kind": "scheduled",
