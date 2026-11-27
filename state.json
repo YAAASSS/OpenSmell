@@ -2,8 +2,15 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-26",
   "last_processed_main_sha": "5a20b7689bc7bcecf60fa143b17c226a04d14726",
-  "lease": null,
-  "open_work": null,
+  "lease": {
+    "owner": "keller-cohort-1795755576521-bgfcauvc0pg",
+    "acquired_at": "2026-11-27T05:00:00.002Z",
+    "expires_at": "2026-11-27T09:00:00.002Z"
+  },
+  "open_work": {
+    "branch": "feat/keller-cohort-20261127",
+    "next_action": "Implement bounded selected quantitative cohort graph with exact CSV recovery"
+  },
   "last_result": {
     "session_kind": "scheduled",
     "slot": "2026-11-26T18:00",
@@ -401,6 +408,6 @@
     "delivered": "Developer kit includes installed data/SDK/interop/starter, Linux/Windows native source kits, reusable execution, dossier/analysis, quantitative Core planning and exact selected-observation export (#46–49). #50 closes first installed independent JavaScript Core inspection with exact Python/Node transfer, source recovery and explicit plans; opaque data/numeric tokens retained. Human electrical/olfactory and independent adoption evidence unobserved.",
     "next": "Close #50 installed JavaScript Core reader: exact-head CI/main-tree and post-merge installed proof pass. Do not extend reader diagnostics, automatic type/scheme catalogs, JSON editing or full Python registry parity by default. Next whole-kit data/SDK slice: installed explicit selected-cohort import for the existing prepared Keller CSV dialect (current import-keller reads one row; categorical batch does not cover quantitative observations). Reuse existing import validation/occurrence IDs and batch conventions where compatible; retain caller row order, source declarations/unknown cells, distinct subject/dilution occurrences, missing versus zero and explicit per-record refusals without averaging/person/chemical joins or silent data loss. Deliver first bounded normal CLI/SDK path and installed outside-checkout proof: two distinct rated rows plus unmeasured/invalid rows -> retained accepted/refused manifest and reusable graph/analysis -> explicit Core selections/independent Node exact transfer and different Python plans. Decide graph/bundle boundary after targeted read of current batch and observation-table consumers, keep byte/record/output/collision bounds explicit. No new dialects, automatic schema discovery, scheduler/retry or physical IO. The active SDK/format,data interoperability,hardware/adoption developer kit remains experimental; human electrical/olfactory validation and independent adoption unobserved."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-27T06:00",
   "last_completed_slot": "2026-11-26T18:00"
 }
