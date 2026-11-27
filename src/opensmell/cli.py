@@ -212,14 +212,15 @@ def _lifecycle_trial_command(args):
 
 
 def _prepare_experiment_command(args):
-    from .experimental.experiment import prepare_experiment
+    from .experimental.experiment import prepare_experiment, prepare_experiment_profiles
     import csv
     try:
         inputs = []
-        for name, bound in ((args.table, 65536), (args.graph, 8*1048576), (args.profile, 1048576)):
+        for name, bound in ((args.table, 65536), (args.graph, 8*1048576), (args.trial_profiles or args.profile, 1048576)):
             with Path(name).open("rb") as source:
                 inputs.append(source.read(bound+1))
-        report = prepare_experiment(*inputs, args.output_directory)
+        compiler = prepare_experiment_profiles if args.trial_profiles else prepare_experiment
+        report = compiler(*inputs, args.output_directory)
         print(json.dumps(report, allow_nan=False)); return 0
     except OSError as error:
         print(json.dumps({"status":"error","error":str(error)})); return 2
@@ -705,7 +706,9 @@ def main(argv: list[str] | None = None) -> int:
     experiment = commands.add_parser("prepare-experiment", help="Compile an explicit ordered CSV trial table into passive offline plans")
     experiment.add_argument("table", help="UTF-8 CSV with trial_id,resource_id,duration; max 64 KiB")
     experiment.add_argument("--graph", required=True, help="Explicit source ResourceGraph")
-    experiment.add_argument("--profile", required=True, help="Explicit mapping/capability profile for every trial")
+    policies = experiment.add_mutually_exclusive_group(required=True)
+    policies.add_argument("--profile", help="One explicit mapping/capability profile for all trials (dossier0.1)")
+    policies.add_argument("--trial-profiles", help="Explicit trial-profiles JSON keyed by every trial_id (dossier0.2)")
     experiment.add_argument("--output-directory", required=True, help="New portable experiment directory; never overwrite")
     observation_core = commands.add_parser("export-observation-core", help="Passively select an observation result into Core with exact original graph context")
     observation_core.add_argument("file", help="Generic ResourceGraph file or stdin (-); max2MiB")

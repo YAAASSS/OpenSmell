@@ -5,6 +5,20 @@ The broader roadmap remains in the [README](../README.md#roadmap).
 Operational checkpoints and the short session log live in `state.json` on the
 `automation/control` branch; follow its pending PR before starting new work.
 
+## Explicit trial profile preparation — 2026-11-27 evening
+
+The selected quantitative cohort (#51) is closed. The reusable SDK/data slice is
+[per-trial profile preparation](trial-profiles.md): all trial IDs select explicit
+normal profiles in a bounded retained bundle; one portable dossier0.2 works with
+the normal loader/run entry. Shared-profile dossier0.1 remains unchanged.
+
+Exit: installed cohort -> explicit distinct channel policies/durations -> moved
+dossier/originals removed -> Python/Node/actual native software receipts, including
+Stop/refusal/unknown halting tail; invalid last selection/no output, hash-consistent
+stale policy/no transport and collisions retained. Close this first slice after CI,
+without policy inference, missing-value imputation, scheduler or catalog expansion.
+Human electrical/olfactory and independent adoption evidence remain unobserved.
+
 ## Selected quantitative cohort — 2026-11-27
 
 The first installed JS Core reader (#50) is closed. The active SDK/data slice is

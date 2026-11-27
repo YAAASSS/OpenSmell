@@ -5,7 +5,7 @@ from pathlib import Path
 import tempfile
 
 from .._json import decode_bytes
-from .experiment import prepare_experiment
+from .experiment import prepare_experiment, prepare_experiment_profiles
 from .frame_export import _snapshot
 from .transport_sequence import prepare_steps, run_transport_sequence
 
@@ -31,12 +31,17 @@ def load_prepared_experiment(directory):
     manifest = decode_bytes(manifest_raw)
     if not isinstance(manifest, dict):
         raise ValueError('Experiment manifest must be an object')
+    if manifest.get('version') not in {'0.1', '0.2'}:
+        raise ValueError('Unsupported prepared experiment version')
+    per_trial = manifest['version'] == '0.2'
+    profile_name = 'profiles.json' if per_trial else 'profile.json'
+    compiler = prepare_experiment_profiles if per_trial else prepare_experiment
     raw = {name: read(name, bound) for name, bound in
-           [('trials.csv', 65536), ('source.osmell', 8*1048576), ('profile.json', 1048576)]}
+           [('trials.csv', 65536), ('source.osmell', 8*1048576), (profile_name, 1048576)]}
     # Reuse the normal compiler so loader and preparation have one mapping rule.
     with tempfile.TemporaryDirectory(prefix='opensmell-experiment-check-') as tmp:
         target = Path(tmp) / 'recomputed'
-        expected = prepare_experiment(raw['trials.csv'], raw['source.osmell'], raw['profile.json'], target)
+        expected = compiler(raw['trials.csv'], raw['source.osmell'], raw[profile_name], target)
         for key in ('format', 'version', 'status', 'experimental', 'execution',
                     'physical_validation', 'total_requested_duration', 'trials'):
             if manifest.get(key) != expected[key]:
@@ -66,7 +71,7 @@ def load_prepared_experiment(directory):
     prepare_steps(plans)
     context = {'manifest': _snapshot(manifest_raw),
                'retained_inputs': {name: _snapshot(raw[name]) for name in
-                                   ('trials.csv', 'source.osmell', 'profile.json')},
+                                   ('trials.csv', 'source.osmell', profile_name)},
                'trial_order': deepcopy(expected['trials'])}
     return plans, context
 

@@ -14,6 +14,18 @@ from .rendering import RenderRequest
 from .frame_export import encode_plan_frame
 
 
+TRIAL_PROFILES_FORMAT = 'org.opensmell.experimental.trial-profiles'
+
+
+def prepare_experiment_profiles(table_raw, graph_raw, profiles_raw, directory):
+    """Compile explicit trial-ID profile selections into a passive0.2 dossier.
+
+    The exact1MiB JSON bundle is retained. Trial IDs select objects, never paths.
+    Existing single-profile0.1 preparation remains unchanged.
+    """
+    return _prepare_experiment(table_raw, graph_raw, profiles_raw, directory, per_trial=True)
+
+
 def prepare_experiment(table_raw, graph_raw, profile_raw, directory):
     """Compile one explicit CSV/graph/profile into normal offline-plan artifacts.
 
@@ -22,6 +34,10 @@ def prepare_experiment(table_raw, graph_raw, profile_raw, directory):
     Exact source bytes are retained. No skip, shuffle, implicit resource/profile,
     command, execution, authentication or physical interpretation is supplied.
     """
+    return _prepare_experiment(table_raw, graph_raw, profile_raw, directory)
+
+
+def _prepare_experiment(table_raw, graph_raw, profile_raw, directory, *, per_trial=False):
     for raw, bound in ((table_raw, 65536), (graph_raw, 8*1048576), (profile_raw, 1048576)):
         if not isinstance(raw, bytes) or len(raw) > bound:
             raise ValueError("CSV/graph/profile require bytes within 64 KiB/8 MiB/1 MiB")
@@ -35,6 +51,16 @@ def prepare_experiment(table_raw, graph_raw, profile_raw, directory):
             or any(not name.strip() for name in header)):
         raise ValueError("Unique nonempty headers including trial_id,resource_id,duration required")
     doc, profile = decode_bytes(graph_raw), decode_bytes(profile_raw)
+    profile_name = 'profiles.json' if per_trial else 'profile.json'
+    if per_trial:
+        if (not isinstance(profile, dict) or profile.get('format') != TRIAL_PROFILES_FORMAT
+                or profile.get('version') != '0.1' or not isinstance(profile.get('profiles'), dict)
+                or not 1 <= len(profile['profiles']) <= 16
+                or any(not isinstance(k, str) or not k.strip() or len(k) > 128 for k in profile['profiles'])
+                or any(not isinstance(v, dict) for v in profile['profiles'].values())):
+            raise ValueError('Expected trial-profiles0.1 with1..16 explicit trial-ID profile objects')
+        profile_bundle = profile
+
     graph = generic_graph_from_dict(doc, registry=interchange_registry())
     sha = lambda raw: hashlib.sha256(raw).hexdigest()
     rows, plans, ids, total = [], {}, set(), 0
@@ -46,6 +72,13 @@ def prepare_experiment(table_raw, graph_raw, profile_raw, directory):
             raise ValueError("Unique trial IDs of 1–128 characters required")
         ids.add(trial_id)
         request = RenderRequest(record['resource_id'], float(record['duration']))
+        if per_trial:
+            if trial_id not in profile_bundle['profiles']:
+                raise ValueError('Missing explicit profile for trial: ' + trial_id)
+            profile = profile_bundle['profiles'][trial_id]
+            selected_raw = json.dumps(profile, sort_keys=True, separators=(',', ':'), ensure_ascii=True, allow_nan=False).encode()
+        else:
+            selected_raw = profile_raw
         plan = plan_with_profile(graph, request, profile)
         total += plan.duration
         if total > 120:
@@ -53,7 +86,7 @@ def prepare_experiment(table_raw, graph_raw, profile_raw, directory):
         artifact = {'format':'org.opensmell.experimental.offline-plan','version':'0.1','status':'planned',
                     'execution':'not_attempted','capability_basis':'supplied_profile_not_live_device',
                     'source':{'input':'source.osmell','sha256':sha(graph_raw),'document':doc},
-                    'profile':{'input':'profile.json','sha256':sha(profile_raw),'document':profile},
+                    'profile':{'input':profile_name,'sha256':sha(selected_raw),'document':profile},
                     'request':asdict(request),'plan':asdict(plan),
                     'org.opensmell.experimental.trial':{'ordinal':len(rows)+1,'record':record,'table_sha256':sha(table_raw)},
                     'limitations':['Caller mapping and supplied capabilities; no command, observed execution or odor result.']}
@@ -67,8 +100,10 @@ def prepare_experiment(table_raw, graph_raw, profile_raw, directory):
         raise ValueError("At least one trial row required")
     if sum(map(len, plans.values())) > 16*1048576:
         raise ValueError("Combined offline plans exceed sequence input bound of 16 MiB")
-    files = {'trials.csv':table_raw,'source.osmell':graph_raw,'profile.json':profile_raw,**plans}
-    result = {'format':'org.opensmell.experimental.prepared-experiment','version':'0.1','status':'prepared',
+    if per_trial and set(profile_bundle['profiles']) != ids:
+        raise ValueError('Trial profiles must match all and only selected trial IDs')
+    files = {'trials.csv':table_raw,'source.osmell':graph_raw,profile_name:profile_raw,**plans}
+    result = {'format':'org.opensmell.experimental.prepared-experiment','version':'0.2' if per_trial else '0.1','status':'prepared',
               'experimental':True,'execution':'not_attempted','physical_validation':False,
               'total_requested_duration':total,'trials':rows,
               'files':{name:{'sha256':sha(raw),'byte_count':len(raw)} for name,raw in files.items()},

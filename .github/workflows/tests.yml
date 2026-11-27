@@ -93,7 +93,9 @@ jobs:
           retention-days: 14
 
       - name: Verify installed caller trial-table experiment
-        run: python -m tools.verify_installed_experiment dist/opensmell-0.1.0-py3-none-any.whl --evidence-directory dist/experiment-proof
+        run: |
+          python -m tools.verify_installed_experiment dist/opensmell-0.1.0-py3-none-any.whl --evidence-directory dist/experiment-proof
+          python -m tools.verify_installed_trial_profiles dist/opensmell-0.1.0-py3-none-any.whl --output dist/experiment-proof/trial-profiles
 
       - name: Verify passive installed trial observation analysis
         run: python -m tools.verify_installed_trial_analysis dist/opensmell-0.1.0-py3-none-any.whl --output dist/experiment-proof/analysis

@@ -139,7 +139,9 @@ jobs:
 
       - name: Verify installed relocated experiment dossier on native software
         if: runner.os == 'Linux'
-        run: python -m tools.verify_installed_experiment_run dist/opensmell-0.1.0-py3-none-any.whl --host /tmp/opensmell-lifecycle-host --output dist/lifecycle-proof/experiment-run
+        run: |
+          python -m tools.verify_installed_experiment_run dist/opensmell-0.1.0-py3-none-any.whl --host /tmp/opensmell-lifecycle-host --output dist/lifecycle-proof/experiment-run
+          python -m tools.verify_installed_trial_profiles dist/opensmell-0.1.0-py3-none-any.whl --host /tmp/opensmell-lifecycle-host --output dist/lifecycle-proof/trial-profiles
 
       - name: Verify installed selected Core plans against actual native sketch
         if: runner.os == 'Linux'

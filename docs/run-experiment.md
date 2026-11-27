@@ -52,7 +52,7 @@ recomputes preparation from retained CSV/source/profile with the normal compiler
 It compares caller order, trial IDs/records, request, mapping, plan and provenance,
 including trial/table bindings. Recomputed hashes alone cannot make an inconsistent
 plan actionable. Filenames come from recomputation; symlinked files, arbitrary
-inventory paths and incomplete dossiers refuse. Current preparation version 0.1
+inventory paths and incomplete dossiers refuse. Current preparation versions 0.1 (shared profile) and 0.2 ([explicit per-trial profiles](trial-profiles.md))
 is supported; artifacts incompatible with the installed compiler refuse rather
 than being silently migrated. Recomputing uses disposable local temporary files.
 
