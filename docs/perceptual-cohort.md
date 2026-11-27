@@ -98,3 +98,27 @@ Fresh installations run outside checkout. npm installs the real locally packed
 package offline, with scripts disabled; Python dependencies are inherited, not a
 new clean dependency closure. All input is declared synthetic, not observed results
 from an experiment performed by this software. No endpoint is launched.
+
+## Pinned publisher-source cohort trial
+
+The same path also runs on the previously documented pinned Keller/Vosshall
+workbook, using [the existing explicit preparation](perceptual-csv-import.md#try-the-installed-entry).
+Supply your locally authorized copy with SHA256
+`efcb1b07558431c869c5578abcd3fa1e4405a38cc68a8b1c1621594c673d9f62`:
+
+```sh
+python -m tools.verify_installed_public_cohort dist/opensmell-0.1.0-py3-none-any.whl --workbook /path/to/12868_2016_287_MOESM1_ESM.xlsx --output /absolute/new/public-proof
+```
+
+Observed prepared CSV hash:
+`57e9cd4b41bc69d8813726ae80442b177ae52b4e6100ac56872c546db94f991c`.
+All three selected records import, in order, with measurement counts8/0/3. The
+first has flower26/grass38/wood89; the second is unmeasured; the third lacks those
+three bound properties. Import acceptance therefore does not guarantee a numeric
+plan. Installed Node partial inspection/copy and installed Python table/exact
+CSV recovery pass after the preparation directory is removed. No source download
+or data redistribution is performed by this verifier; the evidence retains hashes
+and counts, not the workbook/participant records. This optional local trial does
+not run in CI without the workbook. Source attribution and unresolved familiarity
+header1..100 versus article0..100 remain as documented by the existing preparation;
+columnR stays omitted, without silent rescaling or new source-authentication claim.
