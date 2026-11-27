@@ -43,6 +43,8 @@ def import_keller_cohort(raw, *, rows, source):
     for _ in reader:
         pass
     resources, outcomes = [], []
+    snapshot_data = base64.b64encode(raw).decode('ascii')
+    lower_bound = len(snapshot_data) + len(json.dumps(source, ensure_ascii=True).encode())
     for row in rows:
         try:
             graph = import_keller_csv(raw, row=row, source=source)
@@ -53,12 +55,17 @@ def import_keller_cohort(raw, *, rows, source):
             outcomes.append({'data_record': row, 'status': 'accepted',
                              'observation_id': context['primary_resource_id'], 'import_context': context})
             resources.extend(graph.resources)
+        # This compact lower bound cannot exceed the final indented graph size.
+        # Refuse before accumulating up to100 copies of a large declaration.
+        lower_bound += len(json.dumps(outcomes[-1], ensure_ascii=True, allow_nan=False).encode())
+        if lower_bound > MAX_GRAPH_BYTES:
+            raise ValueError('Serialized cohort graph exceeds 2 MiB; select a smaller prepared source/cohort')
     accepted = sum(r['status'] == 'accepted' for r in outcomes)
     context = {'version': '0.1', 'requested_records': list(rows),
                'status': 'complete' if accepted == len(rows) else 'partial' if accepted else 'refused',
                'counts': {'accepted': accepted, 'refused': len(rows)-accepted}, 'results': outcomes,
                'source': source, 'source_manifest_sha256': source_hash,
-               'csv': {'encoding': 'base64', 'data': base64.b64encode(raw).decode('ascii'),
+               'csv': {'encoding': 'base64', 'data': snapshot_data,
                        'byte_count': len(raw), 'sha256': hashlib.sha256(raw).hexdigest()},
                'limitations': ['Whole original CSV retained, including unselected/invalid records; not redacted.',
                               'Caller source/license/subject/CID declarations are unverified, not authenticated.',
@@ -66,11 +73,17 @@ def import_keller_cohort(raw, *, rows, source):
                               'Accepted includes observations without numeric results; planning may refuse.',
                               'Only extract-keller-source recomputes this convention; ordinary graph consumers do not.']}
     graph = GenericResourceGraph(resources=resources, extra={COHORT_KEY: context})
-    output = (json.dumps(generic_graph_to_dict(graph, registry=interchange_registry()),
-                         indent=2, ensure_ascii=True, allow_nan=False)+'\n').encode()
-    if len(output) > MAX_GRAPH_BYTES:
-        raise ValueError('Serialized cohort graph exceeds 2 MiB; select a smaller prepared source/cohort')
-    return output
+    document = generic_graph_to_dict(graph, registry=interchange_registry())
+    output = bytearray()
+    encoder = json.JSONEncoder(indent=2, ensure_ascii=True, allow_nan=False)
+    for chunk in encoder.iterencode(document):
+        encoded = chunk.encode()
+        if len(output) + len(encoded) + 1 > MAX_GRAPH_BYTES:
+            raise ValueError('Serialized cohort graph exceeds 2 MiB; select a smaller prepared source/cohort')
+        output.extend(encoded)
+    output.extend(b'\n')
+    return bytes(output)
+
 
 
 def extract_keller_source(raw):
