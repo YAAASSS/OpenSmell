@@ -2077,6 +2077,14 @@ opensmell.org
 
 **OpenSmell — an open interoperability layer for digital olfaction.**
 
+### Prepare trials with explicitly different policies
+
+The installed [per-trial profile entry](docs/trial-profiles.md) prepares a portable
+dossier with a caller-chosen profile for each trial ID. Use
+`opensmell prepare-experiment trials.csv --graph cohort.osmell --trial-profiles policies.json --output-directory experiment`.
+Normal dossier execution rechecks every binding before a separate transport choice;
+the existing shared-profile mode remains available.
+
 ### Import selected quantitative observations together
 
 The installed [quantitative cohort entry](docs/perceptual-cohort.md) imports explicit

@@ -30,7 +30,8 @@ longer,219ef28c-9b58-52f2-93a7-0807f5897857,0.2,declared-longer
 ```
 
 Each row explicitly selects a resource in the supplied graph and a duration in
-seconds. A single supplied profile applies to all rows. CSV order is retained;
+seconds. The historical `--profile` mode applies one supplied profile to all rows.
+Use [explicit per-trial profiles](trial-profiles.md) for the separate opt-in dossier0.2 mode. CSV order is retained;
 there is no sorting, shuffling, implicit selection, default duration or skipped
 invalid row. Trial IDs must be unique (1–128 characters) and are metadata, never
 filenames. Additional columns are retained as opaque strings; they do not change
