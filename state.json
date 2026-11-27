@@ -2,8 +2,15 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-27",
   "last_processed_main_sha": "cbdc5e10f36b119bea1a8969663e12307e770b2a",
-  "lease": null,
-  "open_work": null,
+  "lease": {
+    "owner": "trial-profiles-1795798855953-n1e1dusfmrh",
+    "acquired_at": "2026-11-27T17:00:55.953Z",
+    "expires_at": "2026-11-27T21:00:55.953Z"
+  },
+  "open_work": {
+    "branch": "feat/trial-profiles-20261127",
+    "next_action": "Implement explicit per-trial profile preparation and bound dossier validation"
+  },
   "last_result": {
     "session_kind": "scheduled",
     "slot": "2026-11-27T06:00",
@@ -397,6 +404,6 @@
     "delivered": "Whole experimental developer kit includes installed data/SDK/interop/starter, reusable lifecycle/sequence/dossier/analysis, Core planning/export and independent JS reader, Linux/Windows native source bench. #51 adds installed quantitative selected cohort with exact CSV recovery and mixed outcomes; installed synthetic two-profile Core/Node/Python path and pinned public cohort8/0/3measurements verified. Human electrical/olfactory and independent adoption remain unobserved.",
     "next": "Close #51 bounded quantitative cohort after exact-head CI/main and installed synthetic/public proof; do not refine cohort/reader diagnostics, dialect catalogs or identity joins. Next observed SDK/data usage gap: prepare-experiment currently takes one shared profile for the whole trial CSV, but this cohort has rated observations requiring distinct explicit bindings (row1 flower/grass/wood; row2 wood absent, not zero). Deliver a first normal installed preparation path for a caller-explicit profile per selected trial, reusing current prepared dossier/run-experiment contracts and source snapshots. Read current compiler first; preserve existing single-profile behavior and choose an explicit bounded profile mapping/reference, never infer policy from missing measurements. Exit: two selected cohort observations with distinct caller profiles/durations -> one portable dossier -> originals removed -> installed run-experiment on Python/independent Node/actual native software endpoint yields distinct commands and ordered receipts; missing/inconsistent last policy refuses before preparation output/transport, collisions and retained bindings stay protected. No automatic scheduling/retry/catalog, schema promotion, physical IO or odor inference. Whole experimental developer-kit goal remains active; human electrical/olfactory and independent adoption evidence remain unobserved."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-27T18:00",
   "last_completed_slot": "2026-11-27T06:00"
 }
