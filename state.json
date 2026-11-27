@@ -11,7 +11,8 @@
     "branch": "feat/keller-cohort-20261127",
     "commit": "0ab9be72ad510c2b1150512ed087fc6b839f875b",
     "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/51",
-    "next_action": "Full local2593 and installed synthetic/public proofs pass. Inspect final exact-head CI, merge, post-main and Work."
+    "next_action": "Repeat synthetic/public installed proofs on verified main; save handoff and release",
+    "merged_main_sha": "cbdc5e10f36b119bea1a8969663e12307e770b2a"
   },
   "last_result": {
     "session_kind": "scheduled",
