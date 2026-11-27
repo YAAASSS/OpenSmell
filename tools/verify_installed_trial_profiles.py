@@ -99,9 +99,9 @@ finally:t.close()
         m=json.loads(manifest);m['files']['profiles.json']={'sha256':hashlib.sha256(raw).hexdigest(),'byte_count':len(raw)}
         (moved/'experiment.json').write_text(json.dumps(m));flag=work/'must-not-launch'
         command=[str(python),'-c',f"from pathlib import Path;Path({str(flag)!r}).touch()"]
-        report=json.loads(run([*cli,'run-experiment',moved,'--software-command-json',json.dumps(command),
-            '--expected-device-id','opensmell-local-simulator-001','--action','complete','--output',output/'stale.json'],1))
-        assert not flag.exists() and not report['transcript']
+        run([*cli,'run-experiment',moved,'--software-command-json',json.dumps(command),
+            '--expected-device-id','opensmell-local-simulator-001','--action','complete','--output',output/'stale.json'],1)
+        assert not flag.exists() and (output/'stale.json').read_bytes()==b''
         result.update(result='passed',installed_outside_checkout=True,originals_removed=True,invalid_last_policy_no_output=True,
                       stale_policy_no_process=True,collision_no_traffic=True,dependency_scope='Inherited Python build dependencies; not clean closure or third-party adoption')
         save()
