@@ -11,7 +11,8 @@
     "branch": "feat/csv-selection-20261128",
     "commit": "ad3fa7cf5bf5911ffa21805c71d14f4ce36eab74",
     "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/53",
-    "next_action": "Full suite/final review, exact-head CI, merge and repeat installed proof"
+    "next_action": "Rebuild main wheel, repeat installed large CSV proof, save Work and release",
+    "merged_main_sha": "26d2ab56b3207281342b5bd39dbf0cf8bd527a2f"
   },
   "last_result": {
     "session_kind": "scheduled",
