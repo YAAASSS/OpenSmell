@@ -2,8 +2,15 @@
   "schema_version": 1,
   "last_completed_brussels_date": "2026-11-27",
   "last_processed_main_sha": "8441948783565729896a892ebf3902c7b7da1205",
-  "lease": null,
-  "open_work": null,
+  "lease": {
+    "owner": "csv-selection-1795842361231-aot19rn6wul",
+    "acquired_at": "2026-11-28T05:06:01.231Z",
+    "expires_at": "2026-11-28T09:06:01.231Z"
+  },
+  "open_work": {
+    "branch": "feat/csv-selection-20261128",
+    "next_action": "Implement bounded streaming prepared CSV selection and installed interop proof"
+  },
   "last_result": {
     "session_kind": "scheduled",
     "slot": "2026-11-27T18:00",
@@ -409,6 +416,6 @@
     "delivered": "Experimental developer kit spans installed data/SDK/interop/starter, Core/cohort/analysis, reusable lifecycle/sequences/dossiers and Linux/Windows native source bench. #52 adds explicit per-trial policy selection, portable dossier0.2, source/binding recomputation before transport and full installed Python/Node/native12case proof; passive analysis0.2 compatibility verified. Legacy shared0.1 preserved. Human electrical/olfactory and independent adoption evidence unobserved.",
     "next": "Close #52 first explicit per-trial profile dossier after exact-head CI/main and installed normal-entry proof. No further dossier-version churn, scheduling/retry, policy catalogs or receipt diagnostics by default. Next whole-kit data/SDK need: selected prepared cohorts are capped at512KiB because the entire CSV is embedded; the roadmap explicitly leaves streaming/partial large-resource loading open. First inspect existing publisher/CSV preparation and limits; prototype a bounded streaming selection/preparation of a larger caller-owned prepared CSV into a small existing-dialect CSV/source declaration with explicit chosen logical rows, whole-input SHA/byte count and source-row mapping, while retaining exact selected cells and missing versus zero. Do not raise every consumer limit or claim exact recovery of the unembedded large source. Exit: installed normal selector scans a generated >8MiB prepared source without loading it whole, keeps chosen multiline/Unicode records in requested order, produces a bounded source/CSV usable by current cohort/Node/table/explicit plan entries; retained input fingerprint/source row provenance and refusal/collision/late syntax behavior explicit. Keep this a first useful vertical slice, not an automatic dialect catalog or arbitrary public-corpus downloader. Hardware electrical/olfactory/manual and independent-adoption evidence remain unobserved."
   },
-  "session_slot": null,
+  "session_slot": "2026-11-28T06:00",
   "last_completed_slot": "2026-11-27T18:00"
 }
