@@ -461,6 +461,21 @@ def _observation_table_command(args):
         return 1
 
 
+def _select_keller_command(args):
+    import csv
+    from .experimental.csv_selection import select_keller_csv
+    from .experimental.perceptual_import import MAX_SOURCE_BYTES
+    try:
+        with Path(args.source).open('rb') as stream:
+            source = stream.read(MAX_SOURCE_BYTES + 1)
+        report = select_keller_csv(args.file, rows=args.rows, source_raw=source, directory=args.output_directory)
+        print(json.dumps(report, allow_nan=False)); return 0
+    except OSError as error:
+        print(json.dumps({'status':'error','error':str(error)}), file=sys.stderr); return 2
+    except (OpenSmellError, ValueError, TypeError, csv.Error, RecursionError, OverflowError) as error:
+        print(json.dumps({'status':'invalid','error':str(error)}), file=sys.stderr); return 1
+
+
 def _perceptual_cohort_command(args):
     import csv
     from .experimental.perceptual_cohort import import_keller_cohort, extract_keller_source, MAX_CSV_BYTES, MAX_GRAPH_BYTES
@@ -672,6 +687,11 @@ def main(argv: list[str] | None = None) -> int:
     perceptual.add_argument("--row", type=int, required=True, help="One-based logical data record, excluding header")
     perceptual.add_argument("--source", required=True, help="Source/license/preparation/rating-scale declaration JSON")
     perceptual.add_argument("--output", help="New graph file; existing paths are refused")
+    selection = commands.add_parser("select-keller-csv", help="Stream explicit prepared CSV records into a bounded passive selection")
+    selection.add_argument("file", help="Regular local UTF-8 prepared CSV; max1GiB, no stdin")
+    selection.add_argument("--source", required=True, help="Explicit source declaration JSON")
+    selection.add_argument("--rows", nargs="+", required=True, type=int, help="Unique one-based logical data records in requested order")
+    selection.add_argument("--output-directory", required=True, help="New selection directory; never overwrite")
     cohort = commands.add_parser("import-keller-cohort", help="Import explicitly selected quantitative CSV observations and retain refusals")
     cohort.add_argument("file", help="Prepared UTF-8 CSV or '-'; 512 KiB maximum, whole source retained")
     cohort.add_argument("--rows", nargs="+", type=int, required=True, help="1..100 unique logical data records, caller order")
@@ -766,6 +786,8 @@ def main(argv: list[str] | None = None) -> int:
         return _lifecycle_trial_command(args)
     if args.command == "observation-table":
         return _observation_table_command(args)
+    if args.command == "select-keller-csv":
+        return _select_keller_command(args)
     if args.command in {"import-keller-cohort", "extract-keller-source"}:
         return _perceptual_cohort_command(args)
     if args.command == "import-keller":
