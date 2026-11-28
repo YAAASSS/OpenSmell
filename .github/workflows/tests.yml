@@ -80,6 +80,7 @@ jobs:
         run: |
           python -m tools.verify_installed_core_plan dist/opensmell-0.1.0-py3-none-any.whl --evidence-directory dist/core-plan-proof
           python -m tools.verify_installed_keller_cohort dist/opensmell-0.1.0-py3-none-any.whl --output dist/core-plan-proof/keller-cohort
+          python -m tools.verify_installed_csv_selection dist/opensmell-0.1.0-py3-none-any.whl --output dist/core-plan-proof/csv-selection
           python -m tools.verify_installed_js_core dist/opensmell-0.1.0-py3-none-any.whl --output dist/core-plan-proof/js-reader
           python -m tools.verify_installed_core_perceptual dist/opensmell-0.1.0-py3-none-any.whl --output dist/core-plan-proof/perceptual
           python -m tools.verify_installed_observation_core dist/opensmell-0.1.0-py3-none-any.whl --output dist/core-plan-proof/observation-export

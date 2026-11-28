@@ -5,6 +5,22 @@ The broader roadmap remains in the [README](../README.md#roadmap).
 Operational checkpoints and the short session log live in `state.json` on the
 `automation/control` branch; follow its pending PR before starting new work.
 
+## Bounded prepared CSV selection — 2026-11-28
+
+The first per-trial policy dossier (#52) is closed. The active SDK/data slice is
+[streaming prepared CSV selection](csv-selection.md): chosen logical records in
+caller order, raw cells/unknown columns retained, complete observed input hash and
+source-row mapping, then a small CSV/source declaration for existing consumers.
+The large source stays unembedded; downstream bounds and scientific scope remain.
+
+Exit: installed SDK/CLI scan a generated>8MiB source with traced allocation peak
+bounded for the fixture -> multiline/Unicode/EOF records in requested order ->
+original path removed -> cohort/Node graph+Core/table/two explicit Python plans;
+late syntax/no-output, collisions, byte spans and file-change refusal demonstrated.
+Close the first selector after CI; no format catalog, global limit raising or
+unretained-source recovery claim. Whole SDK/data/hardware/adoption kit remains
+active; human electrical/olfactory and independent adoption evidence unobserved.
+
 ## Explicit trial profile preparation — 2026-11-27 evening
 
 The selected quantitative cohort (#51) is closed. The reusable SDK/data slice is

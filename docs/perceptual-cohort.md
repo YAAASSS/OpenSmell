@@ -55,6 +55,10 @@ flower/grass profile and produces .8/.2. Wood is absent in row2, not zero.
 The accepted unmeasured row has no numeric plan. The table retains its observation
 with measurement_count0. Categories remain separate from numerical measurements.
 
+For a larger prepared CSV, first use [bounded streaming selection](csv-selection.md)
+to create a small explicit selection and source-row provenance. The large input
+is fingerprinted, not embedded or recovered by the cohort.
+
 ## Source recovery, scope and bounds
 
 The manifest retains the **whole exact CSV**, Base64/SHA256/byte count, including

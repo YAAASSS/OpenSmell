@@ -2077,6 +2077,15 @@ opensmell.org
 
 **OpenSmell — an open interoperability layer for digital olfaction.**
 
+### Select from a larger prepared CSV
+
+The installed [streaming selector](docs/csv-selection.md) scans an explicit local
+prepared CSV with bounded memory and retains chosen logical records plus a whole
+input fingerprint and row mapping. Use
+`opensmell select-keller-csv large.csv --source source.json --rows 10002 1 --output-directory selected`.
+The resulting small CSV/declaration reuse the existing cohort, Node and Core paths.
+The unembedded large original is not recoverable from the selection.
+
 ### Prepare trials with explicitly different policies
 
 The installed [per-trial profile entry](docs/trial-profiles.md) prepares a portable
