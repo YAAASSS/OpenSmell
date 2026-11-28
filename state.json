@@ -9,7 +9,9 @@
   },
   "open_work": {
     "branch": "feat/csv-selection-20261128",
-    "next_action": "Implement bounded streaming prepared CSV selection and installed interop proof"
+    "commit": "ad3fa7cf5bf5911ffa21805c71d14f4ce36eab74",
+    "pull_request": "https://github.com/YAAASSS/OpenSmell/pull/53",
+    "next_action": "Full suite/final review, exact-head CI, merge and repeat installed proof"
   },
   "last_result": {
     "session_kind": "scheduled",
